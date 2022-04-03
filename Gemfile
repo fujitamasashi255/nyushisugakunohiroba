@@ -73,6 +73,9 @@ group :development do
 
   # モデルファイルにテーブル情報をコメント
   gem 'annotate'
+
+  # htmlをslimに変換
+  gem "html2slim", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
