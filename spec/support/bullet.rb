@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Bullet.enable?
   config.before(:each) do
     Bullet.start_request
