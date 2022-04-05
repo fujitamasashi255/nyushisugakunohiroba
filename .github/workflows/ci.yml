@@ -74,5 +74,6 @@ jobs:
       - name: rubocop
         uses: reviewdog/action-rubocop@v2
         with:
+          use_bundler: true
           skip_install: true
           reporter: github-pr-check
