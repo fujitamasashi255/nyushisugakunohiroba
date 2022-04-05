@@ -74,6 +74,5 @@ jobs:
       - name: rubocop
         uses: reviewdog/action-rubocop@v2
         with:
-          rubocop_version: gemfile
-          rubocop_extensions: rubocop-rails:gemfile rubocop-performance:gemfile
+          skip_install: true
           reporter: github-pr-check
