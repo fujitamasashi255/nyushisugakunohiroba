@@ -38,33 +38,54 @@ jobs:
       - name: yarn install
         run: yarn install
       # db/schema.rbが存在することをチェックする
-      - name: Check file existence
-        id: check_files
+      - name: Check schema.rb existence
+        id: check_schema_file
         uses: andstor/file-existence-action@v1
         with:
           files: "db/schema.rb"
       # Add or replace database setup steps here
       # db/schema.rbが存在するときは、DBを作成
       - name: Set up database schema
-        if: steps.check_files.outputs.files_exists == 'true'
+        if: steps.check_schema_file.outputs.files_exists == 'true'
         run: bin/rails db:schema:load
       # ブラウザchromeをインストール
       - name: Install chrome
         uses: browser-actions/setup-chrome@latest
       - name: Install font
         run: sudo apt install fonts-ipafont fonts-ipaexfont
-      # Add or replace test runners here
+      # spec/system/ にファイルがあることをチェック
+      - name: Check systemspec existence
+        id: check_systemspec_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "spec/system/"
+      # spec/system/ にファイルがあるときシステムスペックを実行
       - name: run systemspec
-        run: bundle exec rspec spec/system
+        if: steps.check_systemspec_files.outputs.files_exists == 'true'
+        run: bundle exec rspec spec/system/
+      # tmp/screenshots にファイルがあることをチェック
+      - name: Check screenshot existence
+        id: check_screenshot_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "tmp/screenshots"
       # システムスペック失敗時にスクリーンショットを取得
       - name: Archive systemspec result screenshots
         uses: actions/upload-artifact@v3
-        if: failure()
+        if: steps.check_screenshot_files.outputs.files_exists == 'true'
         with:
           name: systemspec result screenshots
           path: tmp/screenshots/
+      # spec/models/ にファイルがあることをチェック
+      - name: Check modelspec existence
+        id: check_modelspec_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "spec/models/"
+      # pec/models/ にファイルがあるときモデルスペックを実行
       - name: run modelspec
-        run: bundle exec rspec spec/models
+      if: steps.check_modelspec_files.outputs.files_exists == 'true'
+        run: bundle exec rspec spec/models/
   lint:
     runs-on: ubuntu-latest
     steps:
