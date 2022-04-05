@@ -30,6 +30,7 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: 3.0.2
+          cache-version: 4
       - name: Set up yarn and node
         uses: actions/setup-node@v2
         with:
@@ -67,6 +68,7 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: 3.0.2
+          cache-version: 4
       - name: rails_best_practices
         run: bundle exec rails_best_practices
       - name: rubocop
