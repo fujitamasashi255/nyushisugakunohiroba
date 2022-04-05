@@ -1,0 +1,27 @@
+AllCops:
+  TargetRubyVersion: 3.1.1
+  TargetRailsVersion: 6.1.5
+
+inherit_gem:
+  rubocop-github:
+    - config/default_edge.yml
+    - config/rails_edge.yml
+
+# Gemfileの記載順序はアルファベット順でなくても良い
+Bundler/OrderedGems:
+  Enabled: false
+# クラスやモジュールの1行目にドキュメントがなくても良い
+Style/Documentation:
+  Enabled: false
+# config/puma.rbについては、fetch(key) { value }の記述を認める。
+Style/RedundantFetchBlock:
+  Exclude:
+    - 'config/puma.rb'
+# STDOUT/STDERR/STDINの代わりに$stdout/$stderr/$stdinを使用しなくてよい
+Style/GlobalStdStream:
+  Exclude:
+    - 'config/environments/production.rb'
+# 一行であってもlambdaの使用を認める
+Style/Lambda:
+  Exclude:
+    - 'config/initializers/simple_form_bootstrap.rb'
