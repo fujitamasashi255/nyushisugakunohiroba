@@ -29,6 +29,7 @@ jobs:
         uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e
         with:
           bundler-cache: true
+          cache-version: 1
           ruby-version: 3.1.1
       - name: Set up yarn and node
         uses: actions/setup-node@v2
@@ -66,6 +67,7 @@ jobs:
         uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e
         with:
           bundler-cache: true
+          cache-version: 1
           ruby-version: 3.1.1
       - name: rails_best_practices
         run: bundle exec rails_best_practices
