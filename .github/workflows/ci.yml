@@ -26,7 +26,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
           ruby-version: 3.1.1
@@ -37,10 +37,18 @@ jobs:
           cache: 'yarn'
       - name: yarn install
         run: yarn install
-
+      # db/schema.rbが存在することをチェックする
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "db/schema.rb"
       # Add or replace database setup steps here
+      # db/schema.rbが存在するときは、DBを作成
       - name: Set up database schema
+        if: success()
         run: bin/rails db:schema:load
+      # ブラウザchromeをインストール
       - name: Install chrome
         uses: browser-actions/setup-chrome@latest
       - name: Install font
@@ -63,7 +71,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
           ruby-version: 3.1.1
@@ -72,6 +80,6 @@ jobs:
       - name: rubocop
         uses: reviewdog/action-rubocop@v2
         with:
-          rubocop_version: gemfile
-          rubocop_extensions: rubocop-rails:gemfile rubocop-performance:gemfile
+          skip_install: true
+          use_bundler: true
           reporter: github-pr-check
