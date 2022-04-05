@@ -26,10 +26,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          cache-version: 1
+          cache-version: 2
           ruby-version: 3.1.1
       - name: Set up yarn and node
         uses: actions/setup-node@v2
@@ -64,10 +64,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          cache-version: 1
+          cache-version: 2
           ruby-version: 3.1.1
       - name: rails_best_practices
         run: bundle exec rails_best_practices
