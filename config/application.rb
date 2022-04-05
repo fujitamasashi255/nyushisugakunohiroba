@@ -31,10 +31,26 @@ module Portfolio
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.{rb,yml}").to_s]
+    config.i18n.default_locale = :ja
+    config.time_zone = "Tokyo"
+    config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    # rails generate コマンドの設定
+    config.generators do |g|
+      # Don't generate system test files.
+      g.system_tests = nil
+      # ルーティングを作らない
+      g.resource_route false
+      # ビューファイルを作らない
+      g.template_engine nil
+      # ヘルパーを作らない
+      g.helper false
+      # CSS, JavaScriptファイルを作らない
+      g.assets false
+      # specファイルを作らない
+      g.test_framework false
+    end
   end
 end
