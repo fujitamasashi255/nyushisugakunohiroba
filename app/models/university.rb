@@ -15,4 +15,6 @@
 #
 class University < ApplicationRecord
   validates :name, presence: true, uniqueness: true
+
+  has_many :departments, dependent: :destroy
 end
