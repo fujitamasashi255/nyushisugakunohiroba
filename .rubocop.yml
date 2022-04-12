@@ -15,6 +15,9 @@ Bundler/OrderedGems:
 # クラスやモジュールの1行目にドキュメントがなくても良い
 Style/Documentation:
   Enabled: false
+# 階層的に class や module を定義する際の記述の仕方を問わない。
+Style/ClassAndModuleChildren:
+    Enabled: false
 # config/puma.rbについては、fetch(key) { value }の記述を認める。
 Style/RedundantFetchBlock:
   Exclude:
