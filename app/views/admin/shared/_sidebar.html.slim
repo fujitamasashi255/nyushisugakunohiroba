@@ -1,0 +1,42 @@
+aside.main-sidebar.sidebar-dark-primary.elevation-4
+  h1
+    a.text-center.brand-link[href=admin_root_path]
+      span.brand-text.font-weight-light.text-center
+        = t(".site_name")
+        br
+        = t(".admin")
+  / Sidebar
+  .sidebar
+
+    / Sidebar Menu
+    nav.mt-2
+      ul.nav.nav-pills.nav-sidebar.nav-child-indent.flex-column[data-widget="treeview" role="menu" data-accordion="false"]
+        / 大学・区分
+        li.nav-item.menu-open
+          a.nav-link.active[href="#"]
+            p
+              = t(".univs_depts")
+          ul.nav.nav-treeview
+            li.nav-item
+              a.nav-link.active[href="#"]
+                p
+                  = t(".list")
+            li.nav-item
+              a.nav-link[href="#"]
+                p
+                  = t(".create")
+        / 問題
+        li.nav-item.menu-open
+          a.nav-link[href="#"]
+            p
+              = t(".question")
+          ul.nav.nav-treeview
+            li.nav-item
+              a.nav-link[href="#"]
+                p
+                  = t(".list")
+            li.nav-item
+              a.nav-link[href="#"]
+                p
+                  = t(".create")
+

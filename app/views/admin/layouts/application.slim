@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title
+      = yield :title
+    meta[name="viewport" content="width=device-width, initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'admin', media: 'all'
+    = javascript_pack_tag 'admin'
+
+  body.hold-transition
+    .wrapper
+
+    / Header
+    = render "admin/shared/header"
+
+    / Main Sidebar Container
+    = render "admin/shared/sidebar"
+
+    .content-wrapper
+      / MainContents
+      = yield
+
+    / Main Footer
+    = render "admin/shared/footer"
+
