@@ -51,10 +51,10 @@ PreCommit:
 # 必要なチェックの設定
   RuboCop:
     enabled: true
-    command: ['bundle', 'exec', 'rubocop']
+    command: ['bundle', 'exec', 'rubocop', '--config', '.rubocop.yml']
   RailsBestPractices:
     enabled: true
-    command: ['bundle', 'exec', 'rails_best_practices']
+    command: ['bundle', 'exec', 'rails_best_practices', '-c', 'config/rails_best_practices.yml']
 PrePush:
   RSpec:
     enabled: true
