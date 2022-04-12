@@ -1,0 +1,18 @@
+ja:
+  common:
+
+  admin:
+    dashboards:
+      index:
+        title: "管理画面トップ"
+    shared:
+      header:
+        home: "ホーム"
+        logout: "ログアウト"
+      sidebar:
+        site_name: "入試数学の広場"
+        admin: "管理ページ"
+        univs_depts: "大学・区分"
+        question: "問題"
+        list: "一覧"
+        create: "作成"
