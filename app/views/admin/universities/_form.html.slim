@@ -1,0 +1,9 @@
+.container
+  = simple_form_for [:admin, university] do |f|
+    .form-group.container
+      = f.label :name
+      .row
+        = f.input :name, label:false, wrapper_html: { class: 'col' }
+        .col.col-form-label
+          | 大学
+    = f.button :submit, class: "btn-primary"
