@@ -12,6 +12,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
     if @university.save
       redirect_to [:admin, @university], success: "hoge"
     else
+      flash.now[:danger] = t("messages.fail_create_univ")
       render "admin/universities/new"
     end
   end
