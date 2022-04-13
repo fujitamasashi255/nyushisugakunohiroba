@@ -13,30 +13,20 @@ aside.main-sidebar.sidebar-dark-primary.elevation-4
       ul.nav.nav-pills.nav-sidebar.nav-child-indent.flex-column[data-widget="treeview" role="menu" data-accordion="false"]
         / 大学・区分
         li.nav-item.menu-open
-          a.nav-link.active[href="#"]
-            p
-              = t(".univs_depts")
+          p.nav-link
+            = t(".univs_depts")
           ul.nav.nav-treeview
-            li.nav-item
-              a.nav-link.active[href="#"]
-                p
-                  = t(".list")
-            li.nav-item
-              a.nav-link[href="#"]
-                p
-                  = t(".create")
+            /一覧
+            = render "admin/shared/sidebar_item", {controller:"admin/universities", action: "index", item_name: t(".index"), link: "#"}
+            / 作成
+            = render "admin/shared/sidebar_item", {controller:"admin/universities", action: "new", item_name: t(".create"), link: new_admin_university_path}
         / 問題
         li.nav-item.menu-open
-          a.nav-link[href="#"]
-            p
-              = t(".question")
+          p.nav-link
+            = t(".question")
           ul.nav.nav-treeview
-            li.nav-item
-              a.nav-link[href="#"]
-                p
-                  = t(".list")
-            li.nav-item
-              a.nav-link[href="#"]
-                p
-                  = t(".create")
+            / 一覧
+            = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "index", item_name: t(".index"), link: "#"}
+            / 作成
+            = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "new", item_name: t(".create"), link: "#"}
 

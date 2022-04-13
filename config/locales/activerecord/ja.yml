@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    errors:
+      messages:
+
+    models:
+      university: "大学"
+    attributes:
+      university:
+         name: "大学名"

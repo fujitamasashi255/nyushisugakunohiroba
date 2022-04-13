@@ -1,6 +1,16 @@
 ja:
   common:
 
+  helpers:
+    submit:
+      university:
+        create: "大学を作成する"
+
+  simple_form:
+    required:
+      mark: ""
+      text: ""
+
   admin:
     dashboards:
       index:
@@ -14,5 +24,11 @@ ja:
         admin: "管理ページ"
         univs_depts: "大学・区分"
         question: "問題"
-        list: "一覧"
+        index: "一覧"
         create: "作成"
+    universities:
+      new:
+        title: "大学・区分作成"
+        create: "作成"
+      show:
+        title: "hoge"
