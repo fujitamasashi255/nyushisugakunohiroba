@@ -1,9 +1,11 @@
 .container
   = simple_form_for [:admin, university] do |f|
-    .form-group.container
+    .form-group
       = f.label :name
-      .row
-        = f.input :name, label:false, wrapper_html: { class: 'col' }
-        .col.col-form-label
-          | 大学
+      .input-group.row
+        = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6' }
+        .input-group-append
+          span.col.input-group-text
+            | 大学
+        = render "layouts/errors_of_attribute", {object: university, attribute: "name"}
     = f.button :submit, class: "btn-primary"

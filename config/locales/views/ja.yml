@@ -1,10 +1,26 @@
 ja:
   common:
+    index: "一覧"
+    create: "作成"
+    edit: "編集"
+    destroy: "削除"
+    site_name: "入試数学の広場"
+    admin_page: "管理ページ"
+    univs_depts: "大学・区分"
+    question: "問題"
+
+  messages:
+    success_create_univ: "大学を作成しました"
+    fail_create_univ: "大学を作成できませんでした"
+    success_update_univ: "大学名を変更しました"
+    fail_update_univ: "大学名を変更できませんでした"
+    success_destroy_univ: "大学を削除しました"
 
   helpers:
     submit:
       university:
         create: "大学を作成する"
+        update: "大学名を変更する"
 
   simple_form:
     required:
@@ -19,16 +35,10 @@ ja:
       header:
         home: "ホーム"
         logout: "ログアウト"
-      sidebar:
-        site_name: "入試数学の広場"
-        admin: "管理ページ"
-        univs_depts: "大学・区分"
-        question: "問題"
-        index: "一覧"
-        create: "作成"
     universities:
       new:
         title: "大学・区分作成"
-        create: "作成"
       show:
-        title: "hoge"
+        title: "大学詳細"
+      edit:
+        title: "大学名編集"

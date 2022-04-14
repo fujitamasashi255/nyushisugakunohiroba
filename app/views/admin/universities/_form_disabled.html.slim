@@ -1,0 +1,9 @@
+.container
+  = form_with model: [:admin, university] do |f|
+    .form-group
+      = f.label :name
+      .input-group.row
+        = f.text_field :name, class: 'col-6 form-control', disabled: true
+        .input-group-append
+          span.col.input-group-text
+            | 大学

@@ -1,7 +1,12 @@
 ja:
   activerecord:
     errors:
-      messages:
+      models:
+        university:
+          attributes:
+            name:
+              blank: "を入力してください"
+              taken: "は既に存在します"
 
     models:
       university: "大学"
