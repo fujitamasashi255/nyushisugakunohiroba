@@ -16,5 +16,6 @@
 class University < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
-  has_many :departments, dependent: :destroy
+  has_many :departments, inverse_of: :university, dependent: :destroy
+  accepts_nested_attributes_for :departments, reject_if: :all_blank, allow_destroy: true
 end
