@@ -38,7 +38,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
   private
 
   def university_params
-    params.require(:university).permit(:name)
+    params.require(:university).permit(:name, departments_attributes: %i[id name _destroy])
   end
 
   def set_university

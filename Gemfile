@@ -33,6 +33,7 @@ gem "slim-rails"
 
 # フォーム
 gem "simple_form"
+gem "cocoon"
 
 group :development, :test do
   # デバッグ
