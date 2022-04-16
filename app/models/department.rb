@@ -20,5 +20,12 @@
 #
 class Department < ApplicationRecord
   validates :name, presence: true
+  validate :valid_unique_name_within_a_university?
   belongs_to :university
+
+  private
+
+  def valid_unique_name_within_a_university?
+    errors.add(:base, "同じ名前の区分を登録することはできません") if university.departments.map { |item| item[:name] }.uniq.size < university.departments.size
+  end
 end
