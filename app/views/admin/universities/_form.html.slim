@@ -6,14 +6,18 @@
         = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6' }
         .input-group-append
           span.col.input-group-text
-            | 大学
+            = University.model_name.human
         = render "layouts/errors_attribute", {object: university, attribute: "name"}
+
     h3
-      | 区分
+      = Department.model_name.human
     .departments
       = render "layouts/errors_base", {parent_object: university, child_string: "departments", f: f}
       = f.simple_fields_for :departments do |department|
         = render "department_fields", {f: department, department: department}
       .links
-        = link_to_add_association "add department", f, :departments
+        = link_to_add_association f, :departments
+
+    .py-3
+
     = f.button :submit, class: "btn-primary"

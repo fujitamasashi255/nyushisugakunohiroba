@@ -10,17 +10,22 @@ ja:
     question: "問題"
 
   messages:
-    success_create_univ: "大学を作成しました"
-    fail_create_univ: "大学を作成できませんでした"
-    success_update_univ: "大学名を変更しました"
-    fail_update_univ: "大学名を変更できませんでした"
-    success_destroy_univ: "大学を削除しました"
+    success_create_univ: "大学・区分を作成しました"
+    fail_create_univ: "大学・区分を作成できませんでした"
+    success_update_univ: "大学・区分を変更しました"
+    fail_update_univ: "大学・区分を変更できませんでした"
+    success_destroy_univ: "大学・区分を削除しました"
 
   helpers:
     submit:
       university:
-        create: "大学を作成する"
-        update: "大学名を変更する"
+        create: "大学・区分を作成する"
+        update: "大学・区分を変更する"
+
+  cocoon:
+    departments:
+      add: "区分を追加する"
+      remove: "区分を削除する"
 
   simple_form:
     required:
@@ -39,6 +44,6 @@ ja:
       new:
         title: "大学・区分作成"
       show:
-        title: "大学詳細"
+        title: "大学・区分詳細"
       edit:
-        title: "大学名編集"
+        title: "大学・区分編集"

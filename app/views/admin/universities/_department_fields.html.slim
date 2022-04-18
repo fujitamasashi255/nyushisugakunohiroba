@@ -3,4 +3,4 @@
       = f.label :name
       .input-group.row
         = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6' }
-        = link_to_remove_association "remove department", f, {class: "col"}
+        = link_to_remove_association f, {class: "col col-form-label"}

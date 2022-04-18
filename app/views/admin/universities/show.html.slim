@@ -6,8 +6,24 @@
 
 .py-3
 
-= render "form_disabled", university: @university
+.container
+  h3.row.ml-1
+    = University.human_attribute_name(:name)
+  .row.ml-1
+    .col.p-2.rounded.border
+      = @university.name
+    .col.p-2
+      = University.model_name.human
 
+  .py-3
+
+  h3.row.ml-1
+    = Department.human_attribute_name(:name)
+  .row.ml-1
+    = render @departments
+
+
+.py-3
 .container
   = link_to t("common.edit"), edit_admin_university_path(@university), class: "btn btn-primary", role: "button"
   = link_to t("common.destroy"), admin_university_path(@university), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: "本当に削除しますか？" }

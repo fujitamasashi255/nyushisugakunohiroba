@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Admin::UniversitiesController < Admin::ApplicationController
-  before_action :set_university, only: %i[show edit destroy update]
+  before_action :set_university_and_departments, only: %i[show edit destroy update]
 
   def new
     @university = University.new
+    @university.departments.new
   end
 
   def create
@@ -41,7 +42,8 @@ class Admin::UniversitiesController < Admin::ApplicationController
     params.require(:university).permit(:name, departments_attributes: %i[id name _destroy])
   end
 
-  def set_university
+  def set_university_and_departments
     @university = University.find(params[:id])
+    @departments = @university.departments
   end
 end
