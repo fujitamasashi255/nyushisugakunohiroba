@@ -9,20 +9,22 @@ html
     = stylesheet_pack_tag 'admin', media: 'all'
     = javascript_pack_tag 'admin'
 
-  body.hold-transition
+  body.hold-transition.sidebar-mini
     .wrapper
-
-    / Header
-    = render "admin/shared/header"
-
-    / Main Sidebar Container
-    = render "admin/shared/sidebar"
-
-    .content-wrapper
-      = render "layouts/flash_messages"
-      / MainContents
-      = yield
-
-    / Main Footer
-    = render "admin/shared/footer"
+      / Header
+      nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
+        = render "admin/shared/header"
+      / Main Sidebar Container
+      aside.main-sidebar.sidebar-dark-primary.elevation-4
+        = render "admin/shared/sidebar"
+      / Content Wrapper. Contains page content
+      .content-wrapper
+        = render "layouts/flash_messages"
+        / MainContents
+        .content
+          .container-fluid
+            = yield
+      / Main Footer
+      footer.main-footer
+        = render "admin/shared/footer"
 

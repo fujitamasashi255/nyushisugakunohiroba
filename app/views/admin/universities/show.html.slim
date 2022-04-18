@@ -7,19 +7,19 @@
 .py-3
 
 .container
-  h3.row.ml-1
+  h6.row.ml-1
     = University.human_attribute_name(:name)
   .row.ml-1
-    .col.p-2.rounded.border
+    .col.p-2.rounded.border.text-center.bg-white
       = @university.name
     .col.p-2
       = University.model_name.human
 
   .py-3
 
-  h3.row.ml-1
+  h6.row.ml-1
     = Department.human_attribute_name(:name)
-  .row.ml-1
+  .container.ml-1
     = render @departments
 
 

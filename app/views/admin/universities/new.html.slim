@@ -1,8 +1,9 @@
 - content_for(:title, t('.title'))
 
+.py-3
 .container
   h2
     = t('.title')
 
-.py-3
+.container
   = render "form", university: @university

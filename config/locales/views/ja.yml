@@ -1,6 +1,7 @@
 ja:
   common:
     index: "一覧"
+    show: "詳細"
     create: "作成"
     edit: "編集"
     destroy: "削除"
@@ -24,8 +25,8 @@ ja:
 
   cocoon:
     departments:
-      add: "区分を追加する"
-      remove: "区分を削除する"
+      add: "追加"
+      remove: "削除"
 
   simple_form:
     required:
@@ -49,3 +50,4 @@ ja:
         title: "大学・区分編集"
       index:
         title: "大学一覧"
+        search: "大学検索"
