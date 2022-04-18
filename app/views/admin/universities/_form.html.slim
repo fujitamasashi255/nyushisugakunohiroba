@@ -3,14 +3,12 @@
     .form-group
       = f.label :name
       .input-group.row
-        = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6' }
+        = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
         .input-group-append
           span.col.input-group-text
             = University.model_name.human
         = render "layouts/errors_attribute", {object: university, attribute: "name"}
 
-    h3
-      = Department.model_name.human
     .departments
       = render "layouts/errors_base", {parent_object: university, child_string: "departments", f: f}
       = f.simple_fields_for :departments do |department|

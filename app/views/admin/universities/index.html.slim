@@ -1,8 +1,17 @@
 - content_for(:title, t('.title'))
 
+.py-3
+
+.container.border.p-3
+  h3
+    = t(".search")
+  = render "search_form"
+
+.py-3
+
 .container
   h2
     = t('.title')
-
-.container
-  = render @universities
+  table.table
+    tbody
+      = render @universities

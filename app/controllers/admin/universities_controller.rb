@@ -4,7 +4,8 @@ class Admin::UniversitiesController < Admin::ApplicationController
   before_action :set_university_and_departments, only: %i[show edit destroy update]
 
   def index
-    @universities = University.all
+    @q = University.ransack(params[:q])
+    @universities = @q.result
   end
 
   def new
@@ -24,7 +25,9 @@ class Admin::UniversitiesController < Admin::ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    @university.departments.new if @departments.blank?
+  end
 
   def update
     if @university.update(university_params)
