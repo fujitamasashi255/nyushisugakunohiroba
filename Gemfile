@@ -35,6 +35,9 @@ gem "slim-rails"
 gem "simple_form"
 gem "cocoon"
 
+# 検索
+gem "ransack"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
