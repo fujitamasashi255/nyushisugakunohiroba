@@ -47,3 +47,5 @@ ja:
         title: "大学・区分詳細"
       edit:
         title: "大学・区分編集"
+      index:
+        title: "大学一覧"

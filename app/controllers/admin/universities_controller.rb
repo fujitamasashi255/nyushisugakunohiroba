@@ -3,6 +3,10 @@
 class Admin::UniversitiesController < Admin::ApplicationController
   before_action :set_university_and_departments, only: %i[show edit destroy update]
 
+  def index
+    @universities = University.all
+  end
+
   def new
     @university = University.new
     @university.departments.new
@@ -33,7 +37,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
 
   def destroy
     @university.destroy!
-    redirect_to new_admin_university_path, success: t("messages.success_destroy_univ")
+    redirect_to admin_universities_path, success: t("messages.success_destroy_univ")
   end
 
   private
