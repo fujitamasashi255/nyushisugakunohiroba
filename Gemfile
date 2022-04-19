@@ -38,6 +38,9 @@ gem "cocoon"
 # 検索
 gem "ransack"
 
+# ページネーション
+gem "pagy"
+
 # メール
 gem "net-smtp"
 gem "net-imap"
