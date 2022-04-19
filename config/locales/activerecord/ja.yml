@@ -5,8 +5,12 @@ ja:
         university:
           attributes:
             name:
-              blank: "を入力してください"
+              blank: "を入力して下さい"
               taken: "は既に存在します"
+        department:
+          attributes:
+            name:
+              blank: "を入力して下さい"
 
     models:
       university: "大学"
