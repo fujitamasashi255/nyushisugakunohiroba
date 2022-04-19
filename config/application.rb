@@ -52,6 +52,8 @@ module Portfolio
       g.assets false
       # specファイルを作らない
       g.test_framework false
+      # ファクトリファイルの置き場を変更
+      g.factory_bot dir: "spec/factories"
     end
   end
 end
