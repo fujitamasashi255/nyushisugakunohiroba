@@ -38,6 +38,11 @@ gem "cocoon"
 # 検索
 gem "ransack"
 
+# メール
+gem "net-smtp"
+gem "net-imap"
+gem "net-pop"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
