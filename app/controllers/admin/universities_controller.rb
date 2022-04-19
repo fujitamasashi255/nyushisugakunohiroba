@@ -5,7 +5,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
 
   def index
     @q = University.ransack(params[:q])
-    @universities = @q.result
+    @pagy, @universities = pagy(@q.result)
   end
 
   def new
