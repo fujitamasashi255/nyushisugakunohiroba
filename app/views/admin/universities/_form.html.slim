@@ -9,6 +9,8 @@
             = University.model_name.human
         = render "layouts/errors_attribute", {object: university, attribute: "name"}
 
+    .py-3
+
     .departments
       = render "layouts/errors_base", {parent_object: university, child_string: "departments", f: f}
       = f.simple_fields_for :departments do |department|
