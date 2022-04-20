@@ -16,6 +16,7 @@ ja:
     success_update_univ: "大学・区分を変更しました"
     fail_update_univ: "大学・区分を変更できませんでした"
     success_destroy_univ: "大学・区分を削除しました"
+    delete_confirm: "本当に削除しますか"
 
   helpers:
     submit:
