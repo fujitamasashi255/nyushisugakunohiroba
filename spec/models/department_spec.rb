@@ -29,23 +29,23 @@ RSpec.describe Department, type: :model do
     end
 
     it "名前のある区分は作成できること" do
-      department_with_name = build(:department, name: "test")
+      department_with_name = build(:department, name: "name")
       expect(department_with_name).to be_valid
     end
 
     it "同じ大学に属する同名の区分は作成できないこと" do
       university = create(:university)
-      university.departments << create(:department, name: "test")
-      department_with_same_name = build(:department, name: "test")
+      university.departments << create(:department, name: "name")
+      department_with_same_name = build(:department, name: "name")
       university.departments << department_with_same_name
       expect(department_with_same_name).to be_invalid
       expect(department_with_same_name.errors[:base]).to eq ["同じ名前の区分を登録することはできません"]
     end
 
     it "異なる大学に属する同名の区分は作成できること" do
-      university_a = create(:university, name: "test")
-      university_b = create(:university, name: "TEST")
-      department = create(:department, name: "test", university: university_a)
+      university_a = create(:university, name: "university_a_name")
+      university_b = create(:university, name: "university_b_name")
+      department = create(:department, name: "department_name", university: university_a)
       department_with_same_name = build(:department, name: department.name, university: university_b)
       expect(department_with_same_name).to be_valid
     end
