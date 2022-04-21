@@ -1,0 +1,25 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        university:
+          attributes:
+            name:
+              blank: "を入力して下さい"
+              taken: "は既に存在します"
+        department:
+          attributes:
+            name:
+              blank: "を入力して下さい"
+
+    models:
+      university: "大学"
+      department: "区分"
+    attributes:
+      university:
+         name: "大学名"
+         [departments_attributes]:
+            [new_departments]:
+              name: "区分名"
+      department:
+        name: "区分名"

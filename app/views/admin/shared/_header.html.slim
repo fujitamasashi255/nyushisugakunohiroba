@@ -1,0 +1,15 @@
+/ Left navbar links
+ul.navbar-nav
+  li.nav-item
+    a.nav-link[data-widget="pushmenu" href="#" role="button"]
+      i.fas.fa-bars
+  li.nav-item
+    a.nav-link[href=admin_root_path]
+      = t('.home')
+
+/ Right navbar links
+ul.navbar-nav.ml-auto
+  / Navbar Search
+  li.nav-item
+    a[href="#"]
+      = t('.logout')

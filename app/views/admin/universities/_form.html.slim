@@ -1,0 +1,23 @@
+.container
+  = simple_form_for [:admin, university] do |f|
+    .form-group
+      = f.label :name
+      .input-group.row
+        = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
+        .input-group-append
+          span.input-group-text
+            = University.model_name.human
+        = render "layouts/errors_attribute", {object: university, attribute: "name"}
+
+    .py-3
+
+    .departments
+      = render "layouts/errors_base", {parent_object: university, child_string: "departments", f: f}
+      = f.simple_fields_for :departments do |department|
+        = render "department_fields", {f: department, department: department}
+      .links
+        = link_to_add_association f, :departments
+
+    .py-3
+
+    = f.button :submit, class: "btn-primary"

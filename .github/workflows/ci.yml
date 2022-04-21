@@ -37,6 +37,10 @@ jobs:
           cache: 'yarn'
       - name: yarn install
         run: yarn install
+      - name: remove adminlte scss files
+        run: rm -r node_modules/admin-lte/build/scss
+      - name: compile assets
+        run: bin/webpack
       # db/schema.rbが存在することをチェックする
       - name: Check schema existence
         id: check_schema_file
@@ -62,17 +66,11 @@ jobs:
       # spec/system/ にファイルがあるときシステムスペックを実行
       - name: run systemspec
         if: steps.check_systemspec_files.outputs.files_exists == 'true'
-        run: bundle exec rspec spec/system/
-      # tmp/screenshots にファイルがあることをチェック
-      - name: Check screenshot existence
-        id: check_screenshot_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "tmp/screenshots"
+        run: bin/rspec spec/system/
       # システムスペック失敗時にスクリーンショットを取得
-      - name: Archive systemspec result screenshots
+      - if: failure()
+        name: Archive systemspec result screenshots
         uses: actions/upload-artifact@v3
-        if: steps.check_screenshot_files.outputs.files_exists == 'true'
         with:
           name: systemspec result screenshots
           path: tmp/screenshots/
@@ -85,7 +83,7 @@ jobs:
       # pec/models/ にファイルがあるときモデルスペックを実行
       - name: run modelspec
         if: steps.check_modelspec_files.outputs.files_exists == 'true'
-        run: bundle exec rspec spec/models/
+        run: bin/rspec spec/models/
   lint:
     runs-on: ubuntu-latest
     steps:

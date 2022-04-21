@@ -1,0 +1,54 @@
+ja:
+  common:
+    index: "一覧"
+    show: "詳細"
+    create: "作成"
+    edit: "編集"
+    destroy: "削除"
+    site_name: "入試数学の広場"
+    admin_page: "管理ページ"
+    univs_depts: "大学・区分"
+    question: "問題"
+
+  messages:
+    success_create_univ: "大学・区分を作成しました"
+    fail_create_univ: "大学・区分を作成できませんでした"
+    success_update_univ: "大学・区分を変更しました"
+    fail_update_univ: "大学・区分を変更できませんでした"
+    success_destroy_univ: "大学・区分を削除しました"
+    delete_confirm: "本当に削除しますか"
+
+  helpers:
+    submit:
+      university:
+        create: "大学・区分を作成する"
+        update: "大学・区分を変更する"
+
+  cocoon:
+    departments:
+      add: "追加"
+      remove: "削除"
+
+  simple_form:
+    required:
+      mark: ""
+      text: ""
+
+  admin:
+    dashboards:
+      index:
+        title: "管理画面トップ"
+    shared:
+      header:
+        home: "ホーム"
+        logout: "ログアウト"
+    universities:
+      new:
+        title: "大学・区分作成"
+      show:
+        title: "大学・区分詳細"
+      edit:
+        title: "大学・区分編集"
+      index:
+        title: "大学一覧"
+        search: "大学検索"

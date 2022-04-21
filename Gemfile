@@ -33,6 +33,18 @@ gem "slim-rails"
 
 # フォーム
 gem "simple_form"
+gem "cocoon"
+
+# 検索
+gem "ransack"
+
+# ページネーション
+gem "pagy"
+
+# メール
+gem "net-smtp"
+gem "net-imap"
+gem "net-pop"
 
 group :development, :test do
   # デバッグ
@@ -78,6 +90,11 @@ group :development do
 
   # htmlをslimに変換
   gem "html2slim", require: false
+end
+
+group :test do
+  # webdriver
+  gem "webdrivers"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

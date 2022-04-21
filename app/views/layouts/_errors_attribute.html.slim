@@ -1,0 +1,8 @@
+/ attribute: オブジェクトの属性の文字列 （例）"name"
+/ object: オブジェクト (例)university
+/ objectのattributeにエラーメッセージがあればそれを表示する
+
+- if object&.errors.messages[attribute.to_sym].any?
+  - object&.errors.messages[attribute.to_sym].each do |message|
+    .invalid-feedback
+      | #{object.class.human_attribute_name(attribute.to_sym)} #{message}

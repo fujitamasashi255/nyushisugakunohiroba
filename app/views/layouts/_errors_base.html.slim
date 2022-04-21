@@ -1,0 +1,8 @@
+/ parent_object
+/ child_string
+/ objectのattributeにエラーメッセージがあればそれを表示する
+
+- if parent_object.errors.messages["#{child_string}.base".to_sym].any?
+  - parent_object.errors.messages["#{child_string}.base".to_sym].each do |message|
+    small.text-danger
+      | #{message}

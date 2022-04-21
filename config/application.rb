@@ -32,6 +32,7 @@ module Portfolio
     # in config/environments, which are processed later.
     #
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.{rb,yml}").to_s]
+    config.i18n.available_locales = :ja
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :local
@@ -51,6 +52,8 @@ module Portfolio
       g.assets false
       # specファイルを作らない
       g.test_framework false
+      # ファクトリファイルの置き場を変更
+      g.factory_bot dir: "spec/factories"
     end
   end
 end
