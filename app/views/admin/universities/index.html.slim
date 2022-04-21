@@ -1,7 +1,5 @@
 - content_for(:title, t('.title'))
 
-.py-3
-
 .container.border.p-3
   h3
     = t(".search")
@@ -18,4 +16,3 @@
   == pagy_bootstrap_nav(@pagy)
   .text-center
     == pagy_info(@pagy)
-.py-3
