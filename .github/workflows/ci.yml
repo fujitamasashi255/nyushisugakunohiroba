@@ -63,16 +63,10 @@ jobs:
       - name: run systemspec
         if: steps.check_systemspec_files.outputs.files_exists == 'true'
         run: bundle exec rspec spec/system/
-      # tmp/screenshots にファイルがあることをチェック
-      - name: Check screenshot existence
-        id: check_screenshot_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "tmp/screenshots"
       # システムスペック失敗時にスクリーンショットを取得
-      - name: Archive systemspec result screenshots
+      - if: failure()
+        name: Archive systemspec result screenshots
         uses: actions/upload-artifact@v3
-        if: steps.check_screenshot_files.outputs.files_exists == 'true'
         with:
           name: systemspec result screenshots
           path: tmp/screenshots/
