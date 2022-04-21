@@ -5,7 +5,7 @@
       .input-group.row
         = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
         .input-group-append
-          span.col.input-group-text
+          span.input-group-text
             = University.model_name.human
         = render "layouts/errors_attribute", {object: university, attribute: "name"}
 
