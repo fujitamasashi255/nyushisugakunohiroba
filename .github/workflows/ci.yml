@@ -37,8 +37,10 @@ jobs:
           cache: 'yarn'
       - name: yarn install
         run: yarn install
-      - name: Compile Assets
-        run: bin/rails webpacker:compile
+      - name: remove adminlte scss files
+        run: rm -r node_modules/admin-lte/build/scss
+      - name: compile assets
+        run: bin/webpack
       # db/schema.rbが存在することをチェックする
       - name: Check schema existence
         id: check_schema_file
