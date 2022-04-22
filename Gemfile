@@ -46,6 +46,9 @@ gem "net-smtp"
 gem "net-imap"
 gem "net-pop"
 
+# ruby hash as a readonly datasource for an ActiveRecord-like model
+gem "active_hash"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
