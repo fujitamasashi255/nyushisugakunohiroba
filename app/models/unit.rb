@@ -6,5 +6,9 @@ class Unit < ActiveYaml::Base
   set_root_path Rails.root.join("config/masters")
   set_filename "unit"
 
-  # has_many :questions
+  has_many :questions_units_mediators, dependent: :destroy
+
+  def questions
+    Question.find(questions_units_mediators.map(&:question_id))
+  end
 end
