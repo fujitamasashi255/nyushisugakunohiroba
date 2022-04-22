@@ -21,7 +21,10 @@
 class Department < ApplicationRecord
   validates :name, presence: true
   validate :valid_unique_name_within_a_university?
+
   belongs_to :university
+  has_many :questions_departments_mediators, dependent: :destroy
+  has_many :questions, through: :questions_departments_mediators
 
   private
 
