@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_07_121254) do
+ActiveRecord::Schema.define(version: 2022_04_22_132514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,31 @@ ActiveRecord::Schema.define(version: 2022_04_07_121254) do
     t.index ["university_id"], name: "index_departments_on_university_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.integer "set_year", null: false
+    t.integer "number", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "questions_departments_mediators", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "department_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_questions_departments_mediators_on_department_id"
+    t.index ["question_id"], name: "index_questions_departments_mediators_on_question_id"
+  end
+
+  create_table "questions_units_mediators", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "unit_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_questions_units_mediators_on_question_id"
+    t.index ["unit_id"], name: "index_questions_units_mediators_on_unit_id"
+  end
+
   create_table "universities", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -31,4 +56,7 @@ ActiveRecord::Schema.define(version: 2022_04_07_121254) do
   end
 
   add_foreign_key "departments", "universities"
+  add_foreign_key "questions_departments_mediators", "departments"
+  add_foreign_key "questions_departments_mediators", "questions"
+  add_foreign_key "questions_units_mediators", "questions"
 end
