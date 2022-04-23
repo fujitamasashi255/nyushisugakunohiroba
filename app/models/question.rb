@@ -21,4 +21,8 @@ class Question < ApplicationRecord
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))
   end
+
+  def unit_ids
+    units.pluck(:id)
+  end
 end

@@ -7,7 +7,7 @@ require("@nathanvda/cocoon")
 import "@fortawesome/fontawesome-free/js/all.min"
 import "bootstrap"
 import "admin-lte"
-
+import "src/self_made/admin-question-new"
 
 
 import "../stylesheets/admin.scss"

@@ -3,6 +3,9 @@
 Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboards#index"
-    resources :universities
+    resources :universities do
+      resources :department_check_boxes, only: %i[index]
+    end
+    resources :questions
   end
 end

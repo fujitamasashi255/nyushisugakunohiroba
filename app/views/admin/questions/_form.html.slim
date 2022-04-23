@@ -1,0 +1,63 @@
+.container
+  = simple_form_for [:admin, question] do |f|
+    .container
+      .row
+        .col-3
+          = f.input :number, collection: 1..20, selected: 1
+        .col-3
+          = f.input :set_year, collection: 1980..Time.current.year, selected: Time.current.year
+        .col-6
+          / 大学
+          label
+            = University.human_attribute_name(:name)
+
+          / 大学名ドロップダウンボタン
+          .input-group.university-radio-buttons
+            button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+
+            / 大学名ドロップダウンメニュー
+            .dropdown-menu.col-2.dropdown-menu-right[style="min-width: 700px"]
+              .row.m-3
+                = render partial: "admin/shared/university_radio_button", collection: University.all, as: :university
+            .input-group-append
+              span.input-group-text
+                = University.model_name.human
+    .container
+      / 区分
+      .row
+        .col
+          label
+            = Department.model_name.human
+      .row
+        .col.border.p-3[style="min-height: 4rem"]
+          / 区分名チェックボックス
+          .department-check-box-group
+            = f.collection_check_boxes :department_ids, [], :id, :name
+
+    .py-3
+
+    / 単元
+    .container
+      .row
+        .col
+          label
+            = Unit.model_name.human
+      / 単元チェックボックス
+      .row
+        .unit-check-box-group.col.border.p-3
+          / subujectごとにunitのチェックボックスを表示する
+          - Unit.subjects.each do |subject|
+            .container
+              label.row
+                = subject
+              .row
+                / units:subjectごとのunitの配列
+                - units = Unit.where(subject: subject)
+                = f.collection_check_boxes :unit_ids, units, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+                  = b.check_box(class: 'form-check-input')
+                  = b.label(class: 'form-check-label')
+              .py-2
+    .py-3
+
+    / 送信ボタン
+    = f.button :submit, class: "btn-primary"
