@@ -1,4 +1,8 @@
 ja:
+  activemodel:
+    models:
+      unit: "単元"
+
   activerecord:
     errors:
       models:
@@ -15,6 +19,7 @@ ja:
     models:
       university: "大学"
       department: "区分"
+      question: "問題"
     attributes:
       university:
          name: "大学名"
@@ -23,3 +28,6 @@ ja:
               name: "区分名"
       department:
         name: "区分名"
+      question:
+        number: "大問番号"
+        set_year: "出題年"

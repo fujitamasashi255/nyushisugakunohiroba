@@ -1,0 +1,5 @@
+small.col-2.p-0
+  .form-check.form-check-inline
+    label.form-check-label[for="university_radio_button_#{university.id}"]
+      input.form-check-input[type="radio" id="university_radio_button_#{university.id}" name="universities" value="#{university.name}" data-departments-path= "#{admin_university_department_check_boxes_path(university)}"]
+        = university.name

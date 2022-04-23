@@ -23,6 +23,8 @@ ja:
       university:
         create: "大学・区分を作成する"
         update: "大学・区分を変更する"
+      question:
+        create: "問題を作成する"
 
   cocoon:
     departments:
@@ -52,3 +54,13 @@ ja:
       index:
         title: "大学一覧"
         search: "大学検索"
+    questions:
+      new:
+        title: "問題作成"
+      show:
+        title: "問題詳細"
+      edit:
+        title: "問題編集"
+      index:
+        title: "問題一覧"
+        search: "問題検索"
