@@ -12,73 +12,73 @@
   name: "データの分析"
   subject: 数学I
 
-# 数学II
+  # 数学A
 - id: 5
-  name: "式と証明"
-  subject: 数学II
-- id: 6
-  name: "複素数と方程式"
-  subject: 数学II
-- id: 7
-  name: "図形と方程式"
-  subject: 数学II
-- id: 8
-  name: "三角関数"
-  subject: 数学II
-- id: 9
-  name: "指数・対数関数"
-  subject: 数学II
-- id: 10
-  name: "微分"
-  subject: 数学II
-- id: 11
-  name: "積分"
-  subject: 数学II
-
-# 数学III
-- id: 12
-  name: "複素数平面"
-  subject: 数学III
-- id: 13
-  name: "式と曲線"
-  subject: 数学III
-- id: 14
-  name: "関数"
-  subject: 数学III
-- id: 15
-  name: "極限"
-  subject: 数学III
-- id: 16
-  name: "微分"
-  subject: 数学III
-- id: 17
-  name: "積分"
-  subject: 数学III
-
-# 数学A
-- id: 18
   name: "場合の数"
   subject: 数学A
-- id: 19
+- id: 6
   name: "確率"
   subject: 数学A
-- id: 20
+- id: 7
   name: "整数"
   subject: 数学A
-- id: 21
+- id: 8
   name: "図形の性質"
   subject: 数学A
 
-# 数学B
-- id: 22
+# 数学II
+- id: 9
+  name: "式と証明"
+  subject: 数学II
+- id: 10
+  name: "複素数と方程式"
+  subject: 数学II
+- id: 11
+  name: "図形と方程式"
+  subject: 数学II
+- id: 12
+  name: "三角関数"
+  subject: 数学II
+- id: 13
+  name: "指数・対数関数"
+  subject: 数学II
+- id: 14
+  name: "微分"
+  subject: 数学II
+- id: 15
+  name: "積分"
+  subject: 数学II
+
+  # 数学B
+- id: 16
   name: "平面ベクトル"
   subject: 数学B
-- id: 23
+- id: 17
   name: "空間ベクトル"
   subject: 数学B
-- id: 24
+- id: 18
   name: "数列"
   subject: 数学B
-- id: 25
+- id: 19
   name: "確率分布と統計的な推測"
   subject: 数学B
+
+# 数学III
+- id: 20
+  name: "複素数平面"
+  subject: 数学III
+- id: 21
+  name: "式と曲線"
+  subject: 数学III
+- id: 22
+  name: "関数"
+  subject: 数学III
+- id: 23
+  name: "極限"
+  subject: 数学III
+- id: 24
+  name: "微分"
+  subject: 数学III
+- id: 25
+  name: "積分"
+  subject: 数学III

@@ -8,6 +8,9 @@ class Unit < ActiveYaml::Base
 
   has_many :questions_units_mediators, dependent: :destroy
 
+  # 科目の配列を取得する
+  scope :subjects, -> { pluck(:subject).uniq }
+
   def questions
     Question.find(questions_units_mediators.map(&:question_id))
   end
