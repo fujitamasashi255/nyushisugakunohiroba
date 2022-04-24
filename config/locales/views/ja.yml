@@ -36,9 +36,10 @@ ja:
     submit:
       university:
         create: "大学・区分を作成する"
-        update: "大学・区分を変更する"
+        update: "大学・区分を更新する"
       question:
         create: "問題を作成する"
+        update: "問題を更新する"
 
   cocoon:
     departments:

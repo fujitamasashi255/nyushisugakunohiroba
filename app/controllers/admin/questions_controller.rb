@@ -32,7 +32,7 @@ class Admin::QuestionsController < Admin::ApplicationController
       redirect_to [:admin, @question], success: t("flashes.question.success.update")
     else
       flash.now[:danger] = t("flashes.question.fail.update")
-      # render "admin/questions/edit"
+      render "admin/questions/edit"
     end
   end
 

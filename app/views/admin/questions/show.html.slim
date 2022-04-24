@@ -44,4 +44,7 @@
       .col-3.py-1.mr-2.mb-2.rounded.border.text-center.bg-white
         = unit.name
 
-
+.py-3
+.container
+  = link_to t("common.edit"), edit_admin_question_path(@question), class: "btn btn-primary", role: "button"
+  = link_to t("common.destroy"), admin_question_path(@question), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
