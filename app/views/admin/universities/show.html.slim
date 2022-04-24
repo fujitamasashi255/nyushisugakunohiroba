@@ -1,7 +1,7 @@
 - content_for(:title, t('.title'))
 
 .container.university
-  h6.row.ml-1
+  label.row.ml-1
     = University.human_attribute_name(:name)
   .row.ml-1
     .col.p-2.rounded.border.text-center.bg-white.university-name
@@ -12,7 +12,7 @@
   .py-3
 
 .container.departments
-  h6.row.ml-1
+  label.row.ml-1
     = Department.human_attribute_name(:name)
   .container.ml-1
     = render @departments
