@@ -31,9 +31,9 @@ class Admin::UniversitiesController < Admin::ApplicationController
 
   def update
     if @university.update(university_params)
-      redirect_to [:admin, @university], success: t("flashes.university..success.update")
+      redirect_to [:admin, @university], success: t("flashes.university.success.update")
     else
-      flash.now[:danger] = t("flashes.university.fail/update")
+      flash.now[:danger] = t("flashes.university.fail.update")
       render "admin/universities/edit"
     end
   end
