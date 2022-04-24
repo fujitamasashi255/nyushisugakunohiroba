@@ -1,4 +1,7 @@
 .container
+  = render "layouts/errors_base", object: university
+
+.container
   = simple_form_for [:admin, university] do |f|
     .form-group
       = f.label :name
@@ -12,7 +15,6 @@
     .py-3
 
     .departments
-      = render "layouts/errors_base", {parent_object: university, child_string: "departments", f: f}
       = f.simple_fields_for :departments do |department|
         = render "department_fields", {f: department, department: department}
       .links

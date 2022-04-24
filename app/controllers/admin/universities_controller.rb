@@ -16,9 +16,9 @@ class Admin::UniversitiesController < Admin::ApplicationController
   def create
     @university = University.new(university_params)
     if @university.save
-      redirect_to [:admin, @university], success: t("messages.success_create_univ")
+      redirect_to [:admin, @university], success: t("flashes.university.success.create")
     else
-      flash.now[:danger] = t("messages.fail_create_univ")
+      flash.now[:danger] = t("flashes.university.fail.create")
       render "admin/universities/new"
     end
   end
@@ -31,16 +31,16 @@ class Admin::UniversitiesController < Admin::ApplicationController
 
   def update
     if @university.update(university_params)
-      redirect_to [:admin, @university], success: t("messages.success_update_univ")
+      redirect_to [:admin, @university], success: t("flashes.university..success.update")
     else
-      flash.now[:danger] = t("messages.fail_update_univ")
+      flash.now[:danger] = t("flashes.university.fail/update")
       render "admin/universities/edit"
     end
   end
 
   def destroy
     @university.destroy!
-    redirect_to admin_universities_path, success: t("messages.success_destroy_univ")
+    redirect_to admin_universities_path, success: t("flashes.university.success.destroy")
   end
 
   private
