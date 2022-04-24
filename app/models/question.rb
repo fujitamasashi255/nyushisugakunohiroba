@@ -21,14 +21,6 @@ class Question < ApplicationRecord
   has_many :departments, through: :questions_departments_mediators
   has_many :questions_units_mediators, dependent: :destroy
 
-  def university
-    departments.present? ? departments.first.university : nil
-  end
-
-  def university?
-    university.present?
-  end
-
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))
   end
