@@ -15,7 +15,14 @@
 #
 class University < ApplicationRecord
   validates :name, presence: true, uniqueness: true
+  validate :different_departments?
 
   has_many :departments, inverse_of: :university, dependent: :destroy
   accepts_nested_attributes_for :departments, reject_if: :all_blank, allow_destroy: true
+
+  private
+
+  def different_departments?
+    errors.add(:base, "同じ名前の区分を登録することはできません") if departments.map(&:name).uniq.size < departments.size
+  end
 end
