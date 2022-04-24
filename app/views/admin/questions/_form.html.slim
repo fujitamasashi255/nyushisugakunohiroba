@@ -1,4 +1,7 @@
 .container
+  = render "layouts/errors_base", object: question
+
+.container
   = simple_form_for [:admin, question] do |f|
     .container
       .row
@@ -14,7 +17,7 @@
           / 大学名ドロップダウンボタン
           .input-group.university-radio-buttons
             button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-
+              = question.university.name if question.university?
             / 大学名ドロップダウンメニュー
             .dropdown-menu.col-2.dropdown-menu-right[style="min-width: 700px"]
               .row.m-3
@@ -22,8 +25,8 @@
             .input-group-append
               span.input-group-text
                 = University.model_name.human
+    / 区分
     .container
-      / 区分
       .row
         .col
           label
@@ -32,7 +35,11 @@
         .col.border.p-3[style="min-height: 4rem"]
           / 区分名チェックボックス
           .department-check-box-group
-            = f.collection_check_boxes :department_ids, [], :id, :name
+            / チェックボックスの選択肢となる区分の配列 check_box_departments
+            - check_box_departments =  question.university? ? question.university.departments : []
+            = f.collection_check_boxes :department_ids, check_box_departments, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+              = b.check_box(class: 'form-check-input')
+              = b.label(class: 'form-check-label')
 
     .py-3
 
@@ -57,6 +64,7 @@
                   = b.check_box(class: 'form-check-input')
                   = b.label(class: 'form-check-label')
               .py-2
+
     .py-3
 
     / 送信ボタン
