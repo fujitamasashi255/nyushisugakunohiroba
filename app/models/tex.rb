@@ -5,7 +5,7 @@
 # Table name: texes
 #
 #  id           :bigint           not null, primary key
-#  tex_code     :text             not null
+#  code         :text             not null
 #  texable_type :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -16,7 +16,7 @@
 #  index_texes_on_texable  (texable_type,texable_id)
 #
 class Tex < ApplicationRecord
-  validates :tex_code, presence: true
+  validates :code, presence: true
 
   belongs_to :texable, polymorphic: true
   has_one_attached :pdf
