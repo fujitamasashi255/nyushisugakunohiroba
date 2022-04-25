@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_22_132514) do
+ActiveRecord::Schema.define(version: 2022_04_25_092047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 2022_04_22_132514) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_questions_units_mediators_on_question_id"
     t.index ["unit_id"], name: "index_questions_units_mediators_on_unit_id"
+  end
+
+  create_table "texes", force: :cascade do |t|
+    t.string "texable_type", null: false
+    t.bigint "texable_id", null: false
+    t.text "tex_code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["texable_type", "texable_id"], name: "index_texes_on_texable"
   end
 
   create_table "universities", force: :cascade do |t|
