@@ -21,6 +21,7 @@ class Question < ApplicationRecord
   has_many :departments, through: :questions_departments_mediators
   has_many :questions_units_mediators, dependent: :destroy
   has_one :tex, as: :texable, dependent: :destroy
+  has_one_attached :image
 
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))

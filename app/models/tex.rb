@@ -19,4 +19,6 @@ class Tex < ApplicationRecord
   validates :tex_code, presence: true
 
   belongs_to :texable, polymorphic: true
+  has_one_attached :pdf
+  has_one_attached :log_file
 end
