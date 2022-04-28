@@ -43,6 +43,9 @@ module Portfolio
     config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # 画像変換にlibvipsを利用する
+    config.active_storage.variant_processer = :vips
+
     # rails generate コマンドの設定
     config.generators do |g|
       # Don't generate system test files.

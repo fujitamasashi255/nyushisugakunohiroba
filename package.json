@@ -6,7 +6,7 @@
     "@nathanvda/cocoon": "^1.2.14",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
+    "@rails/ujs": "^6.1.5",
     "@rails/webpacker": "5.4.3",
     "admin-lte": "^3.2.0",
     "bootstrap": "4",

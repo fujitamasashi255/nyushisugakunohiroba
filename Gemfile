@@ -49,6 +49,15 @@ gem "net-pop"
 # ruby hash as a readonly datasource for an ActiveRecord-like model
 gem "active_hash"
 
+# tex
+gem "rails-latex"
+
+# image processing
+gem "ruby-vips"
+
+# 定数管理
+gem "config"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
