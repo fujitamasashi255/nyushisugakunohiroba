@@ -1,0 +1,1 @@
+tex_default_code: "\\documentclass[dvipdfmx]{jsarticle}\r\n\\usepackage{amssymb, amsmath, tikz}\r\n\\usetikzlibrary{intersections, calc, arrows.meta}\r\n\r\n\\begin{document}\r\n\r\n\\end{document}"
