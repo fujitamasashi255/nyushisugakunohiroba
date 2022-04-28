@@ -18,6 +18,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
     if @university.save
       redirect_to [:admin, @university], success: t("flashes.university.success.create")
     else
+      @university.departments.new if @departments.blank?
       flash.now[:danger] = t("flashes.university.fail.create")
       render "admin/universities/new"
     end
