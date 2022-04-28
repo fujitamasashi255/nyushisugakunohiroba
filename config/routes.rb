@@ -8,4 +8,6 @@ Rails.application.routes.draw do
     end
     resources :questions
   end
+
+  resource :compile, only: %i[create]
 end
