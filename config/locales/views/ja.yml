@@ -8,7 +8,7 @@ ja:
     site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
-    question: "問題"
+    compile: "コンパイルする"
 
   messages:
     delete_confirm: "本当に削除しますか"
@@ -40,6 +40,9 @@ ja:
       question:
         create: "問題を作成する"
         update: "問題を更新する"
+      tex:
+        create: "コンパイルする"
+        update: "コンパイルする"
 
   cocoon:
     departments:
