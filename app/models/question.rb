@@ -14,7 +14,6 @@ class Question < ApplicationRecord
   validates :number, presence: true
   validates :set_year, presence: true
   validate :departments_belong_to_same_university?
-  validate :unit?
   validate :department?
 
   has_many :questions_departments_mediators, dependent: :destroy
@@ -44,11 +43,6 @@ class Question < ApplicationRecord
   # questionのdepartmentが少なくとも1つはあること
   def department?
     errors.add(:base, "区分を登録してください") if department_ids.blank?
-  end
-
-  # questionのunitが少なくとも1つはあること
-  def unit?
-    errors.add(:base, "単元を登録してください") if unit_ids.blank?
   end
 
   # questionのdepartmentsが属するuniversityが1つだけかチェック
