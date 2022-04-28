@@ -44,7 +44,17 @@
       .col-3.py-1.mr-2.mb-2.rounded.border.text-center.bg-white
         = unit.name
 
+  .py-3
+
+  - if @tex.pdf.attached?
+    .row
+      label
+        = Tex.human_attribute_name(:pdf)
+    .row
+      iframe.d-block type="application/pdf" height="700" width="50%" marginwidth="0" src="#{url_for(@tex.pdf)}"
+
 .py-3
 .container
   = link_to t("common.edit"), edit_admin_question_path(@question), class: "btn btn-primary", role: "button"
   = link_to t("common.destroy"), admin_question_path(@question), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+
