@@ -15,19 +15,22 @@ $(function(){
   $('#compile').on('click', function(){
     // コンパイルするコントローラへのパス Path
     var Path = this.dataset.compilePath;
-    // コンパイルするtexコード compileResultElement
+    // コンパイルするtexコード Code
     var Code = $('#tex-code').val();
+    // 要素 t.input_field :pdf_blob_signed_id を取得
+    var signedIdElement = $('#pdf_blob_signed_id');
     // コンパイル結果を表示する要素 compileResultElement
     var compileResultElement = $('#compile-result');
     // compileResultElement を空にする
     compileResultElement.empty();
-    // compile_controllerへパラメータcodeを持つリクエスト
-    $.post(Path, {code: Code}, null, "json").done(function(data, statusText, jqXHR){
-      // t.input_field :pdf_blob_signed_id に コンパイル結果のBlobオブジェクトのsigned_idを設定
-      $('#pdf_blob_signed_id').val(data.signed_id);
+
+    // compile_controllerへパラメータcodeを持つリクエストを送る
+    $.post(Path, {code: Code, id: signedIdElement.val()}, null, "json").done(function(data, statusText, jqXHR){
+      //  コンパイル結果のBlobオブジェクトのsigned_idを設定
+      signedIdElement.val(data.signed_id);
       if(data.signed_id == null){
         // コンパイル失敗時
-        // 帰ってくるデータ data = json: {log_text: @e.log, signed_id: nil}
+        // 帰ってくるデータ data = json: {log_text: e.log, signed_id: nil}
         // ログのテキスト logText
         var logText = data.log_text;
         // logTextをcompileResultElementに表示する

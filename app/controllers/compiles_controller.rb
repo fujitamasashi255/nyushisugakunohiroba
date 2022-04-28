@@ -3,6 +3,10 @@
 class CompilesController < ApplicationController
   def create
     code = params[:code]
+    signed_id = params[:id]
+    # コンパイル前のblobを削除
+    ActiveStorage::Blob.find_signed(signed_id).purge if signed_id.present?
+
     begin
       pdf_binary = LatexToPdf.generate_pdf(code, LatexToPdf.config)
       pdf_path = Rails.root.join("tmp/rails-latex/tex#{Time.current.strftime('%Y%m%d%H%M%S')}.pdf")
