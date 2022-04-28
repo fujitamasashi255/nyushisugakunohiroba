@@ -19,7 +19,6 @@
 class Tex < ApplicationRecord
   belongs_to :texable, polymorphic: true
   has_one_attached :pdf
-  has_one_attached :log_file
 
   attribute :code, :text, default: Settings.tex_default_code
 
