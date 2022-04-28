@@ -79,7 +79,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @departments = Department.includes(:university).find(department_params_ids)
     @units = Unit.find(unit_params_ids)
     @question.departments = @departments
-    @university = @departments[0].university
+    @university = @departments[0].university if @departments.present?
     @question.units_to_association(@units)
     set_checkbox_departments
   end
