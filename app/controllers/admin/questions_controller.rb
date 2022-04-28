@@ -11,6 +11,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @departments = @question.departments
     @units = @question.units
     @tex = @question.build_tex
+    set_checkbox_departments
   end
 
   def create
@@ -80,6 +81,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @question.departments = @departments
     @university = @departments[0].university
     @question.units_to_association(@units)
+    set_checkbox_departments
   end
 
   def set_objects
@@ -88,5 +90,11 @@ class Admin::QuestionsController < Admin::ApplicationController
     @university = @departments[0].university
     @units = @question.units
     @tex = @question.tex
+    set_checkbox_departments
+  end
+
+  # views/admin/questions/_form のチェックボックス選択肢の区分を取得
+  def set_checkbox_departments
+    @checkbox_departments = @university.blank? ? [] : @university.departments
   end
 end

@@ -33,8 +33,7 @@
       .col.border.p-3[style="min-height: 4rem"]
         / 区分名チェックボックス
         .department-check-box-group
-          - departments = university.blank? ? [] : university.departments
-          = f.collection_check_boxes :department_ids, departments, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+          = f.collection_check_boxes :department_ids, checkbox_departments, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
             = b.check_box(class: 'form-check-input')
             = b.label(class: 'form-check-label')
 
