@@ -20,8 +20,9 @@ class Question < ApplicationRecord
   has_many :questions_departments_mediators, dependent: :destroy
   has_many :departments, through: :questions_departments_mediators
   has_many :questions_units_mediators, dependent: :destroy
-  has_one :tex, as: :texable, dependent: :destroy
+  has_one :tex, dependent: :destroy, as: :texable
   has_one_attached :image
+  accepts_nested_attributes_for :tex, reject_if: :all_blank
 
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))
@@ -31,9 +32,10 @@ class Question < ApplicationRecord
     units.pluck(:id)
   end
 
-  def add_units_to_association(unit_idz)
-    questions_units_mediators << unit_idz.map do |unit_id|
-      QuestionsUnitsMediator.new(unit_id:)
+  def units_to_association(unitz)
+    questions_units_mediators.clear
+    questions_units_mediators << unitz.map do |u|
+      QuestionsUnitsMediator.new(unit_id: u.id)
     end
   end
 

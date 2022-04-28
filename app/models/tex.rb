@@ -22,4 +22,8 @@ class Tex < ApplicationRecord
   has_one_attached :log_file
 
   attribute :code, :text, default: Settings.tex_default_code
+
+  def attach_pdf
+    pdf.attach(pdf_blob_signed_id) if @tex.pdf_blob_signed_id?
+  end
 end
