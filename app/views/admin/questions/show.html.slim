@@ -46,12 +46,12 @@
 
   .py-3
 
-  - if @tex.pdf.attached?
+  - if @question.image.attached?
     .row
       label
-        = Tex.human_attribute_name(:pdf)
+        = Question.human_attribute_name(:image)
     .row
-      iframe.d-block type="application/pdf" height="700" width="50%" marginwidth="0" src="#{url_for(@tex.pdf)}"
+      = image_tag @question.image, class: "bg-white p-3", width: "700"
 
 .py-3
 .container

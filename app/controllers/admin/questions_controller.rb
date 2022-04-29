@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Admin::QuestionsController < Admin::ApplicationController
+  require "vips"
+  require "image_processing/vips"
+
   before_action :set_question, only: %i[update destroy]
   before_action :set_objects, only: %i[show edit]
 
@@ -20,6 +23,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @tex = @question.build_tex(tex_params)
     @tex.attach_pdf
     if @question.save
+      attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.create")
     else
       flash.now[:danger] = t("flashes.question.fail.create")
@@ -37,6 +41,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @tex.update(tex_params)
     @tex.attach_pdf
     if @question.update(question_params)
+      attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.update")
     else
       flash.now[:danger] = t("flashes.question.fail.update")
@@ -91,6 +96,11 @@ class Admin::QuestionsController < Admin::ApplicationController
     @units = @question.units
     @tex = @question.tex
     set_checkbox_departments
+  end
+
+  # @tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする
+  def attach_question_image
+    @question.image.attach(@tex.pdf_to_img_blob.signed_id) if @tex.pdf.present?
   end
 
   # views/admin/questions/_form のチェックボックス選択肢の区分を取得
