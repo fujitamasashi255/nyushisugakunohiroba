@@ -5,7 +5,8 @@ class CompilesController < ApplicationController
     code = params[:code]
     signed_id = params[:id]
     # コンパイル前のblobを削除
-    ActiveStorage::Blob.find_signed(signed_id).purge if signed_id.present?
+    old_blob = ActiveStorage::Blob.find_signed(signed_id)
+    old_blob.purge if old_blob.present?
 
     begin
       pdf_binary = LatexToPdf.generate_pdf(code, LatexToPdf.config)
