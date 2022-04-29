@@ -9,6 +9,7 @@ ja:
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
     compile: "コンパイルする"
+    compiling: "コンパイル中"
 
   messages:
     delete_confirm: "本当に削除しますか"
