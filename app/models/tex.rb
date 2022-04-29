@@ -28,7 +28,10 @@ class Tex < ApplicationRecord
 
   # texオブジェクトに対し、そのpdfをpngに変換し余白を取り除いたファイルのblobを返す
   def pdf_to_img_blob
-    return if pdf.blank?
+    return if pdf.blank? || texable_type != "Question"
+
+    # 作成前にあるimg_blobを削除
+    texable.image.purge if texable.image.present?
 
     # 変換して得られるpngファイルのパス、名前（拡張子除く）を取得
     image_path = Settings.tmp_png_path
