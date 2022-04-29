@@ -10,7 +10,8 @@ class CompilesController < ApplicationController
 
     begin
       pdf_binary = LatexToPdf.generate_pdf(code, LatexToPdf.config)
-      pdf_path = Rails.root.join("tmp/rails-latex/tex#{Time.current.strftime('%Y%m%d%H%M%S')}.pdf")
+      # コンパイルして得られるpdfのパス
+      pdf_path = Settings.tmp_pdf_path
       File.open(pdf_path, "w+b") do |f|
         f.write(pdf_binary)
       end

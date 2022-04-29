@@ -30,10 +30,9 @@ class Tex < ApplicationRecord
   def pdf_to_img_blob
     return if pdf.blank?
 
-    # pdfファイルの名前を取得
-    image_name = File.basename(pdf.blob.filename.to_s, ".*")
-    # pdfファイルのパスを取得
-    image_path = Rails.root.join("tmp/rails-latex/#{image_name}.png").to_s
+    # 変換して得られるpngファイルのパス、名前（拡張子除く）を取得
+    image_path = Settings.tmp_png_path
+    image_name = File.basename(image_path, ".*")
     # pdfファイルをpngファイルへ変換
     pdf_vip = Vips::Image.pdfload ActiveStorage::Blob.service.path_for(pdf.key), dpi: 600
     pdf_vip.write_to_file image_path, Q: 100
