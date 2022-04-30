@@ -1,17 +1,10 @@
-.question-card .university-info{
-  height: 70px;
-}
-
-.question-card .university-info {
-  height: 1rem;
-}
-
-.question-card .card-bottom{
-  position: absolute; bottom: 0.25rem;
+.question-card{
+  height: 400px;
+  overflow: auto;
 }
 
 .question-index .question-body{
-  height: 250px;
-  overflow: scroll;
+  //height: 250px;
+  //overflow: scroll;
   background-color: white;
 }
