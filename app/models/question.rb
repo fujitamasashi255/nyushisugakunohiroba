@@ -38,6 +38,11 @@ class Question < ApplicationRecord
     end
   end
 
+  def university
+    # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
+    departments[0].university if departments[0].present?
+  end
+
   private
 
   # questionのdepartmentが少なくとも1つはあること

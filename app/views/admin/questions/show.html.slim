@@ -21,7 +21,7 @@
       .container
         .row
           .py-1.col.rounded.border.text-center.bg-white
-            = @university.name
+            = @question.university.name
           .py-1.col-4
             = University.model_name.human
     / 区分
@@ -30,15 +30,17 @@
         .row
           label
             = Department.model_name.human
-        .row
-          = render "admin/departments/departments", departments: @departments
+        -if @question.departments.present?
+          .row
+            = render "admin/departments/departments", departments: @question.departments
   .py-3
   / 単元
   .row
     label
       = Unit.model_name.human
-  .row
-    = render "admin/units/units", units: @units
+  - if @question.units.present?
+    .row
+      = render "admin/units/units", units: @question.units
 
   .py-3
 

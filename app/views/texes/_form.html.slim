@@ -4,7 +4,7 @@ label.form-group
   .row
     / 問題文のtexコード
     .col-6
-      = f.simple_fields_for :tex do |t|
+      = f.simple_fields_for tex do |t|
         = t.input :code, input_html: { style: "min-height: 500px", id: "tex-code"}
         = t.input_field :pdf_blob_signed_id, id: "pdf_blob_signed_id", type: "hidden"
 

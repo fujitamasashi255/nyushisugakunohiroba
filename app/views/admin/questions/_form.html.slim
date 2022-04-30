@@ -15,7 +15,7 @@
         / 大学名ドロップダウンボタン
         .input-group.university-radio-buttons
           button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-            = university.name if university.present?
+            = question.university.name if question.university.present?
           / 大学名ドロップダウンメニュー
           .dropdown-menu.col-2.dropdown-menu-right[style="min-width: 700px"]
             .row.m-3
@@ -32,6 +32,7 @@
     .row
       .col.border.p-3[style="min-height: 4rem"]
         / 区分名チェックボックス
+        - checkbox_departments = question.university.blank? ? [] : question.university.departments
         .department-check-box-group
           = f.collection_check_boxes :department_ids, checkbox_departments, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
             = b.check_box(class: 'form-check-input')
@@ -49,14 +50,13 @@
     .row
       .unit-check-box-group.col.border.p-3
         / subujectごとにunitのチェックボックスを表示する
-        - Unit.subjects.each do |subject|
+        - Unit.subjects.each do |sub|
           .container
             label.row
-              = subject
+              = sub
             .row
               / unitsはsubjectごとのunitの配列
-              - units = Unit.where(subject: subject)
-              = f.collection_check_boxes :unit_ids, units, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+              = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
                 = b.check_box(class: 'form-check-input')
                 = b.label(class: 'form-check-label')
             .py-2
@@ -65,7 +65,7 @@
 
   /tex
   .container
-    = render "texes/form", {f: f, tex: tex}
+    = render "texes/form", {f: f, tex: question.tex || Tex.new}
 
   .py-3
 

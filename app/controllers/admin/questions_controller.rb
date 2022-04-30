@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Admin::QuestionsController < Admin::ApplicationController
+  before_action :set_question_association_without_tex, only: %i[show]
+  before_action :set_question_association_without_image, only: %i[edit]
   before_action :set_question, only: %i[update destroy]
-  before_action :set_objects, only: %i[show edit]
 
   def index
     @pagy, @questions = pagy(Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators))
@@ -10,10 +11,6 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def new
     @question = Question.new
-    @departments = @question.departments
-    @units = @question.units
-    @tex = @question.build_tex
-    set_checkbox_departments
   end
 
   def create
@@ -60,11 +57,11 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def other_params
-    params.require(:question).permit(tex_attributes: %i[code pdf_blob_signed_id id _destroy], department_ids: [], unit_ids: [])
+    params.require(:question).permit(tex: %i[code pdf_blob_signed_id id _destroy], department_ids: [], unit_ids: [])
   end
 
   def tex_params
-    other_params[:tex_attributes]
+    other_params[:tex]
   end
 
   def department_params_ids
@@ -76,7 +73,15 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def set_question
-    @question = Question.find(params[:id])
+    Question.find(params[:id])
+  end
+
+  def set_question_association_without_tex
+    @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
+  end
+
+  def set_question_association_without_image
+    @question = Question.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
   end
 
   def set_depts_units_univ_association_from_params
@@ -86,26 +91,10 @@ class Admin::QuestionsController < Admin::ApplicationController
     # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
     @university = @departments[0].university if @departments.present?
     @question.units_to_association(@units)
-    set_checkbox_departments
-  end
-
-  def set_objects
-    @question = Question.find(params[:id])
-    @departments = @question.departments.includes(:university)
-    # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
-    @university = @departments[0].university
-    @units = @question.units
-    @tex = @question.tex
-    set_checkbox_departments
   end
 
   # @tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする
   def attach_question_image
     @question.image.attach(@tex.pdf_to_img_blob.signed_id) if @tex.pdf.present?
-  end
-
-  # views/admin/questions/_form のチェックボックス選択肢の区分を取得
-  def set_checkbox_departments
-    @checkbox_departments = @university.blank? ? [] : @university.departments
   end
 end
