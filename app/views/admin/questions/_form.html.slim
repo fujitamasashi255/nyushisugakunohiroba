@@ -54,7 +54,7 @@
             label.row
               = subject
             .row
-              / units:subjectごとのunitの配列
+              / unitsはsubjectごとのunitの配列
               - units = Unit.where(subject: subject)
               = f.collection_check_boxes :unit_ids, units, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
                 = b.check_box(class: 'form-check-input')
