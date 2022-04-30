@@ -1,0 +1,31 @@
+- university = question.departments[0].university if question.departments.present?
+
+.col-4.question-card.bg-secondary.border
+  / カードの上部分
+  .container
+    .py-2
+    .row.university-info
+      .col
+        span.mr-2
+          | #{question.set_year} 年 #{university&.name} #{University.model_name.human}
+        small
+          = render "admin/departments/departments", departments: question.departments
+    .py-2
+    .row.unit-info
+      small
+        = render "admin/units/units", units: question.units
+
+    .py-1
+
+  / カードの下部分
+  .container
+    / 問題文画像
+    .row
+      .col.question-body.border
+        - if question.image.present?
+          = image_tag question.image, class: "bg-white p-3", width: "100%"
+    .py-1
+    .row
+      = link_to t("common.edit"), edit_admin_question_path(question), class: "btn btn-primary", role: "button"
+      = link_to t("common.destroy"), admin_question_path(question), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+    .py-1

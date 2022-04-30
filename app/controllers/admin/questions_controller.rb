@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class Admin::QuestionsController < Admin::ApplicationController
-  require "vips"
-  require "image_processing/vips"
-
   before_action :set_question, only: %i[update destroy]
   before_action :set_objects, only: %i[show edit]
 
-  def index; end
+  def index
+    @pagy, @questions = pagy(Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators))
+  end
 
   def new
     @question = Question.new
@@ -84,6 +83,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     @departments = Department.includes(:university).find(department_params_ids)
     @units = Unit.find(unit_params_ids)
     @question.departments = @departments
+    # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
     @university = @departments[0].university if @departments.present?
     @question.units_to_association(@units)
     set_checkbox_departments
@@ -92,6 +92,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   def set_objects
     @question = Question.find(params[:id])
     @departments = @question.departments.includes(:university)
+    # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
     @university = @departments[0].university
     @units = @question.units
     @tex = @question.tex

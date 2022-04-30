@@ -25,7 +25,7 @@ h1
           = Question.model_name.human
         ul.nav.nav-treeview
           / 一覧
-          = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "index", item_name: t("common.index"), link: "#"}
+          = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "index", item_name: t("common.index"), link: admin_questions_path}
           / 作成
           = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "new", item_name: t("common.create"), link: new_admin_question_path}
 
