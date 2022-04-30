@@ -3,10 +3,7 @@ tr
     = university.name
   td.align-middle.departments
     - if university.departments.present?
-      small
-        - university.departments.each do |department|
-          span.p-2.rounded.border.text-center.bg-white.department-name
-            = department.name
+      = render "admin/departments/departments", departments: university.departments
   td.align-middle[style="width:25%"]
     = link_to t("common.edit"), edit_admin_university_path(university), class: "btn btn-primary", role: "button"
     = link_to t("common.destroy"), admin_university_path(university), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }

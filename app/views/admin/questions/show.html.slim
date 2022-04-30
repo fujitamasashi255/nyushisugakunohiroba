@@ -31,18 +31,14 @@
           label
             = Department.model_name.human
         .row
-          - @departments.each do |department|
-            .col.py-1.mr-2.rounded.border.text-center.bg-white
-              = department.name
+          = render "admin/departments/departments", departments: @departments
   .py-3
   / 単元
   .row
     label
       = Unit.model_name.human
   .row
-    - @units.each do |unit|
-      .col-3.py-1.mr-2.mb-2.rounded.border.text-center.bg-white
-        = unit.name
+    = render "admin/units/units", units: @units
 
   .py-3
 

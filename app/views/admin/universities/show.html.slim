@@ -15,7 +15,7 @@
   label.row.ml-1
     = Department.human_attribute_name(:name)
   .container.ml-1
-    = render @departments
+    = render "admin/departments/departments", departments: @departments
 
 
 .py-3
