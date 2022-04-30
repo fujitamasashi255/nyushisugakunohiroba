@@ -23,7 +23,11 @@ class Tex < ApplicationRecord
   attribute :code, :text, default: Settings.tex_default_code
 
   def attach_pdf
-    pdf.attach(pdf_blob_signed_id) if pdf_blob_signed_id?
+    if pdf_blob_signed_id?
+      pdf.attach(pdf_blob_signed_id)
+    elsif pdf.attached?
+      pdf.purge
+    end
   end
 
   # texオブジェクトに対し、そのpdfをpngに変換し余白を取り除いたファイルのblobを返す

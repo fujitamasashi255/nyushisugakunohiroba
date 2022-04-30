@@ -15,11 +15,11 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def create
     @question = Question.new(question_params)
-    set_depts_units_univ_association_from_params
+    set_depts_units_association_from_params
     @tex = @question.build_tex(tex_params)
     @tex.attach_pdf
     if @question.save
-      attach_question_image
+      @question.attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.create")
     else
       flash.now[:danger] = t("flashes.question.fail.create")
@@ -32,12 +32,12 @@ class Admin::QuestionsController < Admin::ApplicationController
   def edit; end
 
   def update
-    set_depts_units_univ_association_from_params
+    set_depts_units_association_from_params
     @tex = @question.tex
     @tex.update(tex_params)
     @tex.attach_pdf
     if @question.update(question_params)
-      attach_question_image
+      @question.attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.update")
     else
       flash.now[:danger] = t("flashes.question.fail.update")
@@ -73,7 +73,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def set_question
-    Question.find(params[:id])
+    @question = Question.find(params[:id])
   end
 
   def set_question_association_without_tex
@@ -84,17 +84,8 @@ class Admin::QuestionsController < Admin::ApplicationController
     @question = Question.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
   end
 
-  def set_depts_units_univ_association_from_params
-    @departments = Department.includes(:university).find(department_params_ids)
-    @units = Unit.find(unit_params_ids)
-    @question.departments = @departments
-    # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
-    @university = @departments[0].university if @departments.present?
-    @question.units_to_association(@units)
-  end
-
-  # @tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする
-  def attach_question_image
-    @question.image.attach(@tex.pdf_to_img_blob.signed_id) if @tex.pdf.present?
+  def set_depts_units_association_from_params
+    @question.departments = Department.includes(:university).find(department_params_ids)
+    @question.units_to_association(Unit.find(unit_params_ids))
   end
 end
