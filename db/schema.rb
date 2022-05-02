@@ -52,8 +52,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_093304) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.integer "set_year", null: false
-    t.integer "number", null: false
+    t.integer "year", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -61,6 +60,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_093304) do
   create_table "questions_departments_mediators", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.bigint "department_id", null: false
+    t.integer "question_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_questions_departments_mediators_on_department_id"

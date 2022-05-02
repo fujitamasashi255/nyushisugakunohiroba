@@ -5,14 +5,12 @@
 # Table name: questions
 #
 #  id         :bigint           not null, primary key
-#  number     :integer          not null
-#  set_year   :integer          not null
+#  year       :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class Question < ApplicationRecord
-  validates :number, presence: true
-  validates :set_year, presence: true
+  validates :year, presence: true
   validate :departments_belong_to_same_university?
   validate :department?
 
