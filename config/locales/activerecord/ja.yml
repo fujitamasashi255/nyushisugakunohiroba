@@ -33,8 +33,10 @@ ja:
         name: "区分名"
       question:
         number: "大問番号"
-        set_year: "出題年"
+        year: "出題年"
         image: "問題文"
+      questions_departments_mediator:
+        question_number: "問題番号"
       tex:
         code: "texコード"
         pdf: "コンパイル結果"
