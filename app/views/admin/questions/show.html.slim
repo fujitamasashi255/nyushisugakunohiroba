@@ -2,18 +2,12 @@
 
 .container
   .row
-    / 問題番号
-    .col-2
-      label
-        = Question.human_attribute_name(:number)
-      .py-1.rounded.border.text-center.bg-white.university-name
-          = @question.number
     / 出題年
     .col-2
       label
-        = Question.human_attribute_name(:set_year)
+        = Question.human_attribute_name(:year)
       .py-1.rounded.border.text-center.bg-white
-          = @question.set_year
+          = @question.year
     / 出題大学
     .col-3
       label
@@ -32,7 +26,7 @@
             = Department.model_name.human
         -if @question.departments.present?
           .row
-            = render "admin/departments/departments", departments: @question.departments
+            = render "admin/departments/departments", {departments: @question.departments, question: @question}
   .py-3
   / 単元
   .row

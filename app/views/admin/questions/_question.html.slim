@@ -5,9 +5,9 @@
     .row.university-info
       .col.d-flex.align-items-center
         span.d-block
-          | #{question.set_year} 年 #{question.university.name} #{University.model_name.human}
+          | #{question.year} 年 #{question.university.name} #{University.model_name.human}
         small
-          = render "admin/departments/departments", departments: question.departments
+          = render "admin/departments/departments", {departments: question.departments, question: question}
         span.d-block.ml-auto
           = link_to t("common.edit"), edit_admin_question_path(question), class: "btn btn-primary", role: "button"
           = link_to t("common.destroy"), admin_question_path(question), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
