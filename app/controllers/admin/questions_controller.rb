@@ -52,8 +52,10 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   private
 
+  # params
+
   def question_params
-    params.require(:question).permit(:number, :set_year)
+    params.require(:question).permit(:year)
   end
 
   def other_params
@@ -64,6 +66,10 @@ class Admin::QuestionsController < Admin::ApplicationController
     other_params[:tex]
   end
 
+  def questions_departments_mediator_params
+    params.require(:question).permit(department: [questions_departments_mediator: [:question_number]])
+  end
+
   def department_params_ids
     other_params[:department_ids].reject(&:blank?)
   end
@@ -71,6 +77,8 @@ class Admin::QuestionsController < Admin::ApplicationController
   def unit_params_ids
     other_params[:unit_ids].reject(&:blank?)
   end
+
+  # set objects
 
   def set_question
     @question = Question.find(params[:id])
@@ -81,11 +89,20 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def set_question_association_without_image
-    @question = Question.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
+    @question = Question.includes({ departments: [:university, :questions_departments_mediators] }, :questions_units_mediators).find(params[:id])
   end
 
   def set_depts_units_association_from_params
-    @question.departments = Department.includes(:university).find(department_params_ids)
+    # unitの関連を設定
     @question.units_to_association(Unit.find(unit_params_ids))
+    # DBの@questionと関連するQuestionsDepartmentsMediatorレコードを削除する
+    @question.questions_departments_mediators.destroy_all if @question.questions_departments_mediators.exists?
+
+    # paramsから@questionと関連するQuestionsDepartmentsMediatorレコードを作成（未保存）
+    return if questions_departments_mediator_params.blank?
+
+    questions_departments_mediator_params[:department][:questions_departments_mediator].each do |key, value|
+      @question.questions_departments_mediators.new(department_id: key, question_number: value[:question_number].to_i)
+    end
   end
 end

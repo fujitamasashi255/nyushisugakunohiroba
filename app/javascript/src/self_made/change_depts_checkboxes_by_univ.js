@@ -1,15 +1,36 @@
 // called from views/admin/questions/new, edit
 
+// 関数を定義
+
 // チェックボックスの内容を置き換えるメソッド
 var replaceDepartmentCheckBoxes = function(departmentCheckBoxGroup, departmentsData){
   departmentCheckBoxGroup.children('div').remove();
   $.each(departmentsData, function(){
-    var span = $('<div>', {class: 'form-check-inline'}).appendTo(departmentCheckBoxGroup);
-    span.append($('<input>', {type: 'checkbox', value: `${this.id}`, name:'question[department_ids][]', id: `question_department_ids_${this.id}`, class: 'form-check-input'}))
-      .append($('<label>', {class: 'collection_check_boxes form-check-label', for: `question_department_ids_${this.id}`, text: this.name}));
+    var wrapper = $('<div>', {class: 'form-inline mb-3 department-question-number-group'}).appendTo(departmentCheckBoxGroup);
+    var radioButton = $('<div>', {class: 'form-check'}).appendTo(wrapper);
+    radioButton.append($('<input>', {type: 'checkbox', value: `${this.id}`, name:'question[department_ids][]', id: `question_department_ids_${this.id}`, class: 'form-check-input'}))
+      .append($('<label>', {class: 'form-check-label py-3', for: `question_department_ids_${this.id}`, text: this.name}));
   });
 }
 
+// チェックされたチェックボックスの横にセレクトボックスを挿入する
+var insertSelectBox = function(checked_id, insertElement){
+  var selectWrapper = $('<div>', {class: "form-group question-number-selectbox"});
+  var selectLabel = $('<label>', {text: "問題番号", class: "string optional ml-4 col-form-label", for: `question_department_questions_departments_mediator__${checked_id}_question_number`});
+  var selectBox = $('<select>', {class: "select optional form-control ml-2", name: `question[department[questions_departments_mediator]][${checked_id}][question_number]`, id: `question_department_questions_departments_mediator__${checked_id}_question_number`});
+  for(var i=1;i<=20;i++){
+    selectBox.append($('<option>', {value: i, text: i}));
+  }
+  insertElement.append(selectWrapper.append(selectLabel).append(selectBox));
+}
+
+// チェックされたチェックボックスの横にセレクトボックスがあればそれを削除する
+var deleteSelectBox = function(parentElement){
+  parentElement.find('.question-number-selectbox').remove();
+}
+
+
+// イベント時の処理を定義
 $(function(){
   // 大学選択のラジオボタンが押されたら
   $('.university-radio-buttons input[type="radio"]').on("click", function(){
@@ -33,5 +54,18 @@ $(function(){
     }else{
       replaceDepartmentCheckBoxes(departmentCheckBoxGroup, []);
     }
+  });
+
+  // 区分のチェックボックスがチェックされたら
+  $(document).on('change', '.department-check-box-group input[type="checkbox"]', function(){
+    var unCheckedBoxes = $('.department-check-box-group input[type="checkbox"]:not(:checked)');
+    unCheckedBoxes.each(function(){
+      deleteSelectBox($(this).parents('.department-question-number-group'));
+    });
+
+    var checkedBoxes = $('.department-check-box-group input[type="checkbox"]:checked');
+    checkedBoxes.each(function(){
+      insertSelectBox($(this).val(), $(this).parents('.department-question-number-group:not(:has(select))'));
+    });
   });
 });
