@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :department_check_boxes, only: %i[index]
     end
     resources :questions
+    resource :search_questions_form, only: %i[show]
   end
 
   resource :compile, only: %i[create]

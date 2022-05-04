@@ -1,0 +1,48 @@
+.container
+  = simple_form_for search_questions_form, url: admin_search_questions_form_path, method: :get do |f|
+    / 出題年範囲選択
+    .row
+      .col-sm-2.col-form-label
+        label
+        = Question.human_attribute_name(:year)
+      .col-sm-10
+        .form-inline
+          = f.input_field :start_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control mr-1"
+          span.mr-2
+            = t("common.year")
+          | 〜
+          = f.input_field :end_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control ml-2 mr-1"
+          span
+            = t("common.year")
+
+    .py-2
+
+    / 大学選択
+    .row
+      .col-sm-2.form-check-label
+        label
+        = University.model_name.human
+      .col-sm-10
+        = f.collection_check_boxes :university_ids, University.all, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline align-items-center' do |b|
+          = b.check_box(class: 'form-check-input')
+          = b.label(class: 'form-check-label')
+
+    .py-2
+
+    / 単元選択
+    .row
+      .col-sm-2.form-check-label
+        = Unit.model_name.human
+      .col-sm-10
+        - Unit.subjects.each do |sub|
+            .container
+              label.row
+                = sub
+              .row
+                / unitsはsubjectごとのunitの配列
+                = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+                  = b.check_box(class: 'form-check-input')
+                  = b.label(class: 'form-check-label')
+              .py-2
+    .row
+      = f.button :submit, class: "btn-primary"

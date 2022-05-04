@@ -21,6 +21,10 @@ class Question < ApplicationRecord
   has_one_attached :image
   accepts_nested_attributes_for :tex, reject_if: :all_blank
 
+  scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
+  scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
+  scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).select("questions.*").distinct }
+
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))
   end
@@ -37,8 +41,8 @@ class Question < ApplicationRecord
   end
 
   def university
-    # departmentsのdepartmentがbelongs_toしている大学は同じで、それを取得する
-    departments[0].university if departments[0].present?
+    # questions_departments_mediatorsのオブジェクトがbelongs_toしているdepartmentは同じなので、それを取得し、その大学を返す
+    questions_departments_mediators[0].department.university if departments[0].present?
   end
 
   # tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする

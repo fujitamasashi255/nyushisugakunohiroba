@@ -1,5 +1,12 @@
 - content_for(:title, t('.title'))
 
+.container.border.p-3
+  h3
+    = t(".search")
+  = render "admin/questions/search_form", search_questions_form: @search_questions_form
+
+.py-3
+
 .container.question-index
   .row
     = render @questions
