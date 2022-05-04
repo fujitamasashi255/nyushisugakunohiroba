@@ -5,7 +5,7 @@
     .row
       /出題年
       .col-3
-        = f.input :year, collection: 1980..Time.current.year, selected: Time.current.year
+        = f.input :year, collection: 1980..Time.current.year, include_blank: false
 
       / 大学名
       .col-6
@@ -19,7 +19,7 @@
           / 大学名ドロップダウンメニュー
           .dropdown-menu.col-2.dropdown-menu-left[style="min-width: 700px"]
             .row.m-3
-              = render partial: "admin/shared/university_radio_button", collection: University.all, as: :university
+              = render partial: "admin/universities/university_radio_button", collection: University.all, as: :university
           .input-group-append
             span.input-group-text
               = University.model_name.human

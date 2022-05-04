@@ -5,7 +5,12 @@
     .row.university-info
       .col.d-flex.align-items-center
         span.d-block
-          | #{question.year} 年 #{question.university.name} #{University.model_name.human}
+          span
+            = question.year
+            = t("common.year")
+          span.ml-1
+            = question.university.name
+            = University.model_name.human
         small
           = render "admin/departments/departments", {departments: question.departments, question: question}
         span.d-block.ml-auto

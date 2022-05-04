@@ -10,6 +10,8 @@ ja:
     univs_depts: "大学・区分"
     compile: "コンパイルする"
     compiling: "コンパイル中"
+    select_blank: "未選択"
+    year: "年"
 
   messages:
     delete_confirm: "本当に削除しますか"
@@ -44,6 +46,8 @@ ja:
       tex:
         create: "コンパイルする"
         update: "コンパイルする"
+      search_questions_form:
+        create: "検索する"
 
   cocoon:
     departments:
