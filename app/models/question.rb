@@ -21,6 +21,7 @@ class Question < ApplicationRecord
   has_one_attached :image
   accepts_nested_attributes_for :tex, reject_if: :all_blank
 
+  default_scope { order(year: :desc) }
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
   scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).select("questions.*").distinct }
