@@ -18,7 +18,9 @@
 
 / 検索条件を表示
 .container
-  = @search_questions_form.display_conditions
+  .row
+    .col
+      | #{@search_questions_form.display_search_conditions}
 
 .py-3
 

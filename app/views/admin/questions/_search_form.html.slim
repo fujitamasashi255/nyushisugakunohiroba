@@ -7,11 +7,11 @@
         = Question.human_attribute_name(:year)
       .col-sm-10
         .form-inline
-          = f.input_field :start_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control mr-1"
+          = f.input_field :start_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control mr-1", selected: nil
           span.mr-2
             = t("common.year")
           | 〜
-          = f.input_field :end_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control ml-2 mr-1"
+          = f.input_field :end_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control ml-2 mr-1", selected: nil
           span
             = t("common.year")
 
@@ -49,5 +49,18 @@
                   = b.check_box(class: 'form-check-input')
                   = b.label(class: 'form-check-label')
               .py-2
+
+    / 並び順
+    .row.search-form-sort
+      .col-sm-2.form-check-label
+        = t("common.sort")
+      .col
+        = f.collection_radio_buttons :sort_type, SearchQuestionsForm::SORT_TYPES_ENUM.to_a, :last, :first, checked: SearchQuestionsForm::SORT_TYPES_ENUM[:year_new], item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+          = b.radio_button(class: 'form-check-input')
+          = b.label(class: 'form-check-label'){ t("common.sort_type.#{b.text}") }
+
+    .py-2
+
+    / 検索ボタン
     .row
       = f.button :submit, class: "btn-primary"

@@ -10,6 +10,6 @@ class Admin::SearchQuestionsFormsController < Admin::ApplicationController
   private
 
   def search_form_params
-    params.require(:search_questions_form).permit(:start_year, :end_year, university_ids: [], unit_ids: [])
+    params.require(:search_questions_form).permit(:start_year, :end_year, :sort_type, university_ids: [], unit_ids: [])
   end
 end

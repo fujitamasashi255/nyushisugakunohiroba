@@ -13,6 +13,10 @@ ja:
     select_blank: "未選択"
     year: "年"
     specify_search_conditions: "検索条件を指定する"
+    sort: "並び順"
+    sort_type:
+      year_new: "出題年が新しい順"
+      created_at_new: "作成日が新しい順"
 
   messages:
     delete_confirm: "本当に削除しますか"
