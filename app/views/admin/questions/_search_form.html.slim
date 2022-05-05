@@ -1,7 +1,7 @@
 .container
   = simple_form_for search_questions_form, url: admin_search_questions_form_path, method: :get do |f|
     / 出題年範囲選択
-    .row
+    .row.search-form-years
       .col-sm-2.col-form-label
         label
         = Question.human_attribute_name(:year)
@@ -18,19 +18,24 @@
     .py-2
 
     / 大学選択
-    .row
-      .col-sm-2.form-check-label
-        label
+    .row.search-form-universities
+      .col-sm-2.col-form-label
         = University.model_name.human
-      .col-sm-10
-        = f.collection_check_boxes :university_ids, University.all, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline align-items-center' do |b|
-          = b.check_box(class: 'form-check-input')
-          = b.label(class: 'form-check-label')
+      .col-6
+        /ドロップダウンボタン
+        button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+        / ドロップダウンメニュー
+        .dropdown-menu.dropdown-menu-left.p-3[style="min-width: 700px"]
+          .container
+            .row
+              = f.collection_check_boxes :university_ids, University.all, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-2' do |b|
+                  = b.check_box(class: 'form-check-input')
+                  = b.label(class: 'form-check-label')
 
     .py-2
 
     / 単元選択
-    .row
+    .row.search-form-units
       .col-sm-2.form-check-label
         = Unit.model_name.human
       .col-sm-10
