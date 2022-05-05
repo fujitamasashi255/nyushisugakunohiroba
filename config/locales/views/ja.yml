@@ -12,6 +12,7 @@ ja:
     compiling: "コンパイル中"
     select_blank: "未選択"
     year: "年"
+    specify_search_conditions: "検索条件を指定する"
 
   messages:
     delete_confirm: "本当に削除しますか"
