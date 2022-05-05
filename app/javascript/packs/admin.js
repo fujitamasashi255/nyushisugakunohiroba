@@ -7,8 +7,9 @@ require("@nathanvda/cocoon")
 import "@fortawesome/fontawesome-free/js/all.min"
 import "bootstrap"
 import "admin-lte"
-import "src/self_made/change_depts_checkboxes_by_univ"
-import "src/self_made/tex-compile"
+import "src/self_made/ChangeDeptsCheckBoxesByUniv"
+import "src/self_made/TexCompile"
+import "src/self_made/AdminQuestionsIndex"
 
 
 import "../stylesheets/admin.scss"
