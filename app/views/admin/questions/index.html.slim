@@ -16,6 +16,12 @@
 
 .py-3
 
+/ 検索条件を表示
+.container
+  = @search_questions_form.display_conditions
+
+.py-3
+
 / 問題一覧
 - if @questions.present?
   .container.question-index.border.p-3
