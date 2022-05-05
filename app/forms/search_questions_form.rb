@@ -15,7 +15,7 @@ class SearchQuestionsForm
   def search
     # 条件表示の変数
     @search_conditions = []
-    @sort_condition = "出題年が新しい"
+    @sort_condition = I18n.t("common.sort_type.year_new")
 
     university_ids_no_blank = university_ids&.reject(&:blank?)
     unit_ids_no_blank = unit_ids&.reject(&:blank?)
@@ -25,29 +25,29 @@ class SearchQuestionsForm
     # 大学名によるquestionの絞り込み
     if university_ids_no_blank.present?
       relation = relation.by_university_ids(university_ids)
-      @search_conditions << "大学「#{University.find(university_ids_no_blank).pluck(:name).join('、')}」"
+      @search_conditions << "#{University.model_name.human}「#{University.find(university_ids_no_blank).pluck(:name).join('、')}」"
     end
 
     # 出題年によるquestionの絞り込み
     if start_year.present? & end_year.present?
       relation = relation.by_year(start_year, end_year)
-      @search_conditions << "出題年「#{start_year} 年 〜 #{end_year} 年」"
+      @search_conditions << "#{Question.human_attribute_name(:year)}「#{start_year} 年 〜 #{end_year} 年」"
     end
 
     # 単元によるquestionの絞り込み
     if unit_ids_no_blank.present?
       relation = relation.by_unit_ids(unit_ids)
-      @search_conditions << "単元「#{Unit.find(unit_ids_no_blank).pluck(:name).join('、')}」"
+      @search_conditions << "#{Unit.model_name.human}「#{Unit.find(unit_ids_no_blank).pluck(:name).join('、')}」"
     end
 
     # 並び替え
     case sort_type
     when SORT_TYPES_ENUM[:year_new]
       relation = relation.order(year: :desc)
-      @sort_condition = "出題年が新しい"
+      @sort_condition = I18n.t("common.sort_type.year_new")
     when SORT_TYPES_ENUM[:created_at_new]
       relation = relation.order(created_at: :desc)
-      @sort_condition = "作成日が新しい"
+      @sort_condition = I18n.t("common.sort_type.created_at_new")
     end
 
     relation
@@ -55,9 +55,9 @@ class SearchQuestionsForm
 
   def display_search_conditions
     if @search_conditions.present?
-      "#{@search_conditions.join('／')}で検索した結果を#{@sort_condition}順に表示しています。"
+      "#{@search_conditions.join('／')}で検索した結果を、#{@sort_condition}に表示しています。"
     else
-      "全ての問題を#{@sort_condition}順に表示しています。"
+      "全ての問題を#{@sort_condition}に表示しています。"
     end
   end
 end
