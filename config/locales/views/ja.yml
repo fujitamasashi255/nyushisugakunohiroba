@@ -8,18 +8,17 @@ ja:
     site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
-    compile: "コンパイルする"
-    compiling: "コンパイル中"
     select_blank: "未選択"
     year: "年"
     specify_search_conditions: "検索条件を指定する"
     sort: "並び順"
-    sort_type:
-      year_new: "出題年が新しい順"
-      created_at_new: "作成日が新しい順"
 
   messages:
     delete_confirm: "本当に削除しますか"
+    compile:
+      success: "コンパイルに成功しました。"
+      fail: "コンパイルに失敗しました。ログが表示されます。"
+    compiling: "コンパイル中"
 
   flashes:
     university:
@@ -48,9 +47,6 @@ ja:
       question:
         create: "問題を作成する"
         update: "問題を更新する"
-      tex:
-        create: "コンパイルする"
-        update: "コンパイルする"
       search_questions_form:
         create: "検索する"
 
@@ -92,3 +88,5 @@ ja:
       index:
         title: "問題一覧"
         search: "問題検索"
+  compile:
+    create: "コンパイルする"

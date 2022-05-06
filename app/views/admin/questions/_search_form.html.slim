@@ -57,7 +57,7 @@
       .col
         = f.collection_radio_buttons :sort_type, SearchQuestionsForm::SORT_TYPES_ENUM.to_a, :last, :first, checked: SearchQuestionsForm::SORT_TYPES_ENUM[:year_new], item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
           = b.radio_button(class: 'form-check-input')
-          = b.label(class: 'form-check-label'){ t("common.sort_type.#{b.text}") }
+          = b.label(class: 'form-check-label'){ t("activemodel.attributes.search_questions_form.sort_type.#{b.text}") }
 
     .py-2
 

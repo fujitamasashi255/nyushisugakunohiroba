@@ -12,11 +12,14 @@ class SearchQuestionsForm
   attribute :unit_ids
   attribute :sort_type, :integer, default: -> { SORT_TYPES_ENUM[:year_new] }
 
-  def search
+  def initialize(params = {})
     # 条件表示の変数
     @search_conditions = []
-    @sort_condition = I18n.t("common.sort_type.year_new")
+    @sort_condition = I18n.t("activemodel.attributes.search_questions_form.sort_type.year_new")
+    super(params)
+  end
 
+  def search
     university_ids_no_blank = university_ids&.reject(&:blank?)
     unit_ids_no_blank = unit_ids&.reject(&:blank?)
 
@@ -44,20 +47,20 @@ class SearchQuestionsForm
     case sort_type
     when SORT_TYPES_ENUM[:year_new]
       relation = relation.order(year: :desc)
-      @sort_condition = I18n.t("common.sort_type.year_new")
+      @sort_condition = I18n.t("activemodel.attributes.search_questions_form.sort_type.year_new")
     when SORT_TYPES_ENUM[:created_at_new]
       relation = relation.order(created_at: :desc)
-      @sort_condition = I18n.t("common.sort_type.created_at_new")
+      @sort_condition = I18n.t("activemodel.attributes.search_questions_form.sort_type.created_at_new")
     end
 
     relation
   end
 
-  def display_search_conditions
+  def display_conditions
     if @search_conditions.present?
-      "#{@search_conditions.join('／')}で検索した結果を、#{@sort_condition}に表示しています。"
+      I18n.t("activemodel.methods.search_questions_form.display_conditions.with_search_conditions", search_conditions: @search_conditions.join("／"), sort_condition: @sort_condition)
     else
-      "全ての問題を#{@sort_condition}に表示しています。"
+      I18n.t("activemodel.methods.search_questions_form.display_conditions.without_search_conditions", sort_condition: @sort_condition)
     end
   end
 end

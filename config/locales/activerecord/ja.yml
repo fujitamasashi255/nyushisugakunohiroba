@@ -3,6 +3,16 @@ ja:
   activemodel:
     models:
       unit: "単元"
+    attributes:
+      search_questions_form:
+        sort_type:
+          year_new: "出題年が新しい"
+          created_at_new: "作成日が新しい"
+    methods:
+      search_questions_form:
+        display_conditions:
+          with_search_conditions: "%{search_conditions}で検索した結果を、%{sort_condition}順に表示しています。"
+          without_search_conditions: "すべての問題を、%{sort_condition}順に表示しています。"
 
   # Active Record
   activerecord:
