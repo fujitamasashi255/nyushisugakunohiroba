@@ -61,6 +61,9 @@ gem "ruby-vips"
 # 定数管理
 gem "config"
 
+# cronを設定
+gem "whenever", require: false
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
