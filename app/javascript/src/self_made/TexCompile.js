@@ -1,5 +1,7 @@
 // called from views/texes/_form
 
+import { t } from "../../packs/admin";
+
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){
   $('<iframe>', {type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
@@ -12,21 +14,19 @@ var renderLogText = function(logText, renderElement){
 
 // 「コンパイル中」ボタンにする
 var disabledButton = function(button){
-  button.addClass("disabled").empty().text("コンパイル中");
+  button.addClass("disabled").empty().text(t("messages.compiling"));
   var disabledDisplay = $('<span>', {class: "spinner-border spinner-border-sm mr-1", role: "status", aria: {hidden: "true"}});
   button.prepend(disabledDisplay);
 }
 
 // 「コンパイルする」ボタンに戻す
 var replacewithNewButton = function(button, path, signedId){
-  var newButton = $('<button>', {class: "btn btn-primary", id: "compile-button", type: "button"}).attr('data-compile-path', path).text("コンパイルする");
+  var newButton = $('<button>', {class: "btn btn-primary", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("compile.create"));
   button.replaceWith(newButton)
   if(signedId){
-    console.log("成功");
-    $('<span>', {id: "compile-message", class: "text-success col d-flex align-items-center"}).text("コンパイルに成功しました。").insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-success col d-flex align-items-center"}).text(t("messages.compile.success")).insertAfter(newButton);
   }else{
-    console.log("失敗");
-    $('<span>', {id: "compile-message", class: "text-danger col d-flex align-items-center"}).text("コンパイルに失敗しました。ログが表示されます。").insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-danger col d-flex align-items-center"}).text(t("messages.compile.fail")).insertAfter(newButton);
   }
 }
 

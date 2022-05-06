@@ -1,5 +1,7 @@
 // called from views/admin/questions/new, edit
 
+import { t } from "../../packs/admin";
+
 // 関数を定義
 
 // チェックボックスの内容を置き換えるメソッド
@@ -16,7 +18,7 @@ var replaceDepartmentCheckBoxes = function(departmentCheckBoxGroup, departmentsD
 // チェックされたチェックボックスの横にセレクトボックスを挿入する
 var insertSelectBox = function(checked_id, insertElement){
   var selectWrapper = $('<div>', {class: "form-group question-number-selectbox"});
-  var selectLabel = $('<label>', {text: "問題番号", class: "string optional ml-4 col-form-label", for: `question_department_questions_departments_mediator__${checked_id}_question_number`});
+  var selectLabel = $('<label>', {text: t("activerecord.attributes.questions_departments_mediator.question_number"), class: "string optional ml-4 col-form-label", for: `question_department_questions_departments_mediator__${checked_id}_question_number`});
   var selectBox = $('<select>', {class: "select optional form-control ml-2", name: `question[department[questions_departments_mediator]][${checked_id}][question_number]`, id: `question_department_questions_departments_mediator__${checked_id}_question_number`});
   for(var i=1;i<=20;i++){
     selectBox.append($('<option>', {value: i, text: i}));

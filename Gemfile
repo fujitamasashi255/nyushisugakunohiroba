@@ -41,6 +41,9 @@ gem "ransack"
 # ページネーション
 gem "pagy"
 
+# js の i18n
+gem "i18n-js"
+
 # メール
 gem "net-smtp"
 gem "net-imap"
