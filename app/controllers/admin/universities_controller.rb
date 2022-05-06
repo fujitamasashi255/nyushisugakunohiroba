@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UniversitiesController < Admin::ApplicationController
-  before_action :set_university_and_departments, only: %i[show edit destroy update]
+  before_action :set_university, only: %i[show edit destroy update]
 
   def index
     @q = University.ransack(params[:q])
@@ -11,10 +11,12 @@ class Admin::UniversitiesController < Admin::ApplicationController
   def new
     @university = University.new
     @university.departments.new
+    @prefecture = Prefecture.new
   end
 
   def create
     @university = University.new(university_params)
+    @university.prefecture = Prefecture.find(prefecture_params[:prefecture][:id])
     if @university.save
       redirect_to [:admin, @university], success: t("flashes.university.success.create")
     else
@@ -31,7 +33,9 @@ class Admin::UniversitiesController < Admin::ApplicationController
   end
 
   def update
-    if @university.update(university_params)
+    @university.assign_attributes(university_params)
+    @university.prefecture = Prefecture.find(prefecture_params[:prefecture][:id])
+    if @university.save
       redirect_to [:admin, @university], success: t("flashes.university.success.update")
     else
       flash.now[:danger] = t("flashes.university.fail.update")
@@ -50,8 +54,11 @@ class Admin::UniversitiesController < Admin::ApplicationController
     params.require(:university).permit(:name, departments_attributes: %i[id name _destroy])
   end
 
-  def set_university_and_departments
+  def prefecture_params
+    params.require(:university).permit(prefecture: [:id])
+  end
+
+  def set_university
     @university = University.find(params[:id])
-    @departments = @university.departments
   end
 end

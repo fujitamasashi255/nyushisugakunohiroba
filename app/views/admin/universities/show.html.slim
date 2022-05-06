@@ -1,5 +1,6 @@
 - content_for(:title, t('.title'))
 
+/ 大学名
 .container.university
   label.row.ml-1
     = University.human_attribute_name(:name)
@@ -9,14 +10,23 @@
     .col.p-2
       = University.model_name.human
 
-  .py-3
+.py-3
+
+/ 都道府県
+.container.university
+  label.row.ml-1
+    = Prefecture.model_name.human
+  .row.ml-1
+    .col-6.p-2.rounded.border.text-center.bg-white.university-name
+      = @university.prefecture.name
+
+.py-3
 
 .container.departments
   label.row.ml-1
     = Department.human_attribute_name(:name)
   .container.ml-1
-    = render "admin/departments/departments", departments: @departments
-
+    = render "admin/departments/departments", departments: @university.departments
 
 .py-3
 .container

@@ -14,6 +14,17 @@
 
     .py-3
 
+    / 都道府県登録
+    = f.simple_fields_for :prefecture, f.object.prefecture do |p|
+      .form-group
+        label
+          = Prefecture.model_name.human
+        .input-group.row
+          = p.input :id, collection: Prefecture.all.pluck(:name, :id), label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
+
+    .py-3
+
+    / 区分作成
     .departments
       = f.simple_fields_for :departments do |department|
         = render "department_fields", {f: department, department: department}

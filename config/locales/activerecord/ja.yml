@@ -3,7 +3,10 @@ ja:
   activemodel:
     models:
       unit: "単元"
+      prefecture: "都道府県"
     attributes:
+      prefecture:
+        name: "都道府県名"
       search_questions_form:
         sort_type:
           year_new: "出題年が新しい"
