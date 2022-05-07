@@ -24,13 +24,17 @@
       .col-6
         /ドロップダウンボタン
         button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-        / ドロップダウンメニュー
-        .dropdown-menu.dropdown-menu-left.p-3[style="min-width: 700px"]
-          .container
-            .row
-              = f.collection_check_boxes :university_ids, University.all, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-2' do |b|
-                  = b.check_box(class: 'form-check-input')
-                  = b.label(class: 'form-check-label')
+        / 大学名ドロップダウンメニュー（セレクトボックス ）
+        small.dropdown-menu.dropdown-menu-left.p-3[style="min-width: 700px"]
+          - University.categories.keys.each do |category|
+            .container.my-2
+              .row
+                label
+                  = University.categories_i18n[category]
+              .row
+                = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-2' do |b|
+                    = b.check_box(class: 'form-check-input')
+                    = b.label(class: 'form-check-label')
 
     .py-2
 

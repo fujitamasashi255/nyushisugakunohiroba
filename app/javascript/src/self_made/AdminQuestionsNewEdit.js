@@ -32,14 +32,18 @@ var deleteSelectBox = function(parentElement){
 }
 
 
-// イベント時の処理を定義
+
+// 大学選択時のイベント
 $(function(){
   // 大学選択のラジオボタンが押されたら
   $('.university-radio-buttons input[type="radio"]').on("click", function(){
+    // 押されたラジオボタンのラベル名を取得
+    var univName = $(this).next().text();
     // ラジオボタンで押した大学名をボタンに表示する
-    $('.university-radio-buttons .university-name').text(this.value);
+    $('.university-radio-buttons .dropdown-button').text(univName);
     // 押したラジオボタンの大学の区分を取得するアクションのパス departmentsPath
-    var departmentsPath = this.dataset.departmentsPath;
+    var departmentsPath = $(this).data().departmentsPath;
+    console.log(departmentsPath);
     // 区分を表示する要素 departmentCheckBoxGroup
     var departmentCheckBoxGroup = $('.department-check-box-group')
     if(departmentsPath != null & departmentsPath != undefined){
@@ -58,7 +62,7 @@ $(function(){
     }
   });
 
-  // 区分のチェックボックスがチェックされたら
+  // 区分のチェックボックスがチェック時のイベント
   $(document).on('change', '.department-check-box-group input[type="checkbox"]', function(){
     var unCheckedBoxes = $('.department-check-box-group input[type="checkbox"]:not(:checked)');
     unCheckedBoxes.each(function(){

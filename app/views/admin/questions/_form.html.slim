@@ -14,12 +14,20 @@
 
         / 大学名ドロップダウンボタン
         .input-group.university-radio-buttons
-          button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+          button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle dropdown-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
             = question.university.name if question.university.present?
-          / 大学名ドロップダウンメニュー
-          .dropdown-menu.col-2.dropdown-menu-left[style="min-width: 700px"]
-            .row.m-3
-              = render partial: "admin/universities/university_radio_button", collection: University.all, as: :university
+          / 大学名ドロップダウンメニュー（ラジオボタン ）
+          .dropdown-menu.dropdown-menu-left.p-3[style="min-width: 700px"]
+            - University.categories.keys.each do |category|
+              .container.my-2
+                .row
+                  label
+                    = University.categories_i18n[category]
+                .row
+                  = f.collection_radio_buttons "university", University.where(category: category).pluck(:name, :id), :last, :first, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-2' do |b|
+                    = b.radio_button(class: 'form-check-input', data: { departments_path: "#{admin_university_department_check_boxes_path(b.value)}" })
+                    = b.label(class: 'form-check-label')
+          / ボタンのappendテキスト
           .input-group-append
             span.input-group-text
               = University.model_name.human
