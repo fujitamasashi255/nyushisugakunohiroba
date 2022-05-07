@@ -11,13 +11,20 @@
           span.ml-1
             = question.university.name
             = University.model_name.human
-        small
-          = render "admin/departments/departments", {departments: question.departments, question: question}
         span.d-block.ml-auto
           = link_to t("common.edit"), edit_admin_question_path(question), class: "btn btn-primary", role: "button"
           = link_to t("common.destroy"), admin_question_path(question), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
 
     .py-2
+
+    / 区分一覧
+    .row.department-info
+      small
+        = render "admin/departments/departments", {departments: question.departments, question: question}
+
+    .py-2
+
+    / 単元一覧
     .row.unit-info
       small
         = render "admin/units/units", units: question.units
