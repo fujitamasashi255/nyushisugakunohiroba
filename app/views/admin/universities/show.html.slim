@@ -12,8 +12,18 @@
 
 .py-3
 
+/ カテゴリー
+.container
+  label.row.ml-1
+    = University.human_attribute_name(:category)
+  .row.ml-1
+    .col-6.p-2.rounded.border.text-center.bg-white.university-name
+      = @university.category_i18n
+
+.py-3
+
 / 都道府県
-.container.university
+.container
   label.row.ml-1
     = Prefecture.model_name.human
   .row.ml-1

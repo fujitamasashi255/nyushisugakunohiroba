@@ -3,6 +3,7 @@
 
 .container
   = simple_form_for [:admin, university] do |f|
+    / 大学名
     .form-group
       = f.label :name
       .input-group.row
@@ -14,17 +15,27 @@
 
     .py-3
 
-    / 都道府県登録
+    / カテゴリー
+    .form-group
+      = f.label :category
+    .form-controll
+      = f.collection_radio_buttons :category, University.categories_i18n, :first, :last, checked: :national_or_public, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+        = b.radio_button(class: 'form-check-input')
+        = b.label(class: 'form-check-label')
+
+    .py-3
+
+    / 都道府県
     = f.simple_fields_for :prefecture, f.object.prefecture do |p|
       .form-group
         label
           = Prefecture.model_name.human
         .input-group.row
-          = p.input :id, collection: Prefecture.all.pluck(:name, :id), label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
+          = p.input :id, collection: Prefecture.all.pluck(:name, :id), include_blank: false, label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
 
     .py-3
 
-    / 区分作成
+    / 区分
     .departments
       = f.simple_fields_for :departments do |department|
         = render "department_fields", {f: department, department: department}

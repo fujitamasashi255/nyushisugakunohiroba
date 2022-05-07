@@ -140,6 +140,8 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.9, >= 1.9.1)
+    enum_help (0.0.19)
+      activesupport (>= 3.0.0)
     erubi (1.10.0)
     erubis (2.7.0)
     factory_bot (6.2.1)
@@ -399,6 +401,7 @@ DEPENDENCIES
   cocoon
   config
   debug (>= 1.0.0)
+  enum_help
   factory_bot_rails
   html2slim
   i18n-js

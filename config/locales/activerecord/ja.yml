@@ -38,10 +38,11 @@ ja:
       tex: "Tex"
     attributes:
       university:
-         name: "大学名"
-         [departments_attributes]:
+          name: "大学名"
+          [departments_attributes]:
             [new_departments]:
               name: "区分名"
+          category: "カテゴリー"
       department:
         name: "区分名"
       question:
@@ -53,3 +54,10 @@ ja:
         code: "texコード"
         pdf: "コンパイル結果"
         pdf_blob_signed_id:
+
+  # enum
+  enums:
+    university:
+      category:
+        national_or_public: "国公立"
+        private: "私立"

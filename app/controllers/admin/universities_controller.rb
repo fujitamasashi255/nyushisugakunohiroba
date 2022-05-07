@@ -16,7 +16,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
 
   def create
     @university = University.new(university_params)
-    @university.prefecture = Prefecture.find(prefecture_params[:prefecture][:id])
+    @university.prefecture = Prefecture.find(prefecture_params[:prefecture][:id]) if prefecture_params[:prefecture][:id].present?
     if @university.save
       redirect_to [:admin, @university], success: t("flashes.university.success.create")
     else
@@ -51,7 +51,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
   private
 
   def university_params
-    params.require(:university).permit(:name, departments_attributes: %i[id name _destroy])
+    params.require(:university).permit(:name, :category, departments_attributes: %i[id name _destroy])
   end
 
   def prefecture_params
