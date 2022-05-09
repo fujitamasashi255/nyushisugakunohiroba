@@ -98,5 +98,7 @@ ja:
       index:
         title: "問題一覧"
         search: "問題検索"
+      form:
+        saving: "保存中・・・"
   compile:
     create: "コンパイルする"
