@@ -7,11 +7,4 @@ class Prefecture < ActiveYaml::Base
   set_filename "prefecture"
 
   has_many :universities, dependent: :destroy
-
-  # 科目の配列を取得する
-  scope :subjects, -> { pluck(:subject).uniq }
-
-  def questions
-    Question.find(questions_units_mediators.map(&:question_id))
-  end
 end
