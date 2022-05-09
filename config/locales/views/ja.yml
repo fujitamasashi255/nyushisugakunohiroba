@@ -57,7 +57,7 @@ ja:
       question:
         create: "問題を作成する"
         update: "問題を更新する"
-      search_questions_form:
+      questions_search_form:
         create: "検索する"
 
   cocoon:

@@ -1,5 +1,5 @@
 .container
-  = simple_form_for search_questions_form, url: admin_search_questions_form_path, method: :get do |f|
+  = simple_form_for questions_search_form, url: admin_questions_search_form_path, method: :get do |f|
     / 出題年範囲選択
     .row.search-form-years
       .col-sm-2.col-form-label
@@ -53,15 +53,6 @@
                   = b.check_box(class: 'form-check-input')
                   = b.label(class: 'form-check-label')
               .py-2
-
-    / 並び順
-    .row.search-form-sort
-      .col-sm-2.form-check-label
-        = t("common.sort")
-      .col
-        = f.collection_radio_buttons :sort_type, SearchQuestionsForm::SORT_TYPES_ENUM.to_a, :last, :first, checked: SearchQuestionsForm::SORT_TYPES_ENUM[:year_new], item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
-          = b.radio_button(class: 'form-check-input')
-          = b.label(class: 'form-check-label'){ t("activemodel.attributes.search_questions_form.sort_type.#{b.text}") }
 
     .py-2
 
