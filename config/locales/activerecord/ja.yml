@@ -7,15 +7,13 @@ ja:
     attributes:
       prefecture:
         name: "都道府県名"
-      search_questions_form:
+      questions_search_form:
         sort_type:
-          year_new: "出題年が新しい"
-          created_at_new: "作成日が新しい"
-    methods:
-      search_questions_form:
-        display_conditions:
-          with_search_conditions: "%{search_conditions}で検索した結果を、%{sort_condition}順に表示しています。"
-          without_search_conditions: "すべての問題を、%{sort_condition}順に表示しています。"
+          one: "並び順"
+          year_new: "出題年が新しい順"
+          created_at_new: "作成日が新しい順"
+        search_conditions: "検索条件"
+
 
   # Active Record
   activerecord:
