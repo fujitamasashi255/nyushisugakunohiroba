@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_questions_departments_mediators_on_department_id  (department_id)
-#  index_questions_departments_mediators_on_question_id    (question_id)
+#  index_questions_departments_mediators_on_department_id      (department_id)
+#  index_questions_departments_mediators_on_question_id        (question_id)
+#  index_questions_depts_mediators_on_question_id_and_dept_id  (question_id,department_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -23,6 +24,8 @@
 #
 class QuestionsDepartmentsMediator < ApplicationRecord
   validates :question_number, presence: true
+  # question_idとdepartment_idの組は一意
+  validates :question_id, uniqueness: { scope: :department_id }
 
   belongs_to :question
   belongs_to :department
