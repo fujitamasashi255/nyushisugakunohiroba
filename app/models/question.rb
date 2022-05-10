@@ -13,6 +13,7 @@ class Question < ApplicationRecord
   validates :year, presence: true
   validate :departments_belong_to_same_university?
   validate :questions_departments_mediators?
+  validate :year_dept_number_set_unique?
 
   has_many :questions_departments_mediators, dependent: :destroy
   has_many :departments, through: :questions_departments_mediators
@@ -34,16 +35,29 @@ class Question < ApplicationRecord
     units.pluck(:id)
   end
 
-  def units_to_association(unitz)
+  def units_to_association(unit_idz)
     questions_units_mediators.clear
-    questions_units_mediators << unitz.map do |u|
-      QuestionsUnitsMediator.new(unit_id: u.id)
+    questions_units_mediators << unit_idz.map do |id|
+      QuestionsUnitsMediator.new(unit_id: id)
+    end
+  end
+
+  # questions_departments_mediator_params は { questions_departments_mediator: { dept_id: { question_number: hoge } }, ・・・ } の形のハッシュ
+  def departments_to_association(questions_departments_mediator_params)
+    # DBの question と関連するQuestionsDepartmentsMediatorレコードを削除する
+    departments.destroy_all if questions_departments_mediators.exists?
+
+    return if questions_departments_mediator_params.blank?
+
+    # paramsから@questionと関連するQuestionsDepartmentsMediatorレコードを作成
+    questions_departments_mediator_params[:questions_departments_mediator].each do |key, value|
+      questions_departments_mediators.new(department_id: key, question_number: value[:question_number].to_i)
     end
   end
 
   def university
-    # questions_departments_mediatorsのオブジェクトがbelongs_toしているdepartmentは同じなので、それを取得し、その大学を返す
-    questions_departments_mediators[0].department.university if departments[0].present?
+    # departmentsの要素がbelongs_toしているuniversityは同じなので、それを取得する。
+    departments[0].university if departments.present?
   end
 
   # tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする
@@ -60,11 +74,22 @@ class Question < ApplicationRecord
 
   # questionのdepartmentが少なくとも1つはあること
   def questions_departments_mediators?
-    errors.add(:base, "区分を登録してください") if questions_departments_mediators.blank?
+    errors.add(:base, :questions_departments_mediators?) if questions_departments_mediators.blank?
   end
 
   # questionのdepartmentsが属するuniversityが1つだけかチェック
   def departments_belong_to_same_university?
-    errors.add(:base, "異なる大学に登録することはできません") if departments.map(&:university_id).uniq.count > 1
+    errors.add(:base, :departments_belong_to_same_university?) if departments.map(&:university_id).uniq.count > 1
+  end
+
+  # 出題年、区分、問題番号の組は一意
+  def year_dept_number_set_unique?
+    if Question.joins(questions_departments_mediators: :department).where(
+      year:,
+      questions_departments_mediators: { question_number: questions_departments_mediators.map(&:question_number) },
+      department: { id: questions_departments_mediators.map { |medi| medi.department.id } }
+    ).count.positive?
+      errors.add(:base, :year_dept_number_set_unique?)
+    end
   end
 end

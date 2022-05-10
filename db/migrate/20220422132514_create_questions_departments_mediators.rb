@@ -9,5 +9,6 @@ class CreateQuestionsDepartmentsMediators < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    add_index :questions_departments_mediators, [:question_id, :department_id], unique: true, name: "index_questions_depts_mediators_on_question_id_and_dept_id"
   end
 end

@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_questions_departments_mediators_on_department_id"
+    t.index ["question_id", "department_id"], name: "index_questions_depts_mediators_on_question_id_and_dept_id", unique: true
     t.index ["question_id"], name: "index_questions_departments_mediators_on_question_id"
   end
 
