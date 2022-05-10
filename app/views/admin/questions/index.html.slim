@@ -1,34 +1,34 @@
 - content_for(:title, t('.title'))
 
-/ 検索フォーム
-.container.search-form
-  span
-    = t("common.specify_search_conditions")
-  span
-    a.btn.btn-secondary.btn-sm.ml-1.toggle-btn data-toggle="collapse" href="#collapse-search-form" role="button" aria-expanded="false" aria-controls="collapse-search-form"
-      | +
-
-  .collapse id="collapse-search-form"
-    .container.border.p-3
-      h3
-        = t(".search")
-      = render "admin/questions/search_form", questions_search_form: @questions_search_form
-
-.py-3
-
-/ 検索条件、並び替え
-.container
-  small.row.d-flex
-    / 検索条件を表示
-    span.mr-auto
-      label
-        | #{QuestionsSearchForm.human_attribute_name(:search_conditions)}：
-      = @questions_search_form.display_search_conditions
-    / 問題並び替え
-    = render "admin/questions/sort_questions", questions_search_form: @questions_search_form
-
-/ 問題一覧
 - if @questions.present?
+  / 検索フォーム
+  .container.search-form
+    span
+      = t("common.specify_search_conditions")
+    span
+      a.btn.btn-secondary.btn-sm.ml-1.toggle-btn data-toggle="collapse" href="#collapse-search-form" role="button" aria-expanded="false" aria-controls="collapse-search-form"
+        | +
+
+    .collapse id="collapse-search-form"
+      .container.border.p-3
+        h3
+          = t(".search")
+        = render "admin/questions/search_form", questions_search_form: @questions_search_form
+
+  .py-3
+
+  / 検索条件、並び替え
+  .container
+    small.row.d-flex
+      / 検索条件を表示
+      span.mr-auto
+        label
+          | #{QuestionsSearchForm.human_attribute_name(:search_conditions)}：
+        = @questions_search_form.display_search_conditions
+      / 問題並び替え
+      = render "admin/questions/sort_questions", questions_search_form: @questions_search_form
+
+  / 問題一覧
   .container.border.p-3
     .row.questions-index
       = render @questions
