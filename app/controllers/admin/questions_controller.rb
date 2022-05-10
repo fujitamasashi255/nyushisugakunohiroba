@@ -17,12 +17,12 @@ class Admin::QuestionsController < Admin::ApplicationController
   def create
     @question = Question.new(question_params)
     set_depts_units_association_from_params
-    @tex = @question.build_tex(tex_params)
-    @tex.attach_pdf
+    set_tex_and_attach_image
     if @question.save
-      @question.attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.create")
     else
+      # レコードの新規作成に失敗したら、attach予定のimage blobを削除する
+      ActiveStorage::Blob.find(@question.image.blob.id).purge if @question.image.blob.present?
       flash.now[:danger] = t("flashes.question.fail.create")
       render "admin/questions/new"
     end
@@ -33,11 +33,8 @@ class Admin::QuestionsController < Admin::ApplicationController
   def edit; end
 
   def update
-    @tex = @question.tex
-    @tex.update(tex_params)
-    @tex.attach_pdf
+    set_tex_and_attach_image
     if update_question_transaction
-      @question.attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.update")
     else
       flash.now[:danger] = t("flashes.question.fail.update")
@@ -100,6 +97,21 @@ class Admin::QuestionsController < Admin::ApplicationController
     @question.departments_to_association(questions_departments_mediator_params[:department])
   end
 
+  # texのセットおよびpdf、imageのattach
+  def set_tex_and_attach_image
+    if @question.tex.nil?
+      @tex = @question.build_tex(tex_params)
+    else
+      @tex = @question.tex
+      @tex.update(tex_params)
+    end
+    # texにpdfをattachする
+    @tex.attach_pdf
+
+    # pdfの画像をquestionにattachする
+    @question.attach_question_image
+  end
+
   # transaction
 
   def update_question_transaction
@@ -109,6 +121,7 @@ class Admin::QuestionsController < Admin::ApplicationController
     end
     true
   rescue ActiveRecord::RecordInvalid
+    # アップデートに失敗したら、アップデート前のレコードにエラーメッセージを追加
     errors = @question.errors
     set_question_association_without_image
     @question.errors.merge!(errors)
