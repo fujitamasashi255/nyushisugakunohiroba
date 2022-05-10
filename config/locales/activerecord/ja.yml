@@ -24,10 +24,24 @@ ja:
             name:
               blank: "を入力して下さい"
               taken: "は既に存在します"
+            base:
+              different_departments?: "同じ名前の区分を登録することはできません"
+              prefecture_present?: "都道府県を登録してください"
         department:
           attributes:
             name:
               blank: "を入力して下さい"
+        question:
+          attributes:
+            base:
+              questions_departments_mediators?: "区分を登録してください"
+              departments_belong_to_same_university?: "異なる大学に登録することはできません"
+              year_dept_number_set_unique?: "出題年、区分、問題番号の組が同じ問題が存在します。"
+        questions_departments_mediator:
+          attributes:
+            question_id:
+              taken: "はすでに指定した学部に登録されています。"
+
 
     models:
       university: "大学"

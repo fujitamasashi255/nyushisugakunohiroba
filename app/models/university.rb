@@ -5,7 +5,7 @@
 # Table name: universities
 #
 #  id            :bigint           not null, primary key
-#  category      :integer          default(0), not null
+#  category      :integer          default("national_or_public"), not null
 #  name          :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -34,10 +34,10 @@ class University < ApplicationRecord
   private
 
   def different_departments?
-    errors.add(:base, "同じ名前の区分を登録することはできません") if departments.map(&:name).uniq.size < departments.size
+    errors.add(:base, :different_departments?) if departments.map(&:name).uniq.size < departments.size
   end
 
   def prefecture_present?
-    errors.add(:base, "都道府県を登録してください") if prefecture.blank?
+    errors.add(:base, :prefecture_present?) if prefecture.blank?
   end
 end
