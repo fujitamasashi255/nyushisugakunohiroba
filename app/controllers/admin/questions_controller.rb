@@ -33,11 +33,10 @@ class Admin::QuestionsController < Admin::ApplicationController
   def edit; end
 
   def update
-    set_depts_units_association_from_params
     @tex = @question.tex
     @tex.update(tex_params)
     @tex.attach_pdf
-    if @question.update(question_params)
+    if update_question_transaction
       @question.attach_question_image
       redirect_to [:admin, @question], success: t("flashes.question.success.update")
     else
@@ -95,15 +94,24 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def set_depts_units_association_from_params
     # unitの関連を設定
-    @question.units_to_association(Unit.find(unit_params_ids))
-    # DBの@questionと関連するQuestionsDepartmentsMediatorレコードを削除する
-    @question.questions_departments_mediators.destroy_all if @question.questions_departments_mediators.exists?
+    @question.units_to_association(unit_params_ids)
 
-    # paramsから@questionと関連するQuestionsDepartmentsMediatorレコードを作成（未保存）
-    return if questions_departments_mediator_params.blank?
+    # departmentの関連を設定
+    @question.departments_to_association(questions_departments_mediator_params[:department])
+  end
 
-    questions_departments_mediator_params[:department][:questions_departments_mediator].each do |key, value|
-      @question.questions_departments_mediators.new(department_id: key, question_number: value[:question_number].to_i)
+  # transaction
+
+  def update_question_transaction
+    Question.transaction do
+      set_depts_units_association_from_params
+      @question.update!(question_params)
     end
+    true
+  rescue ActiveRecord::RecordInvalid
+    errors = @question.errors
+    set_question_association_without_image
+    @question.errors.merge!(errors)
+    false
   end
 end
