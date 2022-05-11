@@ -99,6 +99,7 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   # texのセットおよびpdf、imageのattach
   def set_tex_and_attach_image
+    # texは新規作成時nil、編集時nilでない。
     if @question.tex.nil?
       @tex = @question.build_tex(tex_params)
     else
