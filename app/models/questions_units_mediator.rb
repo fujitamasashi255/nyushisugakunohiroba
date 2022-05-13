@@ -22,9 +22,8 @@
 #
 class QuestionsUnitsMediator < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  validates :unit, presence: true
-  validates :question, presence: true
   validates :question_id, uniqueness: { scope: :unit_id }
+  validates :unit, presence: true
 
   belongs_to :question
   belongs_to_active_hash :unit

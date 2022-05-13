@@ -24,8 +24,6 @@
 #
 class QuestionsDepartmentsMediator < ApplicationRecord
   validates :question_number, presence: true
-  validates :question, presence: true
-  validates :department, presence: true
   # question_idとdepartment_idの組は一意
   validates :question_id, uniqueness: { scope: :department_id }
 

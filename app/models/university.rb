@@ -20,8 +20,8 @@ class University < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :category, presence: true
+  validates :prefecture, presence: true
   validate :different_departments?
-  validate :prefecture_present?
 
   enum category: { national_or_public: 0, private: 1 }, _prefix: true
 
@@ -35,9 +35,5 @@ class University < ApplicationRecord
 
   def different_departments?
     errors.add(:base, :different_departments?) if departments.map(&:name).uniq.size < departments.size
-  end
-
-  def prefecture_present?
-    errors.add(:base, :prefecture_present?) if prefecture.blank?
   end
 end
