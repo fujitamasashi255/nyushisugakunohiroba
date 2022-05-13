@@ -7,5 +7,6 @@ class CreateQuestionsUnitsMediators < ActiveRecord::Migration[6.1]
       t.bigint :unit_id, null: false, index: true
       t.timestamps
     end
+    add_index :questions_units_mediators, [:question_id, :unit_id], unique: true
   end
 end

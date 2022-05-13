@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_questions_units_mediators_on_question_id  (question_id)
-#  index_questions_units_mediators_on_unit_id      (unit_id)
+#  index_questions_units_mediators_on_question_id              (question_id)
+#  index_questions_units_mediators_on_question_id_and_unit_id  (question_id,unit_id) UNIQUE
+#  index_questions_units_mediators_on_unit_id                  (unit_id)
 #
 # Foreign Keys
 #
@@ -21,7 +22,9 @@
 #
 class QuestionsUnitsMediator < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  validates :unit_id, presence: true
+  validates :unit, presence: true
+  validates :question, presence: true
+  validates :question_id, uniqueness: { scope: :unit_id }
 
   belongs_to :question
   belongs_to_active_hash :unit

@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
     t.bigint "unit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id", "unit_id"], name: "index_questions_units_mediators_on_question_id_and_unit_id", unique: true
     t.index ["question_id"], name: "index_questions_units_mediators_on_question_id"
     t.index ["unit_id"], name: "index_questions_units_mediators_on_unit_id"
   end
