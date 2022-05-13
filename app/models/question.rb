@@ -14,6 +14,7 @@ class Question < ApplicationRecord
   validate :departments_belong_to_same_university?
   validate :questions_departments_mediators?
   validate :year_dept_number_set_unique?
+  validate :different_departments?
 
   has_many :questions_departments_mediators, dependent: :destroy
   has_many :departments, through: :questions_departments_mediators
@@ -37,8 +38,8 @@ class Question < ApplicationRecord
 
   def units_to_association(unit_idz)
     questions_units_mediators.clear
-    questions_units_mediators << unit_idz.map do |id|
-      QuestionsUnitsMediator.new(unit_id: id)
+    unit_idz.each do |unit_id|
+      questions_units_mediators.new(unit_id:)
     end
   end
 
@@ -79,7 +80,14 @@ class Question < ApplicationRecord
 
   # questionのdepartmentsが属するuniversityが1つだけかチェック
   def departments_belong_to_same_university?
-    errors.add(:base, :departments_belong_to_same_university?) if departments.map(&:university_id).uniq.count > 1
+    depts = Department.find(questions_departments_mediators.map(&:department_id))
+    errors.add(:base, :departments_belong_to_same_university?) if depts.map(&:university_id).uniq.size > 1
+  end
+
+  # 同じ学部に2回以上登録できないことをチェック
+  def different_departments?
+    dept_ids = questions_departments_mediators.map(&:department_id)
+    errors.add(:base, :has_different_departments?) if dept_ids.uniq.size < dept_ids.size
   end
 
   # 出題年、区分、問題番号の組は一意
