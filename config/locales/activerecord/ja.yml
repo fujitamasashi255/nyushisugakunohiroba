@@ -24,23 +24,51 @@ ja:
             name:
               blank: "を入力して下さい"
               taken: "は既に存在します"
+            category:
+              blank: "を指定して下さい"
+            prefecture:
+              blank: "を指定して下さい"
             base:
               different_departments?: "同じ名前の区分を登録することはできません"
-              prefecture_present?: "都道府県を登録してください"
+              prefecture_present?: "都道府県を登録して下さい"
         department:
           attributes:
             name:
               blank: "を入力して下さい"
+            university:
+              required: "を指定して下さい"
         question:
           attributes:
+            year:
+              blank: "を入力して下さい"
             base:
-              questions_departments_mediators?: "区分を登録してください"
+              questions_departments_mediators?: "区分を登録して下さい"
               departments_belong_to_same_university?: "異なる大学に登録することはできません"
+              has_different_departments?: "同一学部に同じ問題を2回以上登録できません"
               year_dept_number_set_unique?: "出題年、区分、問題番号の組が同じ問題が存在します。"
         questions_departments_mediator:
           attributes:
             question_id:
-              taken: "はすでに指定した学部に登録されています。"
+              taken: "は既に指定した学部に登録されています。"
+            question_number:
+              blank: "を入力して下さい"
+            question:
+              required: "を指定して下さい"
+            department:
+              required: "を指定して下さい"
+        questions_units_mediator:
+          attributes:
+            question:
+              required: "を指定して下さい"
+            question_id:
+              taken: "は既に指定した単元に登録されています。"
+            unit:
+              blank: "を指定して下さい"
+        tex:
+          attributes:
+            texable:
+              required: "を指定して下さい"
+
 
 
     models:
