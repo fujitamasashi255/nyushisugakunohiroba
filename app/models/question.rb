@@ -64,7 +64,7 @@ class Question < ApplicationRecord
   # tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする
   # tex.pdf がなく、imageがattachされている場合はそのimageを削除する
   def attach_question_image
-    if tex.pdf.present?
+    if tex.pdf.attached?
       image.attach(tex.pdf_to_img_blob.signed_id)
     elsif image.attached?
       image.purge
