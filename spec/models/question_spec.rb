@@ -106,57 +106,80 @@ RSpec.describe Question, type: :model do
   end
 
   describe "インスタンスメソッド" do
-    before do
-      @unit1, @unit2, @unit3 = Unit.all.to_a[0, 3]
-      @unitz = [@unit1, @unit2, @unit3]
-      @question = create(:question, :has_univ_id_and_unitz, university_id: 1, unitz: @unitz)
-    end
+    describe "unitとの関連" do
+      before do
+        @unit1, @unit2, @unit3 = Unit.all.to_a[0, 3]
+        @unitz = [@unit1, @unit2, @unit3]
+        @question = create(:question, :has_univ_id_and_unitz, unitz: @unitz)
+      end
 
-    describe "units" do
-      it "問題のunitが取得できること" do
-        expect(@question.units).to contain_exactly(@unit1, @unit2, @unit3)
+      describe "units" do
+        it "問題のunitが取得できること" do
+          expect(@question.units).to contain_exactly(@unit1, @unit2, @unit3)
+        end
+      end
+
+      describe "unit_ids" do
+        it "問題と関連するunitのidの配列が取得できること" do
+          expect(@question.unit_ids).to contain_exactly(@unit1.id, @unit2.id, @unit3.id)
+        end
+      end
+
+      describe "units_to_association" do
+        it "問題と関連するunitをnew_unitsに変更する" do
+          new_units = Unit.all.to_a[3, 3]
+          new_unit_ids = new_units.map(&:id)
+          @question.units_to_association(new_unit_ids)
+          expect(@question.units).to contain_exactly(new_units[0], new_units[1], new_units[2])
+        end
       end
     end
 
-    describe "unit_ids" do
-      it "問題と関連するunitのidの配列が取得できること" do
-        expect(@question.unit_ids).to contain_exactly(@unit1.id, @unit2.id, @unit3.id)
-      end
-    end
+    describe "departmentとの関連" do
+      let(:question) { create(:question, :has_departments_with_question_number, university_id: 1) }
 
-    describe "units_to_association" do
-      it "問題と関連するunitをnew_unitsに変更する" do
-        new_units = Unit.all.to_a[3, 3]
-        new_unit_ids = new_units.map(&:id)
-        @question.units_to_association(new_unit_ids)
-        expect(@question.units).to contain_exactly(new_units[0], new_units[1], new_units[2])
-      end
-    end
-
-    describe "departments_to_association" do
-      it "問題と関連するdepartmentがnew_department1とnew_department2になること" do
-        new_university = create(:university)
-        new_department1 = create(:department, university: new_university)
-        new_department2 = create(:department, university: new_university)
-        questions_departments_mediator_params = {
-          questions_departments_mediator: {
-            new_department1.id => { question_number: 1 },
-            new_department2.id => { question_number: 2 }
+      describe "departments_to_association" do
+        it "問題と関連するdepartmentがnew_department1とnew_department2になること" do
+          new_university = create(:university)
+          new_department1 = create(:department, university: new_university)
+          new_department2 = create(:department, university: new_university)
+          questions_departments_mediator_params = {
+            questions_departments_mediator: {
+              new_department1.id => { question_number: 1 },
+              new_department2.id => { question_number: 2 }
+            }
           }
-        }
-        @question.departments_to_association(questions_departments_mediator_params)
-        expect(Department.find(@question.questions_departments_mediators.map(&:department_id))).to contain_exactly(new_department1, new_department2)
+          question.departments_to_association(questions_departments_mediator_params)
+          expect(Department.find(question.questions_departments_mediators.map(&:department_id))).to contain_exactly(new_department1, new_department2)
+        end
+      end
+
+      describe "university" do
+        it "問題と関連するdepartmentsの属するuniversityが取得できること" do
+          expect(question.university).to eq University.find(1)
+        end
       end
     end
 
-    describe "university" do
-      it "問題と関連するdepartmentsの属するuniversityが取得できること" do
-        expect(@question.university).to eq University.find(1)
-      end
-    end
+    describe "画像の添付" do
+      let(:question) { create(:question, :has_departments_with_question_number) }
 
-    describe "attach_question_image" do
-      xit "問題に問題文の画像をattachできること"
+      describe "attach_question_image" do
+        before do
+          create(:tex, :with_attachment, texable: question)
+          question.attach_question_image
+        end
+
+        it "texのpdfがあるとき、pdfを画像にしたものを問題にattachできること" do
+          expect(question.image.attached?).to be_truthy
+        end
+
+        it "texのpdfがないとき、問題にattachされていた画像が削除されること" do
+          question.tex.pdf.purge
+          question.attach_question_image
+          expect(question.image.attached?).to be_falsy
+        end
+      end
     end
   end
 end

@@ -17,10 +17,11 @@ FactoryBot.define do
     trait :has_departments_with_question_number do
       transient do
         department_counts { 5 }
+        university_id { 1 }
       end
 
       after(:build) do |question, evaluator|
-        university = create(:university)
+        university = create(:university, id: evaluator.university_id)
         evaluator.department_counts.times do
           department = create(:department, university:)
           question.questions_departments_mediators << build(:questions_departments_mediator, department:)
