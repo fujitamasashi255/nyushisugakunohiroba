@@ -1,0 +1,1 @@
+tmp_png_path: <%= Rails.root.join("tmp/rails-latex/") %><%= Time.current.strftime("%Y%m%d%H%M%S") %>.png
