@@ -6,7 +6,7 @@ namespace :rails_latex do
     require "fileutils"
     path = Rails.root.join("tmp/rails-latex").to_s
     Dir.children(path).each do |file|
-      abs_file = File.join(PATH, file)
+      abs_file = File.join(path, file)
       # 作成から5分以上経ったファイル、ディレクトリを削除
       next unless File.birthtime(abs_file) < Time.current.ago(300)
 
