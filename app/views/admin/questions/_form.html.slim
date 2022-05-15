@@ -42,16 +42,17 @@
       / 区分名チェックボックス
       - checkbox_departments = question.university.blank? ? [] : question.university.departments.includes(:questions_departments_mediators)
       .department-check-box-group
-        = f.collection_check_boxes :department_ids, checkbox_departments, :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-inline mb-3 department-question-number-group' do |b|
-          .form-check
-            = b.check_box(class: 'form-check-input')
-            = b.label(class: 'form-check-label py-3')
-          / 問題番号selectボックス
-          = f.simple_fields_for "department[questions_departments_mediator]", b.object.questions_departments_mediators.find{|x| x.question_id == f.object.id}, index: b.object.id do |qdm_f|
-            - if qdm_f.object.present?
-              .form-group.question-number-selectbox
-                = qdm_f.label :question_number, label: QuestionsDepartmentsMediator.human_attribute_name(:question_number),class: "ml-4 col-form-label"
-                = qdm_f.input :question_number, label:false, wrapper:false, as: :select, collection: 1..20, input_html: {class: "form-control ml-2"}
+        = f.collection_check_boxes :department_ids, checkbox_departments, :id, :name, item_wrapper_tag: nil do |b|
+          .form-inline.mb-3 class="department#{b.object.id}-question-number-group"
+            .form-check
+              = b.check_box(class: 'form-check-input')
+              = b.label(class: 'form-check-label py-3')
+            / 問題番号selectボックス
+            = f.simple_fields_for "department[questions_departments_mediator]", b.object.questions_departments_mediators.find{|x| x.question_id == f.object.id}, index: b.object.id do |qdm_f|
+              - if qdm_f.object.present?
+                .form-group.question-number-selectbox
+                  = qdm_f.label :question_number, label: QuestionsDepartmentsMediator.human_attribute_name(:question_number),class: "ml-4 col-form-label"
+                  = qdm_f.input :question_number, label:false, wrapper:false, as: :select, collection: 1..20, input_html: {class: "form-control ml-2"}
 
 
   .py-3
@@ -67,9 +68,9 @@
       .unit-check-box-group.col.border.p-3
         / subujectごとにunitのチェックボックスを表示する
         - Unit.subjects.each do |sub|
-          .container
+          .container class="subject#{sub}"
             label.row
-              = sub
+              | #{t("common.math")}#{sub}
             .row
               / unitsはsubjectごとのunitの配列
               = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|

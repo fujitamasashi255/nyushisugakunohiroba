@@ -4,18 +4,18 @@ import { t } from "../../packs/admin";
 
 // 関数を定義
 
-// チェックボックスの内容を置き換えるメソッド
+// 区分チェックボックスの内容を置き換えるメソッド
 var replaceDepartmentCheckBoxes = function(departmentCheckBoxGroup, departmentsData){
   departmentCheckBoxGroup.children('div').remove();
   $.each(departmentsData, function(){
-    var wrapper = $('<div>', {class: 'form-inline mb-3 department-question-number-group'}).appendTo(departmentCheckBoxGroup);
+    var wrapper = $('<div>', { class: `form-inline mb-3 department${this.id}-question-number-group` }).appendTo(departmentCheckBoxGroup);
     var radioButton = $('<div>', {class: 'form-check'}).appendTo(wrapper);
     radioButton.append($('<input>', {type: 'checkbox', value: `${this.id}`, name:'question[department_ids][]', id: `question_department_ids_${this.id}`, class: 'form-check-input'}))
       .append($('<label>', {class: 'form-check-label py-3', for: `question_department_ids_${this.id}`, text: this.name}));
   });
 }
 
-// チェックされたチェックボックスの横にセレクトボックスを挿入する
+// チェックされたチェックボックスの横に問題番号セレクトボックスを挿入する
 var insertSelectBox = function(checked_id, insertElement){
   var selectWrapper = $('<div>', {class: "form-group question-number-selectbox"});
   var selectLabel = $('<label>', {text: t("activerecord.attributes.questions_departments_mediator.question_number"), class: "string optional ml-4 col-form-label", for: `question_department_questions_departments_mediator__${checked_id}_question_number`});
@@ -32,7 +32,6 @@ var deleteSelectBox = function(parentElement){
 }
 
 
-
 // 大学選択時のイベント
 $(function(){
   // 大学選択のラジオボタンが押されたら
@@ -43,7 +42,6 @@ $(function(){
     $('.university-radio-buttons .dropdown-button').text(univName);
     // 押したラジオボタンの大学の区分を取得するアクションのパス departmentsPath
     var departmentsPath = $(this).data().departmentsPath;
-    console.log(departmentsPath);
     // 区分を表示する要素 departmentCheckBoxGroup
     var departmentCheckBoxGroup = $('.department-check-box-group')
     if(departmentsPath != null & departmentsPath != undefined){
@@ -62,16 +60,18 @@ $(function(){
     }
   });
 
-  // 区分のチェックボックスがチェック時のイベント
+  // 区分のチェックボックスのチェックが変わったときのイベント
   $(document).on('change', '.department-check-box-group input[type="checkbox"]', function(){
     var unCheckedBoxes = $('.department-check-box-group input[type="checkbox"]:not(:checked)');
     unCheckedBoxes.each(function(){
-      deleteSelectBox($(this).parents('.department-question-number-group'));
+      var value = $(this).val();
+      deleteSelectBox($(this).parents(`.department${value}-question-number-group`));
     });
 
     var checkedBoxes = $('.department-check-box-group input[type="checkbox"]:checked');
     checkedBoxes.each(function(){
-      insertSelectBox($(this).val(), $(this).parents('.department-question-number-group:not(:has(select))'));
+      var value = $(this).val();
+      insertSelectBox(value, $(this).parents(`.department${value}-question-number-group:not(:has(select))`));
     });
   });
 });
