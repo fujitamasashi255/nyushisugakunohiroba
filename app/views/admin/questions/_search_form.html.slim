@@ -44,9 +44,9 @@
         = Unit.model_name.human
       .col-sm-10
         - Unit.subjects.each do |sub|
-            .container
+            .container class="subject#{sub}"
               label.row
-                = sub
+                | #{t("common.math")}#{sub}
               .row
                 / unitsはsubjectごとのunitの配列
                 = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|

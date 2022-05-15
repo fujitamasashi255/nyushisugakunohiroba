@@ -7,9 +7,9 @@ table.table-borderless.units-table
       - if units_per_sub.present?
         / .container
         tr
-          td.subject
+          td class="subject#{sub}"
             label.mt-1
-              = sub
+              | #{t("common.math")}#{sub}
           / unitsはsubjectごとのunitの配列
           td.unit-name
             - units_per_sub.each do |unit|
