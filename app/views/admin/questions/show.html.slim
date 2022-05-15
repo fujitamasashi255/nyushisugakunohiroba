@@ -28,13 +28,15 @@
           .row
             = render "admin/departments/departments", {departments: @question.departments, question: @question}
   .py-3
-  / 単元
-  .row
-    label
-      = Unit.model_name.human
+
   - if @question.units.present?
+    / 単元
     .row
-      = render "admin/units/units", units: @question.units
+      label
+        = Unit.model_name.human
+    - if @question.units.present?
+      .row
+        = render "admin/units/units", units: @question.units
 
   .py-3
 
