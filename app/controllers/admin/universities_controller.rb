@@ -29,7 +29,7 @@ class Admin::UniversitiesController < Admin::ApplicationController
   def show; end
 
   def edit
-    @university.departments.new if @departments.blank?
+    @university.departments.new if @university.departments.blank?
   end
 
   def update
