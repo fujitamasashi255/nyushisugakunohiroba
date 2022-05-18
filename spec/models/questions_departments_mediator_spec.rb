@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe QuestionsDepartmentsMediator, type: :model do
   describe "バリデーション" do
-    let(:question) { create(:question, :has_departments_with_question_number, department_counts: 1) }
+    let(:question) { create(:question, :has_a_department_with_question_number) }
     let(:department) { create(:department) }
 
     it "department_idがnullのとき保存できないこと" do

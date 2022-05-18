@@ -66,14 +66,18 @@ RSpec.describe Department, type: :model do
   describe "コールバック" do
     describe "destroy_association_question" do
       it "questionが1つのdepartmentに関連している場合、そのdepartmentを削除すると、questionも削除されること" do
-        question = create(:question, :has_departments_with_question_number, department_counts: 1)
+        question = create(:question, :has_a_department_with_question_number)
         question.departments[0].destroy
         expect(Question.exists?(question.id)).to be_falsy
       end
 
       it "questionが複数のdepartmentに関連している場合、そのうちの1つを削除しても、questionは削除されないこと" do
-        question = create(:question, :has_departments_with_question_number, department_counts: 2)
+        university = create(:university)
+        department1 = create(:department, university:)
+        department2 = create(:department, university:)
+        question = create(:question, :has_two_departments_with_question_number, department1:, department2:)
         question.departments[0].destroy
+        expect(question.departments.count).to eq 1
         expect(Question.exists?(question.id)).to be_truthy
       end
     end

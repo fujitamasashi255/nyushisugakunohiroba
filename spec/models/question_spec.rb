@@ -14,24 +14,24 @@ require "rails_helper"
 RSpec.describe Question, type: :model do
   describe "バリデーション" do
     it "出題年、区分、問題番号のある問題は登録できること" do
-      question = build(:question, :has_departments_with_question_number)
+      question = build(:question, :has_a_department_with_question_number)
       expect(question).to be_valid
     end
 
     it "出題年のない問題は登録できないこと" do
-      question = build(:question, :has_departments_with_question_number, year: nil)
+      question = build(:question, :has_a_department_with_question_number, year: nil)
       expect(question).to be_invalid
       expect(question.errors[:year]).to eq ["を入力して下さい"]
     end
 
     it "区分がない問題は登録できないこと" do
-      question = build(:question, :has_departments_with_question_number, department_counts: 0)
+      question = build(:question)
       expect(question).to be_invalid
       expect(question.errors[:base]).to eq ["区分を登録して下さい"]
     end
 
     it "問題番号のない問題は登録できないこと" do
-      question = build(:question, :has_no_question_number)
+      question = build(:question, :has_a_department_with_question_number, question_number: nil)
       expect(question).to be_invalid
       expect(question.questions_departments_mediators[0].errors[:question_number]).to eq ["を入力して下さい"]
     end
@@ -49,11 +49,9 @@ RSpec.describe Question, type: :model do
     end
 
     it "出題年、区分、問題番号が同じ問題は作成できないこと" do
-      question = create(:question, :has_departments_with_question_number, department_counts: 1)
-      mediator = question.questions_departments_mediators[0]
-      # questionと出題年、区分、問題番号が同じ問題question_anotherをbuild
-      question_another = build(:question, year: question.year)
-      question_another.questions_departments_mediators << build(:questions_departments_mediator, department: mediator.department, question_number: mediator.question_number)
+      department = create(:department)
+      create(:question, :has_a_department_with_question_number, department:, question_number: 1, year: 2000)
+      question_another = build(:question, :has_a_department_with_question_number, department:, question_number: 1, year: 2000)
       expect(question_another).to be_invalid
       expect(question_another.errors[:base]).to eq ["出題年、区分、問題番号の組が同じ問題が存在します。"]
     end
@@ -135,34 +133,34 @@ RSpec.describe Question, type: :model do
       end
     end
 
-    describe "departmentとの関連" do
-      let(:question) { create(:question, :has_departments_with_question_number, university_id: 1) }
+    describe "departments_to_association" do
+      let!(:question) { create(:question, :has_a_department_with_question_number) }
 
-      describe "departments_to_association" do
-        it "問題と関連するdepartmentがnew_department1とnew_department2になること" do
-          new_university = create(:university)
-          new_department1 = create(:department, university: new_university)
-          new_department2 = create(:department, university: new_university)
-          questions_departments_mediator_params = {
-            questions_departments_mediator: {
-              new_department1.id => { question_number: 1 },
-              new_department2.id => { question_number: 2 }
-            }
+      it "問題と関連するdepartmentがnew_department1とnew_department2になること" do
+        new_university = create(:university)
+        new_department1 = create(:department, university: new_university)
+        new_department2 = create(:department, university: new_university)
+        questions_departments_mediator_params = {
+          questions_departments_mediator: {
+            new_department1.id => { question_number: 1 },
+            new_department2.id => { question_number: 2 }
           }
-          question.departments_to_association(questions_departments_mediator_params)
-          expect(Department.find(question.questions_departments_mediators.map(&:department_id))).to contain_exactly(new_department1, new_department2)
-        end
+        }
+        question.departments_to_association(questions_departments_mediator_params)
+        expect(Department.find(question.questions_departments_mediators.map(&:department_id))).to contain_exactly(new_department1, new_department2)
       end
+    end
 
-      describe "university" do
-        it "問題と関連するdepartmentsの属するuniversityが取得できること" do
-          expect(question.university).to eq University.find(1)
-        end
+    describe "university" do
+      it "問題と関連するdepartmentsの属するuniversityが取得できること" do
+        department = create(:department, university: create(:university, id: 1))
+        question = create(:question, :has_a_department_with_question_number, department:)
+        expect(question.university).to eq University.find(1)
       end
     end
 
     describe "画像の添付" do
-      let(:question) { create(:question, :has_departments_with_question_number) }
+      let!(:question) { create(:question, :has_a_department_with_question_number) }
 
       describe "attach_question_image" do
         before do

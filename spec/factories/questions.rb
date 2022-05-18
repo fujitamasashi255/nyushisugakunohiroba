@@ -13,27 +13,29 @@ FactoryBot.define do
   factory :question do
     year { (1980..Time.current.year).to_a.sample }
 
-    # build(:question, :has_departments_with_question_number, year: "hoge", department_counts: 5)
-    trait :has_departments_with_question_number do
+    # build(:question, :has_a_department_with_question_number, year: "hoge", department: fuga, question_number: 1)
+    trait :has_a_department_with_question_number do
       transient do
-        department_counts { 5 }
-        university_id { 1 }
+        department { create(:department) }
+        question_number { 1 }
       end
 
       after(:build) do |question, evaluator|
-        university = create(:university, id: evaluator.university_id)
-        evaluator.department_counts.times do
-          department = create(:department, university:)
-          question.questions_departments_mediators << build(:questions_departments_mediator, department:)
-        end
+        question.questions_departments_mediators << build(:questions_departments_mediator, department: evaluator.department, question_number: evaluator.question_number)
       end
     end
 
-    trait :has_no_question_number do
-      after(:build) do |question|
-        university = create(:university)
-        department = create(:department, university:)
-        question.questions_departments_mediators << build(:questions_departments_mediator, department:, question_number: nil)
+    trait :has_two_departments_with_question_number do
+      transient do
+        department1 { nil }
+        question_number1 { 1 }
+        department2 { nil }
+        question_number2 { 1 }
+      end
+
+      after(:build) do |question, evaluator|
+        question.questions_departments_mediators << build(:questions_departments_mediator, question_number: evaluator.question_number1, department: evaluator.department1)
+        question.questions_departments_mediators << build(:questions_departments_mediator, question_number: evaluator.question_number2, department: evaluator.department2)
       end
     end
 

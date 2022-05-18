@@ -19,7 +19,7 @@
 require "rails_helper"
 
 RSpec.describe Tex, type: :model do
-  let(:question) { create(:question, :has_departments_with_question_number) }
+  let(:question) { create(:question, :has_a_department_with_question_number) }
 
   describe "バリデーション" do
     it "関連するtexableがnilのとき作成できないこと" do
