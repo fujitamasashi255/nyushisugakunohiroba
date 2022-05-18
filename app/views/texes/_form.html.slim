@@ -14,7 +14,7 @@ label.form-group
         = Tex.human_attribute_name(:pdf)
       .border.rounded.p-2.bg-white id="compile-result" style='height: 500px'
         - if tex.pdf.attached?
-          iframe.d-block type="application/pdf" height="500" width="100%" marginwidth="0" src="#{url_for(tex.pdf)}"
+          embed.d-block type="application/pdf" height="500" width="100%" marginwidth="0" src="#{url_for(tex.pdf)}"
   .row
     button.btn.btn-primary id="compile-button" type="button" data-compile-path= "#{compile_path}"
       = t("compile.create")

@@ -32,6 +32,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -68,5 +69,6 @@ RSpec.configure do |config|
   # テスト時にアップロードされた古いファイルは自動的に削除
   config.after(:suite) do
     FileUtils.rm_rf(ActiveStorage::Blob.service.root)
+    FileUtils.rm_rf(Dir[Rails.root.join("/spec/test_uploads/")])
   end
 end

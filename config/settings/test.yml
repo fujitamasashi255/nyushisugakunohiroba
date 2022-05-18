@@ -1,1 +1,18 @@
-tmp_png_path: <%= Rails.root.join("tmp/rails-latex/") %><%= Time.current.strftime("%Y%m%d%H%M%S") %>.png
+tmp_pdf_path: <%= Rails.root.join("spec/test_uploads/") %>test.pdf
+tmp_png_path: <%= Rails.root.join("spec/test_uploads/") %>test.png
+tex_test_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}
+                \r\n
+                \\usepackage{amssymb, amsmath, tikz, enumerate}
+                \r\n
+                \\usetikzlibrary{intersections, calc, arrows.meta, math}
+                \r\n
+                \\usepackage[margin=1cm]{geometry}
+                \r\n
+                \\pagestyle{empty}
+                \r\n
+                \r\n
+                \\begin{document}
+                \r\n
+                テスト
+                \r\n
+                \\end{document}"

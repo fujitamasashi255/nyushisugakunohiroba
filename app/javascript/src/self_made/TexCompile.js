@@ -4,7 +4,7 @@ import { t } from "../../packs/admin";
 
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){
-  $('<iframe>', {type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
+  $('<embed>', {type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
 }
 
 // logTextをrenderElementに表示する
