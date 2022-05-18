@@ -41,18 +41,6 @@ FactoryBot.define do
       end
     end
 
-    # 異なる名前の区分をdepartment_countsだけ関連に持つuniversityをbuild
-    # build(:university, :has_departments, name: "hoge", department_counts: 5)
-    trait :has_departments do
-      transient do
-        department_counts { 5 }
-      end
-
-      after(:build) do |university, evaluator|
-        university.departments << build_list(:department, evaluator.department_counts)
-      end
-    end
-
     # 同名の区分を持つuniversityをbuild
     trait :has_same_name_departments do
       after(:build) do |university|
