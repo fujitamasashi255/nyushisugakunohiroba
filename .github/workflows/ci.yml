@@ -66,7 +66,7 @@ jobs:
       # spec/system/ にファイルがあるときシステムスペックを実行
       - name: run systemspec
         if: steps.check_systemspec_files.outputs.files_exists == 'true'
-        run: bin/rspec spec/system/
+        run: bundle exec rspec spec/system/
       # システムスペック失敗時にスクリーンショットを取得
       - if: failure()
         name: Archive systemspec result screenshots
@@ -83,7 +83,7 @@ jobs:
       # pec/models/ にファイルがあるときモデルスペックを実行
       - name: run modelspec
         if: steps.check_modelspec_files.outputs.files_exists == 'true'
-        run: bin/rspec spec/models/
+        run: bundle exec rspec spec/models/
   lint:
     runs-on: ubuntu-latest
     steps:

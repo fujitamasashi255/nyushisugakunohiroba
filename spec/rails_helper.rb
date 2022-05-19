@@ -3,6 +3,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
+# rspecの子プロセスに対してdebbugerをactivateしない
+ENV["RUBY_DEBUG_FORK_MODE"] ||= "parent"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?

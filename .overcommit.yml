@@ -25,4 +25,4 @@ PreCommit:
 PrePush:
   RSpec:
     enabled: true
-    command: ['bin/rspec']
+    command: ['bundle', 'exec', 'rspec']
