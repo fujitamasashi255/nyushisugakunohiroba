@@ -68,8 +68,14 @@ jobs:
         uses: teatimeguest/setup-texlive-action@v2
       - name: Check `tlmgr` version
         run: tlmgr --version
+      - name: check platex_dvipdfmx.sh
+        run: |
+          cd ./lib/tasks
+          ls
       - name: add permission for platex_dvipdfmx.sh
-        run: sudo chmod +x ./lib/tasks/platex_dvipdfmx.sh
+        run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
+      - name: add permission for platex_dvipdfmx.sh
+        run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       # spec/system/ にファイルがあることをチェック
       - name: Check systemspec existence
         id: check_systemspec_files
