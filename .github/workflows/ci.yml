@@ -71,9 +71,9 @@ jobs:
       - name: Check `tlmgr` version
         run: tlmgr --version
       - name: display tex path
-        run: ls -a $RUNNER_TEMP/setup-texlive/2022/bin
+        run: ls -a $RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux
       - name: create tex path
-        run: sudo $RUNNER_TEMP/setup-texlive/2022/bin/universal-darwin/tlmgr path add
+        run: sudo $RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux/tlmgr path add
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       - name: add permission for platex_dvipdfmx.sh
