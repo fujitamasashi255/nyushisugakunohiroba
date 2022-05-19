@@ -37,6 +37,9 @@ jobs:
           cache: 'yarn'
       - name: yarn install
         run: yarn install
+      # libvips をインストール
+      - name: install libvips
+        run: apt install libvips42
       - name: remove adminlte scss files
         run: rm -r node_modules/admin-lte/build/scss
       # webpackerにerbサポートを追加する
