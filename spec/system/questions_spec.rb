@@ -39,8 +39,9 @@ RSpec.describe "Questions", type: :system, js: true do
         fill_in "texコード", with: ""
         click_button "コンパイルする"
         expect(page).to have_content "コンパイルする"
-        expect(page).to have_selector("#compile-result"), text: "No pages of output."
-        expect(page).to have_content "コンパイルに失敗しました。ログが表示されます。"
+        # expect(page).to have_selector("#compile-result"), text: "No pages of output."
+        # expect(page).to have_content "コンパイルに失敗しました。ログが表示されます。"
+        page.find("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
         click_button "問題を作成する"
         expect(page).to have_content "問題を作成しました"
         expect(page).to have_content "2000"
@@ -63,8 +64,9 @@ RSpec.describe "Questions", type: :system, js: true do
       it "単元を指定せず、問題文texをコンパイルして新規作成できること" do
         fill_in "texコード", with: Settings.tex_test_code
         click_button "コンパイルする"
+        page.find("#compile-message", text: "コンパイルに成功しました")
         expect(page).to have_selector("embed[type='application/pdf']")
-        expect(page).to have_content "コンパイルに成功しました"
+        # expect(page).to have_content "コンパイルに成功しました"
         click_button "問題を作成する"
         expect(page).to have_content "問題を作成しました"
         expect(page).to have_content "2000"
@@ -160,7 +162,8 @@ RSpec.describe "Questions", type: :system, js: true do
       it "問題文texのコンパイルに失敗すると問題文が登録されないこと" do
         fill_in "texコード", with: ""
         click_button "コンパイルする"
-        expect(page).to have_content "コンパイルに失敗しました。ログが表示されます。"
+        page.find("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
+        # expect(page).to have_content "コンパイルに失敗しました。ログが表示されます。"
         click_button "問題を変更する"
         expect(page).not_to have_selector("img")
       end
