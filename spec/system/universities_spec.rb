@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Universities", type: :system do
+RSpec.describe "Universities", type: :system, js: true do
   describe "大学新規作成機能" do
     before do
       visit new_admin_university_path

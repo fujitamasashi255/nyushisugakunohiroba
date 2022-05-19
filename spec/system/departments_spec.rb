@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Departments", type: :system do
+RSpec.describe "Departments", type: :system, js: true do
   describe "区分新規作成機能" do
     before do
       visit new_admin_university_path

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Questions", type: :system do
+RSpec.describe "Questions", type: :system, js: true do
   let!(:department_of_tokyo) { create(:department, name: "理系", university: create(:university, name: "東京", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
   let!(:department_of_kyoto) { create(:department, name: "文系", university: create(:university, name: "京都", category: :national_or_public, prefecture: Prefecture.find_by!(name: "京都府"))) }
   let!(:department_of_nagoya) { create(:department, name: "理系", university: create(:university, name: "名古屋", category: :national_or_public, prefecture: Prefecture.find_by!(name: "愛知県"))) }
@@ -38,6 +38,7 @@ RSpec.describe "Questions", type: :system do
       it "単元を指定せず、問題文texのコンパイルに失敗して新規作成できること" do
         fill_in "texコード", with: ""
         click_button "コンパイルする"
+        expect(page).to have_content "コンパイルする"
         expect(page).to have_selector("#compile-result"), text: "No pages of output."
         expect(page).to have_content "コンパイルに失敗しました。ログが表示されます。"
         click_button "問題を作成する"
