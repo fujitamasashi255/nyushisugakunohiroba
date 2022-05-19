@@ -66,8 +66,12 @@ jobs:
       # TexLiveをインストール
       - name: Setup TeX Live
         uses: teatimeguest/setup-texlive-action@v2
+        with:
+          version: 2022
       - name: Check `tlmgr` version
         run: tlmgr --version
+      - name: create tex path
+        run: sudo $RUNNER_TEMP/setup-texlive/2022/bin/x86_64-darwin/tlmgr path add
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       - name: add permission for platex_dvipdfmx.sh
