@@ -70,10 +70,11 @@ jobs:
           version: 2022
       - name: Check `tlmgr` version
         run: tlmgr --version
-      - name: display tex path
-        run: ls -a $RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux
       - name: create tex path
-        run: echo 'export PATH=$RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux:$PATH' >> ~/.bashrc
+        run: |
+          echo 'export PATH=$RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux:$PATH' >> ~/.bashrc
+          platex -version
+          ls -al `which platex`
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       - name: add permission for platex_dvipdfmx.sh
