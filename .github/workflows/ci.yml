@@ -64,12 +64,15 @@ jobs:
       - name: Install font
         run: sudo apt install fonts-ipafont fonts-ipaexfont
       # TexLiveをインストール
-      - name: Setup TeX Live
-        uses: teatimeguest/setup-texlive-action@v2
-      - name: Check `tlmgr` version
-        run: tlmgr --version
+      - name: set up texlive
+        run: |
+          sudo apt install \
+          texlive-fonts-extra \
+          texlive-fonts-recommended \
+          texlive-lang-cjk \
+          xdvik-ja
       - name: add permission for platex_dvipdfmx.sh
-        run: sudo chmod +x ./lib/tasks/platex_dvipdfmx.sh
+        run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       # spec/system/ にファイルがあることをチェック
       - name: Check systemspec existence
         id: check_systemspec_files
