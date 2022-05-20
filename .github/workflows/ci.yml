@@ -72,11 +72,12 @@ jobs:
         run: tlmgr --version
       - name: set up tex PATH
         run: |
-          echo $GITHUB_PATH
-          echo $PATH
+          ls ~/
+          ls ~/_temp
+          ls ~/_temp/texlive/bin/x86_64-linux
+          ls /home/runner/work/_temp/setup-texlive/2022/bin/x86_64-linux
           echo '/home/runner/work/_temp/setup-texlive/2022/bin/x86_64-linux' >> $GITHUB_PATH
           echo $GITHUB_PATH
-          cat ~/.bashrc
           platex -version
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
