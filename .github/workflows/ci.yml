@@ -73,10 +73,8 @@ jobs:
       - name: set up tex PATH
         run: |
           ls ~/
-          ls ~/_temp
-          ls ~/_temp/texlive/bin/x86_64-linux
-          ls /home/runner/work/_temp/setup-texlive/2022/bin/x86_64-linux
-          echo '/home/runner/work/_temp/setup-texlive/2022/bin/x86_64-linux' >> $GITHUB_PATH
+          ls $RUNNER_TEMP
+          ls $RUNNER_TEMP/setup-texlive
           echo $GITHUB_PATH
           platex -version
       - name: add permission for platex_dvipdfmx.sh
