@@ -72,6 +72,10 @@ jobs:
         run: tlmgr --version
       - name: set up tex PATH
         run: |
+          ls $RUNNER_TEMP/setup-texlive/2022
+          ls $RUNNER_TEMP/setup-texlive/2022/bin
+          ls $RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux
+          echo "$RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux" >> $GITHUB_PATH
           latex -version
           find 	$RUNNER_TEMP/setup-texlive/2022/bin -name platex
           platex -version
