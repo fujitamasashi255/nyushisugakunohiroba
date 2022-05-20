@@ -67,10 +67,13 @@ jobs:
       - name: set up texlive
         run: |
           sudo apt install \
-          evince texlive-fonts-extra \
+          texlive-fonts-extra \
           texlive-fonts-recommended texlive-lang-cjk xdvik-ja
       - name: check install texlive
-        run: platex -version
+        run: |
+          ls /usr/bin/
+          which platex
+          which dvipdfmx
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       - name: check dir spec/test_uploads/
