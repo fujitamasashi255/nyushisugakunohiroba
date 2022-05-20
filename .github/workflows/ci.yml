@@ -47,17 +47,6 @@ jobs:
         run: bin/rails webpacker:install:erb
       - name: compile assets
         run: bin/webpack
-      # db/schema.rbが存在することをチェックする
-      - name: Check schema existence
-        id: check_schema_file
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "db/schema.rb"
-      # Add or replace database setup steps here
-      # db/schema.rbが存在するときは、DBを作成
-      - name: Set up database schema
-        if: steps.check_schema_file.outputs.files_exists == 'true'
-        run: bin/rails db:schema:load
       # ブラウザchromeをインストール
       - name: Install chrome
         uses: browser-actions/setup-chrome@latest
@@ -75,6 +64,17 @@ jobs:
         run: platex -version
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
+      # db/schema.rbが存在することをチェックする
+      - name: Check schema existence
+        id: check_schema_file
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "db/schema.rb"
+      # Add or replace database setup steps here
+      # db/schema.rbが存在するときは、DBを作成
+      - name: Set up database schema
+        if: steps.check_schema_file.outputs.files_exists == 'true'
+        run: bin/rails db:schema:load
       # spec/system/ にファイルがあることをチェック
       - name: Check systemspec existence
         id: check_systemspec_files
