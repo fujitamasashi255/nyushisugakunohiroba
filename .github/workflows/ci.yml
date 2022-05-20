@@ -37,8 +37,14 @@ jobs:
           cache: 'yarn'
       - name: yarn install
         run: yarn install
+      # libvips をインストール
+      - name: install libvips
+        run: sudo apt install libvips42
       - name: remove adminlte scss files
         run: rm -r node_modules/admin-lte/build/scss
+      # webpackerにerbサポートを追加する
+      - name: webpacker install erb
+        run: bin/rails webpacker:install:erb
       - name: compile assets
         run: bin/webpack
       # db/schema.rbが存在することをチェックする
@@ -57,6 +63,26 @@ jobs:
         uses: browser-actions/setup-chrome@latest
       - name: Install font
         run: sudo apt install fonts-ipafont fonts-ipaexfont
+      # TexLiveをインストール
+      - name: set up texlive
+        run: |
+          sudo apt install \
+          texlive-fonts-extra \
+          texlive-fonts-recommended texlive-lang-cjk xdvik-ja
+      - name: check texlive-fonts-extra
+        run: dpkg -L texlive-fonts-extra
+      - name: check exlive-fonts-recommended
+        run: dpkg -L exlive-fonts-recommended
+      - name: check texlive-lang-cjk
+        run: dpkg -L texlive-lang-cjk
+      - name: check xdvik-ja
+        run: dpkg -L xdvik-ja
+      - name: add permission for platex_dvipdfmx.sh
+        run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
+      - name: check dir spec/test_uploads/
+        run: |
+          ls spec
+          ls spec/test_uploads
       # spec/system/ にファイルがあることをチェック
       - name: Check systemspec existence
         id: check_systemspec_files
@@ -66,7 +92,7 @@ jobs:
       # spec/system/ にファイルがあるときシステムスペックを実行
       - name: run systemspec
         if: steps.check_systemspec_files.outputs.files_exists == 'true'
-        run: bin/rspec spec/system/
+        run: bundle exec rspec spec/system/
       # システムスペック失敗時にスクリーンショットを取得
       - if: failure()
         name: Archive systemspec result screenshots
@@ -83,7 +109,7 @@ jobs:
       # pec/models/ にファイルがあるときモデルスペックを実行
       - name: run modelspec
         if: steps.check_modelspec_files.outputs.files_exists == 'true'
-        run: bin/rspec spec/models/
+        run: bundle exec rspec spec/models/
   lint:
     runs-on: ubuntu-latest
     steps:

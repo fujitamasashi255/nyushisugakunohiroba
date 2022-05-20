@@ -2,6 +2,11 @@
 
 require "active_support/core_ext/integer/time"
 
+# エラー uninitialized constant ActiveStorage::Blob::Analyzable への対応
+Rails.application.reloader.to_prepare do
+  ActiveStorage::Blob
+end
+
 Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true

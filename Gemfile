@@ -23,7 +23,7 @@ gem "jbuilder", "~> 2.7"
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem "image_processing", "~> 1.2"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -41,6 +41,10 @@ gem "ransack"
 # ページネーション
 gem "pagy"
 
+# i18n
+gem "i18n-js"
+gem "enum_help"
+
 # メール
 gem "net-smtp"
 gem "net-imap"
@@ -48,6 +52,18 @@ gem "net-pop"
 
 # ruby hash as a readonly datasource for an ActiveRecord-like model
 gem "active_hash"
+
+# tex
+gem "rails-latex"
+
+# image processing
+gem "ruby-vips"
+
+# 定数管理
+gem "config"
+
+# cronを設定
+gem "whenever", require: false
 
 group :development, :test do
   # デバッグ
@@ -73,7 +89,6 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
-  gem "spring-commands-rspec"
 
   # Lint
   gem "rubocop-github"

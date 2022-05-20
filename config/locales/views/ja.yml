@@ -8,21 +8,48 @@ ja:
     site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
-    question: "問題"
+    select_blank: "未選択"
+    year: "年"
+    specify_search_conditions: "検索条件を指定する"
+    sort: "並び順"
+    math: "数学"
 
   messages:
-    success_create_univ: "大学・区分を作成しました"
-    fail_create_univ: "大学・区分を作成できませんでした"
-    success_update_univ: "大学・区分を変更しました"
-    fail_update_univ: "大学・区分を変更できませんでした"
-    success_destroy_univ: "大学・区分を削除しました"
     delete_confirm: "本当に削除しますか"
+    compile:
+      success: "コンパイルに成功しました。"
+      fail: "コンパイルに失敗しました。ログが表示されます。"
+    compiling: "コンパイル中"
+
+  flashes:
+    university:
+      success:
+        create: "大学・区分を作成しました"
+        update: "大学・区分を変更しました"
+        destroy: "大学・区分を削除しました"
+      fail:
+        create: "大学・区分を作成できませんでした"
+        update: "大学・区分を変更できませんでした"
+    question:
+      success:
+        create: "問題を作成しました"
+        update: "問題を変更しました"
+        destroy: "問題を削除しました"
+      fail:
+        create: "問題を作成できませんでした"
+        update: "問題を変更できませんでした"
+
 
   helpers:
     submit:
       university:
         create: "大学・区分を作成する"
         update: "大学・区分を変更する"
+      question:
+        create: "問題を作成する"
+        update: "問題を変更する"
+      questions_search_form:
+        create: "検索する"
 
   cocoon:
     departments:
@@ -52,3 +79,17 @@ ja:
       index:
         title: "大学一覧"
         search: "大学検索"
+    questions:
+      new:
+        title: "問題作成"
+      show:
+        title: "問題詳細"
+      edit:
+        title: "問題編集"
+      index:
+        title: "問題一覧"
+        search: "問題検索"
+      form:
+        saving: "保存中・・・"
+  compile:
+    create: "コンパイルする"

@@ -1,13 +1,8 @@
 - content_for(:title, t('.title'))
 
-.container
-  h2
-    = t('.title')
-
-.py-3
-
+/ 大学名
 .container.university
-  h6.row.ml-1
+  label.row.ml-1
     = University.human_attribute_name(:name)
   .row.ml-1
     .col.p-2.rounded.border.text-center.bg-white.university-name
@@ -15,14 +10,33 @@
     .col.p-2
       = University.model_name.human
 
-  .py-3
+.py-3
+
+/ カテゴリー
+.container
+  label.row.ml-1
+    = University.human_attribute_name(:category)
+  .row.ml-1
+    .col-6.p-2.rounded.border.text-center.bg-white.university-name
+      = @university.category_i18n
+
+.py-3
+
+/ 都道府県
+.container
+  label.row.ml-1
+    = Prefecture.model_name.human
+  .row.ml-1
+    .col-6.p-2.rounded.border.text-center.bg-white.university-name
+      = @university.prefecture.name
+
+.py-3
 
 .container.departments
-  h6.row.ml-1
+  label.row.ml-1
     = Department.human_attribute_name(:name)
   .container.ml-1
-    = render @departments
-
+    = render "admin/departments/departments", departments: @university.departments
 
 .py-3
 .container

@@ -1,4 +1,21 @@
 ja:
+  # Active Hash
+  activemodel:
+    models:
+      unit: "単元"
+      prefecture: "都道府県"
+    attributes:
+      prefecture:
+        name: "都道府県名"
+      questions_search_form:
+        sort_type:
+          one: "並び順"
+          year_new: "出題年が新しい順"
+          created_at_new: "作成日が新しい順"
+        search_conditions: "検索条件"
+
+
+  # Active Record
   activerecord:
     errors:
       models:
@@ -7,19 +24,80 @@ ja:
             name:
               blank: "を入力して下さい"
               taken: "は既に存在します"
+            category:
+              blank: "を指定して下さい"
+            prefecture:
+              blank: "を指定して下さい"
+            base:
+              different_departments?: "同じ名前の区分を登録することはできません"
+              prefecture_present?: "都道府県を登録して下さい"
         department:
           attributes:
             name:
               blank: "を入力して下さい"
+            university:
+              required: "を指定して下さい"
+        question:
+          attributes:
+            year:
+              blank: "を入力して下さい"
+            base:
+              questions_departments_mediators?: "区分を登録して下さい"
+              departments_belong_to_same_university?: "異なる大学に登録することはできません"
+              has_different_departments?: "同一学部に同じ問題を2回以上登録できません"
+              year_dept_number_set_unique?: "出題年、区分、問題番号の組が同じ問題が存在します。"
+        questions_departments_mediator:
+          attributes:
+            question_id:
+              taken: "は既に指定した学部に登録されています。"
+            question_number:
+              blank: "を入力して下さい"
+            question:
+              required: "を指定して下さい"
+            department:
+              required: "を指定して下さい"
+        questions_units_mediator:
+          attributes:
+            question:
+              required: "を指定して下さい"
+            question_id:
+              taken: "は既に指定した単元に登録されています。"
+            unit:
+              blank: "を指定して下さい"
+        tex:
+          attributes:
+            texable:
+              required: "を指定して下さい"
+
+
 
     models:
       university: "大学"
       department: "区分"
+      question: "問題"
+      tex: "Tex"
     attributes:
       university:
-         name: "大学名"
-         [departments_attributes]:
+          name: "大学名"
+          [departments_attributes]:
             [new_departments]:
               name: "区分名"
+          category: "カテゴリー"
       department:
         name: "区分名"
+      question:
+        year: "出題年"
+        image: "問題文"
+      questions_departments_mediator:
+        question_number: "問題番号"
+      tex:
+        code: "texコード"
+        pdf: "コンパイル結果"
+        pdf_blob_signed_id:
+
+  # enum
+  enums:
+    university:
+      category:
+        national_or_public: "国公立"
+        private: "私立"
