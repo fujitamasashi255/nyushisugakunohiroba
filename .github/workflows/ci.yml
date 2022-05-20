@@ -73,6 +73,10 @@ jobs:
         run: platex -version
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
+      - name: check dir spec/test_uploads/
+        run: |
+          ls spec
+          ls spec/test_uploads
       # spec/system/ にファイルがあることをチェック
       - name: Check systemspec existence
         id: check_systemspec_files

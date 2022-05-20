@@ -71,6 +71,6 @@ RSpec.configure do |config|
   # テスト時にアップロードされた古いファイルは自動的に削除
   config.after(:suite) do
     FileUtils.rm_rf(ActiveStorage::Blob.service.root)
-    FileUtils.rm_rf(Dir[Rails.root.join("/spec/test_uploads/")])
+    FileUtils.rm_rf(Dir[Rails.root.join("spec/test_uploads/*")])
   end
 end
