@@ -66,17 +66,17 @@ jobs:
       # TexLiveをインストール
       - name: set up texlive
         run: |
-          mkdir texlive
-          cd texlive
           sudo apt install \
           texlive-fonts-extra \
           texlive-fonts-recommended texlive-lang-cjk xdvik-ja
-          cd ..
-      - name: check install texlive
-        run: |
-          ls /usr/bin/texlive
-          which platex
-          which dvipdfmx
+      - name: check texlive-fonts-extra
+        run: dpkg -L texlive-fonts-extra
+      - name: check exlive-fonts-recommended
+        run: dpkg -L exlive-fonts-recommended
+      - name: check texlive-lang-cjk
+        run: dpkg -L texlive-lang-cjk
+      - name: check xdvik-ja
+        run: dpkg -L xdvik-ja
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       - name: check dir spec/test_uploads/
