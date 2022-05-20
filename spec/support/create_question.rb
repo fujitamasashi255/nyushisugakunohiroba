@@ -18,7 +18,8 @@ module CreateQuestion
       # 問題文texをコンパイル
       fill_in "texコード", with: tex_code
       click_button "コンパイルする"
-      expect(page).to have_content "コンパイルに成功しました。"
+      expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました。")
+      expect(page).to have_selector("embed[type='application/pdf']")
     end
     click_button "問題を作成する"
   end
