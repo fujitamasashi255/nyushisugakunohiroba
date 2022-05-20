@@ -64,22 +64,18 @@ jobs:
       - name: Install font
         run: sudo apt install fonts-ipafont fonts-ipaexfont
       # TexLiveをインストール
-      - name: Setup TeX Live
-        uses: teatimeguest/setup-texlive-action@v2
+      - name: Set up PATH on Linux
+        run: echo "/tmp/texlive/bin/x86_64-linux" >> $GITHUB_PATH
+      - name: Cache TeX Live on Unix
+        uses: actions/cache@v2
+        id: cache-texlive-unix
         with:
-          version: 2022
-      - name: Check `tlmgr` version
-        run: tlmgr --version
-      - name: set up tex PATH
-        run: |
-          ls ~/
-          ls $RUNNER_TEMP
-          ls $RUNNER_TEMP/setup-texlive
-          ls $RUNNER_TEMP/setup-texlive/2022
-          ls $RUNNER_TEMP/setup-texlive/2022/bin
-          echo "$RUNNER_TEMP/setup-texlive/2022/bin/x86_64-linux" >> $GITHUB_PATH
-          echo $GITHUB_PATH
-          platex -version
+          path: /tmp/texlive
+          key: ${{ runner.os }}-texlive-${{ env.cache-revision }}
+          restore-keys: |
+            ${{ runner.os }}-texlive-
+      - name: confirm platex
+        run: platex -version
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       - name: add permission for platex_dvipdfmx.sh
