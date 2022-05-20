@@ -64,15 +64,13 @@ jobs:
       - name: Install font
         run: sudo apt install fonts-ipafont fonts-ipaexfont
       # TexLiveをインストール
-      #- name: set up texlive
-      #  run: |
-      #    sudo apt update
-      #    sudo apt upgrade
-      #    sudo apt install \
-      #    evince texlive-fonts-extra \
-      #    texlive-fonts-recommended texlive-lang-cjk xdvik-ja
-      #- name: check install texlive
-      #  run: platex -version
+      - name: set up texlive
+        run: |
+          sudo apt install \
+          evince texlive-fonts-extra \
+          texlive-fonts-recommended texlive-lang-cjk xdvik-ja
+      - name: check install texlive
+        run: platex -version
       - name: add permission for platex_dvipdfmx.sh
         run: sudo chmod +x lib/tasks/platex_dvipdfmx.sh
       # spec/system/ にファイルがあることをチェック
