@@ -37,6 +37,16 @@ jobs:
           cache: 'yarn'
       - name: yarn install
         run: yarn install
+      # libvips をインストール
+      - name: install libvips
+        run: sudo apt install libvips42
+      - name: remove adminlte scss files
+        run: rm -r node_modules/admin-lte/build/scss
+      # webpackerにerbサポートを追加する
+      - name: webpacker install erb
+        run: bin/rails webpacker:install:erb
+      - name: compile assets
+        run: bin/webpack
       # db/schema.rbが存在することをチェックする
       - name: Check schema existence
         id: check_schema_file
@@ -48,16 +58,6 @@ jobs:
       - name: Set up database schema
         if: steps.check_schema_file.outputs.files_exists == 'true'
         run: bin/rails db:schema:load
-      # libvips をインストール
-      - name: install libvips
-        run: sudo apt install libvips42
-      - name: remove adminlte scss files
-        run: rm -r node_modules/admin-lte/build/scss
-      # webpackerにerbサポートを追加する
-      - name: webpacker install erb
-        run: bin/rails webpacker:install:erb
-      - name: compile assets
-        run: bin/webpack
       # ブラウザchromeをインストール
       - name: Install chrome
         uses: browser-actions/setup-chrome@latest
