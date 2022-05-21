@@ -1,8 +1,8 @@
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
-@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback";
-@import "app/javascript/src/admin-lte/scss/adminlte";
+@import "bootstrap";
 @import "pagination";
 @import "compile";
 @import "questions_index";
 @import "units_table";
 @import "sort_questions";
+@import "dashboard";

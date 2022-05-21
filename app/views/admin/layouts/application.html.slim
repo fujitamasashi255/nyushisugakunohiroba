@@ -1,5 +1,5 @@
 doctype html
-html
+html.h-100
   head
     title
       = yield :title
@@ -9,29 +9,30 @@ html
     = stylesheet_pack_tag 'admin', media: 'all'
     = javascript_pack_tag 'admin'
 
-  body.hold-transition.sidebar-mini
-    .wrapper
-      / Header
-      nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
-        = render "admin/shared/header"
-      / Main Sidebar Container
-      aside.main-sidebar.sidebar-dark-primary.elevation-4
+  body.h-100 style="padding-top: 60px"
+    /ヘッダー
+    = render "admin/shared/header"
+
+    .container-fluid.h-100
+      .row.h-100
+        / サイドバー
         = render "admin/shared/sidebar"
-      / Content Wrapper. Contains page content
-      .content-wrapper
-        = render "layouts/flash_messages"
-        / MainContents
-        .content
-          .container-fluid
+
+        /メイン
+        main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 h-100"
+          / フラッシュメッセージ
+          = render "layouts/flash_messages"
+          / メインコンテンツ
+          .container-fluid.d-flex.flex-column.h-100
             .py-3
             .container
               h2
-               = yield :title
+                = yield :title
             .py-3
             = yield
             .py-3
-      / Main Footer
-      footer.main-footer
-        = render "admin/shared/footer"
-      .py-3
-
+            / フッター
+            footer.mt-auto
+              .container
+                = render "admin/shared/footer"
+            .py-3
