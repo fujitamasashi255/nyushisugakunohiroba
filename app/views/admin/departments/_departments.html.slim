@@ -2,10 +2,10 @@
 
 - if defined? question
   - departments.each do |department|
-    span.p-1.ml-1.rounded.border.text-center.bg-white.department-name
+    .p-1.ms-1.rounded.border.text-center.bg-white.department-name
       = department.name
       = department.questions_departments_mediators.find_by(question_id: question.id).question_number
 - else
   - departments.each do |department|
-    span.p-1.ml-1.rounded.border.text-center.bg-white.department-name
+    span.d-inline-block.p-1.me-1.rounded.border.text-center.bg-white.department-name
       = department.name

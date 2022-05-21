@@ -1,9 +1,13 @@
 .container
   = search_form_for(q, url: admin_universities_path) do |f|
-    .row
-      .form_group.col
-        = f.label :name_cont, University.human_attribute_name(:name)
-        .input-group
-            = f.search_field :name_cont, class: "form-control col-4"
-            .input-group-append.ml-3
-              = f.submit
+    .mb-3
+      = f.label :name_cont, University.human_attribute_name(:name)
+      .row
+        .col-6
+          = f.search_field :name_cont, class: "form-control col-4"
+        .col-auto.ps-0.my-auto
+          = University.model_name.human
+
+      .py-1
+
+      = f.submit

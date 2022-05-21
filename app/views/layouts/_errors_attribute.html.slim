@@ -4,5 +4,5 @@
 
 - if object&.errors.messages[attribute.to_sym].any?
   - object&.errors.messages[attribute.to_sym].each do |message|
-    .invalid-feedback
+    .text-danger
       | #{object.class.human_attribute_name(attribute.to_sym)} #{message}

@@ -9,17 +9,17 @@ html.h-100
     = stylesheet_pack_tag 'admin', media: 'all'
     = javascript_pack_tag 'admin'
 
-  body.h-100 style="padding-top: 60px"
+  body.h-100 style="padding-top: 72px"
     /ヘッダー
     = render "admin/shared/header"
 
-    .container-fluid.h-100
+    .container-fluid.h-100.px-0
       .row.h-100
         / サイドバー
         = render "admin/shared/sidebar"
 
         /メイン
-        main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 h-100"
+        main class="col-10 h-100 ms-auto px-0"
           / フラッシュメッセージ
           = render "layouts/flash_messages"
           / メインコンテンツ
