@@ -9,5 +9,11 @@ import "channels"
 import "../stylesheets/application.scss"
 import "bootstrap"
 
+import I18n from 'src/i18n-js/index.js.erb'
+I18n.locale = 'ja'
+export function t(arg) {
+  return I18n.t(arg)
+}
+
 Rails.start()
 ActiveStorage.start()

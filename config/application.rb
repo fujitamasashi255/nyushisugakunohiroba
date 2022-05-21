@@ -21,6 +21,11 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# ActiveHashのi18n
+class ActiveHash::Base
+  extend ActiveModel::Translation
+end
+
 module Portfolio
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -37,6 +42,9 @@ module Portfolio
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # 画像変換にlibvipsを利用する
+    config.active_storage.variant_processer = :vips
 
     # rails generate コマンドの設定
     config.generators do |g|

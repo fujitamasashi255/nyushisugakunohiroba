@@ -25,6 +25,10 @@
 /public/assets
 .byebug_history
 
+# Ignore uploaded files in test.
+/spec/test_uploads/*
+!/spec/test_uploads/.keep
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
@@ -36,3 +40,7 @@ yarn-debug.log*
 .yarn-integrity
 vendor
 .DS_Store
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

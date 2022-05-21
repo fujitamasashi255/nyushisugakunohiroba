@@ -1,0 +1,17 @@
+/ subujectごとにunitを表示する
+table.table-borderless.units-table
+  tbody
+    - Unit.subjects.each do |sub|
+      / subjectごとのunitの配列unit_per_subを得る
+      - units_per_sub = units.select{|unit| unit.subject == sub}
+      - if units_per_sub.present?
+        / .container
+        tr
+          td class="subject#{sub}"
+            label.mt-1
+              | #{t("common.math")}#{sub}
+          / unitsはsubjectごとのunitの配列
+          td.unit-name
+            - units_per_sub.each do |unit|
+              span.p-1.mb-1.ml-1.rounded.border.text-center.bg-white.d-inline-block
+                = unit.name

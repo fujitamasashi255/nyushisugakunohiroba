@@ -24,9 +24,14 @@ html
         .content
           .container-fluid
             .py-3
+            .container
+              h2
+               = yield :title
+            .py-3
             = yield
+            .py-3
       / Main Footer
       footer.main-footer
         = render "admin/shared/footer"
-    .py-3
+      .py-3
 
