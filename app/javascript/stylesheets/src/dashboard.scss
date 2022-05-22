@@ -23,15 +23,6 @@ body {
   }
 }
 
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  //height: calc(100vh - 48px);
-  padding-top: .5rem;
-  overflow-x: hidden;
-  overflow-y: auto; /* ビューポートがコンテンツより短い場合、スクロール可能なコンテンツ */
-}
-
 .sidebar .nav-link {
   font-weight: 500;
   color: #333;
@@ -42,7 +33,9 @@ body {
 }
 
 .sidebar .nav-link:hover {
-  background-color: peru;
+  background-color: sandybrown;
+  text-decoration: none;
+  color: #212529;
 }
 
 /*
