@@ -9,50 +9,55 @@
         = f.input :year, collection: 1980..Time.current.year, include_blank: false
 
       / 大学名
-      .col-6
+      .col-9
         label
           = University.human_attribute_name(:name)
 
         / 大学名ドロップダウンボタン
-        .input-group.university-radio-buttons
-          button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle dropdown-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
-            = question.university.name if question.university.present?
-          / 大学名ドロップダウンメニュー（ラジオボタン ）
-          .dropdown-menu.dropdown-menu-left.p-3[style="min-width: 700px"]
-            - University.categories.keys.each do |category|
-              .container.my-2
-                .row
-                  label
+        .university-radio-buttons.container.ps-0
+          .row
+            .col-6.d-grid.gap-2
+              button[type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside"]
+                = question.university.name if question.university.present?
+              / 大学名ドロップダウンメニュー（ラジオボタン ）
+              .container.dropdown-menu.p-3 style="min-width: 700px"
+                - University.categories.keys.each do |category|
+                  label.form-label
                     = University.categories_i18n[category]
-                .row
-                  = f.collection_radio_buttons "university", University.where(category: category).pluck(:name, :id), :last, :first, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-2' do |b|
-                    = b.radio_button(class: 'form-check-input', data: { departments_path: "#{admin_university_department_check_boxes_path(b.value)}" })
-                    = b.label(class: 'form-check-label')
-          / ボタンのappendテキスト
-          .input-group-append
-            span.input-group-text
+                  small.row
+                    = f.collection_radio_buttons "university", University.where(category: category).pluck(:name, :id), :last, :first, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-md-2 col-sm-3 px-0' do |b|
+                      span.d-inline-block
+                        .dropdown-item
+                          = b.radio_button(class: 'me-2', data: { departments_path: "#{admin_university_department_check_boxes_path(b.value)}" })
+                          = b.label(class: 'form-check-label')
+            / 「大学」
+            .col.ps-0.my-auto
               = University.model_name.human
+
+  .py-3
+
   / 区分
   .container
     .row
-      .col
-        label
-          = Department.model_name.human
-    .row.border.p-3[style="min-height: 4rem"]
+      label.form-label
+        = Department.model_name.human
+    .form-control.p-3[style="min-height: 4rem"]
       / 区分名チェックボックス
       - checkbox_departments = question.university.blank? ? [] : question.university.departments.includes(:questions_departments_mediators)
       .department-check-box-group
         = f.collection_check_boxes :department_ids, checkbox_departments, :id, :name, item_wrapper_tag: nil do |b|
-          .form-inline.mb-3 class="department#{b.object.id}-question-number-group"
-            .form-check
+          .d-flex.align-items-center class="department#{b.object.id}-question-number-group"
+            .form-check.py-3
               = b.check_box(class: 'form-check-input')
-              = b.label(class: 'form-check-label py-3')
+              = b.label(class: 'form-check-label')
             / 問題番号selectボックス
             = f.simple_fields_for "department[questions_departments_mediator]", b.object.questions_departments_mediators.find{|x| x.question_id == f.object.id}, index: b.object.id do |qdm_f|
               - if qdm_f.object.present?
-                .form-group.question-number-selectbox
-                  = qdm_f.label :question_number, label: QuestionsDepartmentsMediator.human_attribute_name(:question_number),class: "ml-4 col-form-label"
-                  = qdm_f.input :question_number, label:false, wrapper:false, as: :select, collection: 1..20, input_html: {class: "form-control ml-2"}
+                .question-number-selectbox.d-flex
+                  .ms-4
+                    = qdm_f.label :question_number, label: QuestionsDepartmentsMediator.human_attribute_name(:question_number),class: "col-form-label"
+                  .ms-2
+                    = qdm_f.input :question_number, label:false, wrapper:false, as: :select, collection: 1..20, input_html: {class: "form-control"}
 
 
   .py-3
@@ -60,21 +65,20 @@
   / 単元
   .container
     .row
-      .col
-        label
-          = Unit.model_name.human
+      label.form-label
+        = Unit.model_name.human
     / 単元チェックボックス
-    .row
-      .unit-check-box-group.col.border.p-3
+    .form-control
+      .unit-check-box-group.p-3
         / subujectごとにunitのチェックボックスを表示する
         - Unit.subjects.each do |sub|
-          .container class="subject#{sub}"
-            label.row
+          div class="subject#{sub}"
+            label
               | #{t("common.math")}#{sub}
-            .row
+            small.d-flex.flex-wrap.mt-2
               / unitsはsubjectごとのunitの配列
-              = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
-                = b.check_box(class: 'form-check-input')
+              = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check px-2' do |b|
+                = b.check_box(class: 'me-2')
                 = b.label(class: 'form-check-label')
             .py-2
 
@@ -87,4 +91,4 @@
   .py-3
 
   / 送信ボタン
-  = f.button :submit, class: "btn-primary", data: { disable_with: t(".saving")}
+  = f.button :submit, class: "", data: { disable_with: t(".saving")}

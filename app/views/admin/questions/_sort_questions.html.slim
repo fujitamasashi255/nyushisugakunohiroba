@@ -1,8 +1,8 @@
-span.sort-buttons
+.sort-buttons
   label
     | #{QuestionsSearchForm.human_attribute_name(:sort_type)}：
   - QuestionsSearchForm::SORT_TYPES_ENUM.keys.each do |sort_type|
-    span.d-inlin.justify-content-center.ml-2.pl-2 class= sort_type
+    span.justify-content-center.ms-2.ps-2 class= sort_type
       - if sort_type == :year_new
         = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type.to_s}"), admin_questions_sort_path(sort_type), class: active_if_by_path("/admin/questions_sorts/#{sort_type}", admin_questions_path, admin_questions_search_form_path)
       - else

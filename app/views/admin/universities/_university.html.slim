@@ -3,7 +3,8 @@ tr class="university#{university.id}-info"
     = university.name
   td.align-middle.departments
     - if university.departments.present?
-      = render "admin/departments/departments", departments: university.departments
+      .d-flex
+        = render "admin/departments/departments", departments: university.departments
   td.align-middle[style="width:25%"]
     = link_to t("common.edit"), edit_admin_university_path(university), class: "btn btn-primary", role: "button"
     = link_to t("common.destroy"), admin_university_path(university), method: :delete, class: "btn btn-primary ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }

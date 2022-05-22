@@ -5,15 +5,19 @@
       .col-sm-2.col-form-label
         label
         = Question.human_attribute_name(:year)
-      .col-sm-10
-        .form-inline
-          = f.input_field :start_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control mr-1", selected: nil
-          span.mr-2
-            = t("common.year")
-          | 〜
-          = f.input_field :end_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control ml-2 mr-1", selected: nil
-          span
-            = t("common.year")
+      .col-sm-8
+        .d-flex
+          = f.input_field :start_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control", selected: nil
+          .ms-1.d-flex
+            .align-self-center
+              = t("common.year")
+          .mx-2.d-flex
+            .align-self-center
+              | 〜
+          = f.input_field :end_year, collection: 1980..Time.current.year, include_blank: t("common.select_blank"), class: "form-control", selected: nil
+          .ms-1.d-flex
+            .align-self-center
+              = t("common.year")
 
     .py-2
 
@@ -21,19 +25,19 @@
     .row.search-form-universities
       .col-sm-2.col-form-label
         = University.model_name.human
-      .col-6
+      .col-6.d-grid.gap-2
         /ドロップダウンボタン
-        button[type="button" class="btn btn-outline-dark btn-block col dropdown-toggle university-name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+        button[type="button" class="btn btn-outline-dark dropdown-toggle university-name" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside"]
         / 大学名ドロップダウンメニュー（セレクトボックス ）
-        small.dropdown-menu.dropdown-menu-left.p-3[style="min-width: 700px"]
+        .dropdown-menu.p-3 style="min-width: 700px"
           - University.categories.keys.each do |category|
-            .container.my-2
-              .row
-                label
-                  = University.categories_i18n[category]
-              .row
-                = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-2' do |b|
-                    = b.check_box(class: 'form-check-input')
+            label.form-label
+              = University.categories_i18n[category]
+            small.row
+              = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-md-2 col-sm-3 px-0' do |b|
+                span.d-inline-block
+                  .dropdown-item
+                    = b.check_box(class: 'me-2')
                     = b.label(class: 'form-check-label')
 
     .py-2
@@ -47,9 +51,9 @@
             .container class="subject#{sub}"
               label.row
                 | #{t("common.math")}#{sub}
-              .row
+              small.d-flex.flex-wrap.mt-2
                 / unitsはsubjectごとのunitの配列
-                = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check form-check-inline' do |b|
+                = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check me-3' do |b|
                   = b.check_box(class: 'form-check-input')
                   = b.label(class: 'form-check-label')
               .py-2
@@ -57,5 +61,4 @@
     .py-2
 
     / 検索ボタン
-    .row
-      = f.button :submit, class: "btn-primary"
+    = f.button :submit, class: "btn-primary"
