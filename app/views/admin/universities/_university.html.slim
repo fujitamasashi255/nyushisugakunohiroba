@@ -6,5 +6,9 @@ tr class="university#{university.id}-info"
       .d-flex
         = render "admin/departments/departments", departments: university.departments
   td.align-middle[style="width:25%"]
-    = link_to t("common.edit"), edit_admin_university_path(university), class: "btn btn-primary", role: "button"
-    = link_to t("common.destroy"), admin_university_path(university), method: :delete, class: "btn btn-primary ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+    / 編集ボタン
+    = link_to edit_admin_university_path(university) do
+      i.bi.bi-pencil-square role="img" aria-label="Pencil"
+    / 削除ボタン
+    = link_to admin_university_path(university), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
+      i.bi.bi-trash role="img" aria-label="Trash"

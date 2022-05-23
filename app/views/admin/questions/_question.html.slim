@@ -10,12 +10,16 @@
               span
                 = question.year
                 = t("common.year")
-              span.ml-1
+              span.ms-1
                 = question.university.name
                 = University.model_name.human
             span.d-block.ms-auto
-              = link_to t("common.edit"), edit_admin_question_path(question), class: "btn btn-primary btn-sm", role: "button"
-              = link_to t("common.destroy"), admin_question_path(question), method: :delete, class: "btn btn-primary btn-sm ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+              / 編集ボタン
+              = link_to edit_admin_question_path(question) do
+                i.bi.bi-pencil-square role="img" aria-label="Pencil"
+              / 削除ボタン
+              = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
+                i.bi.bi-trash role="img" aria-label="Trash"
 
         / 区分一覧
         .row.department-info
