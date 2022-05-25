@@ -36,8 +36,14 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 
-// 検索フォーム大学選択チェックボックスでドロップダウンが閉じた時に
-// 選択した大学名をボタンに表示
+// ページを読み込んだ際に、選択されている大学名をボタンに表示
+$(function(){
+  var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
+  var dropDownButton = $('.search-form-universities button');
+  displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
+});
+
+// 検索フォーム大学選択チェックボックス選択時に、選択した大学名をボタンに表示
 $(function(){
   $('.search-form-universities input[type="checkbox"]').on('change', function(){
     var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
