@@ -29,17 +29,16 @@
         /ドロップダウンボタン
         button[type="button" class="btn btn-outline-dark dropdown-toggle university-name" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside"]
         / 大学名ドロップダウンメニュー（セレクトボックス ）
-        .dropdown-menu.p-3 style="min-width: 700px"
+        .dropdown-menu.p-3
           - University.categories.keys.each do |category|
             label.form-label
               = University.categories_i18n[category]
-            small.row
-              = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-md-2 col-sm-3 px-0' do |b|
-                span.d-inline-block.ms-4
-                  .dropdown-item.ps-4
-                    div
-                      = b.check_box(class: 'form-check-input')
-                      = b.label(class: 'form-check-label')
+            small.row.ms-4.row-cols-auto
+              = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col px-0' do |b|
+                = b.label(class: 'form-check-label')
+                  div.ps-4.dropdown-item
+                    = b.check_box(class: 'form-check-input')
+                    = b.object.name
 
     .py-2
 
@@ -55,9 +54,11 @@
               small.d-flex.flex-wrap.mt-2
                 / unitsはsubjectごとのunitの配列
                 = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check me-3 p-0' do |b|
-                  div.ps-4
-                    = b.check_box(class: 'form-check-input')
-                    = b.label(class: 'form-check-label')
+                  = b.label(class: 'form-check-label')
+                    div.ps-4.dropdown-item
+                      = b.check_box(class: 'form-check-input')
+                      = b.object.name
+
               .py-2
 
     .py-2

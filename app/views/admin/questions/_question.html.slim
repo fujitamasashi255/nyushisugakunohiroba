@@ -37,7 +37,7 @@
             .py-1
 
             / 問題文画像
-            - if question.image.present?
+            - if question.image.attached?
               .question-body.border
                 = image_tag question.image, class: "bg-white p-3 img-fluid"
               .py-1

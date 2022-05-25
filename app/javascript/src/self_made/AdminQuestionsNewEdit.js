@@ -41,7 +41,7 @@ $(function(){
   // 大学選択のラジオボタンが押されたら
   $('.university-radio-buttons input[type="radio"]').on("click", function(){
     // 押されたラジオボタンのラベル名を取得
-    var univName = $(this).next().text();
+    var univName = $(this).parent().text();
     // ラジオボタンで押した大学名をボタンに表示する
     $('.university-radio-buttons button').text(univName);
     // 押したラジオボタンの大学の区分を取得するアクションのパス departmentsPath

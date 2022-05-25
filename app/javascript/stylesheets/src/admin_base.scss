@@ -51,3 +51,12 @@ body {
 a[role="button"]:hover {
   text-decoration: none;
 }
+
+// ドロップダウンメニュー
+.dropdown-menu {
+  max-width: 700px;
+}
+
+.search-form-universities button:hover{
+  background-color: $deepsilver;
+}

@@ -2,8 +2,8 @@ var displayCheckedUniversityNamesOnDropDownButton = function(checkedBoxes, dropD
   // 選択した大学の名前を格納する配列
   var universityNames = [];
   checkedBoxes.each(function(){
-    var checkBoxLabel = $(this).next();
-    universityNames.push(checkBoxLabel.text());
+    var checkBoxDropdownItem = $(this).parent();
+    universityNames.push(checkBoxDropdownItem.text());
   });
   dropDownButton.text(universityNames.join("、"));
 }
