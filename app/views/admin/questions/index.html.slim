@@ -28,7 +28,7 @@
 
     - if @questions.present?
       / 問題並び替え
-      = render "admin/questions/sort_questions", questions_search_form: @questions_search_form
+      = render "admin/questions/sort_questions", questions_search_form: @questions_search_form, params_to_transit: @params_to_transit
 
 
 - if @questions.present?
