@@ -5,6 +5,7 @@ class Admin::QuestionsSearchFormsController < Admin::ApplicationController
     search_conditions_to_cookies
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search)
+    @params_to_transit = questions_search_form_params.to_h
     render "admin/questions/index"
   end
 

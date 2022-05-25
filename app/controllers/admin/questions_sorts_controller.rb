@@ -6,6 +6,7 @@ class Admin::QuestionsSortsController < Admin::ApplicationController
   def show
     @questions_search_form = QuestionsSearchForm.new(search_conditions)
     @pagy, @questions = pagy(@questions_search_form.search)
+    @params_to_transit = search_conditions.to_h
     render "admin/questions/index"
   end
 
