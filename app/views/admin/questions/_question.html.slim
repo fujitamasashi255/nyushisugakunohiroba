@@ -21,7 +21,7 @@
             = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
               i.bi.bi-trash role="img" aria-label="Trash"
 
-        = link_to admin_question_path(question) do
+        = link_to admin_question_path(question), class: "d-block h-100" do
           .question-card-bottom
             / 区分一覧
             .row.department-info
