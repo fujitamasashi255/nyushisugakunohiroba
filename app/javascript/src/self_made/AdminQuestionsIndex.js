@@ -12,14 +12,26 @@ var displayCheckedUniversityNamesOnDropDownButton = function(checkedBoxes, dropD
 // 検索フォーム折りたたみ
 document.addEventListener('DOMContentLoaded', function(){
   let collapseElem = document.querySelector('#collapse-search-form');
-  let collapseButton = document.querySelector('.search-form .toggle-btn');
+  let collapseIconWrapper = document.querySelector('.search-form-icon');
   // 検索フォームの折りたたみが表示されると、ボタンのテキストを - に変更
   collapseElem.addEventListener('show.bs.collapse', function(){
-    collapseButton.innerHTML = "ー";
+    collapseIconWrapper.innerHTML = "";
+    let Icon = document.createElement("i");
+    Icon.setAttribute("class", "bi bi-dash-square toggle-btn");
+    Icon.setAttribute("data-bs-toggle", "collapse");
+    Icon.setAttribute("href", "#collapse-search-form");
+    Icon.setAttribute("role", "button");
+    collapseIconWrapper.append(Icon);
   });
   // 検索フォームの折りたたみが非表示になると、ボタンのテキストを + に変更
   collapseElem.addEventListener('hide.bs.collapse', function(){
-    collapseButton.innerHTML = "+";
+    collapseIconWrapper.innerHTML = "";
+    let Icon = document.createElement("i");
+    Icon.setAttribute("class", "bi bi-plus-square toggle-btn");
+    Icon.setAttribute("data-bs-toggle", "collapse");
+    Icon.setAttribute("href", "#collapse-search-form");
+    Icon.setAttribute("role", "button");
+    collapseIconWrapper.append(Icon);
   });
 });
 
