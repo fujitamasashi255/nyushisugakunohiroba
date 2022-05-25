@@ -5,18 +5,17 @@ label.form-group
 
 .row.small
   / 問題文のtexコード
-  .col-6
+  .col-md-6
     = f.simple_fields_for tex do |t|
       = t.input :code, input_html: { style: "min-height: 500px", id: "tex-code"}
       = t.input_field :pdf_blob_signed_id, id: "pdf_blob_signed_id", type: "hidden"
+    button.btn.btn-outline-dark id="compile-button" type="button" data-compile-path= "#{compile_path}"
+      = t("compile.create")
 
   / texをコンパイルした結果
-  .col-6
+  .col-md-6
     label
       = Tex.human_attribute_name(:pdf)
     .border.rounded.p-2.bg-white id="compile-result" style='height: 500px'
       - if tex.pdf.attached?
         embed.d-block type="application/pdf" height="500" width="100%" marginwidth="0" src="#{url_for(tex.pdf)}"
-
-button.btn.btn-primary id="compile-button" type="button" data-compile-path= "#{compile_path}"
-  = t("compile.create")

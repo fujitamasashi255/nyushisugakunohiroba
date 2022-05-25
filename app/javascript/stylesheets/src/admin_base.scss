@@ -4,9 +4,7 @@ body {
   font-size: .875rem;
 }
 
-/*
- * サイドバー
- */
+//サイドバー
 
 #sidebarMenu {
   font-size: 1rem;
@@ -36,15 +34,20 @@ body {
 
 .sidebar .nav-link:hover {
   background-color: $brown;
-  color: $black
+  color: $black;
+  text-decoration: none;
 }
 
-/*
- * ナビゲーションバー
- */
+// ナビゲーションバー
 
 #navbarBrand {
   padding-top: .75rem;
   padding-bottom: .75rem;
   background-color: inherit;
+}
+
+// ボタンリンク
+
+a[role="button"]:hover {
+  text-decoration: none;
 }

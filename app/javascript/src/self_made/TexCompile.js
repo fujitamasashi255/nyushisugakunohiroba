@@ -21,7 +21,7 @@ var disabledButton = function(button){
 
 // 「コンパイルする」ボタンに戻す
 var replacewithNewButton = function(button, path, signedId){
-  var newButton = $('<button>', {class: "btn btn-primary", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("compile.create"));
+  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("compile.create"));
   button.replaceWith(newButton)
   if(signedId){
     $('<span>', {id: "compile-message", class: "text-success ms-2"}).text(t("messages.compile.success")).insertAfter(newButton);

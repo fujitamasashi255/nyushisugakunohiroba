@@ -1,10 +1,11 @@
 // スクロール
 $enable-smooth-scroll:        false;
 
-
-// リンク
+// ボタン・リンク
+$primary:                                 darkseagreen;
 $link-color:                              silver !default;
-$link-decoration:                         none !default;
-$link-hover-decoration:                   underline sandybrown !default;
+$link-decoration:                           none;
+$link-hover-decoration:                     underline sandybrown !default;
 
 @import "bootstrap_scss/bootstrap";
+

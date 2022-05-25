@@ -4,38 +4,40 @@
       / カード部分
       .col-12.question-card.border.mb-4
         / カードの上部分
-        .py-2
-          .d-flex.align-items-center
-            span.d-block
+        .question-card-top.d-flex
+          = link_to admin_question_path(question), class: "d-block flex-grow-1 py-1" do
+            .univ-name-year-info
               span
                 = question.year
                 = t("common.year")
               span.ms-1
                 = question.university.name
                 = University.model_name.human
-            span.d-block.ms-auto
-              / 編集ボタン
-              = link_to edit_admin_question_path(question) do
-                i.bi.bi-pencil-square role="img" aria-label="Pencil"
-              / 削除ボタン
-              = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
-                i.bi.bi-trash role="img" aria-label="Trash"
+          span.d-block
+            / 編集ボタン
+            = link_to edit_admin_question_path(question) do
+              i.bi.bi-pencil-square role="img" aria-label="Pencil"
+            / 削除ボタン
+            = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
+              i.bi.bi-trash role="img" aria-label="Trash"
 
-        / 区分一覧
-        .row.department-info
-          small.d-flex
-            = render "admin/departments/departments", {departments: question.departments, question: question}
+        = link_to admin_question_path(question) do
+          .question-card-bottom
+            / 区分一覧
+            .row.department-info
+              small.d-flex
+                = render "admin/departments/departments", {departments: question.departments, question: question}
 
-        .py-2
+            .py-2
 
-        / 単元一覧
-        small.row.unit-info
-          = render "admin/units/units", units: question.units
+            / 単元一覧
+            small.row.unit-info
+              = render "admin/units/units", units: question.units
 
-        .py-1
+            .py-1
 
-        / 問題文画像
-        - if question.image.present?
-          .question-body.border
-            = image_tag question.image, class: "bg-white p-3 img-fluid"
-          .py-1
+            / 問題文画像
+            - if question.image.present?
+              .question-body.border
+                = image_tag question.image, class: "bg-white p-3 img-fluid"
+              .py-1

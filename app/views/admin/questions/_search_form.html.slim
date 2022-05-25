@@ -35,10 +35,11 @@
               = University.categories_i18n[category]
             small.row
               = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col-md-2 col-sm-3 px-0' do |b|
-                span.d-inline-block
-                  .dropdown-item
-                    = b.check_box(class: 'me-2')
-                    = b.label(class: 'form-check-label')
+                span.d-inline-block.ms-4
+                  .dropdown-item.ps-4
+                    div
+                      = b.check_box(class: 'form-check-input')
+                      = b.label(class: 'form-check-label')
 
     .py-2
 
@@ -53,12 +54,13 @@
                 | #{t("common.math")}#{sub}
               small.d-flex.flex-wrap.mt-2
                 / unitsはsubjectごとのunitの配列
-                = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check me-3' do |b|
-                  = b.check_box(class: 'form-check-input')
-                  = b.label(class: 'form-check-label')
+                = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check me-3 p-0' do |b|
+                  div.ps-4
+                    = b.check_box(class: 'form-check-input')
+                    = b.label(class: 'form-check-label')
               .py-2
 
     .py-2
 
     / 検索ボタン
-    = f.button :submit, class: "btn-primary"
+    = f.button :submit, class: "btn-outline-dark"

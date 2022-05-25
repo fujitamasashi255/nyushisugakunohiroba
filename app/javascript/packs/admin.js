@@ -4,7 +4,6 @@ import * as ActiveStorage from "@rails/activestorage"
 require("jquery")
 require("@nathanvda/cocoon")
 
-import "@fortawesome/fontawesome-free/js/all.min"
 import "bootstrap"
 import "src/self_made/AdminQuestionsNewEdit"
 import "src/self_made/TexCompile"

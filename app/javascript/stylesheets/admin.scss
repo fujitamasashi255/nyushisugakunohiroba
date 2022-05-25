@@ -1,9 +1,9 @@
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "src/custom_bootstrap";
 @import "src/pagination";
 @import "src/compile";
-@import "src/questions_index";
+@import "src/question";
+@import "src/university";
 @import "src/units_table";
 @import "src/sort_questions";
-@import "src/dashboard";
-@import "src/custom_bootstrap";
+@import "src/admin_base";
 @import "src/bootstrap_icons";

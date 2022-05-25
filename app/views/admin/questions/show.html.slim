@@ -1,50 +1,52 @@
 - content_for(:title, t('.title'))
 
 .container
-  .row
-    / 出題年
-    .col-2
-      label
-        = Question.human_attribute_name(:year)
-      .py-1.rounded.border.text-center.bg-white
-          = @question.year
-    / 出題大学
-    .col-3
-      label
-        = University.model_name.human
-      .d-flex
-        .py-1.rounded.border.text-center.bg-white.flex-grow-1
-          = @question.university.name
-        .py-1.ms-2
-          = University.model_name.human
-    / 区分
-    .col-5
-      .container
+  .col-10
+    .container.question-show.p-4
+      .row
+        / 出題年
+        .col-2
+          label
+            = Question.human_attribute_name(:year)
+          .py-1.rounded.border.text-center.bg-white
+              = @question.year
+        / 出題大学
+        .col-3
+          label
+            = University.model_name.human
+          .d-flex
+            .py-1.rounded.border.text-center.bg-white.flex-grow-1
+              = @question.university.name
+            .py-1.ms-2
+              = University.model_name.human
+        / 区分
+        .col-5
+          .container
+            .row
+              label
+                = Department.model_name.human
+            -if @question.departments.present?
+              .d-flex
+                = render "admin/departments/departments", {departments: @question.departments, question: @question}
+      .py-3
+
+      - if @question.units.present?
+        / 単元
         .row
           label
-            = Department.model_name.human
-        -if @question.departments.present?
-          .d-flex
-            = render "admin/departments/departments", {departments: @question.departments, question: @question}
-  .py-3
+            = Unit.model_name.human
+          = render "admin/units/units", units: @question.units
 
-  - if @question.units.present?
-    / 単元
-    .row
-      label
-        = Unit.model_name.human
-      = render "admin/units/units", units: @question.units
+      .py-3
 
-  .py-3
-
-  - if @question.image.attached?
-    label
-      = Question.human_attribute_name(:image)
-    div
-      = image_tag @question.image, class: "bg-white p-3 border", width: "700"
+      - if @question.image.attached?
+        label
+          = Question.human_attribute_name(:image)
+        div
+          = image_tag @question.image, class: "bg-white p-3 border", width: "700"
 
 .py-3
 .container
-  = link_to t("common.edit"), edit_admin_question_path(@question), class: "btn btn-primary", role: "button"
-  = link_to t("common.destroy"), admin_question_path(@question), method: :delete, class: "btn btn-primary ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+  = link_to t("common.edit"), edit_admin_question_path(@question), class: "btn btn-outline-dark", role: "button"
+  = link_to t("common.destroy"), admin_question_path(@question), method: :delete, class: "btn btn-outline-dark ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }
 
