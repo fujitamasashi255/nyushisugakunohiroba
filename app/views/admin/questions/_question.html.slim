@@ -1,43 +1,43 @@
-.col-4
-  .container
+.col-md-6.col-lg-4
+  .container.p-2
     .row.d-flex.justify-content-center.p-1
       / カード部分
-      .col-12.question-card.bg-secondary.border.mb-4
+      .col-12.question-card.border.mb-4
         / カードの上部分
-        .container
-          .py-2
-          .row.university-info
-            .col.d-flex.align-items-center
-              span.d-block
-                span
-                  = question.year
-                  = t("common.year")
-                span.ml-1
-                  = question.university.name
-                  = University.model_name.human
-              span.d-block.ml-auto
-                = link_to t("common.edit"), edit_admin_question_path(question), class: "btn btn-primary", role: "button"
-                = link_to t("common.destroy"), admin_question_path(question), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+        .question-card-top.d-flex
+          = link_to admin_question_path(question), class: "d-block flex-grow-1 py-1" do
+            .univ-name-year-info
+              span
+                = question.year
+                = t("common.year")
+              span.ms-1
+                = question.university.name
+                = University.model_name.human
+          span.d-block
+            / 編集ボタン
+            = link_to edit_admin_question_path(question) do
+              i.bi.bi-pencil-square role="img" aria-label="Pencil"
+            / 削除ボタン
+            = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
+              i.bi.bi-trash role="img" aria-label="Trash"
 
-          .py-2
+        = link_to admin_question_path(question), class: "d-block h-100" do
+          .question-card-bottom
+            / 区分一覧
+            .row.department-info
+              small.d-flex
+                = render "admin/departments/departments", {departments: question.departments, question: question}
 
-          / 区分一覧
-          .row.department-info
-            small
-              = render "admin/departments/departments", {departments: question.departments, question: question}
+            .py-2
 
-          .py-2
-
-          / 単元一覧
-          .row.unit-info
-            small
+            / 単元一覧
+            small.row.unit-info
               = render "admin/units/units", units: question.units
 
-          .py-1
-
-          / 問題文画像
-          - if question.image.present?
-            .row
-              .col.question-body.border
-                = image_tag question.image, class: "bg-white p-3 img-fluid"
             .py-1
+
+            / 問題文画像
+            - if question.image.attached?
+              .question-body.border
+                = image_tag question.image, class: "bg-white p-3 img-fluid"
+              .py-1

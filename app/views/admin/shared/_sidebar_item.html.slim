@@ -1,4 +1,3 @@
 li.nav-item
-  a.nav-link[href=link class=active_if(controller, action)]
-    p
-      = item_name
+  a href=link class="nav-link link-info #{active_if(*paths)}"
+    = item_name

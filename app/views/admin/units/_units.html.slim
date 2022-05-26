@@ -7,11 +7,11 @@ table.table-borderless.units-table
       - if units_per_sub.present?
         / .container
         tr
-          td class="subject#{sub}"
+          td class="subject#{sub}" style="width: 3rem"
             label.mt-1
               | #{t("common.math")}#{sub}
           / unitsはsubjectごとのunitの配列
           td.unit-name
             - units_per_sub.each do |unit|
-              span.p-1.mb-1.ml-1.rounded.border.text-center.bg-white.d-inline-block
+              span.p-1.ms-1.rounded.border.text-center.bg-white.d-inline-block
                 = unit.name

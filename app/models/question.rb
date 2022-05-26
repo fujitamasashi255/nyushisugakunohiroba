@@ -92,12 +92,10 @@ class Question < ApplicationRecord
 
   # 出題年、区分、問題番号の組は一意
   def year_dept_number_set_unique?
-    if Question.joins(questions_departments_mediators: :department).where(
-      year:,
-      questions_departments_mediators: { question_number: questions_departments_mediators.map(&:question_number) },
-      department: { id: questions_departments_mediators.map { |medi| medi.department.id } }
-    ).count.positive?
-      errors.add(:base, :year_dept_number_set_unique?)
-    end
+    year_dept_number_set_in_db = QuestionsDepartmentsMediator.joins(:question).where(question: { year: }).map { |medi| [medi.department_id, medi.question_number] }
+    creating_year_dept_number_set = questions_departments_mediators.map { |medi| [medi.department_id, medi.question_number] }
+    return if (year_dept_number_set_in_db & creating_year_dept_number_set).empty?
+
+    errors.add(:base, :year_dept_number_set_unique?)
   end
 end

@@ -1,0 +1,9 @@
+@import "valiables";
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination .active .page-link {
+  pointer-events:none;
+}

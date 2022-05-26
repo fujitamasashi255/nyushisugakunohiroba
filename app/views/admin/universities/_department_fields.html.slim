@@ -1,6 +1,7 @@
-.nested-fields
-  .form-group
-      = f.label :name
-      .input-group.row
-        = f.input_field :name, class: 'col-6 text-center form-control'
-        = link_to_remove_association f, {class: "col col-form-label"}
+.nested-fields.row
+  .col-6
+    = f.input :name, label:false, wrapper:false, input_html: { class: 'text-center form-control' }
+  .col.col-form-label.form-label
+    = link_to_remove_association f do
+      i.bi.bi-trash role="img" aria-label="Trash"
+  .py-2

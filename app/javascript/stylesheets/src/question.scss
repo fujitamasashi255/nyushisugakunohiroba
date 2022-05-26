@@ -1,0 +1,41 @@
+@import "valiables";
+
+// question#index
+
+.question-card{
+  height: 400px;
+  overflow: auto;
+  background-color: $lightsilver;
+}
+
+.question-card:hover {
+  background-color: $deepsilver;
+}
+
+.question-card a {
+  color: $black;
+}
+
+.question-card a:hover {
+  text-decoration: none;
+}
+
+.questions-index .question-body{
+  background-color: white;
+}
+
+// question#show
+
+.question-show {
+  background-color: $lightsilver;
+}
+
+
+// question#new, edit
+.question-form {
+  background-color: $lightsilver;
+}
+
+.question-form button {
+  background-color: white;
+}

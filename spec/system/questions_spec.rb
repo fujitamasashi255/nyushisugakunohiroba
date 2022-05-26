@@ -21,6 +21,7 @@ RSpec.describe "Questions", type: :system, js: true do
         # 大学ラジオボタン「東京」をchoose
         within(".university-radio-buttons") { click_button }
         choose "東京"
+        within(".university-radio-buttons") { click_button }
         # 学部checkboxの「理系」チェックし、その問題番号を10に設定
         check "理系"
         select 10, from: "問題番号"
@@ -78,6 +79,7 @@ RSpec.describe "Questions", type: :system, js: true do
         select "2000", from: "出題年"
         within(".university-radio-buttons") { click_button }
         choose "東京"
+        within(".university-radio-buttons") { click_button }
         check "理系"
         select "10", from: "問題番号"
         click_button "問題を作成する"
@@ -112,15 +114,12 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "出題年、大学、区分、単元を変更できること" do
-        # 出題年を2000に設定
         select 2020, from: "出題年"
-        # 大学ラジオボタン「東京」をchoose
         within(".university-radio-buttons") { click_button }
         choose "京都"
-        # 学部checkboxの「文系」チェックし、その問題番号を5に設定
+        within(".university-radio-buttons") { click_button }
         check "文系"
         select 5, from: "問題番号"
-        # 単元の「図形と計量」をチェック
         within(".subjectI") { check "図形と計量" }
         click_button "問題を変更する"
         expect(page).to have_content "問題を変更しました"
@@ -183,8 +182,8 @@ RSpec.describe "Questions", type: :system, js: true do
 
     it "問題を削除できること" do
       page.accept_confirm("本当に削除しますか") do
-        within(".university-info") do
-          click_on "削除"
+        within(".question-card") do
+          find(".bi-trash").click
         end
       end
       expect(page).not_to have_content "東京"
@@ -198,7 +197,7 @@ RSpec.describe "Questions", type: :system, js: true do
       create_question(2010, "名古屋", "理系", 7, "II", "三角関数")
       create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理")
       visit admin_questions_path
-      find('.search-form a[role="button"]').click
+      find(".toggle-btn").click
     end
 
     context "検索条件を指定しないとき" do

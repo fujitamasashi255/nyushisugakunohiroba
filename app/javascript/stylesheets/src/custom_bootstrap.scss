@@ -1,0 +1,18 @@
+// スクロール
+$enable-smooth-scroll:        false;
+
+// ボタン・リンク
+$primary:                                 darkseagreen;
+$link-color:                              silver !default;
+$link-decoration:                           none;
+$link-hover-decoration:                     underline sandybrown !default;
+
+// ページネーション
+$component-active-bg:               sandybrown;
+
+
+
+
+
+@import "bootstrap_scss/bootstrap";
+

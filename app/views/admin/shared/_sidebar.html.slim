@@ -1,31 +1,46 @@
-h1
-  a.text-center.brand-link[href=admin_root_path]
-    span.brand-text.font-weight-light.text-center
-      = t("common.site_name")
-      br
-      = t("common.admin_page")
-/ Sidebar
-.sidebar
+nav id="sidebarMenu" class="d-md-block col-2 ps-2 bg-light sidebar collapse h-100"
+  .position-sticky.pt-5
+    / 大学・区分
+    h5.nav-title.m-0.p-2
+      = t("common.univs_depts")
+    ul.nav.flex-column.small
+      /一覧
+      = render "admin/shared/sidebar_item", \
+        { \
+          paths: admin_universities_path, \
+          item_name: t("common.index"), \
+          link: admin_universities_path \
+        }
+      / 作成
+      = render "admin/shared/sidebar_item", \
+        { \
+          paths: new_admin_university_path, \
+          item_name: t("common.create"), \
+          link: new_admin_university_path \
+        }
 
-  / Sidebar Menu
-  nav.mt-2
-    ul.nav.nav-pills.nav-sidebar.nav-child-indent.flex-column[data-widget="treeview" role="menu" data-accordion="false"]
-      / 大学・区分
-      li.nav-item.menu-open
-        p.nav-link
-          = t("common.univs_depts")
-        ul.nav.nav-treeview
-          /一覧
-          = render "admin/shared/sidebar_item", {controller:"admin/universities", action: "index", item_name: t("common.index"), link: admin_universities_path}
-          / 作成
-          = render "admin/shared/sidebar_item", {controller:"admin/universities", action: "new", item_name: t("common.create"), link: new_admin_university_path}
-      / 問題
-      li.nav-item.menu-open
-        p.nav-link
-          = Question.model_name.human
-        ul.nav.nav-treeview
-          / 一覧
-          = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "index", item_name: t("common.index"), link: admin_questions_path}
-          / 作成
-          = render "admin/shared/sidebar_item", {controller:"admin/questions", action: "new", item_name: t("common.create"), link: new_admin_question_path}
+    hr
 
+    / 問題
+    h5.nav-title.m-0.p-2
+      = Question.model_name.human
+    ul.nav.flex-column.small
+      /一覧
+      = render "admin/shared/sidebar_item", \
+        { \
+          paths: [ \
+            admin_questions_path, \
+            admin_questions_search_form_path, \
+            admin_questions_sort_path(:year_new), \
+            admin_questions_sort_path(:created_at_new) \
+          ], \
+          item_name: t("common.index"), \
+          link: admin_questions_path \
+        }
+      / 作成
+      = render "admin/shared/sidebar_item", \
+        { \
+          paths: new_admin_question_path, \
+          item_name: t("common.create"), \
+          link: new_admin_question_path \
+        }

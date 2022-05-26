@@ -1,44 +1,50 @@
 - content_for(:title, t('.title'))
 
-/ 大学名
-.container.university
-  label.row.ml-1
-    = University.human_attribute_name(:name)
-  .row.ml-1
-    .col.p-2.rounded.border.text-center.bg-white.university-name
-      = @university.name
-    .col.p-2
-      = University.model_name.human
-
-.py-3
-
-/ カテゴリー
 .container
-  label.row.ml-1
-    = University.human_attribute_name(:category)
-  .row.ml-1
-    .col-6.p-2.rounded.border.text-center.bg-white.university-name
-      = @university.category_i18n
+  .col-10
+    .container.border.p-4.university-show
+      / 大学名
+      .university
+        label.row
+          = University.human_attribute_name(:name)
+        .row
+          .col.p-2.rounded.border.text-center.bg-white.university-name
+            = @university.name
+          .col.p-2
+            = University.model_name.human
 
-.py-3
+      .py-3
 
-/ 都道府県
+      / カテゴリー
+      label.row
+        = University.human_attribute_name(:category)
+      .row
+        .col-6.p-2.rounded.border.text-center.bg-white.university-name
+          = @university.category_i18n
+
+      .py-3
+
+      / 都道府県
+      label.row
+        = Prefecture.model_name.human
+      .row
+        .col-6.p-2.rounded.border.text-center.bg-white.university-name
+          = @university.prefecture.name
+
+      .py-3
+
+      /区分
+      - if @university.departments.present?
+        .departments
+          label.row
+            = Department.model_name.human
+          .row
+            .d-flex.ps-0
+              = render "admin/departments/departments", departments: @university.departments
+
+.py-2
+
+/ 編集、削除ボタン
 .container
-  label.row.ml-1
-    = Prefecture.model_name.human
-  .row.ml-1
-    .col-6.p-2.rounded.border.text-center.bg-white.university-name
-      = @university.prefecture.name
-
-.py-3
-
-.container.departments
-  label.row.ml-1
-    = Department.human_attribute_name(:name)
-  .container.ml-1
-    = render "admin/departments/departments", departments: @university.departments
-
-.py-3
-.container
-  = link_to t("common.edit"), edit_admin_university_path(@university), class: "btn btn-primary", role: "button"
-  = link_to t("common.destroy"), admin_university_path(@university), method: :delete, class: "btn btn-primary ml-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+  = link_to t("common.edit"), edit_admin_university_path(@university), class: "btn btn-outline-dark", role: "button"
+  = link_to t("common.destroy"), admin_university_path(@university), method: :delete, class: "btn btn-outline-dark ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }

@@ -1,15 +1,16 @@
-/ Left navbar links
-ul.navbar-nav
-  li.nav-item
-    a.nav-link[data-widget="pushmenu" href="#" role="button"]
-      i.fas.fa-bars
-  li.nav-item
-    a.nav-link[href=admin_root_path]
-      = t('.home')
-
-/ Right navbar links
-ul.navbar-nav.ml-auto
-  / Navbar Search
-  li.nav-item
-    a[href="#"]
-      = t('.logout')
+header class="navbar navbar-expand-md navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow"
+  .container-fluid
+    / ヘッダー左側
+    a id="navbarBrand" class="navbar-brand me-0 px-3 fs-6 col-2" href=admin_root_path
+      span.d-inline-block.text-center
+        = t("common.site_name")
+        br
+        = t("common.admin_page")
+    / ヘッダー右側
+    ul.navbar-nav
+      li.nav-item
+        a.nav-link href=admin_root_path
+          = t('.home')
+      li.nav-item
+        a.nav-link href=admin_root_path
+          = t('.logout')

@@ -12,7 +12,7 @@ RSpec.describe "Universities", type: :system, js: true do
       fill_in "大学名", with: ""
       click_button "大学・区分を作成する"
       expect(page).to have_content "大学・区分を作成できませんでした"
-      expect(page).to have_selector ".invalid-feedback", text: "大学名 を入力して下さい"
+      expect(page).to have_selector ".text-danger", text: "大学名 を入力して下さい"
     end
 
     context "同名の大学がないとき" do
@@ -33,7 +33,7 @@ RSpec.describe "Universities", type: :system, js: true do
         fill_in "大学名", with: "東京"
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成できませんでした"
-        expect(page).to have_selector ".invalid-feedback", text: "大学名 は既に存在します"
+        expect(page).to have_selector ".text-danger", text: "大学名 は既に存在します"
         expect(page).to have_field "大学名", with: "東京"
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe "Universities", type: :system, js: true do
       fill_in "大学名", with: ""
       click_button "大学・区分を変更する"
       expect(page).to have_content "大学・区分を変更できませんでした"
-      expect(page).to have_selector ".invalid-feedback", text: "大学名 を入力して下さい"
+      expect(page).to have_selector ".text-danger", text: "大学名 を入力して下さい"
     end
 
     it "既に存在する大学と同じ名前には変更できないこと" do
@@ -99,7 +99,7 @@ RSpec.describe "Universities", type: :system, js: true do
       # university_tokyoを削除
       page.accept_confirm("本当に削除しますか") do
         within(".university#{university_tokyo.id}-info") do
-          click_on "削除"
+          find(".bi-trash").click
         end
       end
       expect(page).to have_content "大学・区分を削除しました"

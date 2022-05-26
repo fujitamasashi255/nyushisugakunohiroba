@@ -10,11 +10,11 @@ RSpec.describe "Departments", type: :system, js: true do
 
     context "大学名が入力されていないとき" do
       it "区分が作成されないこと" do
-        fill_in "区分名", with: "理系"
+        find(".nested-fields input").set("理系")
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成できませんでした"
-        expect(page).to have_selector ".invalid-feedback", text: "大学名 を入力して下さい"
-        expect(page).to have_field "区分名", with: "理系"
+        expect(page).to have_selector ".text-danger", text: "大学名 を入力して下さい"
+        expect(page).to have_selector(".nested-fields input"), text: "理系"
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "Departments", type: :system, js: true do
       end
 
       it "名前のない区分は作成できないこと" do
-        fill_in "区分名", with: ""
+        find(".nested-fields input").set("")
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成しました"
         expect(page).to have_selector ".university-name", text: "東京"
@@ -32,7 +32,7 @@ RSpec.describe "Departments", type: :system, js: true do
       end
 
       it "1つの区分が作成できること" do
-        fill_in "区分名", with: "理系"
+        find(".nested-fields input").set("理系")
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成しました"
         expect(page).to have_selector ".university-name", text: "東京"
@@ -40,11 +40,9 @@ RSpec.describe "Departments", type: :system, js: true do
       end
 
       it "異なる名前の区分を2つ作成できること" do
-        fill_in "区分名", with: "理系"
-        click_on "追加"
-        within all(".nested-fields").last do
-          fill_in "区分名", with: "文系"
-        end
+        find(".nested-fields input").set("理系")
+        find(".bi-plus-square").click
+        all(".nested-fields input")[1].set("文系")
         expect(all(".nested-fields").count).to eq 2
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成しました"
@@ -55,17 +53,15 @@ RSpec.describe "Departments", type: :system, js: true do
       end
 
       it "同名の区分は作成できないこと" do
-        fill_in "区分名", with: "理系"
-        click_on "追加"
-        within all(".nested-fields").last do
-          fill_in "区分名", with: "理系"
-        end
+        find(".nested-fields input").set("理系")
+        find(".bi-plus-square").click
+        all(".nested-fields input")[1].set("理系")
         expect(all(".nested-fields").count).to eq 2
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成できませんでした"
         expect(page).to have_content "同じ名前の区分を登録することはできません"
         expect(page).to have_field "大学名", with: "東京"
-        expect(page).to have_field "区分名", with: "理系"
+        expect(page).to have_selector(".nested-fields input"), text: "理系"
       end
     end
   end
@@ -78,10 +74,8 @@ RSpec.describe "Departments", type: :system, js: true do
     end
 
     it "新しい区分を追加できること" do
-      click_on "追加"
-      within all(".nested-fields").last do
-        fill_in "区分名", with: "文系"
-      end
+      find(".bi-plus-square").click
+      all(".nested-fields input")[1].set("文系")
       expect(all(".nested-fields").count).to eq 2
       click_button "大学・区分を変更する"
       expect(page).to have_content "大学・区分を変更しました"
@@ -92,7 +86,7 @@ RSpec.describe "Departments", type: :system, js: true do
     end
 
     it "区分を削除できること" do
-      click_on "削除"
+      find(".bi-trash").click
       expect(all(".nested-fields").count).to eq 0
       click_button "大学・区分を変更する"
       expect(page).to have_content "大学・区分を変更しました"
@@ -101,16 +95,14 @@ RSpec.describe "Departments", type: :system, js: true do
     end
 
     it "同じ名前の区分を追加できないこと" do
-      click_on "追加"
-      within all(".nested-fields").last do
-        fill_in "区分名", with: "理系"
-      end
+      find(".bi-plus-square").click
+      all(".nested-fields input")[1].set("理系")
       expect(all(".nested-fields").count).to eq 2
       click_button "大学・区分を変更する"
       expect(page).to have_content "大学・区分を変更できませんでした"
       expect(page).to have_content "同じ名前の区分を登録することはできません"
       expect(page).to have_field "大学名", with: "東京"
-      expect(page).to have_field "区分名", with: "理系"
+      expect(page).to have_selector(".nested-fields input"), text: "理系"
     end
   end
 end
