@@ -1,0 +1,50 @@
+.d-flex.flex-lg-column.justify-content-lg-start.justify-content-end.align-items-center.align-items-lg-start.flex-shrink-0.h-100
+  .pb-3
+  // サイドバー上部
+  ul.nav.nav-pills.flex-lg-column.ms-lg-2
+    = render "shared/sidebar_item", item_name: "問題検索", link: "#", icon_class: "bi bi-search"
+    // アカウント関連のアイテム
+    li.nav-item.pb-3.d-none.d-lg-block
+      .d-flex.align-items-center
+        i.bi.bi-person
+        .nav-item-text.ms-l-2
+          | アカウント
+      ul.pt-2.sub-nav-item
+        li.nav-item.d-block.pb-2
+          = link_to "#" do
+            | 新規会員登録
+        li.nav-item.d-block.pb-2
+          = link_to "#" do
+            | ログイン
+    li.nav-item.d-lg-none.pe-3
+      .d-flex.align-items-center
+        i.bi.bi-list id="offcanvas-humberger-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHumberger" role="button"
+
+      // オフキャンバスメニュー
+      .offcanvas.offcanvas-end tabindex="-1" id="offcanvasHumberger"
+        button.btn-close.text-reset.pt-4.pe-4 type="button" data-bs-dismiss="offcanvas"
+        .offcanvas-body.d-flex.flex-column
+          // オフキャンバス上部
+          ul.nav.nav-pills.flex-column.ms-2
+            = render "shared/offcanvas_sidebar_item", item_name: "問題検索", link: "#", icon_class: "bi bi-search"
+            li.nav-item.pb-3
+              .d-flex.align-items-center
+                i.bi.bi-person
+                .nav-item-text.ms-2
+                  | アカウント
+              ul.pt-2.sub-nav-item
+                li.nav-item.d-block.pb-2
+                  = link_to "#" do
+                    | 新規会員登録
+                li.nav-item.d-block.pb-2
+                  = link_to "#" do
+                    | ログイン
+
+          // オフキャンバス下部
+          .py-3.mt-auto.ms-2
+            = render "shared/footer_in_sidebar"
+
+  // サイドバー下部にフッターを表示
+  .py-3.px-2.d-none.d-lg-block.mt-auto
+    = render "shared/footer_in_sidebar"
+

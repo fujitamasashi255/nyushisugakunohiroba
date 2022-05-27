@@ -1,5 +1,5 @@
 .container
-  = render "layouts/errors_base", object: university
+  = render "shared/errors_base", object: university
 
 .container
   .col-10
@@ -14,7 +14,7 @@
             .col-auto.ps-0.my-auto
               = University.model_name.human
           .row
-            = render "layouts/errors_attribute", {object: university, attribute: "name"}
+            = render "shared/errors_attribute", {object: university, attribute: "name"}
 
         .py-3
 

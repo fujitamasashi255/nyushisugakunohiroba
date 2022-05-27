@@ -1,0 +1,87 @@
+@import "variables";
+
+// 変数定義
+$sidebar-width: 180px;
+$header-height: 60px;
+$footer-height: 80px;
+
+// body, html
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+// サイトロゴ部分の高さ
+#site-logo {
+  min-height: $header-height;
+}
+
+// サイドバー
+.sub-nav-item {
+  font-size: 0.8rem;
+}
+
+#sidebar .nav-item a:hover {
+  text-decoration: underline $black;
+}
+
+// フッター
+footer {
+  background-color: $lightsilver;
+}
+
+footer .footer-contents {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: $footer-height;
+}
+
+.footer-contents {
+  font-size: 0.5rem;
+}
+
+.footer-contents .footer-main a:hover {
+  text-decoration: underline $black;
+}
+
+.footer-contents .footer-copyright {
+  font-size: 0.5rem;
+}
+
+
+// 画面サイズ992px以上の時
+@media only screen and (min-width: 992px){
+  // ページボディ
+  #page-body {
+    width: calc(100vw - $sidebar-width);
+  }
+
+  // サイドバー
+  #sidebar {
+    height: -webkit-fill-available;
+    position: fixed;
+    width: $sidebar-width;
+    background-color: $lightsilver;
+  }
+}
+
+//画面サイズ992px以下の時
+@media only screen and (max-width: 991.98px){
+  // ページボディ
+  #page-body {
+    padding-top: $header-height;
+  }
+
+  // ヘッダー
+  header {
+    background-color: $lightsilver;
+    position: fixed;
+    width: 100%;
+  }
+}
+

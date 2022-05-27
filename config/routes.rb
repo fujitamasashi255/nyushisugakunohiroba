@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # ユーザーページのルーティング
+  root to: "static_pages#top"
+
+  # 管理ページのルーティング
   namespace :admin do
     root to: "dashboards#index"
     resources :universities do
