@@ -1,8 +1,15 @@
-@import "valiables";
+@import "variables";
 
-.sort-buttons a[class="active"]{
+.sort-links a[class="active"]{
   pointer-events:none;
-  color: black;
+}
+
+.sort-links a:not(.active){
+  color: $silver;
+}
+
+.sort-links a:not(.active):hover{
+  text-decoration: underline $brown;
 }
 
 .search-form-years select:hover{
