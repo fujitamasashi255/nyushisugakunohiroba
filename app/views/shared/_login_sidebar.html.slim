@@ -1,0 +1,57 @@
+.d-flex.flex-lg-column.justify-content-lg-start.justify-content-end.align-items-center.align-items-lg-start.flex-shrink-0.h-100
+  .pb-3
+  // サイドバー上部
+  ul.nav.nav-pills.flex-lg-column.ms-lg-2
+    = render "shared/sidebar_item", item_name: "問題検索", link: "#", icon_class: "bi bi-search"
+    = render "shared/sidebar_item", item_name: "解答一覧", link: "#", icon_class: "bi bi-book"
+    = render "shared/sidebar_item", item_name: "お気に入りの問題", link: "#", icon_class: "bi bi-bookmark-check"
+    = render "shared/sidebar_item", item_name: "いいねした解答", link: "#", icon_class: "bi bi-heart"
+    li.nav-item.pb-3.d-none.d-lg-block
+      .d-flex.align-items-center
+        i.bi.bi-person
+        .nav-item-text.ms-2
+          | アカウント
+      ul.pt-2.sub-nav-item
+        li.nav-item.d-block.pb-2
+          = link_to "#" do
+            | ユーザーページ
+        li.nav-item.d-block.pb-2
+          = link_to "#" do
+            | ログアウト
+    li.nav-item.d-lg-none.pe-3
+      .d-flex.align-items-center
+        i.bi.bi-list id="offcanvas-humberger-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHumberger" role="button"
+
+      // オフキャンバスメニュー
+      .offcanvas.offcanvas-end tabindex="-1" id="offcanvasHumberger"
+        button.btn-close.text-reset type="button" data-bs-dismiss="offcanvas"
+        .offcanvas-body.d-flex.flex-column
+          // オフキャンバス上部
+          ul.nav.nav-pills.flex-column.ms-2
+            = render "shared/offcanvas_sidebar_item", item_name: "問題検索", link: "#", icon_class: "bi bi-search"
+            = render "shared/offcanvas_sidebar_item", item_name: "解答一覧", link: "#", icon_class: "bi bi-book"
+            = render "shared/offcanvas_sidebar_item", item_name: "お気に入りの問題", link: "#", icon_class: "bi bi-bookmark-check"
+            = render "shared/offcanvas_sidebar_item", item_name: "いいねした解答", link: "#", icon_class: "bi bi-heart"
+            // アカウント関連のアイテム
+            li.nav-item.pb-3
+              .d-flex.align-items-center
+                i.bi.bi-person
+                .nav-item-text.ms-2
+                  | アカウント
+              ul.pt-2.sub-nav-item
+                li.nav-item.d-block.pb-2
+                  = link_to "#" do
+                    | アカウントページ
+                li.nav-item.d-block.pb-2
+                  = link_to "#" do
+                    | ログアウト
+
+          // オフキャンバス下部
+          .py-3.mt-auto.ms-2
+            = render "shared/sidebar_footer"
+
+  // サイドバー下部にフッターを表示
+  .py-3.px-2.d-none.d-lg-block.mt-auto
+    = render "shared/sidebar_footer"
+
+

@@ -1,0 +1,17 @@
+/ 画面サイズがlg以下の時、サイドバーオフキャンバス下部に表示されるフッター
+.footer-contents.d-flex.flex-column
+  .d-flex.flex-column
+    .footer-main.d-flex.flex-column
+      div.nav-item
+        = link_to "利用規約", "#"
+      div.nav-item
+        = link_to "プライバシーポリシー", "#"
+      div.nav-item
+        = link_to "お問い合わせ", "#"
+    .sns-icons
+      = link_to "#" do
+        i.bi.bi-twitter
+
+  small.mt-auto
+    #footer-bottoom-copyright
+      | ©︎入試数学の広場

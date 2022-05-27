@@ -2,12 +2,39 @@ doctype html
 html
   head
     title
-      | Portfolio
+      = yield :title
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
-  body
-    = render "flash_messages"
-    = yield
+  body.d-flex.flex-nowrap.flex-column
+    // ヘッダー
+    header.d-flex.flex-lg-row-reverse.mb-3
+      // サイトロゴ
+      .flex-grow-1
+        #site-logo.d-flex.align-items-center.ps-3
+          | 入試数学の広場
+      // サイドバー
+      #sidebar
+        = render "shared/login_sidebar"
+
+    // メイン部分
+    #page-body.flex-grow-1.d-flex.flex-nowrap.flex-column
+
+      .py-3
+
+      // メイン
+      main.px-4
+        - unless current_page?(root_path)
+          // タイトル
+          .container
+            h6
+              = yield :title
+        // コンテンツ
+        .container
+          = yield
+
+      // フッター
+      footer.py-3.mt-auto
+        = render "shared/footer"
