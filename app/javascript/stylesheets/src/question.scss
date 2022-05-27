@@ -5,11 +5,11 @@
 .question-card{
   height: 400px;
   overflow: auto;
-  background-color: $lightsilver;
+  background-color: $whitesmoke;
 }
 
 .question-card:hover {
-  background-color: $deepsilver;
+  background-color: $silver;
 }
 
 .question-card a {
@@ -27,13 +27,13 @@
 // question#show
 
 .question-show {
-  background-color: $lightsilver;
+  background-color: $whitesmoke;
 }
 
 
 // question#new, edit
 .question-form {
-  background-color: $lightsilver;
+  background-color: $whitesmoke;
 }
 
 .question-form button {

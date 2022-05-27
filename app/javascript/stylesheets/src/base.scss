@@ -26,16 +26,12 @@ html {
 }
 
 #sidebar .nav-item a:hover {
-  text-decoration: underline $brown;
-}
-
-#sidebar .footer-contents {
-  font-size: 0.75rem;
+  text-decoration: underline $black;
 }
 
 // フッター
 footer {
-  background-color: $silver;
+  background-color: $lightsilver;
 }
 
 footer .footer-contents {
@@ -43,6 +39,18 @@ footer .footer-contents {
   margin-left: auto;
   margin-right: auto;
   min-height: $footer-height;
+}
+
+.footer-contents {
+  font-size: 0.5rem;
+}
+
+.footer-contents .footer-main a:hover {
+  text-decoration: underline $black;
+}
+
+.footer-contents .footer-copyright {
+  font-size: 0.5rem;
 }
 
 
@@ -59,7 +67,6 @@ footer .footer-contents {
     position: fixed;
     width: $sidebar-width;
     background-color: $lightsilver;
-    border-left: $lightsilver;
   }
 }
 
