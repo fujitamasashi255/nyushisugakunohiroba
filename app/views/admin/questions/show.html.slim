@@ -27,7 +27,7 @@
                 = Department.model_name.human
             -if @question.departments.present?
               .d-flex
-                = render "admin/departments/departments", {departments: @question.departments, question: @question}
+                = render "/shared/departments/departments", {departments: @question.departments, question: @question}
       .py-3
 
       - if @question.units.present?
@@ -35,7 +35,7 @@
         .row
           label
             = Unit.model_name.human
-          = render "admin/units/units", units: @question.units
+          = render "/shared/units/units", units: @question.units
 
       .py-3
 
