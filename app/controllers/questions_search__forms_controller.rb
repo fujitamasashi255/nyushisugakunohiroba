@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
-class Admin::QuestionsSearchFormsController < Admin::ApplicationController
+class QuestionsSearchFormsController < ApplicationController
   def show
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search)
-    @params_to_transit = questions_search_form_params
-    render "admin/questions/index"
+    @questions_search_form_params = questions_search_form_params
+    if URI(request.referrer.to_s).path.include?("admin")
+      render "admin/questions/index", layout: "admin/layouts/application"
+    else
+      render "questions/index"
+    end
   end
 
   private
