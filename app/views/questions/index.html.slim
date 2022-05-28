@@ -1,10 +1,12 @@
-- content_for(:title, t('.title'))
-- content_for(:question_partial, "/admin/questions/question")
+- content_for :title do
+  i.bi.bi-search.me-1
+  = t(".title")
+- content_for(:question_partial, "/questions/question")
 
 = render "/shared/questions/index", \
   { questions_search_form: @questions_search_form, \
     questions_search_form_params: @questions_search_form_params, \
     questions: @questions, \
     pagy: @pagy, \
-    sorts_path: "/admin/questions/sorts" \
+    sorts_path: "/questions/sorts" \
   }

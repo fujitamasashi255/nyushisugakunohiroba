@@ -1,0 +1,44 @@
+/ テンプレート変数:question
+/ ローカル変数: question_path:問題詳細へのパス
+/ 埋め込み
+/ 大学名横アイコン : = content_for "icons#{question.id}".to_sym
+/ 問題詳細へのパス: content_for "question_path#{question.id}".to_sym
+
+.col-md-6.col-lg-4
+  .container.p-2
+    .row.d-flex.justify-content-center.p-1
+      / カード部分
+      .col-12.question-card.border.mb-4.d-flex.flex-column
+        / カードの上部分
+        .question-card-top.d-flex
+          = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1" do
+            .univ-name-year-info
+              span
+                = question.year
+                = t("common.year")
+              span.ms-1
+                = question.university.name
+                = University.model_name.human
+          / 大学名横アイコン
+          = content_for "icons#{question.id}".to_sym
+
+        = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
+          .question-card-bottom
+            / 区分一覧
+            .row.department-info
+              small.d-flex
+                = render "shared/departments/departments", {departments: question.departments, question: question}
+
+            .py-2
+
+            / 単元一覧
+            small.row.unit-info
+              = render "/shared/units/units", units: question.units
+
+            .py-1
+
+            / 問題文画像
+            - if question.image.attached?
+              .question-body.border
+                = image_tag question.image, class: "bg-white p-3 img-fluid"
+              .py-1

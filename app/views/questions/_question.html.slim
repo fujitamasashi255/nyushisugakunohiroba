@@ -1,4 +1,4 @@
-- content_for "icons#{question.id}".to_sym do
+/- content_for "icons#{question.id}".to_sym do
   span.d-block
     / 編集ボタン
     = link_to edit_admin_question_path(question) do
@@ -7,4 +7,4 @@
     = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
       i.bi.bi-trash role="img" aria-label="Trash"
 
-- content_for("question_path#{question.id}".to_sym, admin_question_path(question))
+- content_for("question_path#{question.id}".to_sym, question_path(question))
