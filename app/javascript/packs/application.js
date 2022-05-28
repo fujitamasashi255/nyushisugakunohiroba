@@ -8,6 +8,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "../stylesheets/application.scss"
 import "bootstrap"
+import "src/self_made/QuestionsIndex"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
