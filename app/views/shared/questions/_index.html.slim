@@ -15,7 +15,8 @@
     .search-form-icon.ms-2
       i.bi.bi-plus-square.toggle-btn data-bs-toggle="collapse" href="#collapse-search-form" role="button"
 
-  .collapse id="collapse-search-form"
+  / 折りたたまれた検索フォーム
+  .collapse.mx-auto id="collapse-search-form"
     .container.border.p-3
       = render "/questions/search_form", questions_search_form: questions_search_form
 

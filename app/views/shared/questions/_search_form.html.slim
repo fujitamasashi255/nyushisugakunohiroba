@@ -25,20 +25,21 @@
     .row.search-form-universities
       .col-sm-2.col-form-label
         = University.model_name.human
-      .col-6.d-grid.gap-2
-        /ドロップダウンボタン
-        button[type="button" class="btn btn-outline-dark dropdown-toggle university-name" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside"]
-        / 大学名ドロップダウンメニュー（セレクトボックス ）
-        .dropdown-menu.p-3
-          - University.categories.keys.each do |category|
-            label.form-label
-              = University.categories_i18n[category]
-            small.row.ms-4.row-cols-auto
-              = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col px-0' do |b|
-                = b.label(class: 'form-check-label')
-                  div.ps-4.dropdown-item
-                    = b.check_box(class: 'form-check-input')
-                    = b.object.name
+      .col-sm-10
+        .d-grid.gap-2.bg-white
+          /ドロップダウンボタン
+          button[type="button" class="btn btn-outline-dark dropdown-toggle university-name overflow-scroll" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside" style="max-width: 100%"]
+          / 大学名ドロップダウンメニュー（セレクトボックス ）
+          .dropdown-menu.p-3
+            - University.categories.keys.each do |category|
+              label.form-label
+                = University.categories_i18n[category]
+              small.row.ms-4.row-cols-auto
+                = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col px-0' do |b|
+                  = b.label(class: 'form-check-label')
+                    div.ps-4.dropdown-item
+                      = b.check_box(class: 'form-check-input')
+                      = b.object.name
 
     .py-2
 
@@ -52,4 +53,5 @@
     .py-2
 
     / 検索ボタン
-    = f.button :submit, class: "btn-outline-dark"
+    .d-inline-block.bg-white
+      = f.button :submit, class: "btn-outline-dark"
