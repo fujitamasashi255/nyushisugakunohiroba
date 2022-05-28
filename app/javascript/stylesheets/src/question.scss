@@ -3,18 +3,16 @@
 // question#index
 
 .question-card{
-  height: 400px;
+  height: 300px;
   overflow: auto;
   background-color: $whitesmoke;
+  font-size: 0.8rem;
 }
 
 .question-card:hover {
   background-color: $silver;
 }
 
-.question-card a {
-  color: $black;
-}
 
 .question-card a:hover {
   text-decoration: none;
