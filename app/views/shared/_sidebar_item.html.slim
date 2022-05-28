@@ -1,5 +1,10 @@
-li.nav-item.pb-lg-3.pe-3
-  = link_to link, class: "d-flex align-items-center" do
-    i class= icon_class
-    .nav-item-text.d-none.d-lg-inline-block.ms-lg-2
-      = item_name
+li.nav-item.pb-xl-3.pe-3
+  = link_to link, class: "d-inline-flex align-items-center" do
+    figure.mb-0
+      .d-flex.align-items-xl-center
+        i.mx-auto class= icon_class
+        .nav-item-text.d-none.d-xl-inline-block.ms-lg-2
+          = item_name
+      // サイドバーをページ下部に固定時に表示するアイコン
+      figcaption.nav-item-text.d-xl-none
+        = item_name

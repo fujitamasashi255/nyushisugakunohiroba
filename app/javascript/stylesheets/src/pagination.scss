@@ -6,4 +6,5 @@
 
 .pagination .active .page-link {
   pointer-events:none;
+  z-index: 0;
 }

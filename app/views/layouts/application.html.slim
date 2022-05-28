@@ -8,23 +8,14 @@ html
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
-  body.d-flex.flex-nowrap.flex-column
-    // ヘッダー
-    header.d-flex.flex-lg-row-reverse.mb-3
-      // サイトロゴ
-      .flex-grow-1
+  body.d-xl-flex.flex-nowrap.flex-xl-row-reverse
+    #page-body.d-flex.flex-column.flex-xl-grow-1
+      header
         #site-logo.d-flex.align-items-center.ps-3
-          | 入試数学の広場
-      // サイドバー
-      #sidebar
-        = render "shared/login_sidebar"
+          = link_to root_path do
+            | 入試数学の広場
 
-    // メイン部分
-    #page-body.flex-grow-1.d-flex.flex-nowrap.flex-column
-
-      .py-3
-
-      // メイン
+      / メイン
       main.px-4
         - unless current_page?(root_path)
           // タイトル
@@ -35,6 +26,10 @@ html
         .container
           = yield
 
-      // フッター
-      footer.py-5.mt-auto.d-lg-none
+      .py-3
+
+      footer.py-5.mt-auto.d-none.d-xl-block.mt-auto
         = render "shared/footer"
+
+    #sidebar
+      = render partial: "/shared/login_sidebar", layout: "/shared/sidebar_layout"
