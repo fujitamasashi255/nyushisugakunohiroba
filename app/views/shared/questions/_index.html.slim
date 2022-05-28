@@ -39,7 +39,7 @@
   / 問題一覧
   .container.questions-index
     .row
-      = render partial: content_for(:question_partial), layout: "/shared/questions/question_layout", collection: questions, as: :question
+      = render partial: content_for(:question_partial), layout: "/shared/questions/questions_index_layout", collection: questions, as: :question
 
 / ページネーション
 .container
