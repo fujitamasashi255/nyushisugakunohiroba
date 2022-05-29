@@ -1,5 +1,4 @@
 ja:
-  # Active Hash
   activemodel:
     models:
       unit: "単元"
