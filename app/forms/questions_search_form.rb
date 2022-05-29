@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsSearchForm
-  SORT_TYPES_ENUM = { year_new: 1, created_at_new: 10 }.each_value(&:freeze).freeze
+  SORT_TYPES_ENUM = { year_new: 1, created_at_new: 2, bookmark_many: 3, like_many: 4 }.each_value(&:freeze).freeze
   SPECIFIC_CONDITIONS_ENUM = { nothing: 0, no_data: 1, all_data: 2 }.each_value(&:freeze).freeze
 
   include ActiveModel::Model
@@ -58,6 +58,10 @@ class QuestionsSearchForm
         relation = relation.reorder(year: :desc)
       when SORT_TYPES_ENUM[:created_at_new]
         relation = relation.reorder(created_at: :desc)
+      when SORT_TYPES_ENUM[:bookmark_many]
+        relation
+      when SORT_TYPES_ENUM[:like_many]
+        relation
       end
 
       relation

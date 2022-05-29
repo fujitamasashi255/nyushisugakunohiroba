@@ -11,6 +11,8 @@ ja:
           one: "並び順"
           year_new: "出題年が新しい順"
           created_at_new: "作成日が新しい順"
+          bookmark_many: "お気に入りが多い順"
+          like_many: "いいねが多い順"
         search_conditions: "検索条件"
 
 
