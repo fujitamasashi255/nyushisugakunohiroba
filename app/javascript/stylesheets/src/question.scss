@@ -24,8 +24,16 @@
 
 // question#show
 
+.question-show-container {
+  max-width: 900px;
+}
+
 .question-show {
   background-color: $whitesmoke;
+}
+
+.question-image {
+  max-width: 500px;
 }
 
 
