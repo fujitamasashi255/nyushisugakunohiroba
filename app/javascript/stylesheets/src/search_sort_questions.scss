@@ -11,10 +11,13 @@
 }
 
 // 検索フォームの最大幅1000px
-#collapse-search-form {
+.search-form {
   max-width: 1000px;
 }
-
+// 検索フォームの背景色
+.search-form {
+  background-color: $lightsilver;
+}
 
 // 並び替え
 
@@ -26,10 +29,10 @@
   color: $deepsilver;
 }
 
-.sort-links a:not(.active):hover{
-  text-decoration: underline red;
+.sort-links a:not(.active):hover {
+  color: gray;
 }
 
-#collapse-search-form {
-  background-color: $lightsilver;
+.sort-links a[class="active"] {
+  color: red;
 }
