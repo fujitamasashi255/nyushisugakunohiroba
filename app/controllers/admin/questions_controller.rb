@@ -6,8 +6,8 @@ class Admin::QuestionsController < Admin::ApplicationController
   before_action :set_question, only: %i[update destroy]
 
   def index
-    @questions_search_form = QuestionsSearchForm.new
-    @pagy, @questions = pagy(Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators))
+    @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
+    @pagy, @questions = pagy(@questions_search_form.search)
   end
 
   def new

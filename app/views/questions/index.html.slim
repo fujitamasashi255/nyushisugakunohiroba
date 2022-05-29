@@ -1,6 +1,9 @@
-- content_for :title do
+- content_for(:title, t(".title"))
+
+- content_for :page_title do
   i.bi.bi-search.me-1
   = t(".title")
+
 - content_for(:question_partial, "/questions/question")
 
 = render "/shared/questions/index", \
@@ -8,5 +11,6 @@
     questions_search_form_params: @questions_search_form_params, \
     questions: @questions, \
     pagy: @pagy, \
-    sorts_path: "/questions/sorts" \
+    sorts_path: "/questions/sorts", \
+    search_form_path: "/questions/search_form" \
   }

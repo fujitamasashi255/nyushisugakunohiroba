@@ -2,8 +2,8 @@
 
 class QuestionsController < ApplicationController
   def index
-    @questions_search_form = QuestionsSearchForm.new
-    @pagy, @questions = pagy(Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators))
+    @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data])
+    @pagy, @questions = pagy(@questions_search_form.search)
   end
 
   def show
