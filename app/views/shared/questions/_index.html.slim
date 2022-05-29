@@ -32,7 +32,7 @@
 
 / 検索条件、並び替え
 - unless questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
-  .container
+  .container.question-search-conditions
     small
       / 検索条件を表示
       label
@@ -40,14 +40,27 @@
       .py-1
       table.table-sm.table-borderless
         tbody
-          - questions_search_form.search_conditions.each do |key, value|
-            tr
-              th.align-top.text-nowrap
-                = key
-              th.align-top.text-nowrap
-                | ：
-              td.align-top
-                = value
+          tr
+            th.align-top.text-nowrap
+              = University.model_name.human
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="university-search-condition"
+              = questions_search_form.search_conditions[University.model_name.human]
+          tr
+            th.align-top.text-nowrap
+              = Question.human_attribute_name(:year)
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="year-search-condition"
+              = questions_search_form.search_conditions[Question.human_attribute_name(:year)]
+          tr
+            th.align-top.text-nowrap
+              = Unit.model_name.human
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="unit-search-condition"
+              = questions_search_form.search_conditions[Unit.model_name.human]
       .py-3
 
   - if questions.present?
