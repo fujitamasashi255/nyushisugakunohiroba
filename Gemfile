@@ -65,6 +65,9 @@ gem "config"
 # cronを設定
 gem "whenever", require: false
 
+# 認証
+gem "sorcery"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
