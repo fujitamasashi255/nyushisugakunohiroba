@@ -3,6 +3,10 @@
 Rails.application.routes.draw do
   # ユーザーページのルーティング
   root to: "static_pages#top"
+  resources :questions, only: %i[index show]
+
+  resource :questions_search_form, only: %i[show]
+  resources :questions_sorts, only: %i[show], param: :sort_type
 
   # 管理ページのルーティング
   namespace :admin do
@@ -11,8 +15,8 @@ Rails.application.routes.draw do
       resources :department_check_boxes, only: %i[index]
     end
     resources :questions
-    resource :questions_search_form, only: %i[show]
-    resources :questions_sorts, only: %i[show], param: :sort_type
+    resource :questions_search_form, controller: "/questions_search_forms", only: %i[show]
+    resources :questions_sorts, controller: "/questions_sorts", only: %i[show], param: :sort_type
   end
 
   resource :compile, only: %i[create]

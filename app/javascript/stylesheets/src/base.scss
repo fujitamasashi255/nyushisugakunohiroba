@@ -2,13 +2,15 @@
 
 // 変数定義
 $sidebar-width: 180px;
+$sidebar-height: 60px;
 $header-height: 60px;
-$footer-height: 80px;
+$footer-height: 60px;
 
 // body, html
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  font-size: .875rem;
 }
 
 html {
@@ -26,7 +28,32 @@ html {
 }
 
 #sidebar .nav-item a:hover {
-  text-decoration: underline $black;
+  text-decoration: underline white;
+}
+
+#sidebar {
+  background-color: black;
+  position: fixed;
+  opacity: 0.8;
+}
+
+#sidebar i, #sidebar .nav-item-text {
+  color: white;
+}
+
+// オフキャンバス
+#sidebar #offcanvasHumberger {
+  background-color: black;
+}
+
+// サイドバーオフキャンバス下部のフッター
+#sidebar .footer-contents, #sidebar .footer-contents a {
+  color: white;
+}
+
+// サイドバーオフキャンバス下部のフッターのTwitterアイコン
+#sidebar .footer-contents .bi-twitter {
+  color: rgb(29, 155, 240);
 }
 
 // フッター
@@ -54,34 +81,38 @@ footer .footer-contents {
 }
 
 
-// 画面サイズ992px以上の時
-@media only screen and (min-width: 992px){
-  // ページボディ
-  #page-body {
-    width: calc(100vw - $sidebar-width);
-  }
-
+// 画面サイズ1200px以上の時
+@media only screen and (min-width: 1200px){
   // サイドバー
   #sidebar {
     height: -webkit-fill-available;
-    position: fixed;
     width: $sidebar-width;
-    background-color: $lightsilver;
+  }
+
+  #page-body {
+    padding-right: $sidebar-width;
   }
 }
 
-//画面サイズ992px以下の時
-@media only screen and (max-width: 991.98px){
+//画面サイズ1200px以下の時
+@media only screen and (max-width: 1199.98px){
   // ページボディ
   #page-body {
-    padding-top: $header-height;
+    padding-bottom: $sidebar-height;
   }
 
-  // ヘッダー
-  header {
-    background-color: $lightsilver;
-    position: fixed;
+  // サイドバー（画面下部に固定）
+  #sidebar {
     width: 100%;
+    height: $sidebar-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  // サイドバー（画面下部に固定）のアイコン下に配置されたテキストのサイズ
+  #sidebar figcaption {
+    font-size: 0.6em;
   }
 }
 

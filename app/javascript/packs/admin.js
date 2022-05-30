@@ -7,7 +7,7 @@ require("@nathanvda/cocoon")
 import "bootstrap"
 import "src/self_made/AdminQuestionsNewEdit"
 import "src/self_made/TexCompile"
-import "src/self_made/AdminQuestionsIndex"
+import "src/self_made/QuestionsIndex"
 import "../stylesheets/admin.scss"
 
 import I18n from 'src/i18n-js/index.js.erb'

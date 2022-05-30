@@ -1,0 +1,82 @@
+/ テンプレート変数
+/ questions_search_form
+/ questions_search_form_params
+/ questions
+/ pagy
+/ ローカル変数
+/ sorts_path: 並べ替え順パーシャルのパス
+/ search_form_path: 検索フォームパーシャルのパス
+/ 埋め込み
+/ content_for(:question_partial)
+
+/ 検索フォーム
+.container.search-form-wrapper
+  - if questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
+      .container.border.p-3.search-form
+          = render search_form_path, questions_search_form: questions_search_form
+  - else
+    .d-flex.align-items-center
+      div
+        = t(".search_form_description")
+      / 検索フォーム折りたたみ開閉ボタン
+      .search-form-icon.ms-2
+        i.bi.bi-plus-square.toggle-btn data-bs-toggle="collapse" href="#collapse-search-form" role="button"
+
+    / 折りたたまれた検索フォーム
+    .collapse.mx-auto id="collapse-search-form"
+      .container.border.p-3.search-form
+        = render search_form_path, questions_search_form: questions_search_form
+
+
+.py-3
+
+/ 検索条件、並び替え
+- unless questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
+  .container.question-search-conditions
+    small
+      / 検索条件を表示
+      label
+        | #{QuestionsSearchForm.human_attribute_name(:search_conditions)}
+      .py-1
+      table.table-sm.table-borderless
+        tbody
+          tr
+            th.align-top.text-nowrap
+              = University.model_name.human
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="university-search-condition"
+              = questions_search_form.search_conditions[University.model_name.human]
+          tr
+            th.align-top.text-nowrap
+              = Question.human_attribute_name(:year)
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="year-search-condition"
+              = questions_search_form.search_conditions[Question.human_attribute_name(:year)]
+          tr
+            th.align-top.text-nowrap
+              = Unit.model_name.human
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="unit-search-condition"
+              = questions_search_form.search_conditions[Unit.model_name.human]
+      .py-3
+
+  - if questions.present?
+    / 問題並び替え
+    .container
+      small
+        = render sorts_path, questions_search_form_params: questions_search_form_params
+
+    / 問題一覧
+    .container.questions-index
+      .row
+        = render partial: content_for(:question_partial), layout: "/shared/questions/question_layout", collection: questions, as: :question
+
+  / ページネーション
+  .container
+    .py-3.pagination
+    == pagy_bootstrap_nav(pagy)
+    .text-center
+      == pagy_info(pagy)

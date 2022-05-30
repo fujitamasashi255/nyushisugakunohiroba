@@ -51,3 +51,10 @@ $(function(){
     displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
   });
 });
+
+// questionカードが、スクロール後元に戻るようにする
+$(function(){
+  $(".question-card").on("mouseleave", function(){
+    $(this).scrollTop(0);
+  });
+});

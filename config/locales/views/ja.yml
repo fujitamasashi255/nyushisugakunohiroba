@@ -9,7 +9,6 @@ ja:
     univs_depts: "大学・区分"
     select_blank: "未選択"
     year: "年"
-    specify_search_conditions: "検索条件を指定する"
     sort: "並び順"
     math: "数学"
 
@@ -60,9 +59,24 @@ ja:
       mark: ""
       text: ""
 
+  shared:
+    questions:
+      index:
+        search_form_description: "検索条件を指定する"
+
   static_pages:
     top:
       title: "入試数学の広場"
+
+  compile:
+    create: "コンパイルする"
+
+  questions:
+    index:
+      title: "問題検索"
+      search: "問題検索"
+    show:
+      title: "問題詳細"
 
   admin:
     dashboards:
@@ -94,5 +108,4 @@ ja:
         search: "問題検索"
       form:
         saving: "保存中・・・"
-  compile:
-    create: "コンパイルする"
+

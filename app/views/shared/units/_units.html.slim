@@ -5,7 +5,6 @@ table.table-borderless.units-table
       / subjectごとのunitの配列unit_per_subを得る
       - units_per_sub = units.select{|unit| unit.subject == sub}
       - if units_per_sub.present?
-        / .container
         tr
           td class="subject#{sub}" style="width: 3rem"
             label.mt-1

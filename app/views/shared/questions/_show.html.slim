@@ -1,0 +1,42 @@
+/ 埋め込み
+/ content_for :buttons
+
+.container.question-show-container
+  .small.d-flex.d-lg-block.question-show.p-3
+    / 大学、区分、単元、問題文を囲む
+    .d-flex.mx-auto.mx-lg-0.flex-column.flex-lg-row
+      / 大学、区分、単元を囲む
+      .d-flex.flex-column.me-lg-2
+        / 大学、区分を囲む
+        .d-flex.align-items-center.flex-wrap
+          / 出題年
+          .year.pe-2.text-nowrap
+            | #{question.year} 年
+          / 大学名
+          .university.pe-3.text-nowrap
+            | #{question.university.name} 大学
+          / 区分
+          .departments.text-nowrap
+            -if question.departments.present?
+              = render "/shared/departments/departments", {departments: question.departments, question: question}
+
+        .py-2
+
+        - if question.units.present?
+          / 単元
+          .units
+            = render "/shared/units/units", units: question.units
+
+      / 問題文
+      - if question.image.attached?
+        .d-flex.ms-lg-auto
+          .question-body.mt-3.mt-lg-0.mx-0.mx-lg-auto
+            label
+              = Question.human_attribute_name(:image)
+            div.question-image
+              = image_tag question.image, class: "bg-white p-3 img-fluid"
+
+.py-3
+.container
+  = content_for :buttons
+

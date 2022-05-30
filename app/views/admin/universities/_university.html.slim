@@ -4,7 +4,7 @@ tr class="university#{university.id}-info"
   td.align-middle.departments
     - if university.departments.present?
       .d-flex
-        = render "admin/departments/departments", departments: university.departments
+        = render "/shared/departments/departments", departments: university.departments
   td.align-middle[style="width:25%"]
     / 編集ボタン
     = link_to edit_admin_university_path(university) do

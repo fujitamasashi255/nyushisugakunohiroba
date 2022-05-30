@@ -1,15 +1,28 @@
+@import "variables";
+
 // スクロール
 $enable-smooth-scroll:        false;
 
-// ボタン・リンク
-$link-color:                                #212529 !default;
+// リンク
+$link-color:                                $black !default;
 $link-decoration:                           none;
 
-// ページネーション
-$component-active-bg:               sandybrown;
+// 変数定義
+//$component-active-color:      $white !default;
+//$component-active-bg:         $primary !default;
 
+// オフキャンバス閉じボタンの色
+$btn-close-color: white;
+// オフキャンバスのwidth
+$offcanvas-horizontal-width:        300px !default;
 
+// ページネーションの色
+$pagination-active-bg:              red !default;
+$pagination-active-border-color:    red !default;
+$pagination-focus-box-shadow:    0 0 0 .25rem $deepsilver !default;
 
+// dropdown-itemのhover時の色
+$dropdown-link-hover-bg:            $deepsilver !default;
 
 
 @import "bootstrap_scss/bootstrap";

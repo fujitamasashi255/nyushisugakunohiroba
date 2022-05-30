@@ -1,17 +1,38 @@
 @import "variables";
 
+// 検索フォーム
+
+.search-form-years select {
+  background-color: white;
+}
+
+.search-form-years select:hover{
+  background-color: $deepsilver;
+}
+
+// 検索フォームの最大幅1000px
+.search-form {
+  max-width: 1000px;
+}
+// 検索フォームの背景色
+.search-form {
+  background-color: $lightsilver;
+}
+
+// 並び替え
+
 .sort-links a[class="active"]{
   pointer-events:none;
 }
 
 .sort-links a:not(.active){
-  color: $silver;
+  color: $deepsilver;
 }
 
-.sort-links a:not(.active):hover{
-  text-decoration: underline $brown;
+.sort-links a:not(.active):hover {
+  color: gray;
 }
 
-.search-form-years select:hover{
-  background-color: $silver;
+.sort-links a[class="active"] {
+  color: red;
 }
