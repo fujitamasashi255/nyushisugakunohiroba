@@ -32,6 +32,7 @@ ja:
         create: "検索する"
       user:
         create: "登録する"
+        update: "更新する"
 
   cocoon:
     departments:
@@ -59,8 +60,9 @@ ja:
       answers_index: "解答一覧"
       bookmarked_questions: "お気に入りの問題"
       liked_questions: "いいねした解答"
-      mypage: "マイページ"
+      profile: "プロフィール"
       logout: "ログアウト"
+      logout_confirm: "ログアウトしてもいいですか"
 
   static_pages:
     top:
@@ -83,6 +85,19 @@ ja:
     create:
       success: "ユーザー登録が完了しました"
       fail: "ユーザー登録できませんでした"
+    show:
+      no_avatar: "なし"
+      title: "プロフィール"
+    edit:
+      title: "プロフィール編集"
+      delete_account_confirm: "退会しますか"
+      delete_account: "退会する"
+    update:
+      success: "プロフィールを更新しました"
+      fail: "プロフィールを更新できませんでした"
+    destroy:
+      success: "退会が完了しました"
+
   user_sessions:
     new:
       title: "ログイン"

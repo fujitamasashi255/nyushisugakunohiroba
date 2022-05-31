@@ -20,7 +20,22 @@
     .col-sm-9
       = @user.email
 
+  .py-1
+  hr
+  .py-1
+
+  / アバター画像
+  .row
+    strong.col-sm-3
+      = User.human_attribute_name(:avatar)
+    .col-sm-9
+      = @user.avatar.attached? ? @user.avatar : t(".no_avatar")
+
   .py-4
+
+  / リンク
+  .row
+    = link_to t("common.edit"), edit_user_path(current_user), class: "btn btn-outline-dark"
 
 
 

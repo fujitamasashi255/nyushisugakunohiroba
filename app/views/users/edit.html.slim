@@ -1,0 +1,46 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.user-form
+  = simple_form_for @user do |f|
+
+    / 名前
+    .row
+      .col-lg-3
+        = f.label :name, class: "col-form-label"
+      .col-lg-9
+        = f.input :name, label: false
+
+    .py-3
+    hr
+    .py-3
+
+    / メールアドレス
+    .row
+      .col-lg-3
+        = f.label :email, class: "col-form-label"
+      .col-lg-9
+        = f.input :email, label: false
+
+    .py-3
+    hr
+    .py-3
+
+    / プロフィール画像
+    .row
+      .col-lg-3
+        = f.label :avatar, class: "col-form-label"
+      .col-lg-9
+        = f.input :avatar, as: :file, label: false
+
+    .py-3
+
+    .py-3
+
+    / 送信ボタン
+    .row
+      = f.button :submit, class: "btn-outline-dark"
+
+    .py-3
+
+  = link_to t(".delete_account"), user_path(@user), method: :delete, data: { confirm: t(".delete_account_confirm") }, class: "delete-account"
