@@ -29,9 +29,9 @@
     / プロフィール画像
     .row
       .col-lg-3.d-flex
-        = f.label :avatar, class: "my-auto"
-      .col-lg-9
-        = f.input :avatar, as: :file, label: false
+        = f.label :avatar, class: "my-auto col-form-label"
+      .col-lg-9.d-flex
+        = f.input :avatar, as: :file, label: false, wrapper: false, input_html: { class: "my-auto" }
 
     .py-3
 
