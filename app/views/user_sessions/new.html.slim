@@ -1,0 +1,31 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.user-form
+  = simple_form_for @user, url: login_path do |f|
+    / メールアドレス
+    .row
+      .col-lg-2
+        = f.label :email, class: "col-form-label"
+      .col-lg-10
+        = f.input :email, label: false
+
+    .py-3
+    hr
+    .py-3
+
+    / パスワード
+    .row
+      .col-lg-2
+        = f.label :password, class: "col-form-label"
+      .col-lg-10
+        = f.input :password, label: false, error_html: { id: 'password_error' }
+
+    .py-3
+
+    .py-3
+
+    / 送信ボタン
+    .row
+      = f.submit t(".create"), role: "button", class: "btn btn-outline-dark"
+

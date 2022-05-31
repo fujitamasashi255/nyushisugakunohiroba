@@ -38,4 +38,7 @@ html
         = render "shared/footer"
 
     #sidebar
-      = render partial: "/shared/login_sidebar", layout: "/shared/sidebar_layout"
+      - if logged_in?
+        = render partial: "/shared/login_sidebar", layout: "/shared/sidebar_layout"
+      - else
+        = render partial: "/shared/logout_sidebar", layout: "/shared/sidebar_layout"

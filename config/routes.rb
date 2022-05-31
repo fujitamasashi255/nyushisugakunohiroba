@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   # ユーザーページのルーティング
   root to: "static_pages#top"
   resources :questions, only: %i[index show]
-  resources :users
+  resources :users, only: %i[new create show]
+  get "login" => "user_sessions#new", :as => :login
+  post "login" => "user_sessions#create"
+  delete "logout" => "user_sessions#destroy", :as => :logout
 
   resource :questions_search_form, only: %i[show]
   resources :questions_sorts, only: %i[show], param: :sort_type
