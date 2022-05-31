@@ -50,6 +50,7 @@ ja:
       account: "アカウント"
     logout_sidebar:
       questions_search: "問題検索"
+      account: "アカウント"
       users_new: "新規ユーザー登録"
       login: "ログイン"
     login_sidebar:
