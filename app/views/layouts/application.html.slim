@@ -15,13 +15,19 @@ html
           = link_to root_path do
             | 入試数学の広場
 
+      .py-4
+
       / メイン
-      main.px-4
-        - unless current_page?(root_path)
-          // タイトル
-          .container
-            h6
-              = yield :page_title
+      main
+        / フラッシュメッセージ
+        = render "layouts/flash_messages"
+        // タイトル
+        .container
+          h4
+            = yield :page_title
+
+        .py-4
+
         // コンテンツ
         .container
           = yield
