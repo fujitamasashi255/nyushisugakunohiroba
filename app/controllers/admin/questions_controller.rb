@@ -19,11 +19,11 @@ class Admin::QuestionsController < Admin::ApplicationController
     set_depts_units_association_from_params
     set_tex_and_attach_image
     if @question.save
-      redirect_to [:admin, @question], success: t("flashes.question.success.create")
+      redirect_to [:admin, @question], success: t(".success")
     else
       # レコードの新規作成に失敗したら、attach予定のimage blobを削除する
       ActiveStorage::Blob.find(@question.image.blob.id).purge if @question.image.blob.present?
-      flash.now[:danger] = t("flashes.question.fail.create")
+      flash.now[:danger] = t(".fail")
       render "admin/questions/new"
     end
   end
@@ -35,16 +35,16 @@ class Admin::QuestionsController < Admin::ApplicationController
   def update
     set_tex_and_attach_image
     if update_question_transaction
-      redirect_to [:admin, @question], success: t("flashes.question.success.update")
+      redirect_to [:admin, @question], success: t(".success")
     else
-      flash.now[:danger] = t("flashes.question.fail.update")
+      flash.now[:danger] = t(".fail")
       render "admin/questions/edit"
     end
   end
 
   def destroy
     @question.destroy!
-    redirect_to admin_questions_path, success: t("flashes.question.success.destroy")
+    redirect_to admin_questions_path, success: t(".success")
   end
 
   private

@@ -1,5 +1,5 @@
 $(function(){
-  $(".flash-messages .alert").fadeOut(4000, function(){
+  $(".flash-messages .alert-success").fadeOut(4000, function(){
     $(this).remove();
   });
 });
