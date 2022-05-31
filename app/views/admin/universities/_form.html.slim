@@ -13,8 +13,6 @@
               = f.input :name, label:false, wrapper:false, input_html: { class: 'col-6 text-center' }
             .col-auto.ps-0.my-auto
               = University.model_name.human
-          .row
-            = render "shared/errors_attribute", {object: university, attribute: "name"}
 
         .py-3
 

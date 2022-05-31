@@ -57,9 +57,11 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label
+    # デフォルト
     # b.use :input, class: "form-control", error_class: "is-invalid", valid_class: "is-valid"
+    # 不正時のみフォームの表示を変更し、エラーを知らせる
     b.use :input, class: "form-control", error_class: "is-invalid", valid_class: ""
-    # b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
+    b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
     b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
   end
 
