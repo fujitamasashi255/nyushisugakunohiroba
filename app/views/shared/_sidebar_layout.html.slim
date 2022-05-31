@@ -5,44 +5,42 @@
 
 .d-flex.flex-xl-column.justify-content-xl-start.justify-content-end.align-items-center.align-items-xl-start.flex-shrink-0.h-100
   .pb-3
-  // サイドバー上部
+  / サイドバー上部
   ul.nav.nav-pills.flex-grow-1.flex-xl-grow-0.ms-xl-2.d-flex.justify-content-evenly.justify-content-xl-start
     = content_for :sidebar_top_items
     li.nav-item.pb-3.d-none.d-xl-block
       .d-flex.align-items-center
+        / アカウントアイコン
         i.bi.bi-person
+        / アカウント名
         .nav-item-text.ms-2
-          = t(".account")
+          = logged_in? ? current_user.name : t(".account")
       ul.pt-2.sub-nav-item
         = content_for :sidebar_account_items
-  // ハンバーガーアイコン
+  / ハンバーガーアイコン
   .nav-item.d-xl-none.pe-3
     .d-flex.align-items-center
       i.bi.bi-list id="offcanvas-humberger-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHumberger" role="button"
 
-    // オフキャンバスメニュー
+    / オフキャンバスメニュー
     .offcanvas.offcanvas-end tabindex="-1" id="offcanvasHumberger"
-      // オフキャンバス閉じボタン
+      / オフキャンバス閉じボタン
       button.btn-close.btn-close-white.text-reset.ms-auto.pt-4.pe-4 type="button" data-bs-dismiss="offcanvas"
       .offcanvas-body.d-flex.flex-column
-        // オフキャンバス上部
+        / オフキャンバス上部
         ul.nav.nav-pills.d-flex.flex-column.ms-2
           = content_for :offcanvas_top_items
           // アカウント関連のアイテム
           li.nav-item.pb-3
             .d-flex.align-items-center
+              / アカウントアイコン
               i.bi.bi-person
+              / アカウント名
               .nav-item-text.ms-2
-                | アカウント
+                = logged_in? ? current_user.name : t(".account")
             ul.pt-2.sub-nav-item
               = content_for :sidebar_account_items
 
-        // オフキャンバス下部
+        / オフキャンバス下部
         .py-3.mt-auto.ms-2
           = render "shared/footer_in_sidebar"
-
-  / サイドバー下部にフッターを表示
-/  .py-3.px-2.d-none.d-xl-block.mt-auto
-    = render "shared/footer_in_sidebar"
-
-

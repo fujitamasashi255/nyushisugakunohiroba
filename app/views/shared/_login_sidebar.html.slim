@@ -12,6 +12,6 @@
 
 - content_for :sidebar_account_items do
   li.nav-item.d-block.pb-2
-    = link_to t(".mypage"), "#", class: "nav-item-text"
+    = link_to t(".profile"), user_path(current_user), class: "nav-item-text"
   li.nav-item.d-block.pb-2
-    = link_to t(".logout"), logout_path, method: :delete, class: "nav-item-text"
+    = link_to t(".logout"), logout_path, method: :delete, class: "nav-item-text", data: { confirm: t(".logout_confirm") }
