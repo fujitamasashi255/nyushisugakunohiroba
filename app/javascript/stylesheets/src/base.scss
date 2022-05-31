@@ -92,6 +92,10 @@ footer .footer-contents {
   #page-body {
     padding-right: $sidebar-width;
   }
+
+  main {
+    margin: 0 4rem;
+  }
 }
 
 //画面サイズ1200px以下の時
@@ -114,5 +118,9 @@ footer .footer-contents {
   #sidebar figcaption {
     font-size: 0.6em;
   }
+}
+
+.user-form {
+  max-width: 800px;
 }
 

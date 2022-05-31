@@ -69,6 +69,20 @@ ja:
           attributes:
             texable:
               required: "を指定して下さい"
+        user:
+          attributes:
+            name:
+              blank: "を入力して下さい"
+            email:
+              invalid: "は不正な値です"
+              taken: "はすでに存在します"
+            password:
+              too_short: "は%{count}文字以上で入力してください"
+            password_confirmation:
+              blank: "を入力して下さい"
+              confirmation: "と%{attribute}の入力が一致しません"
+
+
 
 
 
@@ -77,6 +91,7 @@ ja:
       department: "区分"
       question: "問題"
       tex: "Tex"
+      user: "ユーザー"
     attributes:
       university:
           name: "大学名"
@@ -95,6 +110,11 @@ ja:
         code: "texコード"
         pdf: "コンパイル結果"
         pdf_blob_signed_id:
+      user:
+        name: "お名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
 
   # enum
   enums:

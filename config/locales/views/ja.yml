@@ -1,9 +1,9 @@
 ja:
   common:
     index: "一覧"
-    create: "作成"
-    edit: "編集"
-    destroy: "削除"
+    create: "作成する"
+    edit: "編集する"
+    destroy: "削除する"
     site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
@@ -36,6 +36,12 @@ ja:
       fail:
         create: "問題を作成できませんでした"
         update: "問題を変更できませんでした"
+      user:
+        success: "ユーザー登録されました"
+
+        fail:
+          create: "ユーザー登録できませんでした"
+
 
 
   helpers:
@@ -48,6 +54,8 @@ ja:
         update: "問題を変更する"
       questions_search_form:
         create: "検索する"
+      user:
+        create: "登録する"
 
   cocoon:
     departments:
@@ -77,6 +85,14 @@ ja:
       search: "問題検索"
     show:
       title: "問題詳細"
+  users:
+    new:
+      title: "新規ユーザー登録"
+    show:
+      title: "ユーザー登録情報"
+    create:
+      success: "ユーザー登録が完了しました"
+      fail: "ユーザー登録できませんでした"
 
   admin:
     dashboards:

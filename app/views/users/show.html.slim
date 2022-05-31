@@ -1,0 +1,26 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.user-show
+  / 名前
+  .row
+    strong.col-sm-3.pb-2.pb-sm-0
+      = User.human_attribute_name(:name)
+    .col-sm-9
+      = @user.name
+
+  .py-1
+  hr
+  .py-1
+
+  / メールアドレス
+  .row
+    strong.col-sm-3
+      = User.human_attribute_name(:email)
+    .col-sm-9
+      = @user.email
+
+  .py-4
+
+
+
