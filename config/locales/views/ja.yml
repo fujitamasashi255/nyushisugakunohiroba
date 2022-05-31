@@ -18,6 +18,7 @@ ja:
       success: "コンパイルに成功しました。"
       fail: "コンパイルに失敗しました。ログが表示されます。"
     compiling: "コンパイル中"
+    still_logged_in: "既にログインしています"
 
   helpers:
     submit:
