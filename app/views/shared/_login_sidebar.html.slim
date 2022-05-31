@@ -1,19 +1,17 @@
 - content_for :sidebar_top_items do
-  = render "shared/sidebar_item", item_name: "問題検索", link: questions_path, icon_class: "bi bi-search"
-  = render "shared/sidebar_item", item_name: "解答一覧", link: "#", icon_class: "bi bi-book"
-  = render "shared/sidebar_item", item_name: "お気に入りの問題", link: "#", icon_class: "bi bi-bookmark-check"
-  = render "shared/sidebar_item", item_name: "いいねした解答", link: "#", icon_class: "bi bi-heart"
+  = render "shared/sidebar_item", item_name: t(".questions_search"), link: questions_path, icon_class: "bi bi-search"
+  = render "shared/sidebar_item", item_name: t(".answers_index"), link: "#", icon_class: "bi bi-book"
+  = render "shared/sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
+  = render "shared/sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
 
 - content_for :offcanvas_top_items
-  = render "shared/offcanvas_sidebar_item", item_name: "問題検索", link: questions_path, icon_class: "bi bi-search"
-  = render "shared/offcanvas_sidebar_item", item_name: "解答一覧", link: "#", icon_class: "bi bi-book"
-  = render "shared/offcanvas_sidebar_item", item_name: "お気に入りの問題", link: "#", icon_class: "bi bi-bookmark-check"
-  = render "shared/offcanvas_sidebar_item", item_name: "いいねした解答", link: "#", icon_class: "bi bi-heart"
+  = render "shared/offcanvas_sidebar_item", item_name: t(".questions_search"), link: questions_path, icon_class: "bi bi-search"
+  = render "shared/offcanvas_sidebar_item", item_name: t(".answers_index"), link: "#", icon_class: "bi bi-book"
+  = render "shared/offcanvas_sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
+  = render "shared/offcanvas_sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
 
 - content_for :sidebar_account_items do
   li.nav-item.d-block.pb-2
-    = link_to "#", class: "nav-item-text" do
-      | アカウントページ
+    = link_to t(".mypage"), "#", class: "nav-item-text"
   li.nav-item.d-block.pb-2
-    = link_to logout_path, method: :delete, class: "nav-item-text" do
-      | ログアウト
+    = link_to t(".logout"), logout_path, method: :delete, class: "nav-item-text"

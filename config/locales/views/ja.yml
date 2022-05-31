@@ -19,26 +19,6 @@ ja:
       fail: "コンパイルに失敗しました。ログが表示されます。"
     compiling: "コンパイル中"
 
-  flashes:
-    university:
-      success:
-        create: "大学・区分を作成しました"
-        update: "大学・区分を変更しました"
-        destroy: "大学・区分を削除しました"
-      fail:
-        create: "大学・区分を作成できませんでした"
-        update: "大学・区分を変更できませんでした"
-    question:
-      success:
-        create: "問題を作成しました"
-        update: "問題を変更しました"
-        destroy: "問題を削除しました"
-      fail:
-        create: "問題を作成できませんでした"
-        update: "問題を変更できませんでした"
-
-
-
   helpers:
     submit:
       university:
@@ -66,6 +46,19 @@ ja:
     questions:
       index:
         search_form_description: "検索条件を指定する"
+    sidebar_layout:
+      account: "アカウント"
+    logout_sidebar:
+      questions_search: "問題検索"
+      users_new: "新規ユーザー登録"
+      login: "ログイン"
+    login_sidebar:
+      questions_search: "問題検索"
+      answers_index: "解答一覧"
+      bookmarked_questions: "お気に入りの問題"
+      liked_questions: "いいねした解答"
+      mypage: "マイページ"
+      logout: "ログアウト"
 
   static_pages:
     top:
@@ -107,25 +100,42 @@ ja:
         home: "ホーム"
         logout: "ログアウト"
     universities:
+      index:
+        title: "大学一覧"
+        search: "大学検索"
       new:
         title: "大学・区分作成"
       show:
         title: "大学・区分詳細"
+      create:
+        success: "大学・区分を作成しました"
+        fail: "大学・区分を作成できませんでした"
       edit:
         title: "大学・区分編集"
-      index:
-        title: "大学一覧"
-        search: "大学検索"
+      update:
+        success: "大学・区分を変更しました"
+        fail: "大学・区分を変更できませんでした"
+      destroy:
+        success: "大学・区分を削除しました"
+
     questions:
       new:
         title: "問題作成"
+      create:
+        success: "問題を作成しました"
+        fail: "問題を作成できませんでした"
       show:
         title: "問題詳細"
       edit:
         title: "問題編集"
+      update:
+        success: "問題を変更しました"
+        fail: "問題を変更できませんでした"
       index:
         title: "問題一覧"
         search: "問題検索"
+      destroy:
+        success: "問題を削除しました"
       form:
         saving: "保存中・・・"
 
