@@ -28,8 +28,8 @@
 
     / プロフィール画像
     .row
-      .col-lg-3
-        = f.label :avatar, class: "col-form-label"
+      .col-lg-3.d-flex
+        = f.label :avatar, class: "my-auto"
       .col-lg-9
         = f.input :avatar, as: :file, label: false
 
@@ -41,8 +41,9 @@
     .row
       = f.button :submit, class: "btn-outline-dark"
 
-    .py-3
 
-  = link_to t(".delete_account"), user_path(@user), method: :delete, data: { confirm: t(".delete_account_confirm") }, class: "delete-account"
+  .d-flex style="min-height: 150px"
+    = link_to t(".reset_password"), "#", class: "reset-password mt-auto"
+    = link_to t(".delete_account"), user_path(@user), method: :delete, data: { confirm: t(".delete_account_confirm") }, class: "delete-account ms-3 mt-auto"
 
   .py-3

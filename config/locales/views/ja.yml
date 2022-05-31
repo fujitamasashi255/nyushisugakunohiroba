@@ -92,6 +92,7 @@ ja:
       title: "プロフィール編集"
       delete_account_confirm: "退会しますか"
       delete_account: "退会する"
+      reset_password: "パスワードを変更する"
     update:
       success: "プロフィールを更新しました"
       fail: "プロフィールを更新できませんでした"
