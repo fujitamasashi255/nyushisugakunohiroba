@@ -92,7 +92,7 @@ ja:
       title: "プロフィール編集"
       delete_account_confirm: "退会しますか"
       delete_account: "退会する"
-      reset_password: "パスワードを変更する"
+      change_password: "パスワードを変更する"
     update:
       success: "プロフィールを更新しました"
       fail: "プロフィールを更新できませんでした"
@@ -103,11 +103,21 @@ ja:
     new:
       title: "ログイン"
       create: "ログインする"
+      password-reset: "パスワードをお忘れの方はこちら"
     create:
       success: "ログインしました"
       fail: "ログインできませんでした"
     destroy:
       success: "ログアウトしました"
+  password_resets:
+    new:
+      title: "パスワード再設定"
+      create: "送信する"
+    create:
+      success: "メールを送信しました"
+    edit:
+      title: "パスワード変更"
+      success: "パスワードを変更しました"
 
   admin:
     dashboards:

@@ -1,3 +1,5 @@
+@import "variables";
+
 .delete-account {
   color: red;
 }
@@ -7,11 +9,19 @@
   color: red;
 }
 
-.reset-password {
+.change-password {
   color: blue;
 }
 
-.reset-password:hover {
+.change-password:hover {
   text-decoration: underline blue;
   color: blue;
+}
+
+.user-form, .login-form, .password-reset-form {
+  max-width: 800px;
+}
+
+.password-reset-form .message {
+  background-color: $lightsilver;
 }

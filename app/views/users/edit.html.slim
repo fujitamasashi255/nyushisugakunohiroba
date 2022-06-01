@@ -35,7 +35,7 @@
 
     .py-3
 
-    .py-3
+    .py-4
 
     / 送信ボタン
     .row
@@ -43,7 +43,7 @@
 
 
   .d-flex style="min-height: 150px"
-    = link_to t(".reset_password"), "#", class: "reset-password mt-auto"
+    = link_to t(".change_password"), "#", class: "change-password mt-auto"
     = link_to t(".delete_account"), user_path(@user), method: :delete, data: { confirm: t(".delete_account_confirm") }, class: "delete-account ms-3 mt-auto"
 
   .py-3
