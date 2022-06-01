@@ -111,6 +111,9 @@ group :development do
 
   # htmlをslimに変換
   gem "html2slim", require: false
+
+  # メール
+  gem "letter_opener_web", "~> 2.0"
 end
 
 group :test do

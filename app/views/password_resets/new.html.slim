@@ -1,0 +1,27 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.password-reset-form
+  .message.p-4
+    | パスワード再設定URLをお送りいたしますので、ご登録されたメールアドレスを入力し、「送信する」ボタンをクリックしてください。
+
+  .py-4
+
+  = form_with scope: :password_reset, url: password_resets_path do |f|
+    / メールアドレス
+    .row
+      .col-lg-2
+        = f.label :email, User.human_attribute_name(:email), class: "col-form-label"
+      .col-lg-10
+        .form-group
+          = f.email_field :email, class: "form-control"
+
+    .py-3
+
+    .py-4
+
+    / 送信ボタン
+    .row
+      = f.submit t(".create"), role: "button", class: "btn btn-outline-dark"
+
+    .py-3
