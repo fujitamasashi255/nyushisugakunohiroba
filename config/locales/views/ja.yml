@@ -105,7 +105,8 @@ ja:
     new:
       title: "ログイン"
       create: "ログインする"
-      password-reset: "パスワードをお忘れの方はこちら"
+      password_reset: "パスワードをお忘れの方はこちら"
+      user_new: "ユーザー登録がお済みで無い方ははこちら"
     create:
       success: "ログインしました"
       fail: "ログインできませんでした"

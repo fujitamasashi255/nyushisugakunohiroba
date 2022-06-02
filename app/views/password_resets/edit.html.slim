@@ -6,25 +6,25 @@
 
     / 名前
     .row
-      .col-lg-3
+      .col-md-3.col-4
         = f.label :name, class: "col-form-label"
-      .col-lg-9.col-form-label
+      .col-md-9.col-8.col-form-label
         = @user.name
 
-    .py-3
+    .py-1.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
     / メールアドレス
     .row
-      .col-lg-3
+      .col-md-3.col-4
         = f.label :email, class: "col-form-label"
-      .col-lg-9.col-form-label
+      .col-md-9.col-8.col-form-label
         = @user.email
 
-    .py-3
+    .py-1.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
     / パスワード
     .row
@@ -33,9 +33,9 @@
       .col-lg-9
         = f.input :password, label: false
 
-    .py-3
+    .py-2.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
 
     / パスワード確認
@@ -47,10 +47,11 @@
 
     .py-3
 
-    .py-3
+    .py-4
 
     / 送信ボタン
     .row
-      = f.button :submit, class: "btn-outline-dark"
+      .col.d-grid.gap-2
+        = f.button :submit, class: "btn-outline-dark"
 
     .py-3

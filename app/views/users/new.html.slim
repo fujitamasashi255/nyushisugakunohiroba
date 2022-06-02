@@ -11,9 +11,9 @@
       .col-lg-9
         = f.input :name, label: false
 
-    .py-3
+    .py-2.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
     / メールアドレス
     .row
@@ -22,9 +22,9 @@
       .col-lg-9
         = f.input :email, label: false
 
-    .py-3
+    .py-2.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
     / パスワード
     .row
@@ -33,9 +33,9 @@
       .col-lg-9
         = f.input :password, label: false
 
-    .py-3
+    .py-2.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
 
     / パスワード確認
@@ -47,10 +47,11 @@
 
     .py-3
 
-    .py-3
+    .py-4
 
     / 送信ボタン
     .row
-      = f.button :submit, class: "btn-outline-dark"
+      .col.d-grid.gap-2
+        = f.button :submit, class: "btn-outline-dark"
 
     .py-3

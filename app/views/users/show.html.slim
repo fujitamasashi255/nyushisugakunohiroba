@@ -4,9 +4,9 @@
 .container.user-show
   / 名前
   .row
-    strong.col-sm-3.pb-2.pb-sm-0
+    strong.col-md-3.col-4
       = User.human_attribute_name(:name)
-    .col-sm-9
+    .col-md-9.col-8
       = @user.name
 
   .py-1
@@ -15,9 +15,9 @@
 
   / メールアドレス
   .row
-    strong.col-sm-3
+    strong.col-md-3.col-4
       = User.human_attribute_name(:email)
-    .col-sm-9
+    .col-md-9.col-8
       = @user.email
 
   .py-1
@@ -26,9 +26,9 @@
 
   / アバター画像
   .row
-    strong.col-sm-3
+    strong.col-md-3.col-4
       = User.human_attribute_name(:avatar)
-    .col-sm-9
+    .col-md-9.col-8
       = @user.avatar.attached? ? @user.avatar : t(".no_avatar")
 
   .py-3
@@ -37,7 +37,8 @@
 
   / リンク
   .row
-    = link_to t("common.edit"), edit_user_path(current_user), class: "btn btn-outline-dark"
+    .col.d-grid.gap-2
+      = link_to t("common.edit"), edit_user_path(current_user), class: "btn btn-outline-dark"
 
   .py-3
 

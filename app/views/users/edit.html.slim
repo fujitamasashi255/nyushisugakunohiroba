@@ -11,9 +11,9 @@
       .col-lg-9
         = f.input :name, label: false
 
-    .py-3
+    .py-2.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
     / メールアドレス
     .row
@@ -22,9 +22,9 @@
       .col-lg-9
         = f.input :email, label: false
 
-    .py-3
+    .py-2.py-lg-3
     hr
-    .py-3
+    .py-2.py-lg-3
 
     / プロフィール画像
     .row
@@ -39,7 +39,8 @@
 
     / 送信ボタン
     .row
-      = f.button :submit, class: "btn-outline-dark"
+      .col.d-grid.gap-2
+        = f.button :submit, class: "btn-outline-dark"
 
 
   .d-flex style="min-height: 150px"

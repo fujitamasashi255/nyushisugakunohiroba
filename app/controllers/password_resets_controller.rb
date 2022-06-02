@@ -24,6 +24,7 @@ class PasswordResetsController < ApplicationController
 
   def update
     @user.password_confirmation = user_params[:password_confirmation]
+    # パスワードがblankのときはバリデーションを手動で行う
     if user_params[:password].blank?
       @user.password = user_params[:password]
       @user.valid?(:password_change)

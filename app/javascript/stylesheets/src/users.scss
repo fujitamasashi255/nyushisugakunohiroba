@@ -18,6 +18,11 @@
   color: blue;
 }
 
+.reset-password-link, .user-new-link {
+  color: $deepsilver;
+  text-decoration: underline black;
+}
+
 .user-form, .login-form, .password-reset-form {
   max-width: 800px;
 }
