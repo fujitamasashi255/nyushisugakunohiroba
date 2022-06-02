@@ -14,6 +14,15 @@ ja:
           bookmark_many: "お気に入りが多い順"
           like_many: "いいねが多い順"
         search_conditions: "検索条件"
+      password_reset:
+        email: "メールアドレス"
+    errors:
+      models:
+        password_reset:
+          attributes:
+            email:
+              invalid: "は不正な値です"
+
 
 
   # Active Record

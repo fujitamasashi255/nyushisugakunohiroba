@@ -7,14 +7,13 @@
 
   .py-4
 
-  = form_with scope: :password_reset, url: password_resets_path do |f|
+  = simple_form_for @password_reset, url: password_resets_path do |f|
     / メールアドレス
     .row
       .col-lg-2
-        = f.label :email, User.human_attribute_name(:email), class: "col-form-label"
+        = f.label :email, class: "col-form-label"
       .col-lg-10
-        .form-group
-          = f.email_field :email, class: "form-control"
+        = f.input :email, label: false
 
     .py-3
 
@@ -22,6 +21,6 @@
 
     / 送信ボタン
     .row
-      = f.submit t(".create"), role: "button", class: "btn btn-outline-dark"
+      = f.button :submit, class: "btn btn-outline-dark"
 
     .py-3

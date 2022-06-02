@@ -32,6 +32,12 @@ class User < ApplicationRecord
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
+  with_options on: :password_change do
+    validates :password, length: { minimum: 3 }
+    validates :password, confirmation: true
+    validates :password_confirmation, presence: true
+  end
+
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_one_attached :avatar
