@@ -6,6 +6,65 @@ $sidebar-height: 60px;
 $header-height: 60px;
 $footer-height: 60px;
 
+// 画面サイズ1200px以上の時
+@media only screen and (min-width: 1200px){
+  // フォントサイズ
+  html {
+    font-size: 16px;
+  }
+
+  // サイドバー
+  #sidebar {
+    height: -webkit-fill-available;
+    width: $sidebar-width;
+  }
+
+  #page-body {
+    padding-right: $sidebar-width;
+  }
+
+  main {
+    margin: 0 4rem;
+  }
+}
+
+// 画面サイズ1200px以下の時
+@media only screen and (max-width: 1199.98px){
+  html {
+    font-size: 14px;
+  }
+
+  // ページボディ
+  #page-body {
+    padding-bottom: $sidebar-height;
+  }
+
+  // サイドバー（画面下部に固定）
+  #sidebar {
+    width: 100%;
+    height: $sidebar-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  // サイドバー（画面下部に固定）のアイコン下に配置されたテキストのサイズ
+  #sidebar figcaption {
+    font-size: 0.6em;
+  }
+}
+
+// 画面サイズ576px以下の時
+@media only screen and (max-width: 575.98px){
+  // フォントサイズ
+  html {
+    font-size: 12px;
+  }
+}
+
+
+// 画面サイズによらない設定
+
 // body, html
 body {
   min-height: 100vh;
@@ -78,45 +137,5 @@ footer .footer-contents {
 
 .footer-contents .footer-copyright {
   font-size: 0.5rem;
-}
-
-
-// 画面サイズ1200px以上の時
-@media only screen and (min-width: 1200px){
-  // サイドバー
-  #sidebar {
-    height: -webkit-fill-available;
-    width: $sidebar-width;
-  }
-
-  #page-body {
-    padding-right: $sidebar-width;
-  }
-
-  main {
-    margin: 0 4rem;
-  }
-}
-
-//画面サイズ1200px以下の時
-@media only screen and (max-width: 1199.98px){
-  // ページボディ
-  #page-body {
-    padding-bottom: $sidebar-height;
-  }
-
-  // サイドバー（画面下部に固定）
-  #sidebar {
-    width: 100%;
-    height: $sidebar-height;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-
-  // サイドバー（画面下部に固定）のアイコン下に配置されたテキストのサイズ
-  #sidebar figcaption {
-    font-size: 0.6em;
-  }
 }
 
