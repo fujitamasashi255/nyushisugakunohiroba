@@ -8,5 +8,7 @@ class CreateUniversities < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    enable_extension "pgcrypto" unless extension_enabled?("pgcrypto")
   end
 end

@@ -2,7 +2,7 @@
 
 class CreateQuestions < ActiveRecord::Migration[6.1]
   def change
-    create_table :questions do |t|
+    create_table :questions, id: :uuid do |t|
       t.integer :year, null: false
 
       t.timestamps

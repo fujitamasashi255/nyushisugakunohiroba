@@ -10,7 +10,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  pdf_blob_signed_id :string
-#  texable_id         :bigint           not null
+#  texable_id         :uuid             not null
 #
 # Indexes
 #
