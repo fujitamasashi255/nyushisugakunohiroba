@@ -1,4 +1,4 @@
-tex_default_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}
+tex_default_code: "\\documentclass[17pt, dvipdfmx]{jsarticle}
                   \r\n
                   \\usepackage{amssymb, amsmath, tikz, enumerate}
                   \r\n
