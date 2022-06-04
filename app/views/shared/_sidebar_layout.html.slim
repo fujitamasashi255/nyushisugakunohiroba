@@ -8,15 +8,14 @@
   / サイドバー上部
   ul.nav.nav-pills.flex-grow-1.flex-xl-grow-0.ms-xl-3.d-flex.justify-content-evenly.justify-content-xl-start
     = content_for :sidebar_top_items
-    li.nav-item.pb-3.d-none.d-xl-block
+    li.nav-item.pe-3.d-none.d-xl-block
       .d-flex.align-items-center
         / アカウントアイコン
         = content_for :sidebar_avatar
         / アカウント名
         .nav-item-text.ms-2
           = content_for :sidebar_account_name
-      ul.sub-nav-item
-        = content_for :sidebar_account_items
+      = content_for :sidebar_account_items
   / ハンバーガーアイコン
   .nav-item.d-xl-none.pe-3
     .d-flex.align-items-center
@@ -38,8 +37,7 @@
               / アカウント名
               .nav-item-text.ms-2
                 = content_for :sidebar_account_name
-            ul.pt-2.sub-nav-item
-              = content_for :sidebar_account_items
+            = content_for :sidebar_account_items
 
         / オフキャンバス下部
         .py-3.mt-auto.ms-3

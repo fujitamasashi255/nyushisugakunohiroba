@@ -55,7 +55,7 @@ ja:
     logout_sidebar:
       questions_search: "問題検索"
       account: "アカウント"
-      users_new: "新規ユーザー登録"
+      users_new: "新規登録"
       login: "ログイン"
     login_sidebar:
       questions_search: "問題検索"
@@ -82,6 +82,7 @@ ja:
   users:
     new:
       title: "新規ユーザー登録"
+      password_hint: "半角英数それぞれ1文字"
     show:
       title: "ユーザー登録情報"
     create:
@@ -106,7 +107,7 @@ ja:
       title: "ログイン"
       create: "ログインする"
       password_reset: "パスワードをお忘れの方はこちら"
-      user_new: "ユーザー登録がお済みで無い方ははこちら"
+      user_new: "ユーザー登録がお済みでない方はこちら"
     create:
       success: "ログインしました"
       fail: "ログインできませんでした"

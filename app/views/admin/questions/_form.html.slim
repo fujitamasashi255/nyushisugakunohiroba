@@ -27,10 +27,10 @@
                       - University.categories.keys.each do |category|
                         label.form-label
                           = University.categories_i18n[category]
-                        small.row.ms-4.row-cols-auto
+                        small.row.ms-2.row-cols-auto
                           = f.collection_radio_buttons "university", University.where(category: category).pluck(:name, :id), :last, :first, item_wrapper_tag: :div, item_wrapper_class: 'form-check col px-0' do |b|
                             = b.label(class: 'form-check-label')
-                              div.ps-4.dropdown-item
+                              .dropdown-item
                                 = b.radio_button(class: 'form-check-input', data: { departments_path: "#{admin_university_department_check_boxes_path(b.value)}" })
                                 = b.text
                   / フォームの後ろの「大学」

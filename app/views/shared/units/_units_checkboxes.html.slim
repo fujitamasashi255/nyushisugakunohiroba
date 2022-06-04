@@ -1,13 +1,14 @@
-- Unit.subjects.each do |sub|
-  div class="subject#{sub}"
-    label
-      | #{t("common.math")}#{sub}
-    .d-flex.flex-wrap.mt-2
-      / unitsはsubjectごとのunitの配列
-      = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check me-3 p-0' do |b|
-        = b.label(class: 'form-check-label')
-          div.ps-4.dropdown-item
-            = b.check_box(class: 'form-check-input')
-            = b.object.name
+.units-check-boxes
+  - Unit.subjects.each do |sub|
+    div class="subject#{sub}"
+      label
+        | #{t("common.math")}#{sub}
+      .d-flex.flex-wrap.mt-2
+        / unitsはsubjectごとのunitの配列
+        = f.collection_check_boxes :unit_ids, Unit.where(subject: sub), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check me-3 p-0' do |b|
+          = b.label(class: 'form-check-label')
+            div.dropdown-item
+              = b.check_box(class: 'form-check-input')
+              = b.object.name
 
-    .py-2
+      .py-2

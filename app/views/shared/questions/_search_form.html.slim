@@ -34,10 +34,10 @@
             - University.categories.keys.each do |category|
               label.form-label
                 = University.categories_i18n[category]
-              small.row.ms-4.row-cols-auto
+              small.row.ms-2.row-cols-auto
                 = f.collection_check_boxes :university_ids, University.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col px-0' do |b|
                   = b.label(class: 'form-check-label')
-                    div.ps-4.dropdown-item
+                    .dropdown-item
                       = b.check_box(class: 'form-check-input')
                       = b.object.name
 

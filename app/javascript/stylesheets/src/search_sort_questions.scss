@@ -36,3 +36,14 @@
 .sort-links a[class="active"] {
   color: red;
 }
+
+// 大学選択ドロップダウン
+.search-form-universities .dropdown-item {
+  padding-left: 2rem;
+}
+
+// 単元選択ドロップダウン
+// dropdown-item の幅
+.units-check-boxes .dropdown-item {
+  padding-left: 2.5rem;
+}

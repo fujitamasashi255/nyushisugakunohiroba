@@ -13,7 +13,8 @@
   = t(".account")
 
 - content_for :sidebar_account_items do
-  li.nav-item.d-block.pb-2
-    = link_to t(".users_new"), new_user_path, class: "nav-item-text"
-  li.nav-item.d-block.pb-2
-    = link_to t(".login"), login_path, class: "nav-item-text"
+  ul.sub-nav-item
+    li.nav-item.d-block.pb-1
+      = link_to t(".users_new"), new_user_path, class: "nav-item-text"
+    li.nav-item.d-block.pb-1
+      = link_to t(".login"), login_path, class: "nav-item-text"
