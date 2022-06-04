@@ -7,7 +7,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = login(user_sessions_params[:email], user_sessions_params[:password])
+    @user = login(user_sessions_params[:email], user_sessions_params[:password], user_sessions_params[:remember])
 
     if @user
       redirect_back_or_to root_path, success: t(".success")
@@ -26,6 +26,6 @@ class UserSessionsController < ApplicationController
   private
 
   def user_sessions_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :remember)
   end
 end

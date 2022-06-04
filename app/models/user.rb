@@ -9,6 +9,8 @@
 #  crypted_password                    :string
 #  email                               :string           not null
 #  name                                :string           not null
+#  remember_me_token                   :string
+#  remember_me_token_expires_at        :datetime
 #  reset_password_email_sent_at        :datetime
 #  reset_password_token                :string
 #  reset_password_token_expires_at     :datetime
@@ -20,10 +22,13 @@
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_remember_me_token     (remember_me_token)
 #  index_users_on_reset_password_token  (reset_password_token)
 #
 class User < ApplicationRecord
   authenticates_with_sorcery!
+
+  attribute :remember, :boolean, default: -> { false }
 
   before_create :default_image
 
