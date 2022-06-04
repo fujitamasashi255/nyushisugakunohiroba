@@ -25,6 +25,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  before_create :default_image
+
   validates :name, presence: true, length: { maximum: 20 }
   validates :role, presence: true
 
@@ -43,4 +45,12 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   enum role: { general: 0, guest: 1, admin: 2 }, _prefix: true
+
+  private
+
+  def default_image
+    return unless avatar.attached?
+
+    avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.png")), filename: "blank-profile-picture.png", content_type: "image/png")
+  end
 end
