@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
+  skip_before_action :require_login
+
   def index
     @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data])
     @pagy, @questions = pagy(@questions_search_form.search)

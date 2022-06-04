@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PasswordResetsController < ApplicationController
-  # skip_before_action :require_login
+  skip_before_action :require_login
   before_action :verify_token_and_fetch_user, only: %i[edit update]
 
   def new

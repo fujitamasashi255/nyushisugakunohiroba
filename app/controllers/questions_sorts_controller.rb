@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class QuestionsSortsController < ApplicationController
+  skip_before_action :require_login
+
   def show
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search)
