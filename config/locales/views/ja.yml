@@ -82,7 +82,7 @@ ja:
   users:
     new:
       title: "新規ユーザー登録"
-      password_hint: "半角英数それぞれ1文字"
+      password_hint: "半角英数字をいずれも含み、8文字以上である必要があります。"
     show:
       title: "ユーザー登録情報"
     create:
@@ -122,6 +122,7 @@ ja:
       fail: "メールを送信できませんでした"
     edit:
       title: "パスワード変更"
+      password_hint: "半角英数字をいずれも含み、8文字以上である必要があります。"
     update:
       success: "パスワードを変更しました"
       fail: "パスワードを変更できませんでした"

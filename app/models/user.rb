@@ -27,17 +27,20 @@ class User < ApplicationRecord
 
   before_create :default_image
 
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 10 }
   validates :role, presence: true
 
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
+  validates :password, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
+  validates :password, format: { with: VALID_PASSWORD_REGEX }
 
   with_options on: :password_change do
-    validates :password, length: { minimum: 3 }
+    validates :password, length: { minimum: 8 }
     validates :password, confirmation: true
     validates :password_confirmation, presence: true
+    validates :password, format: { with: VALID_PASSWORD_REGEX }
   end
 
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }

@@ -87,6 +87,7 @@ ja:
               taken: "はすでに存在します"
             password:
               too_short: "は%{count}文字以上で入力してください"
+              invalid: "は不正な値です"
             password_confirmation:
               blank: "を入力して下さい"
               confirmation: "と%{attribute}の入力が一致しません"
