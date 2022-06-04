@@ -82,6 +82,7 @@ ja:
           attributes:
             name:
               blank: "を入力して下さい"
+              too_long: "は%{count}文字以下で入力してください"
             email:
               invalid: "は不正な値です"
               taken: "はすでに存在します"
