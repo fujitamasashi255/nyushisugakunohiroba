@@ -2,7 +2,7 @@
 
 class PasswordResetsController < ApplicationController
   # skip_before_action :require_login
-  before_action :authenticate_token_and_fetch_user, only: %i[edit update]
+  before_action :verify_token_and_fetch_user, only: %i[edit update]
 
   def new
     @password_reset = PasswordReset.new
@@ -13,7 +13,7 @@ class PasswordResetsController < ApplicationController
     if @password_reset.valid?
       @user = User.find_by(email: password_reset_params[:email])
       @user&.deliver_reset_password_instructions!
-      redirect_to login_path, success: t(".success")
+      redirect_depend_on_login_status
     else
       flash.now[:danger] = t(".fail")
       render "password_resets/new"
@@ -31,7 +31,7 @@ class PasswordResetsController < ApplicationController
       flash.now[:danger] = t(".fail")
       render "password_resets/edit"
     elsif @user.change_password(user_params[:password])
-      redirect_to login_path, success: t(".success")
+      redirect_depend_on_login_status
     else
       flash.now[:danger] = t(".fail")
       render "password_resets/edit"
@@ -48,10 +48,18 @@ class PasswordResetsController < ApplicationController
     params.require(:user).permit(:password, :password_confirmation)
   end
 
-  def authenticate_token_and_fetch_user
+  def verify_token_and_fetch_user
     @token = params[:id]
     @user = User.load_from_reset_password_token(params[:id])
 
     not_authenticated and return if @user.blank?
+  end
+
+  def redirect_depend_on_login_status
+    if logged_in?
+      redirect_to user_path(current_user), success: t(".success")
+    else
+      redirect_to login_path, success: t(".success")
+    end
   end
 end

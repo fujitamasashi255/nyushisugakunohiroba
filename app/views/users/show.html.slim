@@ -4,9 +4,9 @@
 .container.user-show
   / 名前
   .row
-    strong.col-md-3.col-4
+    strong.col-md-3.col-sm-4.col-5
       = User.human_attribute_name(:name)
-    .col-md-9.col-8
+    .col-md-9.col-sm-8.col-7
       = @user.name
 
   .py-1
@@ -15,21 +15,25 @@
 
   / メールアドレス
   .row
-    strong.col-md-3.col-4
+    strong.col-md-3.col-sm-4.col-5
       = User.human_attribute_name(:email)
-    .col-md-9.col-8
+    .col-md-9.col-sm-8.col-7
       = @user.email
 
   .py-1
   hr
   .py-1
 
-  / アバター画像
+  / プロフィール画像
   .row
-    strong.col-md-3.col-4
-      = User.human_attribute_name(:avatar)
-    .col-md-9.col-8
-      = @user.avatar.attached? ? @user.avatar : t(".no_avatar")
+    strong.col-md-3.col-sm-4.col-5.d-flex.align-items-center
+      div
+        = User.human_attribute_name(:avatar)
+    .col-md-9.col-sm-8.col-7
+      - if @user.avatar.attached?
+        = image_tag @user.avatar, class: "avatar"
+      - else
+        = t(".no_avatar")
 
   .py-3
 
