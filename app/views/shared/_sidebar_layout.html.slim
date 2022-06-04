@@ -6,16 +6,16 @@
 .d-flex.flex-xl-column.justify-content-xl-start.justify-content-end.align-items-center.align-items-xl-start.flex-shrink-0.h-100
   .pb-3
   / サイドバー上部
-  ul.nav.nav-pills.flex-grow-1.flex-xl-grow-0.ms-xl-2.d-flex.justify-content-evenly.justify-content-xl-start
+  ul.nav.nav-pills.flex-grow-1.flex-xl-grow-0.ms-xl-3.d-flex.justify-content-evenly.justify-content-xl-start
     = content_for :sidebar_top_items
     li.nav-item.pb-3.d-none.d-xl-block
       .d-flex.align-items-center
         / アカウントアイコン
-        i.bi.bi-person
+        = content_for :sidebar_avatar
         / アカウント名
         .nav-item-text.ms-2
-          = logged_in? ? current_user.name : t(".account")
-      ul.pt-2.sub-nav-item
+          = content_for :sidebar_account_name
+      ul.sub-nav-item
         = content_for :sidebar_account_items
   / ハンバーガーアイコン
   .nav-item.d-xl-none.pe-3
@@ -28,19 +28,19 @@
       button.btn-close.btn-close-white.text-reset.ms-auto.pt-4.pe-4 type="button" data-bs-dismiss="offcanvas"
       .offcanvas-body.d-flex.flex-column
         / オフキャンバス上部
-        ul.nav.nav-pills.d-flex.flex-column.ms-2
+        ul.nav.nav-pills.d-flex.flex-column.ms-3
           = content_for :offcanvas_top_items
           // アカウント関連のアイテム
           li.nav-item.pb-3
             .d-flex.align-items-center
               / アカウントアイコン
-              i.bi.bi-person
+              = content_for :sidebar_avatar
               / アカウント名
               .nav-item-text.ms-2
-                = logged_in? ? current_user.name : t(".account")
+                = content_for :sidebar_account_name
             ul.pt-2.sub-nav-item
               = content_for :sidebar_account_items
 
         / オフキャンバス下部
-        .py-3.mt-auto.ms-2
+        .py-3.mt-auto.ms-3
           = render "shared/footer_in_sidebar"

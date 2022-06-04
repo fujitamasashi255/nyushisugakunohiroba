@@ -4,11 +4,25 @@
   = render "shared/sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
   = render "shared/sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
 
+
+
 - content_for :offcanvas_top_items
   = render "shared/offcanvas_sidebar_item", item_name: t(".questions_search"), link: questions_path, icon_class: "bi bi-search"
   = render "shared/offcanvas_sidebar_item", item_name: t(".answers_index"), link: "#", icon_class: "bi bi-book"
   = render "shared/offcanvas_sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
   = render "shared/offcanvas_sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
+
+/ アカウントアイコン
+- content_for :sidebar_avatar do
+  - if current_user.avatar.attached?
+    = image_tag current_user.avatar, class: "avatar"
+  - else
+    i.bi.bi-person
+
+/ アカウント名
+- content_for :sidebar_account_name do
+  = current_user.name
+
 
 - content_for :sidebar_account_items do
   li.nav-item.d-block.pb-2
