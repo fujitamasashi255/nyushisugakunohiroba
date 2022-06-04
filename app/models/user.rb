@@ -49,7 +49,7 @@ class User < ApplicationRecord
   private
 
   def default_image
-    return unless avatar.attached?
+    return if avatar.attached?
 
     avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.png")), filename: "blank-profile-picture.png", content_type: "image/png")
   end
