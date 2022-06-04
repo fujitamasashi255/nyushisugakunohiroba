@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2022_05_31_101542) do
     t.index ["unit_id"], name: "index_questions_units_mediators_on_unit_id"
   end
 
-  create_table "texes", force: :cascade do |t|
+  create_table "texes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "texable_type", null: false
     t.uuid "texable_id", null: false
     t.text "code"

@@ -4,7 +4,7 @@
 #
 # Table name: texes
 #
-#  id                 :bigint           not null, primary key
+#  id                 :uuid             not null, primary key
 #  code               :text
 #  texable_type       :string           not null
 #  created_at         :datetime         not null
