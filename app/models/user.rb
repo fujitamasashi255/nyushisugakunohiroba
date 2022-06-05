@@ -48,7 +48,7 @@ class User < ApplicationRecord
     validates :password, format: { with: VALID_PASSWORD_REGEX }
   end
 
-  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_one_attached :avatar
 
