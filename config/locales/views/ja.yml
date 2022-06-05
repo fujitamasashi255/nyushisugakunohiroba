@@ -19,6 +19,7 @@ ja:
       fail: "コンパイルに失敗しました。ログが表示されます。"
     compiling: "コンパイル中"
     still_logged_in: "既にログインしています"
+    require_login: "ログインして下さい"
 
   helpers:
     submit:
