@@ -29,17 +29,18 @@
     / プロフィール画像
     .row
       .col-lg-3.col-sm-4.col-5
-        = f.label :avatar, class: "avatar-label"
+        = f.label :avatar, for: "user-avatar-file-input", class: "avatar-label"
       .col-lg-9.col-sm-8.col-7.d-flex
         .d-flex.flex-column.align-items-center
           = image_tag @user.avatar, class: "avatar", id: "avatar-preview"
           = f.hidden_field :avatar, value: f.object.avatar.signed_id if f.object.avatar.attached?
-          .py-2
           = f.label :avatar, for: "user-avatar-file-input"
-            = f.input_field :avatar, as: :file, \
-              class: "d-none", accept: "image/*", direct_upload: true, id: "user-avatar-file-input"
-            .btn.btn-outline-dark role="button"
-              | ファイルを選択
+            .d-flex-column.align-items-center
+              = f.input :avatar, as: :file, wrapper: false, label: false, \
+                input_html: { class: "d-none", id: "user-avatar-file-input", accept: "image/*", direct_upload: true }
+              .d-flex.mt-2
+                .btn.btn-outline-dark.mx-auto role="button"
+                  | ファイルを選択
 
     .py-3
 

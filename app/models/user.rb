@@ -34,6 +34,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 10 }
   validates :role, presence: true
+  validates :avatar, content_type: ["image/png", "image/jpeg"]
 
   validates :password, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }

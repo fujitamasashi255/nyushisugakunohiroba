@@ -14,8 +14,13 @@ $(function(){
 
 		// file の Blob の内容の読み込みを開始し、終了すると、
 		// result 属性にはファイルのデータを表す data: の URL が格納される。
-    if (file) {
+    if (file.type === "image/png" || file.type === "image/jpeg") {
         reader.readAsDataURL(file);
+    } else {
+      console.log(file.type);
+      var alertDiv = $('<div>').attr('style', 'color: red').text("画像ファイルを選択して下さい");
+      console.log(alertDiv)
+      $("#avatar-preview").after(alertDiv);
     }
   });
 })
