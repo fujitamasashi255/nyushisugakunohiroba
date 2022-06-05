@@ -29,6 +29,11 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "バリデーション" do
+    it "ユーザーが作成できること" do
+      user = build(:user, name: "test", email: "test@example.com", password: "1234abcd", password_confirmation: "1234abcd")
+      expect(user).to be_valid
+    end
+
     it "名前のないユーザーは作成できないこと" do
       user = build(:user, name: "")
       expect(user).to be_invalid
@@ -39,11 +44,6 @@ RSpec.describe User, type: :model do
       user = build(:user, name: "hogehogehoge")
       expect(user).to be_invalid
       expect(user.errors.full_messages).to contain_exactly("お名前 は10文字以下で入力して下さい")
-    end
-
-    it "名前が1文字以上10文字以下のユーザーを作成できること" do
-      user = build(:user, name: "hoge")
-      expect(user).to be_valid
     end
 
     it "メールアドレスのないとき、ユーザーは作成できないこと" do
@@ -89,11 +89,6 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to contain_exactly("パスワード は不正な値です")
     end
 
-    it "パスワードが8英子文字、数字をいずれも含み、8文字以上のとき、ユーザーを作成できること" do
-      user = build(:user, password: "1234abcd", password_confirmation: "1234abcd")
-      expect(user).to be_valid
-    end
-
     it "パスワード確認とパスワードが一致しないとき、ユーザーは作成できないこと" do
       user = build(:user, password: "1234abcd", password_confirmation: "abcd1234")
       expect(user).to be_invalid
@@ -102,7 +97,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "コールバック" do
-    fit "新規作成時にavatarがattachされること" do
+    it "新規作成時にavatarがattachされること" do
       user = create(:user)
       expect(user.avatar.attached?).to be_truthy
     end
