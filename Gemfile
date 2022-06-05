@@ -68,6 +68,9 @@ gem "whenever", require: false
 # 認証
 gem "sorcery"
 
+# ActiveStorageのバリデーション
+gem "active_storage_validations"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
