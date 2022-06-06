@@ -19,6 +19,8 @@ class Question < ApplicationRecord
   has_many :questions_departments_mediators, dependent: :destroy
   has_many :departments, through: :questions_departments_mediators
   has_many :questions_units_mediators, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_many :answered_users, through: :answers, source: :user
   has_one :tex, dependent: :destroy, as: :texable
   has_one_attached :image
   accepts_nested_attributes_for :tex, reject_if: :all_blank

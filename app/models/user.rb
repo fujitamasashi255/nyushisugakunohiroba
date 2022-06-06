@@ -14,7 +14,7 @@
 #  reset_password_email_sent_at        :datetime
 #  reset_password_token                :string
 #  reset_password_token_expires_at     :datetime
-#  role                                :integer          default("general"), not null
+#  role                                :integer          default("admin"), not null
 #  salt                                :string
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
@@ -52,6 +52,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_one_attached :avatar
+  has_many :answers, dependent: :destroy
+  has_many :answered_questions, through: :answers, source: :question
 
   enum role: { general: 0, guest: 1, admin: 2 }, _default: :admin
 
