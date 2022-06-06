@@ -8,6 +8,6 @@ class Admin::ApplicationController < ApplicationController
   private
 
   def require_admin_permission
-    not_authenticated unless current_user.admin?
+    redirect_to root_path unless current_user.admin?
   end
 end
