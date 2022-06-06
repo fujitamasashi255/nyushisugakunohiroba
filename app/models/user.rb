@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  enum role: { general: 0, guest: 1, admin: 2 }, _prefix: true
+  enum role: { general: 0, guest: 1, admin: 2 }, _default: :admin
 
   private
 
