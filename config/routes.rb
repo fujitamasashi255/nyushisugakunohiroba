@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # ユーザーページのルーティング
   root to: "static_pages#top"
   resources :questions, only: %i[index show]
-  resources :users
+  resources :users, only: %i[new create show edit update destroy]
   get "login" => "user_sessions#new", :as => :login
   post "login" => "user_sessions#create"
   delete "logout" => "user_sessions#destroy", :as => :logout
