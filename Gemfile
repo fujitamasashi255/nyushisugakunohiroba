@@ -65,6 +65,12 @@ gem "config"
 # cronを設定
 gem "whenever", require: false
 
+# 認証
+gem "sorcery"
+
+# ActiveStorageのバリデーション
+gem "active_storage_validations"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
@@ -108,6 +114,9 @@ group :development do
 
   # htmlをslimに変換
   gem "html2slim", require: false
+
+  # メール
+  gem "letter_opener_web", "~> 2.0"
 end
 
 group :test do

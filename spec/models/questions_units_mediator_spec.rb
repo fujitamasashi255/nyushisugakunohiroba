@@ -7,7 +7,7 @@
 #  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  question_id :bigint           not null
+#  question_id :uuid             not null
 #  unit_id     :bigint           not null
 #
 # Indexes

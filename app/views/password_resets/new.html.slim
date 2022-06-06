@@ -1,0 +1,26 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.password-reset-form
+  .message.p-4
+    | パスワード再設定URLをお送りいたしますので、ご登録されたメールアドレスを入力し、「送信する」ボタンをクリックしてください。
+
+  .py-4
+
+  = simple_form_for @password_reset, url: password_resets_path do |f|
+    / メールアドレス
+    .row
+      .col-lg-3
+        = f.label :email, class: "col-form-label"
+      .col-lg-9
+        = f.input :email, label: false
+
+    .py-3
+
+    .py-4
+
+    / 送信ボタン
+    .row
+      = f.button :submit, class: "btn btn-outline-dark"
+
+    .py-3

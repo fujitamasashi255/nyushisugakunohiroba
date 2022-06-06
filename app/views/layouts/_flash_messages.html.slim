@@ -1,7 +1,8 @@
 - if flash.present?
-    - flash.each do |key, value|
-      - next if key == 'timedout'
-      .alert.px-5.btn-group.d-block class="alert-#{key}"
-        button.btn-close.me-2[data-bs-dismiss="alert"]
-        span.align-top
-          = value
+  - flash.each do |key, value|
+    - next if key == 'timedout'
+    .alert.px-5.btn-group.d-block.fade.show class="alert-#{key}"
+      button.btn-close.me-2[data-bs-dismiss="alert"]
+      span.align-top
+        = value
+  .py-3

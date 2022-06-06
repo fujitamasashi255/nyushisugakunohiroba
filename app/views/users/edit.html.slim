@@ -1,0 +1,59 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.user-form
+  = simple_form_for @user do |f|
+
+    / 名前
+    .row
+      .col-lg-3
+        = f.label :name, class: "col-form-label"
+      .col-lg-9
+        = f.input :name, label: false, hint: t(".name_hint")
+
+    .py-2.py-lg-3
+    hr
+    .py-2.py-lg-3
+
+    / メールアドレス
+    .row
+      .col-lg-3
+        = f.label :email, class: "col-form-label"
+      .col-lg-9
+        = f.input :email, label: false
+
+    .py-2.py-lg-3
+    hr
+    .py-2.py-lg-3
+
+    / プロフィール画像
+    .row
+      .col-lg-3.col-sm-4.col-5
+        = f.label :avatar, for: "user-avatar-file-input", class: "avatar-label"
+      .col-lg-9.col-sm-8.col-7.d-flex
+        .d-flex.flex-column.align-items-center
+          = image_tag @user.avatar, class: "avatar", id: "avatar-preview"
+          = f.hidden_field :avatar, value: f.object.avatar.signed_id if f.object.avatar.attached?
+          = f.label :avatar, for: "user-avatar-file-input"
+            .d-flex-column.align-items-center
+              = f.input :avatar, as: :file, wrapper: false, label: false, \
+                input_html: { class: "d-none", id: "user-avatar-file-input", accept: "image/*", direct_upload: true }
+              .d-flex.mt-2
+                .btn.btn-outline-dark.mx-auto role="button"
+                  | ファイルを選択
+
+    .py-3
+
+    .py-4
+
+    / 送信ボタン
+    .row
+      .col.d-grid.gap-2
+        = f.button :submit, class: "btn-outline-dark"
+
+
+  .d-flex style="min-height: 150px"
+    = link_to t(".change_password"), new_password_reset_path, class: "change-password mt-auto"
+    = link_to t(".delete_account"), user_path(@user), method: :delete, data: { confirm: t(".delete_account_confirm") }, class: "delete-account ms-3 mt-auto"
+
+  .py-3

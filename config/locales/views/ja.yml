@@ -1,9 +1,9 @@
 ja:
   common:
     index: "一覧"
-    create: "作成"
-    edit: "編集"
-    destroy: "削除"
+    create: "作成する"
+    edit: "編集する"
+    destroy: "削除する"
     site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
@@ -18,25 +18,8 @@ ja:
       success: "コンパイルに成功しました。"
       fail: "コンパイルに失敗しました。ログが表示されます。"
     compiling: "コンパイル中"
-
-  flashes:
-    university:
-      success:
-        create: "大学・区分を作成しました"
-        update: "大学・区分を変更しました"
-        destroy: "大学・区分を削除しました"
-      fail:
-        create: "大学・区分を作成できませんでした"
-        update: "大学・区分を変更できませんでした"
-    question:
-      success:
-        create: "問題を作成しました"
-        update: "問題を変更しました"
-        destroy: "問題を削除しました"
-      fail:
-        create: "問題を作成できませんでした"
-        update: "問題を変更できませんでした"
-
+    still_logged_in: "既にログインしています"
+    require_login: "ログインして下さい"
 
   helpers:
     submit:
@@ -48,6 +31,11 @@ ja:
         update: "問題を変更する"
       questions_search_form:
         create: "検索する"
+      user:
+        create: "登録する"
+        update: "更新する"
+      password_reset:
+        create: "送信する"
 
   cocoon:
     departments:
@@ -63,6 +51,21 @@ ja:
     questions:
       index:
         search_form_description: "検索条件を指定する"
+    sidebar_layout:
+      account: "アカウント"
+    logout_sidebar:
+      questions_search: "問題検索"
+      account: "アカウント"
+      users_new: "新規登録"
+      login: "ログイン"
+    login_sidebar:
+      questions_search: "問題検索"
+      answers_index: "解答一覧"
+      bookmarked_questions: "お気に入りの問題"
+      liked_questions: "いいねした解答"
+      profile: "プロフィール"
+      logout: "ログアウト"
+      logout_confirm: "ログアウトしてもいいですか"
 
   static_pages:
     top:
@@ -77,6 +80,55 @@ ja:
       search: "問題検索"
     show:
       title: "問題詳細"
+  users:
+    new:
+      title: "新規ユーザー登録"
+      password_hint: "半角英数字をいずれも含み、8文字以上"
+      name_hint: "10文字以下"
+    show:
+      title: "ユーザー登録情報"
+    create:
+      success: "ユーザー登録が完了しました"
+      fail: "ユーザー登録できませんでした"
+    show:
+      no_avatar: "なし"
+      title: "プロフィール"
+    edit:
+      title: "プロフィール編集"
+      name_hint: "10文字以下"
+      delete_account_confirm: "退会しますか"
+      delete_account: "退会する"
+      change_password: "パスワードを変更する"
+    update:
+      success: "プロフィールを更新しました"
+      fail: "プロフィールを更新できませんでした"
+    destroy:
+      success: "退会が完了しました"
+
+  user_sessions:
+    new:
+      title: "ログイン"
+      create: "ログインする"
+      password_reset: "パスワードをお忘れの方はこちら"
+      user_new: "ユーザー登録がお済みでない方はこちら"
+    create:
+      success: "ログインしました"
+      fail: "ログインできませんでした"
+    destroy:
+      success: "ログアウトしました"
+
+  password_resets:
+    new:
+      title: "パスワード再設定"
+    create:
+      success: "メールを送信しました"
+      fail: "メールを送信できませんでした"
+    edit:
+      title: "パスワード変更"
+      password_hint: "半角英数字をいずれも含み、8文字以上"
+    update:
+      success: "パスワードを変更しました"
+      fail: "パスワードを変更できませんでした"
 
   admin:
     dashboards:
@@ -87,25 +139,42 @@ ja:
         home: "ホーム"
         logout: "ログアウト"
     universities:
+      index:
+        title: "大学一覧"
+        search: "大学検索"
       new:
         title: "大学・区分作成"
       show:
         title: "大学・区分詳細"
+      create:
+        success: "大学・区分を作成しました"
+        fail: "大学・区分を作成できませんでした"
       edit:
         title: "大学・区分編集"
-      index:
-        title: "大学一覧"
-        search: "大学検索"
+      update:
+        success: "大学・区分を変更しました"
+        fail: "大学・区分を変更できませんでした"
+      destroy:
+        success: "大学・区分を削除しました"
+
     questions:
       new:
         title: "問題作成"
+      create:
+        success: "問題を作成しました"
+        fail: "問題を作成できませんでした"
       show:
         title: "問題詳細"
       edit:
         title: "問題編集"
+      update:
+        success: "問題を変更しました"
+        fail: "問題を変更できませんでした"
       index:
         title: "問題一覧"
         search: "問題検索"
+      destroy:
+        success: "問題を削除しました"
       form:
         saving: "保存中・・・"
 

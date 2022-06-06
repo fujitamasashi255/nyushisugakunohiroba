@@ -14,6 +14,15 @@ ja:
           bookmark_many: "お気に入りが多い順"
           like_many: "いいねが多い順"
         search_conditions: "検索条件"
+      password_reset:
+        email: "メールアドレス"
+    errors:
+      models:
+        password_reset:
+          attributes:
+            email:
+              invalid: "は不正な値です"
+
 
 
   # Active Record
@@ -69,6 +78,23 @@ ja:
           attributes:
             texable:
               required: "を指定して下さい"
+        user:
+          attributes:
+            name:
+              blank: "を入力して下さい"
+              too_long: "は%{count}文字以下で入力して下さい"
+            email:
+              invalid: "は不正な値です"
+              taken: "は既に存在します"
+              blank: "を入力して下さい"
+            password:
+              too_short: "は%{count}文字以上で入力して下さい"
+              invalid: "は不正な値です"
+            password_confirmation:
+              blank: "を入力して下さい"
+              confirmation: "と%{attribute}の入力が一致しません"
+
+
 
 
 
@@ -77,6 +103,7 @@ ja:
       department: "区分"
       question: "問題"
       tex: "Tex"
+      user: "ユーザー"
     attributes:
       university:
           name: "大学名"
@@ -95,6 +122,13 @@ ja:
         code: "texコード"
         pdf: "コンパイル結果"
         pdf_blob_signed_id:
+      user:
+        name: "お名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        avatar: "プロフィール画像"
+        remember: "ログイン状態を保持"
 
   # enum
   enums:

@@ -15,13 +15,26 @@ html
           = link_to root_path do
             | 入試数学の広場
 
+      .py-2
+
       / メイン
-      main.px-4
-        - unless current_page?(root_path)
-          // タイトル
-          .container
-            h6
-              = yield :page_title
+      main
+        / フラッシュメッセージ
+        .flash-messages
+          = render "layouts/flash_messages"
+
+        // タイトル
+        .container
+          .d-flex.flex-row.align-items-center
+            .title.flex-shrink-0
+              h4.my-auto
+                = yield :page_title
+            .subtitle.ms-4
+                = yield :page_subtitle
+
+
+        .py-4
+
         // コンテンツ
         .container
           = yield
@@ -32,4 +45,7 @@ html
         = render "shared/footer"
 
     #sidebar
-      = render partial: "/shared/login_sidebar", layout: "/shared/sidebar_layout"
+      - if logged_in?
+        = render partial: "/shared/login_sidebar", layout: "/shared/sidebar_layout"
+      - else
+        = render partial: "/shared/logout_sidebar", layout: "/shared/sidebar_layout"

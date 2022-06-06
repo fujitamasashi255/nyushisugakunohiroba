@@ -9,6 +9,8 @@ import "channels"
 import "../stylesheets/application.scss"
 import "bootstrap"
 import "src/self_made/QuestionsIndex"
+import "src/self_made/FlashMessages"
+import "src/self_made/Users"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'

@@ -18,10 +18,10 @@ class Admin::UniversitiesController < Admin::ApplicationController
     @university = University.new(university_params)
     @university.prefecture = Prefecture.find(prefecture_params[:prefecture][:id]) if prefecture_params[:prefecture][:id].present?
     if @university.save
-      redirect_to [:admin, @university], success: t("flashes.university.success.create")
+      redirect_to [:admin, @university], success: t(".success")
     else
       @university.departments.new if @departments.blank?
-      flash.now[:danger] = t("flashes.university.fail.create")
+      flash.now[:danger] = t(".fail")
       render "admin/universities/new"
     end
   end
@@ -36,16 +36,16 @@ class Admin::UniversitiesController < Admin::ApplicationController
     @university.assign_attributes(university_params)
     @university.prefecture = Prefecture.find(prefecture_params[:prefecture][:id])
     if @university.save
-      redirect_to [:admin, @university], success: t("flashes.university.success.update")
+      redirect_to [:admin, @university], success: t(".success")
     else
-      flash.now[:danger] = t("flashes.university.fail.update")
+      flash.now[:danger] = t(".fail")
       render "admin/universities/edit"
     end
   end
 
   def destroy
     @university.destroy!
-    redirect_to admin_universities_path, success: t("flashes.university.success.destroy")
+    redirect_to admin_universities_path, success: t(".success")
   end
 
   private

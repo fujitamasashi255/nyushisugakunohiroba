@@ -10,22 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_122914) do
+ActiveRecord::Schema.define(version: 2022_06_04_101508) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -38,7 +39,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -51,14 +52,14 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
     t.index ["university_id"], name: "index_departments_on_university_id"
   end
 
-  create_table "questions", force: :cascade do |t|
+  create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "year", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "questions_departments_mediators", force: :cascade do |t|
-    t.bigint "question_id", null: false
+    t.uuid "question_id", null: false
     t.bigint "department_id", null: false
     t.integer "question_number", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -69,7 +70,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
   end
 
   create_table "questions_units_mediators", force: :cascade do |t|
-    t.bigint "question_id", null: false
+    t.uuid "question_id", null: false
     t.bigint "unit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -78,9 +79,9 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
     t.index ["unit_id"], name: "index_questions_units_mediators_on_unit_id"
   end
 
-  create_table "texes", force: :cascade do |t|
+  create_table "texes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "texable_type", null: false
-    t.bigint "texable_id", null: false
+    t.uuid "texable_id", null: false
     t.text "code"
     t.string "pdf_blob_signed_id"
     t.datetime "created_at", precision: 6, null: false
@@ -95,6 +96,25 @@ ActiveRecord::Schema.define(version: 2022_05_06_122914) do
     t.bigint "prefecture_id"
     t.integer "category", default: 0, null: false
     t.index ["name"], name: "index_universities_on_name", unique: true
+  end
+
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.integer "access_count_to_reset_password_page", default: 0
+    t.string "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

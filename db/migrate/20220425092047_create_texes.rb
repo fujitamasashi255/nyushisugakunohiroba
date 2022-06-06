@@ -2,8 +2,8 @@
 
 class CreateTexes < ActiveRecord::Migration[6.1]
   def change
-    create_table :texes do |t|
-      t.references :texable, polymorphic: true, null: false
+    create_table :texes, id: :uuid do |t|
+      t.references :texable, type: :uuid, polymorphic: true, null: false
       t.text :code
       t.string :pdf_blob_signed_id
 

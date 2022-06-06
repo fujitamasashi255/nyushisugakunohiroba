@@ -1,0 +1,48 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.user-show
+  / 名前
+  .row
+    strong.col-md-3.col-sm-4.col-5
+      = User.human_attribute_name(:name)
+    .col-md-9.col-sm-8.col-7
+      = @user.name
+
+  .py-1
+  hr
+  .py-1
+
+  / メールアドレス
+  .row
+    strong.col-md-3.col-sm-4.col-5
+      = User.human_attribute_name(:email)
+    .col-md-9.col-sm-8.col-7
+      = @user.email
+
+  .py-1
+  hr
+  .py-1
+
+  / プロフィール画像
+  .row
+    strong.col-md-3.col-sm-4.col-5.d-flex.align-items-center
+      div
+        = User.human_attribute_name(:avatar)
+    .col-md-9.col-sm-8.col-7
+      - if @user.avatar.attached?
+        = image_tag @user.avatar, class: "avatar"
+      - else
+        = t(".no_avatar")
+
+  .py-3
+
+  .py-4
+
+  / リンク
+  .row
+    .col.d-grid.gap-2
+      = link_to t("common.edit"), edit_user_path(current_user), class: "btn btn-outline-dark"
+
+  .py-3
+

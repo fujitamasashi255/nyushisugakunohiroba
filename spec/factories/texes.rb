@@ -4,13 +4,13 @@
 #
 # Table name: texes
 #
-#  id                 :bigint           not null, primary key
+#  id                 :uuid             not null, primary key
 #  code               :text
 #  texable_type       :string           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  pdf_blob_signed_id :string
-#  texable_id         :bigint           not null
+#  texable_id         :uuid             not null
 #
 # Indexes
 #
@@ -29,7 +29,7 @@ FactoryBot.define do
     texable_type { texable&.class&.name }
 
     trait :with_attachment do
-      pdf { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/rspec_test.pdf"), "application/pdf") }
+      pdf { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/pdf_test.pdf"), "application/pdf") }
     end
   end
 end

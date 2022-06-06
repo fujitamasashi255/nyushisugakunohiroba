@@ -2,7 +2,7 @@
 / content_for :buttons
 
 .container.question-show-container
-  .small.d-flex.d-lg-block.question-show.p-3
+  .d-flex.d-lg-block.question-show.p-3
     / 大学、区分、単元、問題文を囲む
     .d-flex.mx-auto.mx-lg-0.flex-column.flex-lg-row
       / 大学、区分、単元を囲む
@@ -29,7 +29,7 @@
 
       / 問題文
       - if question.image.attached?
-        .d-flex.ms-lg-auto
+        .d-flex.mx-lg-auto
           .question-body.mt-3.mt-lg-0.mx-0.mx-lg-auto
             label
               = Question.human_attribute_name(:image)

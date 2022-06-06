@@ -16,3 +16,5 @@ tex_test_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}
                 テスト
                 \r\n
                 \\end{document}"
+
+host: "localhost:3000"

@@ -1,0 +1,41 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+- content_for :page_subtitle do
+  = link_to t(".user_new"), new_user_path, class: "user-new-link"
+
+.container.login-form
+  = simple_form_for @user, url: login_path do |f|
+    / メールアドレス
+    .row
+      .col-lg-3
+        = f.label :email, class: "col-form-label"
+      .col-lg-9
+        = f.input :email, label: false
+
+    .py-2.py-lg-3
+    hr
+    .py-2.py-lg-3
+
+    / パスワード
+    .row
+      .col-lg-3
+        = f.label :password, class: "col-form-label"
+      .col-lg-9
+        = f.input :password, label: false, error_html: { id: 'password_error' }
+        .mt-2
+          = link_to t(".password_reset"), new_password_reset_path, class: "reset-password-link"
+        .mt-2
+          = f.input :remember, as: :boolean, checked_value: true, unchecked_value: false
+
+    .py-3
+
+    .py-4
+
+    / 送信ボタン
+    .row
+      .col.d-grid.gap-2
+        = f.submit t(".create"), role: "button", class: "btn btn-outline-dark"
+
+
+    .py-3
+

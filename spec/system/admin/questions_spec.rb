@@ -3,9 +3,14 @@
 require "rails_helper"
 
 RSpec.describe "Questions", type: :system, js: true do
+  let!(:user) { create(:user, name: "TEST", email: "test@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin) }
   let!(:department_of_tokyo) { create(:department, name: "理系", university: create(:university, name: "東京", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
   let!(:department_of_kyoto) { create(:department, name: "文系", university: create(:university, name: "京都", category: :national_or_public, prefecture: Prefecture.find_by!(name: "京都府"))) }
   let!(:department_of_nagoya) { create(:department, name: "理系", university: create(:university, name: "名古屋", category: :national_or_public, prefecture: Prefecture.find_by!(name: "愛知県"))) }
+
+  before do
+    sign_in_as(user)
+  end
 
   describe "問題新規作成機能" do
     before do
@@ -191,7 +196,7 @@ RSpec.describe "Questions", type: :system, js: true do
     end
   end
 
-  fdescribe "問題検索・並び替え機能" do
+  describe "問題検索・並び替え機能" do
     before do
       create_question(2020, "京都", "文系", 5, "I", "図形と計量")
       create_question(2010, "名古屋", "理系", 7, "II", "三角関数")

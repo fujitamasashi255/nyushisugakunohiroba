@@ -1,0 +1,57 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+.container.password-reset-form
+  = simple_form_for @user, url: password_reset_path(@token), method: :patch do |f|
+
+    / 名前
+    .row
+      .col-md-3.col-4
+        = f.label :name, class: "col-form-label"
+      .col-md-9.col-8.col-form-label
+        = @user.name
+
+    .py-1.py-lg-3
+    hr
+    .py-2.py-lg-3
+
+    / メールアドレス
+    .row
+      .col-md-3.col-4
+        = f.label :email, class: "col-form-label"
+      .col-md-9.col-8.col-form-label
+        = @user.email
+
+    .py-1.py-lg-3
+    hr
+    .py-2.py-lg-3
+
+    / パスワード
+    .row
+      .col-lg-3
+        = f.label :password, class: "col-form-label"
+      .col-lg-9
+        = f.input :password, label: false, hint: t(".password_hint")
+
+    .py-2.py-lg-3
+    hr
+    .py-2.py-lg-3
+
+
+    / パスワード確認
+    .row
+      .col-lg-3
+        = f.label :password_confirmation, class: "col-form-label text-nowrap"
+      .col-lg-9
+        = f.input :password_confirmation, label: false
+
+    .py-3
+
+    .py-4
+
+    / 送信ボタン
+    .row
+      .col.d-grid.gap-2
+        = f.button :submit, class: "btn-outline-dark"
+
+    .py-3

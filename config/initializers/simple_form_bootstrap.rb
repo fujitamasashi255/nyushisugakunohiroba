@@ -39,11 +39,12 @@ SimpleForm.setup do |config|
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
   # :to_sentence to list all errors for each field.
-  config.error_method = :to_sentence
+  config.error_method = :first
 
   # add validation classes to `input_field`
-  # config.input_field_error_class = "is-invalid"
+  config.input_field_error_class = "is-invalid"
   # config.input_field_valid_class = "is-valid"
+  config.input_field_valid_class = ""
 
   # vertical forms
   #
@@ -57,9 +58,10 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label
+    # デフォルト
     # b.use :input, class: "form-control", error_class: "is-invalid", valid_class: "is-valid"
     b.use :input, class: "form-control", error_class: "is-invalid", valid_class: ""
-    # b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
+    b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
     b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
   end
 
@@ -107,7 +109,9 @@ SimpleForm.setup do |config|
     b.optional :minlength
     b.optional :readonly
     b.use :label
-    b.use :input, class: "form-control-file", error_class: "is-invalid", valid_class: "is-valid"
+    # デフォルト
+    # b.use :input, class: "form-control-file", error_class: "is-invalid", valid_class: "is-valid"
+    b.use :input, class: "form-control", error_class: "is-invalid", valid_class: ""
     b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
     b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
   end

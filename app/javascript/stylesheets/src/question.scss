@@ -2,11 +2,26 @@
 
 // question#index
 
-.question-card{
-  height: 300px;
-  overflow: auto;
-  background-color: $whitesmoke;
-  font-size: 0.8rem;
+@media only screen and (min-width: 576px){
+  .question-card {
+    height: 400px;
+    min-width: 330px;
+    overflow: auto;
+    background-color: $whitesmoke;
+    font-size: 0.8rem;
+  }
+}
+
+
+// 画面サイズ576px以下の問題カード幅
+@media only screen and (max-width: 575.98px){
+  .question-card {
+    height: 400px;
+    width: 280px;
+    overflow: auto;
+    background-color: $whitesmoke;
+    font-size: 0.8rem;
+  }
 }
 
 .question-card:hover {
@@ -25,7 +40,7 @@
 // question#show
 
 .question-show-container {
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .question-show {
@@ -44,4 +59,28 @@
 
 .question-form button {
   background-color: white;
+}
+
+// 単元選択ドロップダウン
+// dropdown-item の幅
+.units-check-boxes .dropdown-item {
+  padding-left: 2.5rem;
+}
+
+// 大学選択ドロップダウン
+// dropdown-item の幅
+.university-radio-buttons .dropdown-item, .search-form-universities .dropdown-item {
+  padding-left: 2rem;
+}
+
+
+// 単元一覧テーブル
+.units-table{
+  border-spacing : 0.25rem 0.25rem;
+  border-collapse : separate;
+}
+
+.units-table td{
+  vertical-align: top;
+  min-width: 3rem;
 }
