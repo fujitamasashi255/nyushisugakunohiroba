@@ -191,7 +191,7 @@ RSpec.describe "Users", type: :system, js: true do
         expect(img_preview_after["src"]).not_to include("blank-profile-picture.png")
         click_button "更新する"
         expect(page).to have_content "プロフィールを更新しました"
-        img = find("img[class='avatar']")
+        img = first("img[class='avatar']")
         expect(img["src"]).to include("avatar_test.png")
       end
     end

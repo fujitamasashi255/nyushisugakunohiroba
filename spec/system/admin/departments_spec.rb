@@ -3,6 +3,11 @@
 require "rails_helper"
 
 RSpec.describe "Departments", type: :system, js: true do
+  let!(:user) { create(:user, name: "TEST", email: "test@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin) }
+  before do
+    sign_in_as(user)
+  end
+
   describe "区分新規作成機能" do
     before do
       visit new_admin_university_path
@@ -13,7 +18,7 @@ RSpec.describe "Departments", type: :system, js: true do
         find(".nested-fields input").set("理系")
         click_button "大学・区分を作成する"
         expect(page).to have_content "大学・区分を作成できませんでした"
-        expect(page).to have_selector ".text-danger", text: "大学名 を入力して下さい"
+        expect(page).to have_selector ".invalid-feedback", text: "大学名 を入力して下さい"
         expect(page).to have_selector(".nested-fields input"), text: "理系"
       end
     end
