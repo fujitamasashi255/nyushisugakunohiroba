@@ -36,6 +36,9 @@ ja:
         update: "更新する"
       password_reset:
         create: "送信する"
+      answer:
+        create: "解答を作成する"
+        update: "解答を更新する"
 
   cocoon:
     departments:
@@ -80,6 +83,24 @@ ja:
       search: "問題検索"
     show:
       title: "問題詳細"
+      new: "解答を作成する"
+      edit: "解答を編集する"
+  answers:
+    new:
+      title: "解答作成"
+    create:
+      success: "解答を作成しました"
+      fail: "解答を作成できませんでした"
+    edit:
+      title: "解答編集"
+      destroy: "解答を削除する"
+    update:
+      success: "解答を更新しました"
+      fail: "解答を更新できませんでした"
+    destroy:
+      success: "解答を削除しました"
+
+
   users:
     new:
       title: "新規ユーザー登録"

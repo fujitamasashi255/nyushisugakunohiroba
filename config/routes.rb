@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
   # ユーザーページのルーティング
   root to: "static_pages#top"
-  resources :questions, only: %i[index show]
+  resources :questions, only: %i[index show] do
+    resources :answers, shallow: true
+  end
   resources :users, only: %i[new create show edit update destroy]
   get "login" => "user_sessions#new", :as => :login
   post "login" => "user_sessions#create"

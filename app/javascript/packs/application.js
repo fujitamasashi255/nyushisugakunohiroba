@@ -11,6 +11,7 @@ import "bootstrap"
 import "src/self_made/QuestionsIndex"
 import "src/self_made/FlashMessages"
 import "src/self_made/Users"
+import "src/self_made/TexCompile"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'

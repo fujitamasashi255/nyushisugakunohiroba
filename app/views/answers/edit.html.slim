@@ -1,0 +1,15 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+= render "/shared/questions/show", question: @question
+
+= link_to t(".destroy"), answer_path(@answer), method: :delete
+
+= simple_form_for @answer do |f|
+  /tex
+  .container
+    = render "texes/form", {f: f, tex: @answer.tex || Tex.new }
+
+  .py-3
+
+  = f.button :submit, class: "btn-outline-dark", data: { disable_with: t(".saving")}
