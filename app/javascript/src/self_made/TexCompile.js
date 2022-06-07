@@ -1,6 +1,10 @@
 // called from views/texes/_form
 
-import { t } from "../../packs/admin";
+import I18n from 'src/i18n-js/index.js.erb'
+I18n.locale = 'ja'
+export function t(arg) {
+  return I18n.t(arg)
+}
 
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){

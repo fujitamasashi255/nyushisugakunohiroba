@@ -1,6 +1,10 @@
 // called from views/admin/questions/new, edit
 
-import { t } from "../../packs/admin";
+import I18n from 'src/i18n-js/index.js.erb'
+I18n.locale = 'ja'
+export function t(arg) {
+  return I18n.t(arg)
+}
 
 // 関数を定義
 
