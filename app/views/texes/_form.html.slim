@@ -1,10 +1,9 @@
-label.form-group
-  = Question.human_attribute_name(:image)
-
-.py-1
+/ 変数
+/ f
+/ tex
 
 .row.small
-  / 問題文のtexコード
+  / texコード
   .col-md-6
     = f.simple_fields_for tex do |t|
       = t.input :code, input_html: { style: "min-height: 500px", id: "tex-code"}

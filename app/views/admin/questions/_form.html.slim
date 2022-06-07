@@ -1,3 +1,6 @@
+- content_for :tex_title do
+  = Question.human_attribute_name(:image)
+
 .container
   = render "shared/errors_base", object: question
 
@@ -80,7 +83,12 @@
 
         /tex
         .container
-          = render "texes/form", {f: f, tex: question.tex || Tex.new}
+          label.form-group
+            = Question.human_attribute_name(:image)
+
+          .py-1
+
+          = render "texes/form", {f: f, tex: question.tex || Tex.new }
 
       .py-3
 
