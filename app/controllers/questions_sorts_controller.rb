@@ -6,7 +6,7 @@ class QuestionsSortsController < ApplicationController
   def show
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search)
-    @questions_search_form_params = questions_search_form_params
+    @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
     if URI(request.referrer.to_s).path.include?("admin")
       render "admin/questions/index", layout: "admin/layouts/application"
     else

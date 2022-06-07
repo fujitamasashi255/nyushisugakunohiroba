@@ -1,5 +1,7 @@
 - content_for(:title, t('.title'))
-- content_for(:question_partial, "/admin/questions/question")
+
+- content_for :question_partial do
+  = render partial: "/admin/questions/question", layout: "/shared/questions/question_layout", collection: @questions, as: :question
 
 = render "/shared/questions/index", \
   { questions_search_form: @questions_search_form, \

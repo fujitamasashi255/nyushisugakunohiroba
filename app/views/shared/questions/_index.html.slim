@@ -72,7 +72,7 @@
     / 問題一覧
     .container.questions-index
       .row
-        = render partial: content_for(:question_partial), layout: "/shared/questions/question_layout", collection: questions, as: :question
+        = content_for :question_partial
 
   / ページネーション
   .container

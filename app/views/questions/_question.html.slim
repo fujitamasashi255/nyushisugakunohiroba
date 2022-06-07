@@ -1,10 +1,26 @@
-/- content_for "icons#{question.id}".to_sym do
-  span.d-block
-    / 編集ボタン
-    = link_to edit_admin_question_path(question) do
-      i.bi.bi-pencil-square role="img" aria-label="Pencil"
-    / 削除ボタン
-    = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
-      i.bi.bi-trash role="img" aria-label="Trash"
-
 - content_for("question_path#{question.id}".to_sym, question_path(question))
+
+- content_for "right_icons#{question.id}".to_sym do
+  - if logged_in?
+    .d-flex.align-items-center
+      - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
+        / 解答作成後
+        = link_to edit_answer_path(question_id_to_answer_id_hash_of_user[question.id]) do
+          i.bi.bi-pencil-square role="img" aria-label="Pencil"
+      - else
+        / 解答作成前
+        = link_to new_question_answer_path(question) do
+          i.bi.bi-pencil-square role="img" aria-label="Pencil"
+
+      / bookmark（ブックマーク前）
+      = link_to "#", class: "ms-1" do
+        i.bi.bi-bookmark role="img" aria-label="Bookmark"
+      / bookmark（ブックマーク後）
+      /= link_to "#", class: "ms-1" do
+        i.bi.bi-bookmark-check role="img" aria-label="Bookmark"
+
+- content_for "left_icons#{question.id}".to_sym do
+  - if logged_in?
+    / 解答作成済チェック
+    - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
+      i.bi.bi-check role="img" aria-label="Checkcircle"

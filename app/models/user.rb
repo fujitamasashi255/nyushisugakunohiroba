@@ -57,6 +57,11 @@ class User < ApplicationRecord
 
   enum role: { general: 0, guest: 1, admin: 2 }, _default: :admin
 
+  # ユーザーの作成した解答のidをvalue、その問題のidをkeyとするhashを作成
+  def question_id_to_answer_id_hash
+    answers.map { |answer| [answer.question_id, answer.id] }.to_h
+  end
+
   private
 
   def default_image
