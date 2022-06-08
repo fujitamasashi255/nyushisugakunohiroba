@@ -9,6 +9,9 @@
 = render "/shared/questions/show", question: question
 
 = simple_form_for form_model do |f|
+  = f.label :point
+  = f.input :point, as: :rich_text_area
+
   /tex
   .container
     = render "texes/form", {f: f, tex: answer.tex || Tex.new }

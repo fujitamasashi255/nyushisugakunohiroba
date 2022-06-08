@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = current_user.answers.new(question_id: params[:question_id])
+    @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point])
     set_tex
     if @answer.save
       @question = @answer.question
@@ -48,9 +48,9 @@ class AnswersController < ApplicationController
 
   private
 
-  # def answer_params
-  #   params.require(:answer).permit()
-  # end
+  def answer_params
+    params.require(:answer).permit(:point)
+  end
 
   def tex_params
     params.require(:answer).permit(tex: %i[code pdf_blob_signed_id id _destroy])[:tex]

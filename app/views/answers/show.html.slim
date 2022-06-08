@@ -1,2 +1,8 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
 - if @answer.tex.pdf.attached?
   embed type="application/pdf" height="500" width="100%" marginwidth="0" src= url_for(@answer.tex.pdf)
+
+.trix-content
+  == @answer.point

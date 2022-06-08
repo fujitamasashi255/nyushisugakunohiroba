@@ -27,4 +27,5 @@ class Answer < ApplicationRecord
   belongs_to :question
   has_one :tex, dependent: :destroy, as: :texable
   has_one_attached :file
+  has_rich_text :point
 end
