@@ -6,6 +6,7 @@
     "@nathanvda/cocoon": "^1.2.14",
     "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^6.0.0",
+    "@rails/actiontext": "^6.1.5",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.5",
     "@rails/webpacker": "5.4.3",
@@ -13,6 +14,7 @@
     "i18n-js": "^3.9.2",
     "jquery": "^3.6.0",
     "rails-erb-loader": "^5.5.2",
+    "trix": "^1.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },

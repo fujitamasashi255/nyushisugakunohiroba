@@ -25,3 +25,6 @@ export function t(arg) {
 
 Rails.start()
 ActiveStorage.start()
+
+require("trix")
+require("@rails/actiontext")
