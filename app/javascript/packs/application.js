@@ -7,11 +7,15 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "../stylesheets/application.scss"
+import jquery from "jquery"
+window.$ = window.jQuery = jquery
 import "bootstrap"
+window.bootstrap = require("bootstrap");
 import "src/self_made/QuestionsIndex"
 import "src/self_made/FlashMessages"
 import "src/self_made/Users"
 import "src/self_made/TexCompile"
+import "src/self_made/AnswerForm"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
