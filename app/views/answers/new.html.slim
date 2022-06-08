@@ -1,14 +1,17 @@
 - content_for(:title, t(".title"))
 - content_for(:page_title, t(".title"))
 
-= render "/shared/questions/show", question: @question
+- content_for :icons do
+  .answer-new-icons
+    / 問題文表示
+    a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
+      i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
+    / 問題詳細ページへの戻るアイコン
+    = link_to question_path(@question) do
+      i.bi.bi-arrow-left data-bs-toggle="tooltip" data-bs-placement="left" title=t(".return_to_question")
 
-= simple_form_for [@question, @answer] do |f|
-  /tex
-  .container
-    = render "texes/form", {f: f, tex: @answer.tex || Tex.new }
+    .dropdown-menu.p-1 id="dropdownQuestionImage"
+      = image_tag @question.image, class: "bg-white p-3 img-fluid"
 
-  .py-3
-
-  = f.button :submit, class: "btn-outline-dark", data: { disable_with: t(".saving")}
+= render "form", form_model: [@question, @answer], answer: @answer, question: @question
 

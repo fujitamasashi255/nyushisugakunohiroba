@@ -88,12 +88,16 @@ ja:
   answers:
     new:
       title: "解答作成"
+      display_question_image: "問題文を表示する"
+      return_to_question: "問題詳細へ戻る"
     create:
       success: "解答を作成しました"
       fail: "解答を作成できませんでした"
     edit:
       title: "解答編集"
       destroy: "解答を削除する"
+      display_question_image: "問題文を表示する"
+      return_to_question: "問題詳細へ戻る"
     update:
       success: "解答を更新しました"
       fail: "解答を更新できませんでした"
