@@ -61,19 +61,6 @@
   background-color: white;
 }
 
-// 単元選択ドロップダウン
-// dropdown-item の幅
-.units-check-boxes .dropdown-item {
-  padding-left: 2.5rem;
-}
-
-// 大学選択ドロップダウン
-// dropdown-item の幅
-.university-radio-buttons .dropdown-item, .search-form-universities .dropdown-item {
-  padding-left: 2rem;
-}
-
-
 // 単元一覧テーブル
 .units-table{
   border-spacing : 0.25rem 0.25rem;
@@ -83,4 +70,19 @@
 .units-table td{
   vertical-align: top;
   min-width: 3rem;
+}
+
+// 大学名横のアイコン
+//ブックマークアイコン
+.question-card .bi-bookmark{
+  color: $deepsilver;
+}
+
+.question-card .bi-bookmark-check{
+  color: blue;
+}
+
+//チェックアイコン
+.question-card .bi-check{
+  color: blue;
 }
