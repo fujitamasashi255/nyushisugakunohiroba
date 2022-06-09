@@ -28,12 +28,11 @@ html
           .d-flex.flex-row.align-items-center
             .title.flex-shrink-0
               h4.my-auto
-                = yield :page_title
+                = content_for :page_title
             .subtitle.ms-4
-                = yield :page_subtitle
-
-
-        .py-4
+                = content_for :page_subtitle
+          = content_for :note
+          .py-4
 
         // コンテンツ
         .container

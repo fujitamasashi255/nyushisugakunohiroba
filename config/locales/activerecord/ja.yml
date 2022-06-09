@@ -128,6 +128,8 @@ ja:
         password_confirmation: "パスワード確認"
         avatar: "プロフィール画像"
         remember: "ログイン状態を保持"
+      answer:
+        point: "ポイント"
 
   # enum
   enums:

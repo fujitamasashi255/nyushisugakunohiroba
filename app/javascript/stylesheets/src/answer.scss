@@ -75,18 +75,18 @@
   }
 }
 
-// ドロップダウンの▼を表示しない
+// 右上ドロップダウンの▼を表示しない
 .answer-form-icons .dropdown-toggle::after {
   display: none;
 }
 
-// アイコンの大きさ
+// 右上アイコンの大きさ
 .answer-form-icons i {
   font-size: 2rem;
 }
 
-//アイコンの色
-.answer-form-icons .bi-chat-right-text {
+//右上アイコンの色
+.bi-chat-right-text {
   color: blue;
 }
 
@@ -112,7 +112,7 @@
 // 画面サイズ768px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 767.98px){
   #dropdownQuestionImage {
-    max-width: 260px;
+    max-width: 300px;
   }
 }
 
@@ -127,7 +127,7 @@
   opacity: 0.95;
 }
 
-// スクロールバー
+// 問題文ドロップダウンのスクロールバー
 #dropdownQuestionImage::-webkit-scrollbar {
   width: 15px;
   height: 10px;
@@ -139,3 +139,46 @@
 #dropdownQuestionImage::-webkit-scrollbar-thumb {
   border-radius: 0.25rem;
 }
+
+
+// サブタイトルの問題情報
+.answer-form-subtitle .question-info {
+  border-bottom: 2px solid blue;
+}
+
+// 注意書き
+.answer-form-note {
+  font-size: 0.7rem;
+}
+
+// 解答フォーム全体
+.answer-form-field {
+  background-color: $whitesmoke;
+}
+
+// ボタン
+.answer-form-field button {
+  background-color: white;
+}
+
+// ポイント
+.answer-form .point trix-editor, .answer-form .point #tab-point-result {
+  height: 300px;
+  background-color: white;
+}
+
+.answer-form .point trix-toolbar{
+  background-color: white;
+}
+
+// nav-tabsの非アクティブタブ
+.answer-form .nav-tabs a:not(.active):hover{
+  color: $deepsilver;
+}
+
+.answer-form .nav-tabs a:not(.active){
+  border: 1px solid #dee2e6;
+  background-color: white;
+}
+
+

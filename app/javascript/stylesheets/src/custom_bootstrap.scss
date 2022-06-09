@@ -24,6 +24,10 @@ $pagination-focus-box-shadow:    0 0 0 .25rem $deepsilver !default;
 // dropdown-itemのhover時の色
 $dropdown-link-hover-bg:            $deepsilver !default;
 
+// nav-tabs
+$nav-tabs-link-active-color:        red !default;
+//$nav-tabs-link-active-bg:           $lightsilver !default;
+
 
 @import "bootstrap_scss/bootstrap";
 
