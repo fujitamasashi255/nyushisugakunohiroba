@@ -1,0 +1,17 @@
+#compile-result {
+  white-space: pre;
+  overflow: scroll;
+}
+
+@media only screen and (min-width: 992px){
+  // 左側
+  #tab-tex-code {
+    width: 50%;
+    margin-right: 3px;
+  }
+  // 右側
+  #tab-compile-result {
+    width: 50%;
+    margin-left: 3px;
+  }
+}
