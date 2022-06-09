@@ -3,20 +3,61 @@
 / answer
 / question
 
+- content_for :page_subtitle do
+  .answer-form-subtitle.d-flex.flex-row.align-items-center
+    / 大学、区分を囲む
+    .d-flex.align-items-center.flex-wrap.question-info
+      / 出題年
+      .year.pe-2.text-nowrap
+        | #{question.year} 年
+      / 大学名
+      .university.pe-3.text-nowrap
+        | #{question.university.name} 大学
+      / 区分
+      .departments.text-nowrap
+        -if question.departments.present?
+          = render "/shared/departments/departments", {departments: question.departments, question: question}
+
+- content_for :note do
+  .mt-2
+    .answer-form-note.d-flex.align-items-center
+      div
+        | ※問題文は画面右上の
+      div.ms-1
+        i.bi.bi-chat-right-text
+      div.ms-1
+        | をクリック
+
 .answer-form-icons
   = content_for :icons
 
-= render "/shared/questions/show", question: question
+/ 解答作成フォーム
+.answer-form
+  = simple_form_for form_model do |f|
+    .container.answer-form-field.p-4
+      / ポイント
+      .point
+        = f.label :point
+        ul.nav.nav-tabs.mt-2 role="tablist"
+          li.nav-item
+            a.nav-link.active data-bs-toggle="tab" href="#tab-point-code"
+              | 入力
+          li.nav-item
+            a.nav-link data-bs-toggle="tab" href="#tab-point-result"
+              | プレビュー
+        .tab-content
+          .tab-pane.fade.active.show.border role="tabpanel" id="tab-point-code"
+            = f.input :point, as: :rich_text_area, label: false, wrapper: false
+          .tab-pane.fade.border.p-2 role="tabpanel" id="tab-point-result"
+            | 出力結果
 
-= simple_form_for form_model do |f|
-  = f.label :point
-  = f.input :point, as: :rich_text_area
+      .py-4
 
-  /tex
-  .container
-    = render "texes/form", {f: f, tex: answer.tex || Tex.new }
+      /tex
+      .container
+        = render "texes/form", {f: f, tex: answer.tex || Tex.new }
 
-  .py-3
+    .py-3
 
-  = f.button :submit, class: "btn-outline-dark", data: { disable_with: t(".saving")}
+    = f.button :submit, class: "btn-outline-dark", data: { disable_with: t(".saving")}
 

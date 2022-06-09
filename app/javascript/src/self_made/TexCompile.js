@@ -28,9 +28,9 @@ var replacewithNewButton = function(button, path, signedId){
   var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("compile.create"));
   button.replaceWith(newButton)
   if(signedId){
-    $('<span>', {id: "compile-message", class: "text-success ms-2"}).text(t("messages.compile.success")).insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-success ms-2 d-inline-block"}).text(t("messages.compile.success")).insertAfter(newButton);
   }else{
-    $('<span>', {id: "compile-message", class: "text-danger ms-2"}).text(t("messages.compile.fail")).insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-danger ms-2 d-inline-block"}).text(t("messages.compile.fail")).insertAfter(newButton);
   }
 }
 
@@ -91,3 +91,27 @@ $(function(){
     });
   });
 });
+
+// 画面サイズがlg以下の時、texタブにクラスを追加削除
+var mql = window.matchMedia('(max-width: 992px)');
+function displayTabCopntent(e){
+  if(e.matches){
+    // 画面サイズが992px以下になった時の処理
+    $("#tab-compile-result").attr("class", "tab-pane fade");
+  }else{
+    // 画面サイズが992px以上になった時の処理
+    $("#tab-compile-result").attr("class", "tab-pane fade active show");
+    $(".nav-tabs a[href='#tab-compile-result']").attr("class", "nav-link");
+    $("#tab-tex-code").attr("class", "tab-pane fade active show");
+    $(".nav-tabs a[href='#tab-tex-code']").attr("class", "nav-link active");
+  }
+}
+
+mql.addEventListener("change", displayTabCopntent);
+
+$(function(){
+  if(window.innerWidth < 992){
+    $("#tab-compile-result").attr("class", "tab-pane fade");
+  }
+});
+
