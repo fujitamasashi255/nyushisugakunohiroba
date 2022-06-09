@@ -40,7 +40,16 @@
 // question#show
 
 .question-show-container {
-  max-width: 1000px;
+  max-width: 600px;
+}
+
+.question-show-container .general a {
+  color: black;
+}
+
+.question-show-container .general a:hover {
+  color: $deepsilver;
+  text-decoration: underline $deepsilver;
 }
 
 .question-show {
@@ -50,6 +59,8 @@
 .question-image {
   max-width: 500px;
 }
+
+
 
 
 // question#new, edit

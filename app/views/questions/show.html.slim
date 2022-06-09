@@ -1,13 +1,18 @@
 - content_for(:title, t('.title'))
 - content_for(:page_title, t('.title'))
 
-- content_for :buttons do
+- content_for :links do
   - if logged_in?
-    - if @question_id_to_answer_id_hash_of_user.keys.include?(@question.id)
-      / 解答作成後
-      = link_to t(".edit"), edit_answer_path(@question_id_to_answer_id_hash_of_user[@question.id]), role: "button", class: "btn btn-outline-dark"
-    - else
-      / 解答作成前
-      = link_to t(".new"), new_question_answer_path(@question.id), role: "button", class: "btn btn-outline-dark"
+    .general
+      - if @question_id_to_answer_id_hash_of_user.keys.include?(@question.id)
+        / 解答作成後
+        = link_to edit_answer_path(@question_id_to_answer_id_hash_of_user[@question.id]) do
+          i.bi.bi-pencil.me-1
+          = t(".edit")
+      - else
+        / 解答作成前
+        = link_to new_question_answer_path(@question.id) do
+          i.bi.bi-pencil.me-1
+          = t(".new")
 
 = render "/shared/questions/show", question: @question

@@ -1,12 +1,14 @@
 / 埋め込み
 / content_for :buttons
 
-.container.question-show-container
-  .d-flex.d-lg-block.question-show.p-3
+.question-show-container.mx-auto
+  = content_for :links
+  .py-2
+  .d-flex.question-show.p-3
     / 大学、区分、単元、問題文を囲む
-    .d-flex.mx-auto.mx-lg-0.flex-column.flex-lg-row
+    .d-flex.mx-auto.flex-column
       / 大学、区分、単元を囲む
-      .d-flex.flex-column.me-lg-2
+      .d-flex.flex-column
         / 大学、区分を囲む
         .d-flex.align-items-center.flex-wrap
           / 出題年
@@ -29,14 +31,11 @@
 
       / 問題文
       - if question.image.attached?
-        .d-flex.mx-lg-auto
-          .question-body.mt-3.mt-lg-0.mx-0.mx-lg-auto
+        .d-flex
+          .question-body.mt-3.mx-0
             label
               = Question.human_attribute_name(:image)
             div.question-image
               = image_tag question.image, class: "bg-white p-3 img-fluid"
 
-.py-3
-.container
-  = content_for :buttons
 
