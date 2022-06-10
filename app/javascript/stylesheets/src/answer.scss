@@ -116,31 +116,6 @@
   }
 }
 
-// 問題文ドロップダウン の最大高さ
-#dropdownQuestionImage {
-  max-height: 500px;
-  overflow-y: scroll;
-  border: 2px solid blue;
-}
-
-#dropdownQuestionImage img {
-  opacity: 0.95;
-}
-
-// 問題文ドロップダウンのスクロールバー
-#dropdownQuestionImage::-webkit-scrollbar {
-  width: 15px;
-  height: 10px;
-}
-#dropdownQuestionImage::-webkit-scrollbar-thumb {
-  --bg-opacity: 1;
-  background-color: $silver;
-}
-#dropdownQuestionImage::-webkit-scrollbar-thumb {
-  border-radius: 0.25rem;
-}
-
-
 // サブタイトルの問題情報
 .answer-form-subtitle .question-info {
   border-bottom: 2px solid blue;
@@ -161,11 +136,45 @@
   background-color: white;
 }
 
-// ポイント
-.answer-form .point trix-editor, .answer-form .point #tab-point-result {
-  height: 300px;
-  background-color: white;
+
+// 問題文ドロップダウン の最大高さ
+#dropdownQuestionImage {
+  max-height: 500px;
+  overflow-y: scroll;
+  border: 2px solid blue;
 }
+
+#dropdownQuestionImage img {
+  opacity: 0.95;
+}
+
+// 問題文ドロップダウン、ポイントのスクロールバー
+#dropdownQuestionImage::-webkit-scrollbar,
+.point trix-editor::-webkit-scrollbar,
+.point #tab-point-result::-webkit-scrollbar {
+  width: 15px;
+  height: 10px;
+}
+
+#dropdownQuestionImage::-webkit-scrollbar-thumb,
+.point trix-editor::-webkit-scrollbar-thumb,
+.point #tab-point-result::-webkit-scrollbar-thumb {
+  --bg-opacity: 1;
+  background-color: $silver;
+  border-radius: 0.25rem;
+}
+
+
+// ポイント
+.point {
+  trix-editor, #tab-point-result {
+    height: 300px;
+    background-color: white;
+    overflow-y: scroll;
+    padding: 20px;
+  }
+}
+
 
 .answer-form .point trix-toolbar{
   background-color: white;

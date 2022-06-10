@@ -34,3 +34,58 @@
     }
   }
 }
+
+
+
+.trix-button--icon-heading-1,
+.trix-button--icon-italic,
+.trix-button--icon-quote,
+.trix-button--icon-strike,
+.trix-button--icon-code {
+  display: none;
+}
+
+
+trix-editor ol, .trix-content ol {
+  padding-left: 0px;
+  margin: 4px 0px;
+}
+
+trix-editor li, .trix-content li{
+  counter-increment: cnt-arabic;
+	list-style-type: none;
+	position: relative;
+  padding-left: 2em;
+  margin-left: 0em;
+}
+
+trix-editor li:before, .trix-content li:before {
+  content: "(" counter(cnt-arabic) ")";
+	display: inline-block;
+	margin-left: 0em;
+	width: 1.8em;
+	text-align: right;
+	position: absolute;
+	top: 0;
+	left: -0.2em;
+}
+
+trix-editor > ol > li > ol > li, .trix-content > ol > li > ol > li{
+  counter-increment: cnt-roman;
+}
+
+trix-editor > ol > li > ol > li:before, .trix-content > ol > li > ol > li:before {
+  content: "(" counter(cnt-roman, lower-roman) ")";
+}
+
+trix-editor > ol > li > ol > li > ol > li, .trix-content > ol > li > ol > li > ol > li{
+  counter-increment: cnt-katakana;
+}
+
+trix-editor > ol > li > ol > li > ol > li:before, .trix-content > ol > li > ol > li > ol > li::before{
+  content: "(" counter(cnt-katakana, katakana) ")";
+}
+
+trix-editor ol, .trix-content ol {
+  counter-reset: cnt-arabic;
+}
