@@ -11,3 +11,23 @@ document.addEventListener("DOMContentLoaded", function(){
     return new bootstrap.Tooltip(tooltipTriggerEl);
   });
 });
+
+
+var removeBrTagsAfterDisplayMath = function(){
+  $('mjx-container[display="true"]').next().each(function(){
+    if($(this).is("br")){
+        $(this).remove();
+    }
+  });
+}
+
+// ポイントのプレビュー
+$(function(){
+  removeBrTagsAfterDisplayMath();
+  $(".answer-form a[href='#tab-point-result']").on("click", function(){
+    var pointCode = $("#tab-point-code trix-editor").html();
+    MathJax.typeset($("#tab-point-result").html(pointCode));
+    removeBrTagsAfterDisplayMath();
+  });
+});
+
