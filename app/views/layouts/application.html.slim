@@ -6,8 +6,10 @@ html
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
-    /= stylesheet_pack_tag 'application', media: 'all'
     = javascript_pack_tag 'application'
+    / MathJaxの読み込み
+    script type="text/javascript" id="MathJax-script" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+
   body.d-xl-flex.flex-nowrap.flex-xl-row-reverse
     #page-body.d-flex.flex-column.flex-xl-grow-1
       header
