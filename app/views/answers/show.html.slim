@@ -1,8 +1,26 @@
 - content_for(:title, t(".title"))
 - content_for(:page_title, t(".title"))
 
+- content_for :page_subtitle do
+  .answer-form-subtitle.d-flex.flex-row.align-items-center
+    / 大学、区分を囲む
+    .d-flex.align-items-center.flex-wrap.question-info
+      / 出題年
+      .year.pe-2.text-nowrap
+        | #{@question.year} 年
+      / 大学名
+      .university.pe-3.text-nowrap
+        | #{@question.university.name} 大学
+      / 区分
+      .departments.text-nowrap
+        -if @question.departments.present?
+          = render "/shared/departments/departments", {departments: @question.departments, question: @question}
+
+= link_to edit_answer_path(@answer) do
+  i.bi.bi-pencil.me-1
+  = t(".edit")
+
 - if @answer.tex.pdf.attached?
   embed type="application/pdf" height="500" width="100%" marginwidth="0" src= url_for(@answer.tex.pdf)
 
-.trix-content
-  == @answer.point
+== @answer.point
