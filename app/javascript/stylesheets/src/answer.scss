@@ -1,87 +1,29 @@
 @import "variables";
 
 // iconsは画面右上に固定
-// 解答新規作成画面
 // 画面サイズ1200px以上の時の右上アイコンの表示位置
 @media only screen and (min-width: 1200px){
-  .answer-new-icons #questionImageDropdownButton {
-    right: 180px;
-    position: fixed;
-    top: 10px;
-  }
-
-  .answer-new-icons .bi-arrow-left {
-    right: 230px;
-    position: fixed;
-    top: 10px;
+  .answer-top-icons {
+    margin-top: 10px;
+    margin-right: calc(20px + $sidebar-width);
   }
 }
 
 // 画面サイズ1200px以下の時の右上アイコンの表示位置
 @media only screen and (max-width: 1200px){
-  .answer-new-icons #questionImageDropdownButton {
-    right: 20px;
-    position: fixed;
-    top: 10px;
-  }
-
-  .answer-new-icons .bi-arrow-left {
-    right: 70px;
-    position: fixed;
-    top: 10px;
-  }
-}
-
-// 解答編集画面
-// 画面サイズ1200px以上の時の右上アイコンの表示位置
-@media only screen and (min-width: 1200px){
-  .answer-edit-icons #questionImageDropdownButton {
-    right: 180px;
-    position: fixed;
-    top: 10px;
-  }
-
-  .answer-edit-icons .bi-trash {
-    right: 230px;
-    position: fixed;
-    top: 10px;
-  }
-
-  .answer-edit-icons .bi-arrow-left {
-    right: 280px;
-    position: fixed;
-    top: 10px;
-  }
-}
-
-// 画面サイズ1200px以下の時の右上アイコンの表示位置
-@media only screen and (max-width: 1200px){
-  .answer-edit-icons #questionImageDropdownButton {
-    right: 20px;
-    position: fixed;
-    top: 10px;
-  }
-
-  .answer-edit-icons .bi-trash {
-    right: 70px;
-    position: fixed;
-    top: 10px;
-  }
-
-  .answer-edit-icons .bi-arrow-left {
-    right: 120px;
-    position: fixed;
-    top: 10px;
+  .answer-top-icons {
+    margin-top: 10px;
+    margin-right: 20px;
   }
 }
 
 // 右上ドロップダウンの▼を表示しない
-.answer-form-icons .dropdown-toggle::after {
+.answer-top-icons .dropdown-toggle::after {
   display: none;
 }
 
 // 右上アイコンの大きさ
-.answer-form-icons i {
+.answer-top-icons i {
   font-size: 2rem;
 }
 
@@ -90,7 +32,7 @@
   color: blue;
 }
 
-.answer-form-icons .bi-trash {
+.answer-top-icons .bi-trash {
   color: red;
 }
 
@@ -98,26 +40,26 @@
 // 画面サイズ992px以上の時、ドロップダウンを表示しない
 @media only screen and (min-width: 992px){
   #dropdownQuestionImage {
-    max-width: 420px;
+    width: 420px;
   }
 }
 
 // 画面サイズ768px以上992px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 992px) and (min-width: 768px) {
   #dropdownQuestionImage {
-    max-width: 350px;
+    width: 350px;
   }
 }
 
 // 画面サイズ768px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 767.98px){
   #dropdownQuestionImage {
-    max-width: 300px;
+    width: 300px;
   }
 }
 
 // サブタイトルの問題情報
-.answer-form-subtitle .question-info {
+.answer-subtitle .question-info {
   border-bottom: 2px solid blue;
 }
 
@@ -190,4 +132,14 @@
   background-color: white;
 }
 
+// ファイル
+.answer-form .files img,
+.answer-show .files img {
+  max-height: 500px;
+  max-width: 100%;
+}
 
+// 解答のボタン
+.answer-form .btn:not(:hover) {
+  background-color: white;
+}

@@ -4,16 +4,17 @@
   = t(".title")
 
 - content_for :icons do
-  .answer-new-icons
+  .d-flex.fixed-top.justify-content-end.answer-top-icons
+    / 問題詳細ページへの戻るアイコン
+    .me-2
+      = link_to question_path(@question) do
+        i.bi.bi-arrow-left data-bs-toggle="tooltip" data-bs-placement="left" title=t(".return_to_question")
     / 問題文表示
     .dropdown
       a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
         i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
       .dropdown-menu.p-1 id="dropdownQuestionImage"
         = image_tag @question.image, class: "bg-white p-3 img-fluid"
-    / 問題詳細ページへの戻るアイコン
-    = link_to question_path(@question) do
-      i.bi.bi-arrow-left data-bs-toggle="tooltip" data-bs-placement="left" title=t(".return_to_question")
 
 = render "form", form_model: [@question, @answer], answer: @answer, question: @question
 
