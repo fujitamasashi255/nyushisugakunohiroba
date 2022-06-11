@@ -1,5 +1,5 @@
 $(function(){
-  $("#user-avatar-file-input").on("change", function(e){
+  $("#user-avatar-input").on("change", function(e){
     var file = e.target.files[0];
     // FileReaderオブジェクトreaderを作成
     const reader  = new FileReader();
