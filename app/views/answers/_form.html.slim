@@ -4,19 +4,8 @@
 / question
 
 - content_for :page_subtitle do
-  .answer-form-subtitle.d-flex.flex-row.align-items-center
-    / 大学、区分を囲む
-    .d-flex.align-items-center.flex-wrap.question-info
-      / 出題年
-      .year.pe-2.text-nowrap
-        | #{question.year} 年
-      / 大学名
-      .university.pe-3.text-nowrap
-        | #{question.university.name} 大学
-      / 区分
-      .departments.text-nowrap
-        -if question.departments.present?
-          = render "/shared/departments/departments", {departments: question.departments, question: question}
+  .answer-subtitle.d-flex.flex-row.align-items-center
+    = render "answers/question_info", question:
 
 - content_for :note do
   .mt-2
@@ -28,7 +17,7 @@
       div.ms-1
         | をクリック
 
-.answer-form-icons
+.answer-top-icons
   = content_for :icons
 
 / 解答作成フォーム
@@ -41,19 +30,72 @@
         ul.nav.nav-tabs.mt-2 role="tablist"
           li.nav-item
             a.nav-link.active data-bs-toggle="tab" href="#tab-point-code"
-              | 入力
+              = t(".point-input")
           li.nav-item
             a.nav-link data-bs-toggle="tab" href="#tab-point-result"
-              | プレビュー
+              = t(".point-preview")
         .tab-content
           .tab-pane.fade.active.show.border role="tabpanel" id="tab-point-code"
             = f.input :point, as: :rich_text_area, label: false, wrapper: false
-          .tab-pane.fade.border.p-2 role="tabpanel" id="tab-point-result"
-            | 出力結果
+          .tab-pane.fade.border.trix-content role="tabpanel" id="tab-point-result"
 
-      .py-4
+      .py-2.py-lg-3
+      hr
+      .py-2.py-lg-3
+
+      .row.files
+        .col-lg-4
+          .d-flex.flex-lg-column.align-items-center.align-items-lg-start
+            div
+              = f.label :files, for: "answer-files-input", class: "text-nowrap"
+            .mt-lg-3.ms-lg-0.ms-3
+              = f.label :files, for: "answer-files-input", class: "d-flex flex-row flex-lg-column align-items-lg-start align-items-center "
+                .btn.btn-outline-dark.text-nowrap.me-3.me-lg-0 role="button"
+                  = t(".select_file")
+                = f.input :files, as: :file, wrapper: false, label: false, \
+                  input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true, direct_upload: true }
+
+        .col-lg-8.mt-2.mt-lg-0
+          / 登録ファイルのプレビュー
+          - if answer.files.attached?
+            .d-flex.justify-content-around
+              - if answer.files.size >= 2
+                / カルーセルコントローラのprevボタン
+                a.carousel-prev.d-flex.flex-column role="button"
+                  div.my-auto
+                    span.carousel-control-prev-icon
+              / カルーセル
+              .carousel.slide id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+                / カルーセル部分
+                .carousel-inner.d-flex.align-items-center style="height: 500px"
+                  - answer.files.each.with_index do |file, index|
+                    - case index
+                    - when 0
+                      .carousel-item.active
+                        - if file.content_type == "image/png"
+                          = image_tag file, class: "file-preview d-block"
+                        - elsif file.content_type == "application/pdf"
+                          embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
+                        = f.hidden_field :file, value: file.signed_id
+                    - else
+                      .carousel-item
+                        - if file.content_type == "image/png"
+                          = image_tag file, class: "file-preview d-block"
+                        - elsif file.content_type == "application/pdf"
+                          embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
+                        = f.hidden_field :file, value: file.signed_id
+              - if answer.files.size >= 2
+                / カルーセルコントローラのnextボタン
+                a.carousel-next.d-flex.flex-column role="button"
+                  div.my-auto
+                    span.carousel-control-next-icon
+
+      .py-2.py-lg-3
+      hr
+      .py-2.py-lg-3
 
       /tex
+      | 解答
       .container
         = render "texes/form", {f: f, tex: answer.tex || Tex.new }
 
