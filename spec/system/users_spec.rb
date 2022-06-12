@@ -184,10 +184,10 @@ RSpec.describe "Users", type: :system, js: true do
 
     context "プロフィール画像を選択する時" do
       it "画像ファイルをプロフィール画像に登録できること" do
-        img_preview_before = find("img[id='avatar-preview']")
+        img_preview_before = find("#avatar-preview img")
         expect(img_preview_before["src"]).to include("blank-profile-picture.png")
         find("input[type='file']", visible: false).attach_file Rails.root.join("spec/files/avatar_test.png")
-        img_preview_after = find("img[id='avatar-preview']")
+        img_preview_after = find("#avatar-preview img")
         expect(img_preview_after["src"]).not_to include("blank-profile-picture.png")
         click_button "更新する"
         expect(page).to have_content "プロフィールを更新しました"

@@ -31,7 +31,8 @@
         = User.human_attribute_name(:avatar)
     .col-md-9.col-sm-8.col-7
       - if @user.avatar.attached?
-        = image_tag @user.avatar, class: "avatar"
+        .avatar
+          = image_tag @user.avatar
       - else
         = t(".no_avatar")
 
