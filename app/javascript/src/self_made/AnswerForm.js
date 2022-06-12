@@ -52,7 +52,16 @@ var removeBrTagsAfterDisplayMath = function(){
   });
 }
 
-
+//プレビューファイルの有無で、carouselInnerの高さを変える
+var adjustCarouselInnerHeight = function(carouselInner){
+  if(carouselInner.find(".carousel-item").length >= 1){
+    // プレビューファイルあり
+    carouselInner.attr("style", "height: 500px");
+  }else{
+    // プレビューファイルなし
+    console.log("ファイルなし");
+  }
+}
 
 $(function(){
   // ポイントのプレビュー
@@ -67,28 +76,37 @@ $(function(){
   const fileInput = $("#answer-files-input");
   // プレビュー画像を追加する要素
   const carouselInner = $(".files .carousel-inner");
+
+  // ファイル数に応じてcarouselInnerの高さを調整
+  adjustCarouselInnerHeight(carouselInner);
+
+  // カルーセルコントローラ
   const carouselPrevDiv = $(".files .carousel-prev div");
   const carouselNextDiv = $(".files .carousel-next div");
 
   // input[type=file]でファイルを読み込んだら実行
-  fileInput.on("change", function(e){
+  $(document).on("change", fileInput, function(e){
     const carouselItem = $("<div class='carousel-item'></div>");
     const carouselItemActive = $("<div class='carousel-item active'></div>");
-    carouselInner.empty();
-    carouselPrevDiv.empty();
-    carouselNextDiv.empty();
     var files = e.target.files; // 読み込んだファイル
-    $.each(files, function(idx, file){
-      if(idx == 0){
-        previewFile(file, carouselItemActive, carouselInner);
-      }else{
-        previewFile(file, carouselItem, carouselInner);
+    if(files.length >= 1){
+      carouselInner.empty();
+      carouselPrevDiv.empty();
+      carouselNextDiv.empty();
+      // carouselInnerの高さを調整
+      carouselInner.attr("style", "height: 500px");
+      $.each(files, function(idx, file){
+        if(idx == 0){
+          previewFile(file, carouselItemActive, carouselInner);
+        }else{
+          previewFile(file, carouselItem, carouselInner);
+        }
+      });
+      // 読み込んだファイル数が2つ以上の時、carouselコントローラ を表示する
+      if(files.length >= 2){
+        carouselNextDiv.append("<span class='carousel-control-next-icon'>");
+        carouselPrevDiv.append("<span class='carousel-control-prev-icon'>");
       }
-    });
-    // 読み込んだファイル数が2つ以上の時、carouselコントローラ を表示する
-    if(files.length >= 2){
-      carouselNextDiv.append("<span class='carousel-control-next-icon'>");
-      carouselPrevDiv.append("<span class='carousel-control-prev-icon'>");
     }
   });
 });
