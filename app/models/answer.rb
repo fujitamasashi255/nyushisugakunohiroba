@@ -26,6 +26,11 @@ class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :question
   has_one :tex, dependent: :destroy, as: :texable
-  has_one_attached :file
+  has_many_attached :files
   has_rich_text :point
+  validates \
+    :files, \
+    content_type: ["image/png", "image/jpeg", "application/pdf"], \
+    size: { less_than: 1.megabytes, message: "サイズは1MB以下にして下さい" }, \
+    limit: { max: 3, message: "は3つ以下にして下さい" }
 end

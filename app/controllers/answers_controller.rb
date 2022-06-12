@@ -6,8 +6,16 @@ class AnswersController < ApplicationController
   def index; end
 
   def new
-    @answer = Answer.new
-    @question = Question.find(params[:question_id])
+    question = Question.find(params[:question_id])
+    answer_id = current_user.question_id_to_answer_id_hash[question.id]
+    if answer_id
+      # 当該の問題の解答を既に作成している場合は編集ページへredirect
+      redirect_to edit_answer_path(answer_id)
+    else
+      # 解答未作成の場合は新規作成ページへ
+      @answer = Answer.new
+      @question = question
+    end
   end
 
   def create
@@ -17,6 +25,8 @@ class AnswersController < ApplicationController
       @question = @answer.question
       redirect_to @answer, success: t(".success")
     else
+      # save失敗時は必ずfilesが不正なので、それをnilにする
+      @answer.files = nil
       flash.now[:danger] = t(".fail")
       render "answers/new"
     end
@@ -35,7 +45,13 @@ class AnswersController < ApplicationController
     if @answer.update(answer_params)
       redirect_to @answer, success: t(".success")
     else
-      flash.now[:danger] = t(".danger")
+      # update失敗はファイル登録失敗時のみ
+      # ファイル登録失敗時は、エラーメッセージと共に、元々登録されていたファイルを表示する
+      errors = @answer.errors
+      set_answer
+      errors[:files].each { |error| @answer.errors.add(:files, error) }
+      @question = @answer.question
+      flash.now[:danger] = t(".fail")
       render "answers/edit"
     end
   end
@@ -49,7 +65,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:point)
+    params.require(:answer).permit(:point, files: [])
   end
 
   def tex_params
@@ -57,7 +73,7 @@ class AnswersController < ApplicationController
   end
 
   def set_answer
-    @answer = Answer.find(params[:id])
+    @answer = Answer.with_attached_files.find(params[:id])
   end
 
   # texにpdfをattachし、texをanserに関連づける
