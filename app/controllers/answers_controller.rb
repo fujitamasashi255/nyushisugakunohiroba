@@ -2,27 +2,25 @@
 
 class AnswersController < ApplicationController
   before_action :set_answer, only: %i[show edit update destroy]
+  before_action :set_question, only: %i[new create show edit update destroy]
 
   def index; end
 
   def new
-    question = Question.find(params[:question_id])
-    answer_id = current_user.question_id_to_answer_id_hash[question.id]
+    answer_id = current_user.question_id_to_answer_id_hash[@question.id]
     if answer_id
       # 当該の問題の解答を既に作成している場合は編集ページへredirect
       redirect_to edit_answer_path(answer_id)
     else
       # 解答未作成の場合は新規作成ページへ
       @answer = Answer.new
-      @question = question
     end
   end
 
   def create
-    @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point])
+    @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], files: answer_params[:files])
     set_tex
     if @answer.save
-      @question = @answer.question
       redirect_to @answer, success: t(".success")
     else
       # save失敗時は必ずfilesが不正なので、それをnilにする
@@ -32,13 +30,9 @@ class AnswersController < ApplicationController
     end
   end
 
-  def show
-    @question = @answer.question
-  end
+  def show; end
 
-  def edit
-    @question = @answer.question
-  end
+  def edit; end
 
   def update
     set_tex
@@ -50,14 +44,12 @@ class AnswersController < ApplicationController
       errors = @answer.errors
       set_answer
       errors[:files].each { |error| @answer.errors.add(:files, error) }
-      @question = @answer.question
       flash.now[:danger] = t(".fail")
       render "answers/edit"
     end
   end
 
   def destroy
-    @question = @answer.question
     @answer.destroy!
     redirect_to question_path(@question), success: t(".success")
   end
@@ -74,6 +66,14 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = Answer.with_attached_files.find(params[:id])
+  end
+
+  def set_question
+    @question = if params[:question_id]
+                  Question.find(params[:question_id])
+                else
+                  @answer.question
+                end
   end
 
   # texにpdfをattachし、texをanserに関連づける
