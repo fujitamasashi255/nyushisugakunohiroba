@@ -132,11 +132,19 @@
   background-color: white;
 }
 
-// ファイル
 .answer-form .files img,
 .answer-show .files img {
   max-height: 500px;
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// texのembed
+.answer-form embed, answer-show embed {
+  height: 500px;
+  width: 100%;
+  margin: 0;
 }
 
 // 解答のボタン

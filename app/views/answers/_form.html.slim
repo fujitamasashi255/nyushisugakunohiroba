@@ -53,42 +53,43 @@
                 .btn.btn-outline-dark.text-nowrap.me-3.me-lg-0 role="button"
                   = t(".select_file")
                 = f.input :files, as: :file, wrapper: false, label: false, \
-                  input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true, direct_upload: true }
+                  input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true }
+
 
         .col-lg-8.mt-2.mt-lg-0
           / 登録ファイルのプレビュー
-          - if answer.files.attached?
-            .d-flex.justify-content-around
-              - if answer.files.size >= 2
-                / カルーセルコントローラのprevボタン
-                a.carousel-prev.d-flex.flex-column role="button"
-                  div.my-auto
-                    span.carousel-control-prev-icon
-              / カルーセル
-              .carousel.slide id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-                / カルーセル部分
-                .carousel-inner.d-flex.align-items-center style="height: 500px"
+          .d-flex.justify-content-around.preview
+            / カルーセルコントローラのprevボタン
+            a.carousel-prev.d-flex.flex-column role="button"
+              .my-auto
+                - if answer.files.size >= 2
+                  span.carousel-control-prev-icon
+            / カルーセル
+            .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+              / カルーセル部分
+              .carousel-inner.d-flex.align-items-center style=answer_carousel_inner_height(answer.files.size)
+                - if answer.files.attached?
                   - answer.files.each.with_index do |file, index|
                     - case index
                     - when 0
                       .carousel-item.active
                         - if file.content_type == "image/png"
-                          = image_tag file, class: "file-preview d-block"
+                          = image_tag file, class: "d-block"
                         - elsif file.content_type == "application/pdf"
-                          embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
+                          embed type="application/pdf" src=url_for(file)
                         = f.hidden_field :file, value: file.signed_id
                     - else
                       .carousel-item
                         - if file.content_type == "image/png"
-                          = image_tag file, class: "file-preview d-block"
+                          = image_tag file, class: "d-block"
                         - elsif file.content_type == "application/pdf"
-                          embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
+                          embed type="application/pdf" src=url_for(file)
                         = f.hidden_field :file, value: file.signed_id
-              - if answer.files.size >= 2
-                / カルーセルコントローラのnextボタン
-                a.carousel-next.d-flex.flex-column role="button"
-                  div.my-auto
-                    span.carousel-control-next-icon
+            / カルーセルコントローラのnextボタン
+            a.carousel-next.d-flex.flex-column role="button"
+              .my-auto
+                - if answer.files.size >= 2
+                  span.carousel-control-next-icon
 
       .py-2.py-lg-3
       hr

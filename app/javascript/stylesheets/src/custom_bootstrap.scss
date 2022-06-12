@@ -28,6 +28,13 @@ $dropdown-link-hover-bg:            $deepsilver !default;
 $nav-tabs-link-active-color:        red !default;
 //$nav-tabs-link-active-bg:           $lightsilver !default;
 
+// カルーセル
+$carousel-indicator-active-bg: red;
+$carousel-control-color: blue;
+
+.carousel-indicators li:not(.active) {
+  background-color: $deepsilver;
+}
 
 @import "bootstrap_scss/bootstrap";
 

@@ -34,7 +34,7 @@
 $profile-image-size: 80px;
 
 // プロフィール画像
-.user-show .avatar, .user-form .avatar {
+.avatar img {
   width: $profile-image-size;
   height: $profile-image-size;
   border-radius: 100px;

@@ -19,14 +19,14 @@
     .files
       .col-lg-8.mt-2.mt-lg-0
         / 登録ファイルのプレビュー
-        .d-flex.justify-content-around
+        .d-flex.justify-content-around.preview
           - if @answer.files.size >= 2
             / カルーセルコントローラのprevボタン
             a.carousel-prev.d-flex.flex-column role="button"
               div.my-auto
                 span.carousel-control-prev-icon
           / カルーセル
-          .carousel.slide id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+          .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
             / カルーセル部分
             .carousel-inner.d-flex.align-items-center style="height: 500px"
               - @answer.files.each.with_index do |file, index|
@@ -34,13 +34,13 @@
                 - when 0
                   .carousel-item.active
                     - if file.content_type == "image/png"
-                      = image_tag file, class: "file-preview d-block"
+                      = image_tag file, class: "d-block"
                     - elsif file.content_type == "application/pdf"
                       embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
                 - else
                   .carousel-item
                     - if file.content_type == "image/png"
-                      = image_tag file, class: "file-preview d-block"
+                      = image_tag file, class: "d-block"
                     - elsif file.content_type == "application/pdf"
                       embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
           - if @answer.files.size >= 2
