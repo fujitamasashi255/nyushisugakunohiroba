@@ -18,7 +18,7 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], files: answer_params[:files])
+    @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], tag_list: answer_params[:tag_list], files: answer_params[:files])
     set_tex
     if @answer.save
       redirect_to @answer, success: t(".success")
@@ -57,7 +57,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:point, files: [])
+    params.require(:answer).permit(:point, :tag_list, files: [])
   end
 
   def tex_params

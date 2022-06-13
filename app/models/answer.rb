@@ -28,6 +28,8 @@ class Answer < ApplicationRecord
   has_one :tex, dependent: :destroy, as: :texable
   has_many_attached :files
   has_rich_text :point
+  acts_as_taggable_on :tags
+
   validates \
     :files, \
     content_type: ["image/png", "image/jpeg", "application/pdf"], \

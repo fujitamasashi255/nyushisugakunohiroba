@@ -24,6 +24,11 @@
 .answer-form
   = simple_form_for form_model do |f|
     .container.answer-form-field.p-4
+      / タグ
+      .tags
+        = f.label :tag_list
+        = f.text_field :tag_list, value: @answer.tag_list.join(",")
+
       / ポイント
       .point
         = f.label :point
