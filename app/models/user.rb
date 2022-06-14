@@ -14,7 +14,7 @@
 #  reset_password_email_sent_at        :datetime
 #  reset_password_token                :string
 #  reset_password_token_expires_at     :datetime
-#  role                                :integer          default("admin"), not null
+#  role                                :integer          default("general"), not null
 #  salt                                :string
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
@@ -72,6 +72,6 @@ class User < ApplicationRecord
   def default_avatar
     return if avatar.attached?
 
-    avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.png")), filename: "blank-profile-picture.png", content_type: "image/png")
+    avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.jpg")), filename: "blank-profile-picture.jpg", content_type: "image/png")
   end
 end
