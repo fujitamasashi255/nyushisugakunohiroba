@@ -1,5 +1,7 @@
 import {previewFile} from "src/self_made/FilePreview"
 
+const default_tex_code = "\\documentclass[17pt, dvipdfmx]{jsarticle}\n\\usepackage{amssymb, amsmath, tikz, enumerate}\n\\usetikzlibrary{intersections, calc, arrows.meta, math}\r\n\\usepackage[margin=1cm]{geometry}\r\n\\pagestyle{empty}\r\n\r\n\\begin{document}\r\n\r\n\\end{document}"
+
 document.addEventListener("DOMContentLoaded", function(){
   if(document.querySelector('#questionImageDropdownButton')){
     var offcanvasHumberger = document.querySelector("#offcanvasHumberger")
@@ -38,10 +40,35 @@ document.addEventListener("DOMContentLoaded", function(){
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
   });
+
+  // TeXのおりたたみ
+  var collapseElem = document.querySelector("#texField");
+  var collapseLink = document.querySelector("a[href='#texField']");
+  // ページ読み込み時にTeXファイルがあるときは、折りたたみを開く
+  if($("#compile-result").children("embed").length){
+    new bootstrap.Collapse('.answer-form .collapse').show();
+  }
+  // 折りたたみボタンを押した時の処理
+  if(collapseElem){
+    collapseElem.addEventListener("hide.bs.collapse", function(){
+      collapseLink.innerHTML = "";
+      var Icon = document.createElement("i");
+      Icon.setAttribute("class", "bi bi-chevron-down ms-2");
+      collapseLink.textContent = "TeXで解答を書く";
+      collapseLink.append(Icon);
+    });
+    collapseElem.addEventListener("show.bs.collapse", function(){
+      collapseLink.innerHTML = "";
+      var Icon = document.createElement("i");
+      Icon.setAttribute("class", "bi bi-chevron-up ms-2");
+      collapseLink.textContent = "閉じる";
+      collapseLink.append(Icon);
+    });
+  }
 });
 
 
-
+////////////////////////////JQuery////////////////////////////
 
 // MathJaxによる数式表示時、ディスプレー数式の直後のbrは削除する
 var removeBrTagsAfterDisplayMath = function(){
@@ -57,9 +84,6 @@ var adjustCarouselInnerHeight = function(carouselInner){
   if(carouselInner.find(".carousel-item").length >= 1){
     // プレビューファイルあり
     carouselInner.attr("style", "height: 500px");
-  }else{
-    // プレビューファイルなし
-    console.log("ファイルなし");
   }
 }
 
@@ -83,18 +107,22 @@ $(function(){
   // カルーセルコントローラ
   const carouselPrevDiv = $(".files .carousel-prev div");
   const carouselNextDiv = $(".files .carousel-next div");
+  const carouselItem = $("<div class='carousel-item'></div>");
+  const carouselItemActive = $("<div class='carousel-item active'></div>");
 
   // input[type=file]でファイルを読み込んだら実行
-  $(document).on("change", fileInput, function(e){
-    const carouselItem = $("<div class='carousel-item'></div>");
-    const carouselItemActive = $("<div class='carousel-item active'></div>");
+  fileInput.on("change", function(e){
     var files = e.target.files; // 読み込んだファイル
     if(files.length >= 1){
+      // ファイル登録前のカルーセルの内容、コントローラをクリア
       carouselInner.empty();
       carouselPrevDiv.empty();
       carouselNextDiv.empty();
+      deleteFilesButton.empty();
+      deleteFilesButton.append(deleteFilesIcon);
       // carouselInnerの高さを調整
       carouselInner.attr("style", "height: 500px");
+
       $.each(files, function(idx, file){
         if(idx == 0){
           previewFile(file, carouselItemActive, carouselInner);
@@ -107,6 +135,48 @@ $(function(){
         carouselNextDiv.append("<span class='carousel-control-next-icon'>");
         carouselPrevDiv.append("<span class='carousel-control-prev-icon'>");
       }
+    }
+  });
+
+  // ファイルクリアボタン
+  const deleteFilesButton = $("#delete-files-button");
+  const deleteFilesIcon = $("<i class='bi bi-x-lg'></i>");
+  // ファイル削除ボタンを押したら
+  deleteFilesButton.on("click", function(){
+    // inputに登録されているファイルを削除
+    fileInput.val(null);
+    // DBに登録されているファイルを削除
+    var path = $(this).data("delete-files-path");
+    if(path){
+      $.ajax({url: path, type: 'DELETE'});
+    }
+    // ファイル登録前のカルールの内容、コントローラ、ファイル削除アイコンをクリア
+    carouselInner.empty();
+    carouselPrevDiv.empty();
+    carouselNextDiv.empty();
+    deleteFilesButton.empty();
+    // carouselInnerの高さを調整
+    carouselInner.attr("style", "height: inherit");
+
+  });
+
+  // TeXクリアボタン
+  const deleteTeXButton = $("#delete-tex-button");
+  const deleteTeXIcon = $("<i class='bi bi-x-lg'></i>");
+  // TeX削除ボタンを押したら
+  $(deleteTeXButton).on("click", function(){
+    var path = $(this).data("delete-tex-path");
+    $(this).data("delete-tex-path", null);
+    // pdf_blob_signed_idをリセット
+    $("#pdf_blob_signed_id").val(null);
+    $("#compile-result").empty();
+    var compileMessage = $("#compile-message");
+    if(compileMessage){
+      compileMessage.remove();
+    }
+    $("#tex-code").val(default_tex_code);
+    if(path){
+      $.ajax({url: path, type: 'DELETE'});
     }
   });
 });

@@ -24,31 +24,38 @@
 .answer-form
   = simple_form_for form_model do |f|
     .container.answer-form-field.p-4
-      / タグ
-      .tags
-        = f.label :tag_list
-        = f.text_field :tag_list, value: @answer.tag_list.join(",")
+      .row
+        .tags.col-lg-6.order-lg-2
+          / タグ
+          = f.label :tag_list, class: "mb-2"
+          = f.input :tag_list, label: false, wrapper: false, input_html: { value: @answer.tag_list.join(",") }
+          .py-2.py-lg-3
 
-      / ポイント
-      .point
-        = f.label :point
-        ul.nav.nav-tabs.mt-2 role="tablist"
-          li.nav-item
-            a.nav-link.active data-bs-toggle="tab" href="#tab-point-code"
-              = t(".point-input")
-          li.nav-item
-            a.nav-link data-bs-toggle="tab" href="#tab-point-result"
-              = t(".point-preview")
-        .tab-content
-          .tab-pane.fade.active.show.border role="tabpanel" id="tab-point-code"
-            = f.input :point, as: :rich_text_area, label: false, wrapper: false
-          .tab-pane.fade.border.trix-content role="tabpanel" id="tab-point-result"
+          .d-lg-none
+            hr
+            .py-2
 
-      .py-2.py-lg-3
+        .point.col-lg-6.order-lg-1
+          / ポイント
+          = f.label :point
+          ul.nav.nav-tabs.mt-2 role="tablist"
+            li.nav-item
+              a.nav-link.active data-bs-toggle="tab" href="#tab-point-code"
+                = t(".point-input")
+            li.nav-item
+              a.nav-link data-bs-toggle="tab" href="#tab-point-result"
+                = t(".point-preview")
+          .tab-content
+            .tab-pane.fade.active.show.border role="tabpanel" id="tab-point-code"
+              = f.input :point, as: :rich_text_area, label: false, wrapper: false
+            .tab-pane.fade.border.trix-content role="tabpanel" id="tab-point-result"
+          .py-2.py-lg-3
+
       hr
       .py-2.py-lg-3
 
       .row.files
+        / ファイル登録ボタン
         .col-lg-4
           .d-flex.flex-lg-column.align-items-center.align-items-lg-start
             div
@@ -72,7 +79,7 @@
             / カルーセル
             .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
               / カルーセル部分
-              .carousel-inner.d-flex.align-items-center style=answer_carousel_inner_height(answer.files.size)
+              .carousel-inner.d-flex.align-items-center
                 - if answer.files.attached?
                   - answer.files.each.with_index do |file, index|
                     - case index
@@ -81,28 +88,43 @@
                         - if file.content_type == "image/png"
                           = image_tag file, class: "d-block"
                         - elsif file.content_type == "application/pdf"
-                          embed type="application/pdf" src=url_for(file)
+                          embed.d-block type="application/pdf" src=url_for(file)
                         = f.hidden_field :file, value: file.signed_id
                     - else
                       .carousel-item
                         - if file.content_type == "image/png"
                           = image_tag file, class: "d-block"
                         - elsif file.content_type == "application/pdf"
-                          embed type="application/pdf" src=url_for(file)
+                          embed.d-block type="application/pdf" src=url_for(file)
                         = f.hidden_field :file, value: file.signed_id
             / カルーセルコントローラのnextボタン
             a.carousel-next.d-flex.flex-column role="button"
               .my-auto
                 - if answer.files.size >= 2
                   span.carousel-control-next-icon
+            / ファイル削除ボタン
+            div
+              a role="button" id="delete-files-button" data-delete-files-path=(answer_delete_files_path(answer.id) if answer.id)
+                - if answer.files.attached?
+                  i.bi.bi-x-lg
 
       .py-2.py-lg-3
       hr
       .py-2.py-lg-3
 
       /tex
-      | 解答
-      .container
+      .d-flex.mb-2
+        label.d-block
+          = Tex.model_name.human
+        a.d-block.ms-3 data-bs-toggle="collapse" href="#texField"
+          | TeX で解答を書く
+          i.bi.bi-chevron-down.ms-2
+        / tex削除ボタン
+        div.ms-auto
+          a role="button" id="delete-tex-button" data-delete-tex-path=(tex_path(answer.tex) if answer.tex)
+            /- if answer.files.attached?
+            i.bi.bi-x-lg
+      .container.collapse id="texField"
         = render "texes/form", {f: f, tex: answer.tex || Tex.new }
 
     .py-3

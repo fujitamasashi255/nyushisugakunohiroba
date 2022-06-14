@@ -78,7 +78,6 @@ class AnswersController < ApplicationController
 
   # texにpdfをattachし、texをanserに関連づける
   def set_tex
-    # texは新規作成時nil、編集時nilでない。
     if @answer.tex.nil?
       @tex = @answer.build_tex(tex_params)
     else

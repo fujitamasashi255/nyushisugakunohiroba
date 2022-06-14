@@ -1,5 +1,10 @@
 @import "variables";
 
+// 変数定義
+// tex、files の高さ
+$file-height: 500px;
+
+
 // iconsは画面右上に固定
 // 画面サイズ1200px以上の時の右上アイコンの表示位置
 @media only screen and (min-width: 1200px){
@@ -58,27 +63,6 @@
   }
 }
 
-// サブタイトルの問題情報
-.answer-subtitle .question-info {
-  border-bottom: 2px solid blue;
-}
-
-// 注意書き
-.answer-form-note {
-  font-size: 0.7rem;
-}
-
-// 解答フォーム全体
-.answer-form-field {
-  background-color: $whitesmoke;
-}
-
-// ボタン
-.answer-form-field button {
-  background-color: white;
-}
-
-
 // 問題文ドロップダウン の最大高さ
 #dropdownQuestionImage {
   max-height: 500px;
@@ -93,19 +77,49 @@
 // 問題文ドロップダウン、ポイントのスクロールバー
 #dropdownQuestionImage::-webkit-scrollbar,
 .point trix-editor::-webkit-scrollbar,
-.point #tab-point-result::-webkit-scrollbar {
+.point #tab-point-result::-webkit-scrollbar,
+.answer-show .point-field::-webkit-scrollbar {
   width: 15px;
   height: 10px;
 }
 
 #dropdownQuestionImage::-webkit-scrollbar-thumb,
 .point trix-editor::-webkit-scrollbar-thumb,
-.point #tab-point-result::-webkit-scrollbar-thumb {
+.point #tab-point-result::-webkit-scrollbar-thumb,
+.answer-show .point-field::-webkit-scrollbar-thumb {
   --bg-opacity: 1;
   background-color: $silver;
   border-radius: 0.25rem;
 }
 
+// ページ内部
+// サブタイトルの問題情報
+.answer-subtitle .question-info {
+  border-bottom: 2px solid blue;
+}
+
+// 注意書き
+.answer-form-note {
+  font-size: 0.7rem;
+}
+
+// 解答フォーム全体
+.answer-form-field, .answer-show {
+  background-color: $whitesmoke;
+}
+
+// ボタン
+.answer-form-field button {
+  background-color: white;
+}
+
+// タグとポイントの配置
+// 画面サイズ1200px以上の時
+@media only screen and (min-width: 992px){
+  .answer-form-field .tags, .answer-show .tags {
+    border-left: 1px solid $deepsilver;
+  }
+}
 
 // ポイント
 .point {
@@ -122,6 +136,17 @@
   background-color: white;
 }
 
+// ファイル、tex 削除ボタン
+.answer-form #delete-tex-button,
+.answer-form #delete-files-button {
+  i {
+    color: $deepsilver;
+  }
+  i:hover {
+    color: black;
+  }
+}
+
 // nav-tabsの非アクティブタブ
 .answer-form .nav-tabs a:not(.active):hover{
   color: $deepsilver;
@@ -132,22 +157,102 @@
   background-color: white;
 }
 
-.answer-form .files img,
-.answer-show .files img {
-  max-height: 500px;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+.answer-form .files {
+  img {
+    max-height: $file-height;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 // texのembed
-.answer-form embed, answer-show embed {
-  height: 500px;
+.answer-form embed{
+  height: $file-height;
   width: 100%;
   margin: 0;
+}
+
+// tex の折りたたみ
+.answer-form {
+  a[href="#texField"]{
+    font-size: 0.75em;
+  }
+
+  a[href="#texField"] i {
+    font-size: 1.2em;
+  }
+
+  a[href="#texField"]:not(:hover) {
+    //color: $deepsilver;
+  }
+  a[href="#texField"]:hover {
+    border-bottom: solid 1px red;
+    color: black;
+  }
 }
 
 // 解答のボタン
 .answer-form .btn:not(:hover) {
   background-color: white;
+}
+
+// answer 詳細
+.answer-show {
+  .point-field {
+    overflow-y: scroll;
+    height: 300px;
+    background-color: white;
+    padding: 1em;
+  }
+
+  .tex {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tex embed{
+    height: $file-height;
+    width: 100%;
+  }
+
+  .files {
+    margin-left: auto;
+    margin-right: auto;
+    .carousel-inner {
+      .carousel-item {
+        img {
+          max-height: inherit;
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        embed {
+          height: $file-height;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// 画面サイズによって tex、filesの幅を変える
+// 画面サイズ992px以上の時
+@media only screen and (min-width: 992px){
+  .answer-show {
+    .files {
+      width: 75%;
+    }
+    .tex {
+      width: 70%;
+    }
+  }
+}
+// 画面サイズ992px以下の時
+@media only screen and (max-width: 992px){
+  .answer-show {
+    .files, .tex {
+      width: 100%;
+    }
+  }
 }

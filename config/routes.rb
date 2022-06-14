@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :password_resets, only: %i[new create edit update]
   # ユーザーページのルーティング
   root to: "static_pages#top"
   resources :questions, only: %i[index show] do
     resources :answers, shallow: true
   end
+
+  resources :answers, only: [] do
+    resource :delete_files, only: %i[destroy]
+  end
+
+  resource :compile, only: %i[create]
+  resources :texes, only: %i[destroy]
+
   resources :users, only: %i[new create show edit update destroy]
   get "login" => "user_sessions#new", :as => :login
   post "login" => "user_sessions#create"
@@ -27,6 +35,4 @@ Rails.application.routes.draw do
     resource :questions_search_form, controller: "/questions_search_forms", only: %i[show]
     resources :questions_sorts, controller: "/questions_sorts", only: %i[show], param: :sort_type
   end
-
-  resource :compile, only: %i[create]
 end

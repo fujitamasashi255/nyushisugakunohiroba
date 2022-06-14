@@ -8,10 +8,10 @@
     / 問題詳細ページへの戻るアイコン
     .me-2
       = link_to question_path(@question) do
-        i.bi.bi-arrow-left data-bs-toggle="tooltip" data-bs-placement="left" title=t(".return_to_question")
+        i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_question")
     / 問題削除アイコン
     .me-2
-      = link_to answer_path(@answer), method: :delete, data: { confirm: "削除しますか" } do
+      = link_to answer_path(@answer), method: :delete, data: { confirm: t(".destroy_confirm") } do
         i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="left" title=t(".destroy")
     / 問題文表示
     .dropdown

@@ -1,52 +1,96 @@
 - content_for(:title, t(".title"))
 - content_for(:page_title, t(".title"))
 
+.d-flex.fixed-top.justify-content-end.answer-top-icons
+  / 解答編集ページへの戻るアイコン
+  .me-2
+    = link_to edit_answer_path(@answer) do
+      i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_edit")
+  / 問題削除アイコン
+  .me-2
+    = link_to answer_path(@answer), method: :delete, data: { confirm: t(".destroy_confirm") } do
+      i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="left" title=t(".destroy")
+  / 問題文表示
+  .dropdown
+    a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
+      i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
+    .dropdown-menu.p-1 id="dropdownQuestionImage"
+      = image_tag @question.image, class: "bg-white p-3 img-fluid"
+
+/ タイトル横の問題情報
 - content_for :page_subtitle do
   .answer-subtitle.d-flex.flex-row.align-items-center
     = render "answers/question_info", question: @question
 
-.answer-show
-  = link_to edit_answer_path(@answer) do
-    i.bi.bi-pencil.me-1
-    = t(".edit")
+/ 解答
+.answer-show.container.p-4
+  .row
+    .tags.col-lg-6.order-lg-2
+      label.d-block.mb-2
+        = Answer.human_attribute_name(:tag_list)
+      - @answer.tags.each do |tag|
+        span.d-inline-block.tag.border
+          = tag.name
+      .py-2.py-lg-3
 
-  = @answer.tag_list.join(",")
+      .d-lg-none
+        hr
+        .py-2
+
+    .point.col-lg-6.order-lg-1
+      label.d-block.mb-2
+        = Answer.human_attribute_name(:point)
+      .point-field
+        == @answer.point
+      .py-2.py-lg-3
 
   - if @answer.tex.pdf.attached?
-    embed type="application/pdf" height="500" width="100%" marginwidth="0" src= url_for(@answer.tex.pdf)
+    hr
+    .py-2.py-lg-3
 
-  == @answer.point
+    /tex
+    .tex
+      label.mb-2.d-block
+        = Tex.model_name.human
+      embed type="application/pdf" src= url_for(@answer.tex.pdf)
+
+    .py-2.py-lg-3
 
   - if @answer.files.attached?
+    hr
+    .py-2.py-lg-3
+
+    / files
     .files
-      .col-lg-8.mt-2.mt-lg-0
-        / 登録ファイルのプレビュー
-        .d-flex.justify-content-around.preview
-          - if @answer.files.size >= 2
-            / カルーセルコントローラのprevボタン
-            a.carousel-prev.d-flex.flex-column role="button"
-              div.my-auto
-                span.carousel-control-prev-icon
-          / カルーセル
-          .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-            / カルーセル部分
-            .carousel-inner.d-flex.align-items-center style="height: 500px"
-              - @answer.files.each.with_index do |file, index|
-                - case index
-                - when 0
-                  .carousel-item.active
-                    - if file.content_type == "image/png"
-                      = image_tag file, class: "d-block"
-                    - elsif file.content_type == "application/pdf"
-                      embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
-                - else
-                  .carousel-item
-                    - if file.content_type == "image/png"
-                      = image_tag file, class: "d-block"
-                    - elsif file.content_type == "application/pdf"
-                      embed type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(file)
-          - if @answer.files.size >= 2
-            / カルーセルコントローラのnextボタン
-            a.carousel-next.d-flex.flex-column role="button"
-              div.my-auto
-                span.carousel-control-next-icon
+      label.mb-2.d-block
+        = Answer.human_attribute_name(:files)
+      / 登録ファイルのプレビュー
+      .d-flex.justify-content-around.preview
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのprevボタン
+          a.carousel-prev.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-prev-icon
+        / カルーセル
+        .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+          / カルーセル部分
+          .carousel-inner.d-flex.align-items-center
+            - @answer.files.each.with_index do |file, index|
+              - case index
+              - when 0
+                .carousel-item.active
+                  - if file.content_type == "image/png"
+                    = image_tag file, class: "d-block"
+                  - elsif file.content_type == "application/pdf"
+                    embed.d-block type="application/pdf"  src=url_for(file)
+              - else
+                .carousel-item
+                  - if file.content_type == "image/png"
+                    = image_tag file, class: "d-block"
+                  - elsif file.content_type == "application/pdf"
+                    embed.d-block type="application/pdf" src=url_for(file)
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのnextボタン
+          a.carousel-next.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-next-icon
