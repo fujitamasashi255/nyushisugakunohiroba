@@ -30,7 +30,8 @@ class User < ApplicationRecord
 
   attribute :remember, :boolean, default: -> { false }
 
-  before_create :default_image
+  # ユーザー作成時にデフォルトのavatarをattachする
+  before_create :default_avatar
 
   validates :name, presence: true, length: { maximum: 10 }
   validates :role, presence: true
@@ -59,7 +60,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :answered_questions, through: :answers, source: :question
 
-  enum role: { general: 0, guest: 1, admin: 2 }, _default: :admin
+  enum role: { general: 0, guest: 1, admin: 2 }, _default: :general
 
   # ユーザーの作成した解答のidをvalue、その問題のidをkeyとするhashを作成
   def question_id_to_answer_id_hash
@@ -68,7 +69,7 @@ class User < ApplicationRecord
 
   private
 
-  def default_image
+  def default_avatar
     return if avatar.attached?
 
     avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.png")), filename: "blank-profile-picture.png", content_type: "image/png")

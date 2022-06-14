@@ -183,9 +183,6 @@ $file-height: 500px;
     font-size: 1.2em;
   }
 
-  a[href="#texField"]:not(:hover) {
-    //color: $deepsilver;
-  }
   a[href="#texField"]:hover {
     border-bottom: solid 1px red;
     color: black;
