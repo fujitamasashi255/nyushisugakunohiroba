@@ -15,6 +15,8 @@ import "src/self_made/Users"
 import "src/self_made/TexCompile"
 import "src/self_made/AnswerForm"
 import "src/MathJax"
+import "src/Tags"
+
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'

@@ -1,0 +1,11 @@
+// tagifyをカスタマイズ
+$tag-bg: #bcdaf8;
+
+@import "@yaireo/tagify/src/tagify";
+
+.tag {
+  border-radius: 3px;
+  background-color:  #bcdaf8;
+  padding: .3em .5em;
+  margin: 5px 0px 5px 5px;
+}
