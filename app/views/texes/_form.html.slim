@@ -21,6 +21,7 @@
         .d-none.d-lg-block
           = t.label :code
         = t.input :code, label: false, input_html: { style: "min-height: 500px", id: "tex-code"}
+        // texにattachするpdfのblobオブジェクトのsigned_id
         = t.input_field :pdf_blob_signed_id, id: "pdf_blob_signed_id", type: "hidden"
     / texコード出力エリア
     .tab-pane.fade.active.show role="tabpanel" id="tab-compile-result"
