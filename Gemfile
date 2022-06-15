@@ -74,6 +74,9 @@ gem "active_storage_validations"
 # タグづけ
 gem "acts-as-taggable-on", "~> 9.0"
 
+# デコレータ
+gem "active_decorator"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
