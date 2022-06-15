@@ -61,7 +61,7 @@ jobs:
         uses: browser-actions/setup-chrome@latest
       - name: Install font
         run: sudo apt install fonts-ipafont fonts-ipaexfont
-      # TexLiveをインストール
+      # TeXLiveをインストール
       - name: set up texlive
         run: |
           sudo apt install \
