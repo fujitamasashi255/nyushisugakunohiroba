@@ -1,4 +1,4 @@
-import {previewFile} from "src/self_made/FilePreview"
+import {previewFile} from "src/self_made/PreviewFile"
 
 
 $(function(){
