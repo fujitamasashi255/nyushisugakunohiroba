@@ -42,6 +42,6 @@
 
             / 問題文画像
             - if question.image.attached?
-              .question-body.border
-                = image_tag question.image, class: "bg-white p-3 img-fluid"
+              .question-body.border.question-image
+                = image_tag question.image_url(:index), class: "bg-white p-3 img-fluid"
               .py-1

@@ -36,6 +36,6 @@
             label
               = Question.human_attribute_name(:image)
             div.question-image
-              = image_tag question.image, class: "bg-white p-3 img-fluid"
+              = image_tag question.image_url(:show), class: "bg-white p-3 img-fluid"
 
 
