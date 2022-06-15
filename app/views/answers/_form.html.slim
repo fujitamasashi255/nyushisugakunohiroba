@@ -86,14 +86,14 @@
                     - when 0
                       .carousel-item.active
                         - if file.content_type == "image/png"
-                          = image_tag file, class: "d-block"
+                          = image_tag file, class: "d-block img-fluid"
                         - elsif file.content_type == "application/pdf"
                           embed.d-block type="application/pdf" src=url_for(file)
                         = f.hidden_field :file, value: file.signed_id
                     - else
                       .carousel-item
                         - if file.content_type == "image/png"
-                          = image_tag file, class: "d-block"
+                          = image_tag file, class: "d-block img-fluid"
                         - elsif file.content_type == "application/pdf"
                           embed.d-block type="application/pdf" src=url_for(file)
                         = f.hidden_field :file, value: file.signed_id

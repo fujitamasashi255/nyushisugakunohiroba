@@ -14,7 +14,7 @@ export const previewFile = function(file, wrapper, preview){
     if(validImageType.includes(file.type)){
       // 画像ファイルの時
       var fileTag = $("<img>");
-      fileTag.attr("class", "d-block");
+      fileTag.attr("class", "d-block img-fluid");
     }else if(file.type == pdfType){
       // PDFのとき
       var fileTag = $("<embed>");

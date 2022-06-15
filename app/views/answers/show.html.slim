@@ -15,7 +15,7 @@
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
       i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
     .dropdown-menu.p-1 id="dropdownQuestionImage"
-      = image_tag @question.image, class: "bg-white p-3 img-fluid"
+      = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid"
 
 / タイトル横の問題情報
 - content_for :page_subtitle do
@@ -75,19 +75,19 @@
         .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
           / カルーセル部分
           .carousel-inner.d-flex.align-items-center
-            - @answer.files.each.with_index do |file, index|
+            - @answer.files_urls(:show).each.with_index do |file, index|
               - case index
               - when 0
                 .carousel-item.active
-                  - if file.content_type == "image/png"
-                    = image_tag file, class: "d-block"
-                  - elsif file.content_type == "application/pdf"
+                  - if file.blob.content_type == "image/png"
+                    = image_tag file, class: "d-block img-fluid"
+                  - elsif file.blob.content_type == "application/pdf"
                     embed.d-block type="application/pdf"  src=url_for(file)
               - else
                 .carousel-item
-                  - if file.content_type == "image/png"
-                    = image_tag file, class: "d-block"
-                  - elsif file.content_type == "application/pdf"
+                  - if file.blob.content_type == "image/png"
+                    = image_tag file, class: "d-block img-fluid"
+                  - elsif file.blob.content_type == "application/pdf"
                     embed.d-block type="application/pdf" src=url_for(file)
         - if @answer.files.size >= 2
           / カルーセルコントローラのnextボタン

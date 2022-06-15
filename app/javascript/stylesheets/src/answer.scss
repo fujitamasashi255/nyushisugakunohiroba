@@ -70,10 +70,6 @@ $file-height: 500px;
   border: 2px solid blue;
 }
 
-#dropdownQuestionImage img {
-  opacity: 0.95;
-}
-
 // 問題文ドロップダウン、ポイントのスクロールバー
 #dropdownQuestionImage::-webkit-scrollbar,
 .point trix-editor::-webkit-scrollbar,
@@ -194,6 +190,7 @@ $file-height: 500px;
   background-color: white;
 }
 
+
 // answer 詳細
 .answer-show {
   .point-field {
@@ -219,8 +216,8 @@ $file-height: 500px;
     .carousel-inner {
       .carousel-item {
         img {
-          max-height: inherit;
-          max-width: 100%;
+          //max-height: inherit;
+          //max-width: 100%;
           margin-left: auto;
           margin-right: auto;
         }
