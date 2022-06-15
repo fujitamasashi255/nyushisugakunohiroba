@@ -14,7 +14,7 @@
 
 / アカウントアイコン
 - content_for :sidebar_avatar do
-  = image_tag current_user.avatar, class: "avatar"
+  = image_tag current_user.avatar_url(:sidebar), class: "avatar"
 
 / アカウント名
 - content_for :sidebar_account_name do

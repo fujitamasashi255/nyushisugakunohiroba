@@ -32,7 +32,7 @@
     .col-md-9.col-sm-8.col-7
       - if @user.avatar.attached?
         .avatar
-          = image_tag @user.avatar
+          = image_tag @user.avatar_url(:profile)
       - else
         = t(".no_avatar")
 
