@@ -65,12 +65,12 @@ class AnswersController < ApplicationController
   end
 
   def set_answer
-    @answer = Answer.with_attached_files.find(params[:id])
+    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
   end
 
   def set_question
     @question = if params[:question_id]
-                  Question.find(params[:question_id])
+                  Question.includes({ departments: [:university] }).find(params[:question_id])
                 else
                   @answer.question
                 end
