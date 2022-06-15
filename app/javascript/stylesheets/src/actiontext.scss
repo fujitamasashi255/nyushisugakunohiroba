@@ -41,8 +41,13 @@
 .trix-button--icon-italic,
 .trix-button--icon-quote,
 .trix-button--icon-strike,
+.trix-button--icon-attach,
 .trix-button--icon-code {
   display: none;
+}
+
+trix-toolbar .trix-button-group--file-tools {
+  border: none;
 }
 
 

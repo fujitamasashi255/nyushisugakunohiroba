@@ -16,7 +16,7 @@ import "src/self_made/TexCompile"
 import "src/self_made/AnswerForm"
 import "src/MathJax"
 import "src/Tags"
-
+import "src/ActionText"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
@@ -27,5 +27,4 @@ export function t(arg) {
 Rails.start()
 ActiveStorage.start()
 
-require("trix")
-require("@rails/actiontext")
+
