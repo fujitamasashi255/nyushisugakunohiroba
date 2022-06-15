@@ -52,7 +52,7 @@ class Tex < ApplicationRecord
     extract_amount[2] = image_width - extract_amount[0] * 2
     left, top, width, height = extract_amount
     img_vip = img_vip.extract_area(left, top, width, height)
-    img_vip.write_to_file image_path, Q: 100
+    img_vip.write_to_file image_path, Q: 100, compression: 9
 
     # blobを作成
     ActiveStorage::Blob.create_and_upload!(io: File.open(image_path), filename: image_name)

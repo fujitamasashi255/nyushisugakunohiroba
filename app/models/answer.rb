@@ -23,6 +23,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Answer < ApplicationRecord
+  VALID_IMAGE_TYPES = ["image/png", "image/jpeg"].freeze
+  VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
+
   belongs_to :user
   belongs_to :question
   has_one :tex, dependent: :destroy, as: :texable
@@ -32,7 +35,7 @@ class Answer < ApplicationRecord
 
   validates \
     :files, \
-    content_type: ["image/png", "image/jpeg", "application/pdf"], \
+    content_type: Answer::VALID_CONTENT_TYPES, \
     size: { less_than: 1.megabytes, message: "サイズは1MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
 end
