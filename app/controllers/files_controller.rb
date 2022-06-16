@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeleteFilesController < ApplicationController
+class FilesController < ApplicationController
   def destroy
     answer = Answer.find(params[:answer_id])
     answer.files.purge

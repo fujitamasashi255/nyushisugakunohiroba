@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :answers, only: [] do
-    resource :delete_files, only: %i[destroy]
+    resource :files, only: %i[destroy]
   end
 
   resource :compile, only: %i[create]
