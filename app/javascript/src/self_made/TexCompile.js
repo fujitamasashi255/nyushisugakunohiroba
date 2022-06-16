@@ -18,19 +18,19 @@ var renderLogText = function(logText, renderElement){
 
 // 「コンパイル中」ボタンにする
 var disabledButton = function(button){
-  button.addClass("disabled").empty().text(t("messages.compiling"));
+  button.addClass("disabled").empty().text(t("javascript.tex_compile.compiling"));
   var disabledDisplay = $('<span>', {class: "spinner-border spinner-border-sm mr-1", role: "status", aria: {hidden: "true"}});
   button.prepend(disabledDisplay);
 }
 
 // 「コンパイルする」ボタンに戻す
 var replacewithNewButton = function(button, path, signedId){
-  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("compile.create"));
+  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("javascript.tex_compile.compile"));
   button.replaceWith(newButton)
   if(signedId){
-    $('<span>', {id: "compile-message", class: "text-success ms-2 d-inline-block"}).text(t("messages.compile.success")).insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-success ms-2 d-inline-block"}).text(t("javascript.tex_compile.success")).insertAfter(newButton);
   }else{
-    $('<span>', {id: "compile-message", class: "text-danger ms-2 d-inline-block"}).text(t("messages.compile.fail")).insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-danger ms-2 d-inline-block"}).text(t("javascript.tex_compile.fail")).insertAfter(newButton);
   }
 }
 
