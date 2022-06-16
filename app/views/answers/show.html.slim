@@ -24,73 +24,81 @@
 
 / 解答
 .answer-show.container.p-4
-  .row
-    .tags.col-lg-6.order-lg-2
-      label.d-block.mb-2
-        = Answer.human_attribute_name(:tag_list)
-      - @answer.tags.each do |tag|
-        span.d-inline-block.tag.border
-          = tag.name
+  - if @answer.contents_present?
+    .row
+      - if @answer.tags.present?
+        .tags.col-lg-6.order-lg-2
+          label.d-block.mb-2
+            = Answer.human_attribute_name(:tag_list)
+          - @answer.tags.each do |tag|
+            span.d-inline-block.tag.border
+              = tag.name
+
+          .py-2.py-lg-3
+
+        .d-lg-none
+          hr
+          .py-2
+
+      - if @answer.point.present?
+        .point.col-lg-6.order-lg-1
+          label.d-block.mb-2
+            = Answer.human_attribute_name(:point)
+          .point-field
+            == @answer.point
+
+          .py-2.py-lg-3
+
+    - if @answer.files.attached?
+      hr
       .py-2.py-lg-3
 
-      .d-lg-none
-        hr
-        .py-2
-
-    .point.col-lg-6.order-lg-1
-      label.d-block.mb-2
-        = Answer.human_attribute_name(:point)
-      .point-field
-        == @answer.point
+      / files
+      .files
+        label.mb-2.d-block
+          = Answer.human_attribute_name(:files)
+        / 登録ファイルのプレビュー
+        .d-flex.justify-content-around.preview
+          - if @answer.files.size >= 2
+            / カルーセルコントローラのprevボタン
+            a.carousel-prev.d-flex.flex-column role="button"
+              .my-auto
+                span.carousel-control-prev-icon
+          / カルーセル
+          .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+            / カルーセル部分
+            .carousel-inner.d-flex.align-items-center
+              - @answer.files_urls(:show).each.with_index do |file, index|
+                - case index
+                - when 0
+                  .carousel-item.active
+                    - if file.blob.content_type == "image/png"
+                      = image_tag file, class: "d-block img-fluid"
+                    - elsif file.blob.content_type == "application/pdf"
+                      embed.d-block type="application/pdf"  src=url_for(file)
+                - else
+                  .carousel-item
+                    - if file.blob.content_type == "image/png"
+                      = image_tag file, class: "d-block img-fluid"
+                    - elsif file.blob.content_type == "application/pdf"
+                      embed.d-block type="application/pdf" src=url_for(file)
+          - if @answer.files.size >= 2
+            / カルーセルコントローラのnextボタン
+            a.carousel-next.d-flex.flex-column role="button"
+              .my-auto
+                span.carousel-control-next-icon
       .py-2.py-lg-3
 
-  - if @answer.tex.pdf.attached?
-    hr
-    .py-2.py-lg-3
+    - if @answer.tex.pdf.attached?
+      hr
+      .py-2.py-lg-3
 
-    /tex
-    .tex
-      label.mb-2.d-block
-        = Tex.model_name.human
-      embed type="application/pdf" src= url_for(@answer.tex.pdf)
+      /tex
+      .tex
+        label.mb-2.d-block
+          = Tex.model_name.human
+        embed type="application/pdf" src= url_for(@answer.tex.pdf)
 
-    .py-2.py-lg-3
-
-  - if @answer.files.attached?
-    hr
-    .py-2.py-lg-3
-
-    / files
-    .files
-      label.mb-2.d-block
-        = Answer.human_attribute_name(:files)
-      / 登録ファイルのプレビュー
-      .d-flex.justify-content-around.preview
-        - if @answer.files.size >= 2
-          / カルーセルコントローラのprevボタン
-          a.carousel-prev.d-flex.flex-column role="button"
-            .my-auto
-              span.carousel-control-prev-icon
-        / カルーセル
-        .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-          / カルーセル部分
-          .carousel-inner.d-flex.align-items-center
-            - @answer.files_urls(:show).each.with_index do |file, index|
-              - case index
-              - when 0
-                .carousel-item.active
-                  - if file.blob.content_type == "image/png"
-                    = image_tag file, class: "d-block img-fluid"
-                  - elsif file.blob.content_type == "application/pdf"
-                    embed.d-block type="application/pdf"  src=url_for(file)
-              - else
-                .carousel-item
-                  - if file.blob.content_type == "image/png"
-                    = image_tag file, class: "d-block img-fluid"
-                  - elsif file.blob.content_type == "application/pdf"
-                    embed.d-block type="application/pdf" src=url_for(file)
-        - if @answer.files.size >= 2
-          / カルーセルコントローラのnextボタン
-          a.carousel-next.d-flex.flex-column role="button"
-            .my-auto
-              span.carousel-control-next-icon
+      .py-2.py-lg-3
+  - else
+    | 解答はありません

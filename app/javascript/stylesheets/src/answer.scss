@@ -109,13 +109,6 @@ $file-height: 500px;
   background-color: white;
 }
 
-// タグとポイントの配置
-// 画面サイズ1200px以上の時
-@media only screen and (min-width: 992px){
-  .answer-form-field .tags, .answer-show .tags {
-    border-left: 1px solid $deepsilver;
-  }
-}
 
 // ポイント
 .point {
@@ -216,8 +209,6 @@ $file-height: 500px;
     .carousel-inner {
       .carousel-item {
         img {
-          //max-height: inherit;
-          //max-width: 100%;
           margin-left: auto;
           margin-right: auto;
         }
