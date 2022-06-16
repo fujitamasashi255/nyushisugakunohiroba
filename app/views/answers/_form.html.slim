@@ -57,15 +57,17 @@
       .row.files
         / ファイル登録ボタン
         .col-lg-4
-          .d-flex.flex-lg-column.align-items-center.align-items-lg-start
-            div
-              = f.label :files, for: "answer-files-input", class: "text-nowrap"
-            .mt-lg-3.ms-lg-0.ms-3
-              = f.label :files, for: "answer-files-input", class: "d-flex flex-row flex-lg-column align-items-lg-start align-items-center "
-                .btn.btn-outline-dark.text-nowrap.me-3.me-lg-0 role="button"
-                  = t(".select_file")
-                = f.input :files, as: :file, wrapper: false, label: false, \
-                  input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true }
+          .d-flex.flex-column.align-items-start
+            .d-flex.flex-lg-column.flex-row.align-items-center.align-items-lg-start
+              div
+                = f.label :files, for: "answer-files-input", class: "text-nowrap"
+              div.ms-2.ms-lg-0.mt-0.mt-lg-2
+                = f.label :files, for: "answer-files-input", class: "d-flex flex-column align-items-start"
+                  .btn.btn-outline-dark.text-nowrap.me-3.me-lg-0.my-lg-auto role="button"
+                    = t(".select_file")
+            .d-flex.flex-column
+              = f.input :files, as: :file, wrapper: false, label: false, hint: t(".files_hint"), \
+                input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true }
 
 
         .col-lg-8.mt-2.mt-lg-0
@@ -81,22 +83,22 @@
               / カルーセル部分
               .carousel-inner.d-flex.align-items-center
                 - if answer.files.attached?
-                  - answer.files.each.with_index do |file, index|
+                  - answer.files_urls(:show).each.with_index do |file, index|
                     - case index
                     - when 0
                       .carousel-item.active
-                        - if file.content_type == "image/png"
+                        - if file.blob.content_type == "image/png"
                           = image_tag file, class: "d-block img-fluid"
-                        - elsif file.content_type == "application/pdf"
+                        - elsif file.blob.content_type == "application/pdf"
                           embed.d-block type="application/pdf" src=url_for(file)
-                        = f.hidden_field :file, value: file.signed_id
+                        = f.hidden_field :file, value: file.blob.signed_id
                     - else
                       .carousel-item
-                        - if file.content_type == "image/png"
+                        - if file.blob.content_type == "image/png"
                           = image_tag file, class: "d-block img-fluid"
-                        - elsif file.content_type == "application/pdf"
+                        - elsif file.blob.content_type == "application/pdf"
                           embed.d-block type="application/pdf" src=url_for(file)
-                        = f.hidden_field :file, value: file.signed_id
+                        = f.hidden_field :file, value: file.blob.signed_id
             / カルーセルコントローラのnextボタン
             a.carousel-next.d-flex.flex-column role="button"
               .my-auto
@@ -104,7 +106,7 @@
                   span.carousel-control-next-icon
             / ファイル削除ボタン
             div
-              a role="button" id="delete-files-button" data-delete-files-path=(answer_delete_files_path(answer.id) if answer.id)
+              a role="button" id="delete-files-button" data-delete-files-path=(answer_files_path(answer.id) if answer.id)
                 - if answer.files.attached?
                   i.bi.bi-x-lg
 
@@ -117,12 +119,10 @@
         label.d-block
           = Tex.model_name.human
         a.d-block.ms-3 data-bs-toggle="collapse" href="#texField"
-          | TeX で解答を書く
-          i.bi.bi-chevron-down.ms-2
+          = answer.tex_collapse_message
         / tex削除ボタン
         div.ms-auto
-          a role="button" id="delete-tex-button" data-delete-tex-path=(tex_path(answer.tex) if answer.tex)
-            /- if answer.files.attached?
+          a role="button" id="delete-tex-button" data-delete-tex-path=(tex_path(answer.tex) if answer.tex.persisted?)
             i.bi.bi-x-lg
       .container.collapse id="texField"
         = render "texes/form", {f: f, tex: answer.tex || Tex.new }

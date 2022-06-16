@@ -36,6 +36,6 @@ class Answer < ApplicationRecord
   validates \
     :files, \
     content_type: Answer::VALID_CONTENT_TYPES, \
-    size: { less_than: 1.megabytes, message: "サイズは1MB以下にして下さい" }, \
+    size: { less_than: 1.megabytes, message: "のサイズは1MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
 end

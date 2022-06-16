@@ -1,5 +1,11 @@
 import {previewFile} from "src/self_made/PreviewFile"
 
+import I18n from 'src/i18n-js/index.js.erb'
+I18n.locale = 'ja'
+export function t(arg) {
+  return I18n.t(arg)
+}
+
 const default_tex_code = "\\documentclass[12pt, dvipdfmx]{jsarticle}\n\\usepackage{amssymb, amsmath, tikz, enumerate}\n\\usetikzlibrary{intersections, calc, arrows.meta, math}\r\n\\usepackage[margin=1cm]{geometry}\r\n\\pagestyle{empty}\r\n\r\n\\begin{document}\r\n\r\n\\end{document}"
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -54,14 +60,14 @@ document.addEventListener("DOMContentLoaded", function(){
       collapseLink.innerHTML = "";
       var Icon = document.createElement("i");
       Icon.setAttribute("class", "bi bi-chevron-down ms-2");
-      collapseLink.textContent = "TeXで解答を書く";
+      collapseLink.textContent = t("javascript.answer_form.tex_collapse.open");
       collapseLink.append(Icon);
     });
     collapseElem.addEventListener("show.bs.collapse", function(){
       collapseLink.innerHTML = "";
       var Icon = document.createElement("i");
       Icon.setAttribute("class", "bi bi-chevron-up ms-2");
-      collapseLink.textContent = "閉じる";
+      collapseLink.textContent = t("javascript.answer_form.tex_collapse.close");
       collapseLink.append(Icon);
     });
   }

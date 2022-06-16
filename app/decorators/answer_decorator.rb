@@ -15,4 +15,19 @@ module AnswerDecorator
       files
     end
   end
+
+  def tex_collapse_message
+    if tex.pdf.attached?
+      content = content_tag(:span, I18n.t(".decorators.answer.close"))
+      content << content_tag(:i, nil, class: ["bi", "bi-chevron-up ms-2"])
+    else
+      content = content_tag(:span, I18n.t(".decorators.answer.open"))
+      content << content_tag(:i, nil, class: ["bi", "bi-chevron-down ms-2"])
+    end
+    content
+  end
+
+  def contents_present?
+    tags.present? || point.present? || files.attached? || tex.pdf.attached?
+  end
 end

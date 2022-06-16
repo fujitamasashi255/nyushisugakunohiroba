@@ -22,6 +22,12 @@ class Tex < ApplicationRecord
 
   attribute :code, :text, default: Settings.tex_default_code
 
+  validates \
+    :pdf, \
+    content_type: "application/pdf", \
+    size: { less_than: 1.megabytes, message: "のサイズは1MB以下にして下さい" }, \
+    limit: { max: 1, message: "は1つ以下にして下さい" }
+
   def attach_pdf
     if pdf_blob_signed_id?
       pdf.attach(pdf_blob_signed_id)

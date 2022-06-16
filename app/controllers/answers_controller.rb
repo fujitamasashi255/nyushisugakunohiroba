@@ -14,6 +14,7 @@ class AnswersController < ApplicationController
     else
       # 解答未作成の場合は新規作成ページへ
       @answer = Answer.new
+      @tex = @answer.build_tex
     end
   end
 
