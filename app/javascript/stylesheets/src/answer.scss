@@ -11,6 +11,7 @@ $file-height: 500px;
   .answer-top-icons {
     margin-top: 10px;
     margin-right: calc(20px + $sidebar-width);
+    z-index: 1;
   }
 }
 
@@ -19,6 +20,7 @@ $file-height: 500px;
   .answer-top-icons {
     margin-top: 10px;
     margin-right: 20px;
+    z-index: 1;
   }
 }
 
