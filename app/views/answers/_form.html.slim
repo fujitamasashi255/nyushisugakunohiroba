@@ -28,7 +28,7 @@
         .tags.col-lg-6.order-lg-2
           / タグ
           = f.label :tag_list, class: "mb-2"
-          = f.input :tag_list, label: false, wrapper: false, input_html: { value: answer.tag_list.join(",") }
+          = f.input :tag_list, label: false, wrapper: false, hint:t(".tags_hint"), input_html: { value: answer.tag_list.join(",") }
           .py-2.py-lg-3
 
           .d-lg-none

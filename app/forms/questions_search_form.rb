@@ -12,13 +12,15 @@ class QuestionsSearchForm
   attribute :start_year, :integer
   attribute :end_year, :integer
   attribute :unit_ids
+  attribute :tag_names, :string
   attribute :sort_type, :integer, default: -> { SORT_TYPES_ENUM[:year_new] }
   # 条件表示の変数
   attribute :search_conditions, default: lambda { \
     { \
-      University.model_name.human => "なし", \
-      Question.human_attribute_name(:year) => "なし", \
-      Unit.model_name.human => "なし" \
+      university: "なし", \
+      question_year: "なし", \
+      unit: "なし", \
+      tag: ["なし"] \
     } \
   }
 
@@ -31,25 +33,33 @@ class QuestionsSearchForm
     when SPECIFIC_CONDITIONS_ENUM[:nothing]
       university_ids_no_blank = university_ids&.reject(&:blank?)
       unit_ids_no_blank = unit_ids&.reject(&:blank?)
+      # tag_names="tag1, tag2"をtag_list=["tag1", "tag2"]へ
+      tag_list = tag_names.split(",")
 
       relation = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] })
 
       # 大学名によるquestionの絞り込み
       if university_ids_no_blank.present?
-        relation = relation.by_university_ids(university_ids).distinct
-        search_conditions[University.model_name.human] = University.find(university_ids_no_blank).pluck(:name).join("、")
+        relation = relation.by_university_ids(university_ids_no_blank).distinct
+        search_conditions[:university] = University.find(university_ids_no_blank).pluck(:name).join("、")
       end
 
       # 出題年によるquestionの絞り込み
       if start_year.present? & end_year.present?
         relation = relation.by_year(start_year, end_year).distinct
-        search_conditions[Question.human_attribute_name(:year)] = "#{start_year} 年 〜 #{end_year} 年"
+        search_conditions[:question_year] = "#{start_year} 年 〜 #{end_year} 年"
       end
 
       # 単元によるquestionの絞り込み
       if unit_ids_no_blank.present?
-        relation = relation.by_unit_ids(unit_ids).distinct
-        search_conditions[Unit.model_name.human] = Unit.find(unit_ids_no_blank).pluck(:name).join("、")
+        relation = relation.by_unit_ids(unit_ids_no_blank).distinct
+        search_conditions[:unit] = Unit.find(unit_ids_no_blank).pluck(:name).join("、")
+      end
+
+      # タグによるquestionの絞り込み
+      if tag_list.present?
+        relation = relation.by_tag_list(tag_list).distinct
+        search_conditions[:tag] = tag_list
       end
 
       # 並び替え

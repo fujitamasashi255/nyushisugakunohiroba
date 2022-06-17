@@ -29,6 +29,15 @@ class Question < ApplicationRecord
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
   scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).select("questions.*").distinct }
+  scope :by_tag_list, lambda { |tag_list|
+    joins(:answers)\
+      .joins("INNER JOIN taggings ON answers.id = taggings.taggable_id")\
+      .joins("INNER JOIN tags ON tags.id = taggings.tag_id")\
+      .where(tags: { name: tag_list })\
+      .distinct
+  }
+
+  joins(:answers).joins("INNER JOIN taggings ON answers.id = taggings.taggable_id").joins("INNER JOIN tags ON tags.id = taggings.tag_id")
 
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))
@@ -37,6 +46,15 @@ class Question < ApplicationRecord
   def unit_ids
     units.pluck(:id)
   end
+
+  # def tags
+  #   Tag\
+  #   .joins(:taggings)\
+  #   .joins("INNER JOIN answers ON answers.id = taggings.taggable_id")\
+  #   .joins("INNER JOIN questions ON answers.question_id = questions.id")\
+  #   .distinct\
+  #   .where(questions: { id: })
+  # end
 
   # unit_idzのunitをquestionの関連に入れる
   def units_to_association(unit_idz)

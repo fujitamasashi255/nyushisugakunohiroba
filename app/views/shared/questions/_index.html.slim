@@ -46,21 +46,29 @@
             th.align-top.text-nowrap
               | ：
             td.align-top class="university-search-condition"
-              = questions_search_form.search_conditions[University.model_name.human]
+              = questions_search_form.search_conditions[:university]
           tr
             th.align-top.text-nowrap
               = Question.human_attribute_name(:year)
             th.align-top.text-nowrap
               | ：
             td.align-top class="year-search-condition"
-              = questions_search_form.search_conditions[Question.human_attribute_name(:year)]
+              = questions_search_form.search_conditions[:question_year]
           tr
             th.align-top.text-nowrap
               = Unit.model_name.human
             th.align-top.text-nowrap
               | ：
             td.align-top class="unit-search-condition"
-              = questions_search_form.search_conditions[Unit.model_name.human]
+              = questions_search_form.search_conditions[:unit]
+          tr
+            th.align-top.text-nowrap
+              = Tag.model_name.human
+            th.align-top.text-nowrap
+              | ：
+            td.align-top class="unit-search-condition"
+              = questions_search_form.search_conditions[:tag].join("、")
+
       .py-3
 
   - if questions.present?
