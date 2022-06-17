@@ -6,6 +6,9 @@ export function t(arg) {
   return I18n.t(arg)
 }
 
+// PDFを作成するコントローラpdfs_controllerへのパス path
+const pdfsPath = "/pdfs";
+
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){
   $('<embed>', {type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
@@ -24,8 +27,8 @@ var disabledButton = function(button){
 }
 
 // 「コンパイルする」ボタンに戻す
-var replacewithNewButton = function(button, path, signedId){
-  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("javascript.tex_compile.compile"));
+var replacewithNewButton = function(button, signedId){
+  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).text(t("javascript.tex_compile.compile"));
   button.replaceWith(newButton)
   if(signedId){
     $('<span>', {id: "compile-message", class: "text-success ms-2 d-inline-block"}).text(t("javascript.tex_compile.success")).insertAfter(newButton);
@@ -67,8 +70,6 @@ var compileAjax = function(path, code, signedIdElement, compileResultElement){
 $(function(){
   $(document).on('click', "#compile-button", function(){
     var button = $(this);
-    // コンパイルするコントローラへのパス path
-    var path = button.data("compile-path");
     // コンパイルするtexコード Code
     var code = $('#tex-code').val();
     // 要素 t.input_field :pdf_blob_signed_id を取得
@@ -84,10 +85,10 @@ $(function(){
     // ボタンを「コンパイル中」にする
     disabledButton(button);
     // Ajaxを送る
-    compileAjax(path, code, signedIdElement, compileResultElement);
+    compileAjax(pdfsPath, code, signedIdElement, compileResultElement);
     // 結果が表示されたらボタンを元に戻す
     compileResultElement.on('DOMSubtreeModified propertychange', function(){
-      replacewithNewButton(button, path, signedIdElement.val());
+      replacewithNewButton(button, signedIdElement.val());
     });
   });
 });

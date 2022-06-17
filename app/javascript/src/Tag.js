@@ -27,7 +27,7 @@ const settings = {
 
 const searchSettings = {
   originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', '),
-  whitelist : ["微分積分学の基本定理", "オムニバス", 3],
+  whitelist : [],
   dropdown : {
     maxItems: 20,
     classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
@@ -53,8 +53,57 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   // 問題検索時
-  var inputQuestionSearch = document.querySelector("input[id = 'question-tag-input']");
-  if(inputQuestionSearch){
-    new Tagify(inputQuestionSearch, searchSettings);
+  var startYearSelect = document.querySelector("select[name = 'questions_search_form[start_year]']");
+  var endYearSelect = document.querySelector("select[name = 'questions_search_form[end_year]']");
+  var universityIdInputs = document.querySelectorAll("input[name = 'questions_search_form[university_ids][]']");
+  var unitIdInputs = document.querySelectorAll("input[name = 'questions_search_form[unit_ids][]']");
+  var tagInput = document.querySelector("input[id = 'question-tag-input']");
+
+  if(tagInput){
+    var tagify = new Tagify(tagInput, searchSettings);
+    var controller;
+
+    // listen to any keystrokes which modify tagify's input
+    tagify.on('focus', onFocus)
+
+    function onFocus( e ){
+      var universityIds = []
+      var unitIds = []
+      var startYear = startYearSelect.value
+      var endYear = endYearSelect.value
+
+      for(var i=0; i < universityIdInputs.length; i++){
+        if(universityIdInputs[i].checked){
+          universityIds.push(universityIdInputs[i].value);
+        }
+      }
+      for(var i=0; i < unitIdInputs.length; i++){
+        if(unitIdInputs[i].checked){
+          unitIds.push(unitIdInputs[i].value);
+        }
+      }
+
+      console.log(startYear);
+      console.log(endYear);
+      console.log(unitIds);
+      console.log(universityIds);
+
+      tagify.whitelist = null // reset the whitelist
+
+      // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
+      controller && controller.abort()
+      controller = new AbortController()
+
+      // show loading animation and hide the suggestions dropdown
+      tagify.loading(true).dropdown.hide()
+
+      fetch('http://get_suggestions.com?value=' + value, {signal:controller.signal})
+        .then(RES => RES.json())
+        .then(function(newWhitelist){
+          tagify.whitelist = newWhitelist // update whitelist Array in-place
+          tagify.loading(false).dropdown.show(value) // render the suggestions dropdown
+        })
+    }
   }
 });
+

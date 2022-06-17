@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resource :files, only: %i[destroy]
   end
 
-  resource :compile, only: %i[create]
+  resource :pdfs, only: %i[create]
   resources :texes, only: %i[destroy]
 
   resources :users, only: %i[new create show edit update destroy]
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post "login" => "user_sessions#create"
   delete "logout" => "user_sessions#destroy", :as => :logout
 
+  # generalユーザー問題検索、並び替え
   resource :questions_search_form, only: %i[show]
   resources :questions_sorts, only: %i[show], param: :sort_type
 

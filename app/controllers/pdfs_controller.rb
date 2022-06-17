@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CompilesController < ApplicationController
+class PdfsController < ApplicationController
   def create
     code = params[:code]
     signed_id = params[:id]
