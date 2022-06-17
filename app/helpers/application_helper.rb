@@ -3,7 +3,9 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def answer_carousel_inner_height(files_counts)
-    files_counts.zero? ? "" : "height: 500px"
+  # コントローラの名前空間に Admin が含まれるかどうかを判定
+  def admin_controller?(controller)
+    class_name = controller.class.name
+    class_name.gsub("::#{class_name.demodulize}", "").include?("Admin")
   end
 end

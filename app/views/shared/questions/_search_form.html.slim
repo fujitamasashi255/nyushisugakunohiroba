@@ -52,14 +52,16 @@
 
     .py-2
 
-    / タグ選択
-    .row.search-form-units
-      .col-sm-2.form-check-label.pt-sm-2
-        = Tag.model_name.human
-      .col-sm-10
-        = render "/tags/form", f: f
+    / 管理画面ではタグ検索を表示しない
+    - unless admin_controller?(controller)
+      / タグ選択
+      .row.search-form-units
+        .col-sm-2.form-check-label.pt-sm-2
+          = Tag.model_name.human
+        .col-sm-10
+          = render "/tags/form", f: f
 
-    .py-2
+      .py-2
 
     / 検索ボタン
     .d-inline-block.bg-white

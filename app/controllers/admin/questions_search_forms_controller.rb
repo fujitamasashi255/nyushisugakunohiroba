@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class QuestionsSearchFormsController < ApplicationController
+class Admin::QuestionsSearchFormsController < Admin::ApplicationController
   skip_before_action :require_login
 
   def show
@@ -8,7 +8,7 @@ class QuestionsSearchFormsController < ApplicationController
     @pagy, @questions = pagy(@questions_search_form.search)
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
     @questions_search_form_params = questions_search_form_params
-    render "questions/index"
+    render "admin/questions/index"
   end
 
   private

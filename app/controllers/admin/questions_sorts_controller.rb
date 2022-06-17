@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class QuestionsSortsController < ApplicationController
+class Admin::QuestionsSortsController < Admin::ApplicationController
   skip_before_action :require_login
 
   def show
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search)
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
-    render "questions/index"
+    render "admin/questions/index"
   end
 
   private

@@ -12,7 +12,7 @@ class QuestionsSearchForm
   attribute :start_year, :integer
   attribute :end_year, :integer
   attribute :unit_ids
-  attribute :tag_names, :string
+  attribute :tag_names, :string, default: -> { "" }
   attribute :sort_type, :integer, default: -> { SORT_TYPES_ENUM[:year_new] }
   # 条件表示の変数
   attribute :search_conditions, default: lambda { \

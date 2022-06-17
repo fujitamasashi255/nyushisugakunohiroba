@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       resources :department_check_boxes, only: %i[index]
     end
     resources :questions
-    resource :questions_search_form, controller: "/questions_search_forms", only: %i[show]
-    resources :questions_sorts, controller: "/questions_sorts", only: %i[show], param: :sort_type
+    resource :questions_search_form, only: %i[show]
+    resources :questions_sorts, only: %i[show], param: :sort_type
   end
 end
