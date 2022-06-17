@@ -101,8 +101,9 @@ ja:
       university: "大学"
       department: "区分"
       question: "問題"
-      tex: "Tex"
+      tex: "TeX"
       user: "ユーザー"
+      tag: "タグ"
     attributes:
       university:
           name: "大学名"
@@ -118,7 +119,7 @@ ja:
       questions_departments_mediator:
         question_number: "問題番号"
       tex:
-        code: "texコード"
+        code: "コード"
         pdf: "コンパイル結果"
         pdf_blob_signed_id:
       user:
@@ -130,6 +131,8 @@ ja:
         remember: "ログイン状態を保持"
       answer:
         point: "ポイント"
+        files: "ファイル"
+        tag_list: "タグ"
 
   # enum
   enums:

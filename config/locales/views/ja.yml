@@ -21,6 +21,20 @@ ja:
     still_logged_in: "既にログインしています"
     require_login: "ログインして下さい"
 
+  javascript:
+    answer_form:
+      tex_collapse:
+        open: "TeXで解答を書く"
+        close: "閉じる"
+    tex_compile:
+      compiling: "コンパイル中"
+      compile: "コンパイルする"
+      success: "コンパイルに成功しました"
+      fail: "コンパイルに失敗しました。ログが表示されます。"
+
+
+
+
   helpers:
     submit:
       university:
@@ -39,6 +53,10 @@ ja:
       answer:
         create: "解答を作成する"
         update: "解答を更新する"
+  decorators:
+    answer:
+      close: "閉じる"
+      open: "TeXで解答を書く"
 
   cocoon:
     departments:
@@ -86,23 +104,41 @@ ja:
       new: "解答を作成する"
       edit: "解答を編集する"
   answers:
+    form:
+      saving: "保存中"
+      point-input: "入力"
+      point-preview: "プレビュー"
+      select_file: "ファイルを選択"
+      files_hint: "1MB以下の画像またはPDFを3つまで"
+      tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示する"
-      return_to_question: "問題詳細へ戻る"
+      to_question: "問題詳細へ"
     create:
       success: "解答を作成しました"
       fail: "解答を作成できませんでした"
+    show:
+      to_edit: "解答編集へ"
+      title: "解答"
+      destroy: "解答を削除する"
+      display_question_image: "問題文を表示する"
+      to_question: "問題詳細へ"
+      destroy_confirm: "削除しますか"
     edit:
       title: "解答編集"
       destroy: "解答を削除する"
       display_question_image: "問題文を表示する"
-      return_to_question: "問題詳細へ戻る"
+      to_question: "問題詳細へ"
+      destroy_confirm: "削除しますか"
     update:
       success: "解答を更新しました"
       fail: "解答を更新できませんでした"
     destroy:
       success: "解答を削除しました"
+  tags:
+    form:
+      hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
 
 
   users:
@@ -121,9 +157,11 @@ ja:
     edit:
       title: "プロフィール編集"
       name_hint: "10文字以下"
+      avatar_hint: "1MB以下"
       delete_account_confirm: "退会しますか"
       delete_account: "退会する"
       change_password: "パスワードを変更する"
+      select_file: "ファイルを選択"
     update:
       success: "プロフィールを更新しました"
       fail: "プロフィールを更新できませんでした"
