@@ -1,6 +1,6 @@
-$tag-color: rgb(243, 243, 168);
 // tagifyをカスタマイズ
-$tag-bg: $tag-color;
+$tag-bg: lightyellow;
+//$tags-border-color: gold;
 
 
 @import "@yaireo/tagify/src/tagify";
@@ -8,13 +8,15 @@ $tag-bg: $tag-color;
 .tag {
   border-radius: 3px;
   background: lightyellow;
-  border-color: $tag-color;
+  border: 2px solid gold;
   padding: .3em .5em;
   margin: 5px 0px 5px 5px;
 }
 
 .tagify__tag {
   z-index: 0;
+  border-radius: 3px;
+  border: 2px solid gold;
 }
 
 .tags-look header {
@@ -40,5 +42,5 @@ $tag-bg: $tag-color;
 
 .tags-look .tagify__dropdown__item:hover{
   background: lightyellow;
-  border-color: $tag-color;
+  border: 2px solid gold;
 }
