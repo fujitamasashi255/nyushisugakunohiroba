@@ -15,6 +15,7 @@ class AnswersController < ApplicationController
       # 解答未作成の場合は新規作成ページへ
       @answer = Answer.new
       @tex = @answer.build_tex
+      set_tag_suggestions
     end
   end
 
@@ -33,7 +34,9 @@ class AnswersController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    set_tag_suggestions
+  end
 
   def update
     set_tex
@@ -87,5 +90,10 @@ class AnswersController < ApplicationController
     end
     # texにpdfをattachする
     @tex.attach_pdf
+  end
+
+  # ユーザーが同じ分野の問題につけたタグの一覧を取得する
+  def set_tag_suggestions
+    gon.tag_suggestions = @answer.same_unit_tags.map(&:name)
   end
 end
