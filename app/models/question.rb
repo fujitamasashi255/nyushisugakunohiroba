@@ -38,6 +38,7 @@ class Question < ApplicationRecord
     units.pluck(:id)
   end
 
+  # unit_idzのunitをquestionの関連に入れる
   def units_to_association(unit_idz)
     questions_units_mediators.clear
     unit_idz.each do |unit_id|
