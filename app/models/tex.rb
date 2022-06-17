@@ -63,4 +63,11 @@ class Tex < ApplicationRecord
     # blobを作成
     ActiveStorage::Blob.create_and_upload!(io: File.open(image_path), filename: image_name)
   end
+
+  # texオブジェクトの属性を空にする
+  def clear_attributes
+    pdf.purge
+    self.code = Settings.tex_default_code
+    self.pdf_blob_signed_id = nil
+  end
 end

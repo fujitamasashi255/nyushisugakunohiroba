@@ -3,6 +3,7 @@
 class TexesController < ApplicationController
   def destroy
     tex = Tex.find(params[:id])
-    tex.destroy
+    tex.clear_attributes
+    tex.save
   end
 end
