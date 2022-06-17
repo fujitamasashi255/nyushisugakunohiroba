@@ -39,8 +39,8 @@ class Answer < ApplicationRecord
     size: { less_than: 1.megabytes, message: "のサイズは1MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
 
-  # answerに対し、その問題と同じ単元を持つ問題のユーザーのanswerを返す
-  def same_unit_tags
+  # answerに対し、その問題と同じ単元を持つ問題の解答のタグで、ユーザーが登録したもの返す
+  def tags_belongs_to_same_unit
     Tag\
       .joins(:taggings)\
       .joins("INNER JOIN answers ON answers.id = taggings.taggable_id")\
@@ -48,5 +48,6 @@ class Answer < ApplicationRecord
       .joins("INNER JOIN questions_units_mediators ON questions_units_mediators.question_id = questions.id")\
       .where(questions_units_mediators: { unit_id: question.unit_ids })\
       .where(answers: { user_id: user.id })\
+      .distinct
   end
 end
