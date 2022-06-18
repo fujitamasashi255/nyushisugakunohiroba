@@ -2,19 +2,15 @@
   label.text-nowrap
     | #{QuestionsSearchForm.human_attribute_name(:sort_type)}：
   .px-1.d-flex.flex-column.flex-sm-row.flex-wrap
-    - QuestionsSearchForm::SORT_TYPES_ENUM.keys.each do |sort_type|
+    - QuestionsSearchForm::SORT_TYPES.each do |sort_type|
       .me-2 class= sort_type
         - case sort_type
-        - when :year_new
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type.to_s}"), url_with_params(questions_sort_path(sort_type), questions_search_form_params), \
-            class: active_if( \
-              "/questions_sorts/#{sort_type}", \
-              questions_path, \
-              questions_search_form_path \
-            )
-        - when :bookmark_many
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type.to_s}"), url_with_params(questions_sort_path(sort_type), questions_search_form_params), \
-            class: active_if("/questions_sorts/#{sort_type}")
-        - when :like_many
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type.to_s}"), url_with_params(questions_sort_path(sort_type), questions_search_form_params), \
-            class: active_if("/questions_sorts/#{sort_type}")
+        - when "year_new"
+          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
+            class: (active_if(questions_path) || active_sort_link_if(questions_search_form, sort_type))
+        - when "bookmark_many"
+          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
+            class: active_sort_link_if(questions_search_form, sort_type)
+        - when "like_many"
+          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
+            class: active_sort_link_if(questions_search_form, sort_type)

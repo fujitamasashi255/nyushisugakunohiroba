@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root to: "static_pages#top"
   resources :questions, only: %i[index show] do
     resources :answers, shallow: true
+    # 問題検索、並び替え
+    get :search, on: :collection
   end
 
   resources :answers, only: [] do
@@ -20,10 +22,6 @@ Rails.application.routes.draw do
   post "login" => "user_sessions#create"
   delete "logout" => "user_sessions#destroy", :as => :logout
 
-  # generalユーザー問題検索、並び替え
-  resource :questions_search_form, only: %i[show]
-  resources :questions_sorts, only: %i[show], param: :sort_type
-
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # 管理ページのルーティング
@@ -32,8 +30,9 @@ Rails.application.routes.draw do
     resources :universities do
       resources :department_check_boxes, only: %i[index]
     end
-    resources :questions
-    resource :questions_search_form, only: %i[show]
-    resources :questions_sorts, only: %i[show], param: :sort_type
+    resources :questions do
+      # 問題検索、並び替え
+      get :search, on: :collection
+    end
   end
 end

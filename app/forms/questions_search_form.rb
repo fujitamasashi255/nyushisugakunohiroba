@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsSearchForm
-  SORT_TYPES_ENUM = { year_new: 1, created_at_new: 2, bookmark_many: 3, like_many: 4 }.each_value(&:freeze).freeze
+  SORT_TYPES = %w[year_new created_at_new bookmark_many like_many].each(&:freeze).freeze
   SPECIFIC_CONDITIONS_ENUM = { nothing: 0, no_data: 1, all_data: 2 }.each_value(&:freeze).freeze
 
   include ActiveModel::Model
@@ -13,7 +13,7 @@ class QuestionsSearchForm
   attribute :end_year, :integer
   attribute :unit_ids
   attribute :tag_names, :string, default: -> { "" }
-  attribute :sort_type, :integer, default: -> { SORT_TYPES_ENUM[:year_new] }
+  attribute :sort_type, :string, default: -> { "year_new" }
   # 条件表示の変数
   attribute :search_conditions, default: lambda { \
     { \
@@ -64,13 +64,13 @@ class QuestionsSearchForm
 
       # 並び替え
       case sort_type
-      when SORT_TYPES_ENUM[:year_new]
+      when "year_new"
         relation = relation.reorder(year: :desc)
-      when SORT_TYPES_ENUM[:created_at_new]
+      when "created_at_new"
         relation = relation.reorder(created_at: :desc)
-      when SORT_TYPES_ENUM[:bookmark_many]
+      when "bookmark_many"
         relation
-      when SORT_TYPES_ENUM[:like_many]
+      when "like_many"
         relation
       end
 

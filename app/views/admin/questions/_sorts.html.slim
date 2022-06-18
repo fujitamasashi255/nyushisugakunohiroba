@@ -1,16 +1,12 @@
 .sort-links
   label
     | #{QuestionsSearchForm.human_attribute_name(:sort_type)}：
-  - QuestionsSearchForm::SORT_TYPES_ENUM.keys.each do |sort_type|
+  - QuestionsSearchForm::SORT_TYPES.each do |sort_type|
     span.justify-content-center.ms-2.ps-2 class= sort_type
       - case sort_type
-      - when :year_new
-        = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type.to_s}"), url_with_params(admin_questions_sort_path(sort_type), questions_search_form_params), \
-          class: active_if( \
-            "/admin/questions_sorts/#{sort_type}", \
-            admin_questions_path, \
-            admin_questions_search_form_path \
-          )
-      - when :created_at_new
-        = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type.to_s}"), url_with_params(admin_questions_sort_path(sort_type), questions_search_form_params), \
-          class: active_if("/admin/questions_sorts/#{sort_type}")
+      - when "year_new"
+        = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_admin_questions_path, sort_type, questions_search_form_params), \
+          class: (active_if(admin_questions_path) || active_sort_link_if(questions_search_form, sort_type))
+      - when "created_at_new"
+        = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_admin_questions_path, sort_type, questions_search_form_params), \
+          class: active_sort_link_if(questions_search_form, sort_type)
