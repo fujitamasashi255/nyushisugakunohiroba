@@ -94,6 +94,6 @@ class AnswersController < ApplicationController
 
   # ユーザーが同じ分野の問題につけたタグの一覧を取得する
   def set_tag_suggestions
-    gon.tags = @answer.tags_belongs_to_same_unit.map(&:name)
+    gon.tags = @question.tags_belongs_to_same_unit_of_user(current_user).map(&:name)
   end
 end
