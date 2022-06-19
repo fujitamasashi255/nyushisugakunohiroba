@@ -18,6 +18,7 @@ class QuestionsController < ApplicationController
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search)
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
+    # 並び替えリンクurlのクエリパラメータ
     @questions_search_form_params = questions_search_form_params
     render "questions/index"
   end
