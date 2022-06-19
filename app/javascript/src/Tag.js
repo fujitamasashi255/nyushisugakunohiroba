@@ -2,6 +2,12 @@ import Tagify from "@yaireo/tagify";
 window.Tagify = Tagify;
 import "@yaireo/tagify/dist/jQuery.tagify.min";
 
+import I18n from 'src/i18n-js/index.js.erb'
+I18n.locale = 'ja'
+export function t(arg) {
+  return I18n.t(arg)
+}
+
 var tags = gon.tags
 const questionsTagsPath = "/questions_tags"
 
@@ -16,7 +22,7 @@ const settings = {
   },
   templates: {
     dropdownHeader(suggestions){
-      return '<header class="p-2">あなたが同じ分野の問題につけたタグの一覧</header>';
+      return `<header class="p-2">${t("javascript.tag.hint")}</header>`;
     },
     dropdownItem( item, tagify ){
       return `<div ${this.getAttributes(item)}

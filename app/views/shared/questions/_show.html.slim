@@ -13,10 +13,10 @@
         .d-flex.align-items-center.flex-wrap
           / 出題年
           .year.pe-2.text-nowrap
-            | #{question.year} 年
+            | #{question.year}#{t('common.year')}
           / 大学名
           .university.pe-3.text-nowrap
-            | #{question.university.name} 大学
+            | #{question.university.name}#{University.model_name.human}
           / 区分
           .departments.text-nowrap
             -if question.departments.present?
@@ -36,6 +36,6 @@
             label
               = Question.human_attribute_name(:image)
             div.question-image
-              = image_tag question.image_url(:show), class: "bg-white p-3 img-fluid"
+              = image_tag question.image_url(:show), class: "bg-white p-3 img-fluid", loading: "lazy"
 
 

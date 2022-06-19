@@ -24,13 +24,15 @@ ja:
   javascript:
     answer_form:
       tex_collapse:
-        open: "TeXで解答を書く"
+        open: "解答を書く"
         close: "閉じる"
     tex_compile:
       compiling: "コンパイル中"
       compile: "コンパイルする"
       success: "コンパイルに成功しました"
       fail: "コンパイルに失敗しました。ログが表示されます。"
+    tag:
+      hint: "この問題と同じ分野の問題にあなたがつけたタグの一覧"
 
 
 
@@ -125,6 +127,7 @@ ja:
       display_question_image: "問題文を表示する"
       to_question: "問題詳細へ"
       destroy_confirm: "削除しますか"
+      no_result: "解答はありません"
     edit:
       title: "解答編集"
       destroy: "解答を削除する"
