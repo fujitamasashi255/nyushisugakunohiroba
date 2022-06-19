@@ -69,7 +69,7 @@ RSpec.describe "Questions", type: :system, js: true do
         fill_in "texコード", with: Settings.tex_test_code
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました")
-        expect(page).to have_selector("embed[type='application/pdf']")
+        expect(page).to have_selector("iframe[type='application/pdf']")
         click_button "問題を作成する"
         expect(page).to have_content "問題を作成しました"
         expect(page).to have_content "2000"

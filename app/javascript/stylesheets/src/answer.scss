@@ -157,8 +157,8 @@ $file-height: 500px;
   }
 }
 
-// texのembed
-.answer-form embed{
+// texのiframe
+.answer-form iframe{
   height: $file-height;
   width: 100%;
   margin: 0;
@@ -200,7 +200,7 @@ $file-height: 500px;
     margin-right: auto;
   }
 
-  .tex embed{
+  .tex iframe{
     height: $file-height;
     width: 100%;
   }
@@ -214,7 +214,7 @@ $file-height: 500px;
           margin-left: auto;
           margin-right: auto;
         }
-        embed {
+        iframe {
           height: $file-height;
           width: 100%;
         }

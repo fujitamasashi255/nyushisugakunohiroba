@@ -11,7 +11,7 @@ const pdfsPath = "/pdfs";
 
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){
-  $('<embed>', {type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
+  $('<iframe>', {loading: "lazy", type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
 }
 
 // logTextをrenderElementに表示する

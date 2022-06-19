@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function(){
   var collapseElem = document.querySelector("#texField");
   var collapseLink = document.querySelector("a[href='#texField']");
   // ページ読み込み時にTeXファイルがあるときは、折りたたみを開く
-  if($("#compile-result").children("embed").length){
+  if($("#compile-result").children("iframe").length){
     new bootstrap.Collapse('.answer-form .collapse').show();
   }
   // 折りたたみボタンを押した時の処理

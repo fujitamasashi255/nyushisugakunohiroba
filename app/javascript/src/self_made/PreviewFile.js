@@ -15,10 +15,12 @@ export const previewFile = function(file, wrapper, preview){
       // 画像ファイルの時
       var fileTag = $("<img>");
       fileTag.attr("class", "d-block img-fluid");
+      fileTag.attr("loading", "lazy");
     }else if(file.type == pdfType){
       // PDFのとき
-      var fileTag = $("<embed>");
+      var fileTag = $("<iframe>");
       fileTag.attr("type", "application/pdf");
+      fileTag.attr("loading", "lazy");
     }
     fileTag.attr("src", fileUrl); // ファイルのURLをfileTagにセット
     (fileTag).appendTo(preview); // fileTagを#previewの中に追加

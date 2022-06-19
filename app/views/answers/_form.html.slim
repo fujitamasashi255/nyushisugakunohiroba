@@ -88,16 +88,16 @@
                     - when 0
                       .carousel-item.active
                         - if file.blob.content_type == "image/png"
-                          = image_tag file, class: "d-block img-fluid"
+                          = image_tag file, class: "d-block img-fluid", loading: "lazy"
                         - elsif file.blob.content_type == "application/pdf"
-                          embed.d-block type="application/pdf" src=url_for(file)
+                          iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
                         = f.hidden_field :file, value: file.blob.signed_id
                     - else
                       .carousel-item
                         - if file.blob.content_type == "image/png"
-                          = image_tag file, class: "d-block img-fluid"
+                          = image_tag file, class: "d-block img-fluid", loading: "lazy"
                         - elsif file.blob.content_type == "application/pdf"
-                          embed.d-block type="application/pdf" src=url_for(file)
+                          iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
                         = f.hidden_field :file, value: file.blob.signed_id
             / カルーセルコントローラのnextボタン
             a.carousel-next.d-flex.flex-column role="button"

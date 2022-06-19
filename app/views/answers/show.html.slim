@@ -15,7 +15,7 @@
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
       i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
     .dropdown-menu.p-1 id="dropdownQuestionImage"
-      = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid"
+      = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
 
 / タイトル横の問題情報
 - content_for :page_subtitle do
@@ -73,15 +73,15 @@
                 - when 0
                   .carousel-item.active
                     - if file.blob.content_type == "image/png"
-                      = image_tag file, class: "d-block img-fluid"
+                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
                     - elsif file.blob.content_type == "application/pdf"
-                      embed.d-block type="application/pdf"  src=url_for(file)
+                      iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy"
                 - else
                   .carousel-item
                     - if file.blob.content_type == "image/png"
-                      = image_tag file, class: "d-block img-fluid"
+                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
                     - elsif file.blob.content_type == "application/pdf"
-                      embed.d-block type="application/pdf" src=url_for(file)
+                      iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
           - if @answer.files.size >= 2
             / カルーセルコントローラのnextボタン
             a.carousel-next.d-flex.flex-column role="button"
@@ -97,8 +97,8 @@
       .tex
         label.mb-2.d-block
           = Tex.model_name.human
-        embed type="application/pdf" src= url_for(@answer.tex.pdf)
+        iframe type="application/pdf" src=url_for(@answer.tex.pdf) loading="lazy"
 
       .py-2.py-lg-3
   - else
-    | 解答はありません
+    = t(".no_result")
