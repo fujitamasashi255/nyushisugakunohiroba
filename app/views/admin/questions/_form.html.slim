@@ -12,7 +12,7 @@
           .row
             /出題年
             .col-sm-3
-              = f.input :year, collection: 1980..Time.current.year, include_blank: false
+              = f.input :year, collection: (1980..Time.current.year).to_a.reverse, include_blank: false
 
             / 大学名
             .col-sm-9
