@@ -25,7 +25,6 @@ class Question < ApplicationRecord
   has_one_attached :image
   accepts_nested_attributes_for :tex, reject_if: :all_blank
 
-  default_scope { order(year: :desc) }
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
   scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).select("questions.*").distinct }
@@ -37,8 +36,6 @@ class Question < ApplicationRecord
       .distinct
   }
 
-  joins(:answers).joins("INNER JOIN taggings ON answers.id = taggings.taggable_id").joins("INNER JOIN tags ON tags.id = taggings.tag_id")
-
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))
   end
@@ -47,14 +44,17 @@ class Question < ApplicationRecord
     units.pluck(:id)
   end
 
-  # def tags
-  #   Tag\
-  #   .joins(:taggings)\
-  #   .joins("INNER JOIN answers ON answers.id = taggings.taggable_id")\
-  #   .joins("INNER JOIN questions ON answers.question_id = questions.id")\
-  #   .distinct\
-  #   .where(questions: { id: })
-  # end
+  # 同じ単元を持つ問題に対してユーザーがつけたタグを返す
+  def tags_belongs_to_same_unit_of_user(user)
+    Tag\
+      .joins(:taggings)\
+      .joins("INNER JOIN answers ON answers.id = taggings.taggable_id")\
+      .joins("INNER JOIN questions ON answers.question_id = questions.id")\
+      .joins("INNER JOIN questions_units_mediators ON questions_units_mediators.question_id = questions.id")\
+      .where(questions_units_mediators: { unit_id: unit_ids })\
+      .where(answers: { user_id: user.id })\
+      .distinct
+  end
 
   # unit_idzのunitをquestionの関連に入れる
   def units_to_association(unit_idz)

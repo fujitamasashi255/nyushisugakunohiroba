@@ -65,9 +65,9 @@ class QuestionsSearchForm
       # 並び替え
       case sort_type
       when "year_new"
-        relation = relation.reorder(year: :desc)
+        relation = relation.order(year: :desc)
       when "created_at_new"
-        relation = relation.reorder(created_at: :desc)
+        relation = relation.order(created_at: :desc)
       when "bookmark_many"
         relation
       when "like_many"

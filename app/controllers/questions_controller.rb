@@ -29,6 +29,6 @@ class QuestionsController < ApplicationController
   end
 
   def questions_search_form_params
-    params.require(:questions_search_form).permit(:start_year, :end_year, :sort_type, :tag_names, :sort_type, university_ids: [], unit_ids: [])
+    params.require(:questions_search_form).permit(:start_year, :end_year, :tag_names, :sort_type, university_ids: [], unit_ids: [])
   end
 end
