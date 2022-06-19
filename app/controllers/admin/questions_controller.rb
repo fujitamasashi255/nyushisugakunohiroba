@@ -7,7 +7,7 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def index
     @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
-    @pagy, @questions = pagy(@questions_search_form.search)
+    @pagy, @questions = pagy(@questions_search_form.search, link_extra: 'data-remote="true"')
   end
 
   def new
@@ -49,7 +49,7 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def search
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
-    @pagy, @questions = pagy(@questions_search_form.search)
+    @pagy, @questions = pagy(@questions_search_form.search, link_extra: 'data-remote="true"')
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
     @questions_search_form_params = questions_search_form_params
     render "admin/questions/index"

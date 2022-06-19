@@ -12,3 +12,5 @@ import "../stylesheets/admin.scss"
 
 Rails.start()
 ActiveStorage.start()
+
+import 'src/pagy.js.erb'

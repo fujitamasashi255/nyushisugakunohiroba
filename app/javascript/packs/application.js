@@ -27,4 +27,4 @@ export function t(arg) {
 Rails.start()
 ActiveStorage.start()
 
-
+import 'src/pagy.js.erb'

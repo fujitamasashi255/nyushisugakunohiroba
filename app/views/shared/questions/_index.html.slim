@@ -80,13 +80,10 @@
         = render sorts_path, questions_search_form: questions_search_form, questions_search_form_params: questions_search_form_params
 
     / 問題一覧
-    .container.questions-index
-      .row
+    .container
+      .row id="questions-index"
         = content_for :question_partial
 
   / ページネーション
-  .container
-    .py-3.pagination
-    == pagy_bootstrap_nav(pagy)
-    .text-center
-      == pagy_info(pagy)
+  .container id="questions-pagination"
+    = render "shared/pagy", pagy: pagy

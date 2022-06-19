@@ -77,7 +77,11 @@ gem "acts-as-taggable-on", "~> 9.0"
 # デコレータ
 gem "active_decorator"
 
+# コントローラからJSへ変数を渡す
 gem "gon"
+
+# pagyの高速化
+gem "oj"
 
 group :development, :test do
   # デバッグ
