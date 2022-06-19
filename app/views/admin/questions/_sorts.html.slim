@@ -1,12 +1,13 @@
-.sort-links
-  label
+.sort-links.d-flex.flex-row
+  label.text-nowrap
     | #{QuestionsSearchForm.human_attribute_name(:sort_type)}：
-  - QuestionsSearchForm::SORT_TYPES.each do |sort_type|
-    span.justify-content-center.ms-2.ps-2 class= sort_type
-      - case sort_type
-      - when "year_new"
-        = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_admin_questions_path, sort_type, questions_search_form_params), \
-          class: (active_if(admin_questions_path) || active_sort_link_if(questions_search_form, sort_type))
-      - when "created_at_new"
-        = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_admin_questions_path, sort_type, questions_search_form_params), \
-          class: active_sort_link_if(questions_search_form, sort_type)
+  .px-1.d-flex.flex-column.flex-sm-row.flex-wrap
+    - QuestionsSearchForm::SORT_TYPES.each do |sort_type|
+      .me-2 class= sort_type
+        - case sort_type
+        - when "year_new"
+          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_admin_questions_path, sort_type, questions_search_form_params), \
+            class: (active_if(admin_questions_path) || active_sort_link_if(questions_search_form, sort_type))
+        - when "created_at_new"
+          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_admin_questions_path, sort_type, questions_search_form_params), \
+            class: active_sort_link_if(questions_search_form, sort_type)
