@@ -3,7 +3,9 @@ window.Tagify = Tagify;
 import "@yaireo/tagify/dist/jQuery.tagify.min";
 
 var tags = gon.tags
+const questionsTagsPath = "/questions_tags"
 
+//解答作成時のtagifyの設定
 const settings = {
   originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', '),
   whitelist : tags,
@@ -25,7 +27,8 @@ const settings = {
   }
 }
 
-const searchSettings = {
+// 問題検索時のtagifyの設定
+const questionsSearchSettings = {
   originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', '),
   whitelist : [],
   dropdown : {
@@ -39,10 +42,11 @@ const searchSettings = {
       return `<div ${this.getAttributes(item)}
                   class='${this.settings.classNames.dropdownItem} ${item.class ? item.class : ""}'
                   tabindex="0"
-                  role="option">${item.value}</div>`
+                  role="option">${item.value}(${item.taggings_count})</div>`
     },
   }
 }
+
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -60,48 +64,45 @@ document.addEventListener("DOMContentLoaded", function(){
   var tagInput = document.querySelector("input[id = 'question-tag-input']");
 
   if(tagInput){
-    var tagify = new Tagify(tagInput, searchSettings);
+    var tagify = new Tagify(tagInput, questionsSearchSettings);
     var controller;
 
     // listen to any keystrokes which modify tagify's input
-    tagify.on('focus', onFocus)
+    tagify.on('focus', onFocus);
 
+    // タグ入力フィールドがフォーカスされたら以下が実行される
     function onFocus( e ){
-      var universityIds = []
-      var unitIds = []
-      var startYear = startYearSelect.value
-      var endYear = endYearSelect.value
+      // 出題年、大学、単元に指定した値を取得し、クエリパラメータを作成
+      var params = new URLSearchParams();
 
+      params.append("tags_search_form[start_year]", startYearSelect.value);
+      params.append("tags_search_form[end_year]", endYearSelect.value);
       for(var i=0; i < universityIdInputs.length; i++){
         if(universityIdInputs[i].checked){
-          universityIds.push(universityIdInputs[i].value);
+          params.append("tags_search_form[university_ids][]", universityIdInputs[i].value);
         }
       }
       for(var i=0; i < unitIdInputs.length; i++){
         if(unitIdInputs[i].checked){
-          unitIds.push(unitIdInputs[i].value);
+          params.append("tags_search_form[unit_ids][]", unitIdInputs[i].value);
         }
       }
 
-      console.log(startYear);
-      console.log(endYear);
-      console.log(unitIds);
-      console.log(universityIds);
-
-      tagify.whitelist = null // reset the whitelist
+      tagify.whitelist = null; // reset the whitelist
 
       // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
-      controller && controller.abort()
-      controller = new AbortController()
+      controller && controller.abort();
+      controller = new AbortController();
 
       // show loading animation and hide the suggestions dropdown
-      tagify.loading(true).dropdown.hide()
+      tagify.loading(true).dropdown.hide();
 
-      fetch('http://get_suggestions.com?value=' + value, {signal:controller.signal})
-        .then(RES => RES.json())
-        .then(function(newWhitelist){
-          tagify.whitelist = newWhitelist // update whitelist Array in-place
-          tagify.loading(false).dropdown.show(value) // render the suggestions dropdown
+      // ajaxを送信して、タグを取得しsuggestionに表示する
+      fetch(questionsTagsPath + "/?" + params.toString(), {signal:controller.signal})
+        .then(response => response.json())
+        .then(function(newWhiteList){
+          tagify.whitelist = newWhiteList; // update whitelist Array in-place
+          tagify.loading(false).dropdown.show(); // render the suggestions dropdown
         })
     }
   }

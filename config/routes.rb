@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  resources :questions_tags, only: %i[index]
+
   resources :answers, only: [] do
     resource :files, only: %i[destroy]
   end
