@@ -1,6 +1,6 @@
 @import "variables";
 
-$profile-image-size: 80px;
+$avatar-size: 80px;
 
 .delete-account {
   color: red;
@@ -37,24 +37,22 @@ $profile-image-size: 80px;
 
 // プロフィール画像
 .avatar img {
-  width: $profile-image-size;
-  height: $profile-image-size;
   border-radius: 100px;
 }
 
 .user-form .avatar-label {
     // 画面サイズ1200px以上の時
   @media only screen and (min-width: 1200px){
-    margin-top: calc(($profile-image-size - $font-size-large)/2);
+    margin-top: calc(($avatar-size - $font-size-large)/2);
   }
 
   // 画面サイズ1200px以下の時
   @media only screen and (max-width: 1199.98px){
-    margin-top: calc(($profile-image-size - $font-size-medium)/2);
+    margin-top: calc(($avatar-size - $font-size-medium)/2);
   }
 
   // 画面サイズ576px以下の時
   @media only screen and (max-width: 575.98px){
-    margin-top: calc(($profile-image-size - $font-size-small)/2);
+    margin-top: calc(($avatar-size - $font-size-small)/2);
   }
 }

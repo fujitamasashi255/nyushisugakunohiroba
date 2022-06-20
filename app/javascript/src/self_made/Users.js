@@ -1,4 +1,4 @@
-import {previewFile} from "src/self_made/PreviewFile"
+import {previewAvatar} from "src/self_made/PreviewFile"
 
 
 $(function(){
@@ -9,7 +9,7 @@ $(function(){
     if(file){
       const preview = $("#avatar-preview");
       preview.empty();
-      previewFile(file, null, preview);
+      previewAvatar(file, preview);
     }
   });
 })
