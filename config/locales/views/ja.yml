@@ -74,6 +74,10 @@ ja:
     questions:
       index:
         search_form_description: "検索条件を指定する"
+      show:
+        other_users_answers:
+          title: "他のユーザーの解答"
+          description: "カードをクリックすると、解答の詳細を見ることができます。"
     sidebar_layout:
       account: "アカウント"
     logout_sidebar:

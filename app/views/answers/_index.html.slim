@@ -1,0 +1,8 @@
+/ 画面サイズmd以上：2列、md以下:1列
+.container
+  .row id="answers-index"
+    / カード部分
+    = render partial: "/answers/other_users_answers", collection: other_users_answers, as: :answer, locals: { question: question }
+
+div id="other_users_answers_pagination"
+  = render "shared/pagy", { pagy: pagy }

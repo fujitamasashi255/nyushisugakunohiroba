@@ -33,6 +33,8 @@ class Answer < ApplicationRecord
   has_rich_text :point
   acts_as_taggable_on :tags
 
+  delegate :name, to: :user, prefix: true, allow_nil: true
+
   validates \
     :files, \
     content_type: Answer::VALID_CONTENT_TYPES, \

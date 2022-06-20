@@ -68,7 +68,7 @@ $file-height: 500px;
 // 問題文ドロップダウン の最大高さ
 #dropdownQuestionImage {
   max-height: 500px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: 2px solid blue;
 }
 
@@ -117,7 +117,7 @@ $file-height: 500px;
   trix-editor, #tab-point-result {
     height: 300px;
     background-color: white;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 20px;
   }
 }
@@ -150,8 +150,6 @@ $file-height: 500px;
 
 .answer-form .files {
   img {
-    max-height: $file-height;
-    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -189,7 +187,7 @@ $file-height: 500px;
 // answer 詳細
 .answer-show {
   .point-field {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 300px;
     background-color: white;
     padding: 1em;
@@ -242,4 +240,20 @@ $file-height: 500px;
       width: 100%;
     }
   }
+}
+
+//answer一覧
+.answer-card i {
+  font-size: 1.5rem;
+  color: black;
+}
+
+.answer-card {
+  background-color: rgb(214, 212, 212);
+  height: 350px;
+  overflow-y: auto;
+}
+
+.answer-card .point {
+  background-color: white;
 }

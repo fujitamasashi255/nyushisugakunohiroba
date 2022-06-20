@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
+  skip_before_action :require_login, only: %i[show]
   before_action :set_answer, only: %i[show edit update destroy]
   before_action :set_question, only: %i[new create show edit update destroy]
 

@@ -10,8 +10,9 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    set_question_association_without_tex
+    @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
+    @pagy, @other_users_answers = pagy(@question.answers.includes(:rich_text_point, :tags, user: { avatar_attachment: :blob }).where.not(user_id: current_user&.id), link_extra: 'data-remote="true"')
   end
 
   def search
@@ -24,10 +25,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def set_question_association_without_tex
-    @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
-  end
 
   def questions_search_form_params
     params.require(:questions_search_form).permit(:start_year, :end_year, :tag_names, :sort_type, university_ids: [], unit_ids: [])

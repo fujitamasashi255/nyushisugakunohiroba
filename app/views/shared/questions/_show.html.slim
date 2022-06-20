@@ -20,7 +20,7 @@
           / 区分
           .departments.text-nowrap
             -if question.departments.present?
-              = render "/shared/departments/departments", {departments: question.departments, question: question}
+              = render "/shared/departments/departments", { departments: question.departments, question: question }
 
         .py-2
 
@@ -38,4 +38,14 @@
             div.question-image
               = image_tag question.image_url(:show), class: "bg-white p-3 img-fluid", loading: "lazy"
 
+/ generalのページでは、他のユーザーの解答一覧を表示する
+- unless admin_controller?(controller)
+  - if other_users_answers.present?
+    .py-3
 
+    .other_users_answers
+      h5
+        = t(".other_users_answers.title")
+      small
+        = t(".other_users_answers.description")
+      = render "/answers/index", { question: question, other_users_answers: other_users_answers, pagy: pagy }
