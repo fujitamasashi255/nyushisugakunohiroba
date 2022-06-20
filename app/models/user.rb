@@ -28,6 +28,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  # ログイン記憶フォームで利用する仮想属性
   attribute :remember, :boolean, default: -> { false }
 
   # ユーザー作成時にデフォルトのavatarをattachする
@@ -65,6 +66,11 @@ class User < ApplicationRecord
   # ユーザーの作成した解答のidをvalue、その問題のidをkeyとするhashを作成
   def question_id_to_answer_id_hash
     answers.map { |answer| [answer.question_id, answer.id] }.to_h
+  end
+
+  # ユーザーがanswer
+  def own_answer?(answer)
+    answers.include?(answer)
   end
 
   private

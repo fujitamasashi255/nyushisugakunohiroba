@@ -2,14 +2,20 @@
 - content_for(:page_title, t(".title"))
 
 .d-flex.fixed-top.justify-content-end.answer-top-icons
-  / 解答編集ページへの戻るアイコン
+  / 解答がユーザーのものの場合のみ、解答編集へのリンク、削除リンクを表示する
+  - if logged_in? & current_user&.own_answer?(@answer)
+    / 解答編集ページへの戻るアイコン
+    .me-2
+      = link_to edit_answer_path(@answer) do
+        i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_edit")
+    / 問題削除アイコン
+    .me-2
+      = link_to answer_path(@answer), method: :delete, data: { confirm: t(".destroy_confirm") } do
+        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="left" title=t(".destroy")
+  / 問題詳細ページへのリンクアイコン
   .me-2
-    = link_to edit_answer_path(@answer) do
-      i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_edit")
-  / 問題削除アイコン
-  .me-2
-    = link_to answer_path(@answer), method: :delete, data: { confirm: t(".destroy_confirm") } do
-      i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="left" title=t(".destroy")
+    = link_to question_path(@question) do
+      i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_question")
   / 問題文表示
   .dropdown
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
@@ -27,6 +33,7 @@
   - if @answer.contents_present?
     .row
       - if @answer.tags.present?
+        / タグ
         .tags.col-lg-6.order-lg-2
           label.d-block.mb-2
             = Answer.human_attribute_name(:tag_list)
