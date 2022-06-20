@@ -37,26 +37,19 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
-
-// ページを読み込んだ際に、選択されている大学名をボタンに表示
 $(function(){
+  // questionカードが、スクロール後元に戻るようにする
+  $(".question-card").on("mouseleave", function(){
+    $(this).scrollTop(0);
+  });
+  // ページを読み込んだ際に、選択されている大学名をボタンに表示
   var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
   var dropDownButton = $('.search-form-universities button');
   displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
-});
-
-// 検索フォーム大学選択チェックボックス選択時に、選択した大学名をボタンに表示
-$(function(){
+  // 検索フォーム大学選択チェックボックス選択時に、選択した大学名をボタンに表示
   $('.search-form-universities input[type="checkbox"]').on('change', function(){
     var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
     var dropDownButton = $('.search-form-universities button');
     displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
-  });
-});
-
-// questionカードが、スクロール後元に戻るようにする
-$(function(){
-  $(".question-card").on("mouseleave", function(){
-    $(this).scrollTop(0);
   });
 });
