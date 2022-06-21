@@ -37,6 +37,7 @@ class Question < ApplicationRecord
       .where(tags: { name: tag_list })\
       .distinct
   }
+  scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }) }
 
   def units
     Unit.find(questions_units_mediators.map(&:unit_id))

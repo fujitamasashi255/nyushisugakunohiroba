@@ -35,6 +35,15 @@ class University < ApplicationRecord
       .where.not(questions: { id: nil }) \
       .distinct
   }
+
+  # userの、questionを持つ大学に絞る
+  scope :by_have_question_of_user, lambda { |user|
+    joins(departments: { questions: :answers })\
+      .where.not(questions: { id: nil })\
+      .where(answers: { user_id: user.id })\
+      .distinct
+  }
+
   default_scope { order(:prefecture_id) }
 
   private

@@ -4,7 +4,8 @@ class AnswersController < ApplicationController
   skip_before_action :require_login, only: %i[show] # 解答詳細はログイン不要
 
   def index
-    @pagy, @answers = pagy(current_user.answers.includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
+    @answers_search_form = AnswersSearchForm.new(specific_search_condition: AnswersSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
+    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
   end
 
   def new
@@ -68,6 +69,12 @@ class AnswersController < ApplicationController
     redirect_to @question, success: t(".success")
   end
 
+  def search
+    @answers_search_form = AnswersSearchForm.new(answers_search_form_params)
+    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, :tag_taggings, question: [:questions_departments_mediators, { departments: :university, image_attachment: :blob }]), link_extra: 'data-remote="true"')
+    render "answers/index"
+  end
+
   private
 
   def answer_params
@@ -76,6 +83,10 @@ class AnswersController < ApplicationController
 
   def tex_params
     params.require(:answer).permit(tex: %i[code pdf_blob_signed_id id _destroy])[:tex]
+  end
+
+  def answers_search_form_params
+    params.require(:answers_search_form).permit(:start_year, :end_year, :tag_names, :sort_type, university_ids: [], unit_ids: [])
   end
 
   # texにpdfをattachし、texをanserに関連づける

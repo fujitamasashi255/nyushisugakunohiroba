@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[new create show edit update destroy] do
-    resources :answers, only: %i[index]
+    resources :answers, only: %i[index] do
+      # 解答検索、並び替え
+      get :search, on: :collection
+    end
   end
 
   resources :questions_tags, only: %i[index]
