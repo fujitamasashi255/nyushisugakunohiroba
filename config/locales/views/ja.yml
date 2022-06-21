@@ -55,10 +55,12 @@ ja:
       answer:
         create: "解答を作成する"
         update: "解答を更新する"
+      answers_search_form:
+        create: "検索する"
   decorators:
     answer:
       close: "閉じる"
-      open: "TeXで解答を書く"
+      open: "解答を書く"
 
   cocoon:
     departments:
@@ -77,7 +79,9 @@ ja:
       show:
         other_users_answers:
           title: "他のユーザーの解答"
-          description: "カードをクリックすると、解答の詳細を見ることができます。"
+          description: "解答をクリックすると、詳細を見ることができます。"
+      search_form:
+        hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
     sidebar_layout:
       account: "アカウント"
     logout_sidebar:
@@ -117,9 +121,12 @@ ja:
       select_file: "ファイルを選択"
       files_hint: "1MB以下の画像またはPDFを3つまで"
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
+    search_form:
+      search_form_description: "検索条件を指定する"
+      hint: "指定した「出題年」、「大学」、「単元」にマッチするあなたの解答につけられたタグの一覧が表示されます"
     index:
       title: "作成した解答一覧"
-      description: "カードをクリックすると、解答の詳細を見ることができます。"
+      description: "解答をクリックすると、詳細を見ることができます。"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示する"
@@ -146,9 +153,7 @@ ja:
       fail: "解答を更新できませんでした"
     destroy:
       success: "解答を削除しました"
-  tags:
-    form:
-      hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
+
 
 
   users:
