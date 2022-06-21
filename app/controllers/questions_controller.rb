@@ -19,8 +19,6 @@ class QuestionsController < ApplicationController
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
     @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true"')
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
-    # 並び替えリンクurlのクエリパラメータ
-    @questions_search_form_params = questions_search_form_params
     render "questions/index"
   end
 
