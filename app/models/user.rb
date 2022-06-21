@@ -68,7 +68,7 @@ class User < ApplicationRecord
     answers.map { |answer| [answer.question_id, answer.id] }.to_h
   end
 
-  # ユーザーがanswer
+  # ユーザーがanswerを作成したか判定
   def own_answer?(answer)
     answers.include?(answer)
   end

@@ -2,6 +2,7 @@
 
 module ApplicationHelper
   include Pagy::Frontend
+
   # アクティブなメニューを判定
   def active_if(*paths)
     active_link?(*paths) ? "active" : nil
