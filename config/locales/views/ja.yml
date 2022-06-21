@@ -117,6 +117,9 @@ ja:
       select_file: "ファイルを選択"
       files_hint: "1MB以下の画像またはPDFを3つまで"
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
+    index:
+      title: "作成した解答一覧"
+      description: "カードをクリックすると、解答の詳細を見ることができます。"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示する"

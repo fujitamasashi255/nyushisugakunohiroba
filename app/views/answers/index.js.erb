@@ -1,0 +1,9 @@
+var answersElem = document.getElementById('answers-index');
+var paginationElem = document.getElementById('answers-pagination');
+answersElem.innerHTML = "<%= j(render partial: "/answers/my_answers", collection: @answers, as: :answer) %>";
+paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
+Pagy.init(paginationElem);
+answersElem.scrollIntoView();
+var pointElems = document.querySelectorAll(".trix-content")
+MathJax.typeset(pointElems);
+

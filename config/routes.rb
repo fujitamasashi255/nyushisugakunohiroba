@@ -5,9 +5,13 @@ Rails.application.routes.draw do
   # ユーザーページのルーティング
   root to: "static_pages#top"
   resources :questions, only: %i[index show] do
-    resources :answers, shallow: true
+    resources :answers, only: %i[new create show edit update destroy], shallow: true
     # 問題検索、並び替え
     get :search, on: :collection
+  end
+
+  resources :users, only: %i[new create show edit update destroy] do
+    resources :answers, only: %i[index]
   end
 
   resources :questions_tags, only: %i[index]
@@ -19,7 +23,6 @@ Rails.application.routes.draw do
   resource :pdfs, only: %i[create]
   resources :texes, only: %i[destroy]
 
-  resources :users, only: %i[new create show edit update destroy]
   get "login" => "user_sessions#new", :as => :login
   post "login" => "user_sessions#create"
   delete "logout" => "user_sessions#destroy", :as => :logout

@@ -34,6 +34,7 @@ class Answer < ApplicationRecord
   acts_as_taggable_on :tags
 
   delegate :name, to: :user, prefix: true, allow_nil: true
+  delegate :year, :image, :image_url, to: :question, prefix: true, allow_nil: true
 
   validates \
     :files, \

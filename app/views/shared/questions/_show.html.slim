@@ -43,9 +43,12 @@
   - if other_users_answers.present?
     .py-3
 
-    .other_users_answers
+    - content_for :answer_partial do
+        = render partial: "/answers/another_user_answer", collection: other_users_answers, as: :answer, locals: { question: question }
+
+    .other-users-answers
       h5
         = t(".other_users_answers.title")
       small
         = t(".other_users_answers.description")
-      = render "/answers/index", { question: question, other_users_answers: other_users_answers, pagy: pagy }
+      = render "/answers/answers", { question: question, other_users_answers: other_users_answers, pagy: pagy }

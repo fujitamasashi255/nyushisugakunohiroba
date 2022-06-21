@@ -1,0 +1,9 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+- content_for :note do
+  = t(".description")
+
+- content_for :answer_partial do
+    = render partial: "/answers/my_answers", collection: @answers, as: :answer
+
+= render partial: "/answers/answers", locals: { pagy: @pagy }

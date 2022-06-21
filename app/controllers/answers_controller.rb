@@ -3,7 +3,9 @@
 class AnswersController < ApplicationController
   skip_before_action :require_login, only: %i[show] # 解答詳細はログイン不要
 
-  def index; end
+  def index
+    @pagy, @answers = pagy(current_user.answers.includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
+  end
 
   def new
     @question = Question.includes({ departments: [:university] }).find(params[:question_id])

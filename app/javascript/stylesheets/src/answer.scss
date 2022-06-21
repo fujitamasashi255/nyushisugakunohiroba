@@ -96,11 +96,6 @@ $file-height: 500px;
   border-bottom: 2px solid blue;
 }
 
-// 注意書き
-.answer-form-note {
-  font-size: 0.7rem;
-}
-
 // 解答フォーム全体
 .answer-form-field, .answer-show {
   background-color: $whitesmoke;
@@ -243,6 +238,7 @@ $file-height: 500px;
 }
 
 //answer一覧
+// 問題詳細ページとユーザー解答一覧ページの共通設定
 .answer-card i {
   font-size: 1.5rem;
   color: black;
@@ -250,10 +246,24 @@ $file-height: 500px;
 
 .answer-card {
   background-color: rgb(214, 212, 212);
-  height: 350px;
   overflow-y: auto;
+  font-size: 0.8rem;
+}
+
+.answer-card:hover {
+  background-color: $silver;
 }
 
 .answer-card .point {
   background-color: white;
+}
+
+// 問題詳細ページの他ユーザーの解答一覧
+.another-user-answer .answer-card {
+  height: 350px;
+}
+
+// ユーザー解答一覧
+.my-answer .answer-card-inner {
+  height: 420px;
 }
