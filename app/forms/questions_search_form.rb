@@ -36,7 +36,7 @@ class QuestionsSearchForm
       # tag_names="tag1, tag2"をtag_list=["tag1", "tag2"]へ
       tag_list = tag_names.split(",")
 
-      relation = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] })
+      relation = Question.all
 
       # 大学名によるquestionの絞り込み
       if university_ids_no_blank.present?
