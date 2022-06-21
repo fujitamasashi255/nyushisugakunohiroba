@@ -1,0 +1,8 @@
+/ 画面サイズmd以上：2列、md以下:1列
+.container
+  .row id="answers-index"
+    / カード部分
+    = content_for :answer_partial
+
+div id="answers-pagination"
+  = render "shared/pagy", pagy: pagy
