@@ -47,6 +47,7 @@
         = render partial: "/answers/another_user_answer", collection: other_users_answers, as: :answer, locals: { question: question }
 
     .other-users-answers
+      .sort-links
       h5
         = t(".other_users_answers.title")
       small
