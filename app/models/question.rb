@@ -37,6 +37,7 @@ class Question < ApplicationRecord
       .where(tags: { name: tag_list })\
       .distinct
   }
+  scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }) }
   scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }) }
 
   def units
@@ -45,6 +46,11 @@ class Question < ApplicationRecord
 
   def unit_ids
     units.pluck(:id)
+  end
+
+  # questionの解答のうち、userのものを返す
+  def answer_of_user(user)
+    answers.find_by(user_id: user.id)
   end
 
   # 同じ単元を持つ問題に対してユーザーがつけたタグを返す

@@ -38,5 +38,5 @@ UseMultipartAlternativeAsContentTypeOfEmailCheck: { }
 UseObserverCheck: { }
 UseQueryAttributeCheck: { }
 UseSayWithTimeInMigrationsCheck: { }
-UseScopeAccessCheck: { }
+UseScopeAccessCheck: { ignored_files: "controllers/answers_controller" }
 UseTurboSprocketsRails3Check: { }

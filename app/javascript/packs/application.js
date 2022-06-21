@@ -16,7 +16,9 @@ import "src/self_made/TexCompile"
 import "src/self_made/AnswerForm"
 import "src/self_made/AnswersIndex"
 import "src/MathJax"
-import "src/Tag"
+import "src/CreateEditAnswerTags"
+import "src/QuestionsSearchTags"
+import "src/AnswersSearchTags"
 import "src/ActionText"
 
 import I18n from 'src/i18n-js/index.js.erb'

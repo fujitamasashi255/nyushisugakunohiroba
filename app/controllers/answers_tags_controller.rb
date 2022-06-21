@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-class QuestionsTagsController < ApplicationController
-  skip_before_action :require_login
-
+class AnswersTagsController < ApplicationController
   def index
     tags_search_form = TagsSearchForm.new(tags_search_form_params)
-    tags = tags_search_form.search_from_questions
+    tags = tags_search_form.search_from_answers(current_user)
     render json: tags.map { |tag| { value: tag.name, taggings_count: tag.taggings_count } }
   end
 

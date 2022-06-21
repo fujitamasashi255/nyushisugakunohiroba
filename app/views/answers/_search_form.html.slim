@@ -1,5 +1,5 @@
 / 検索フォーム
-.container.search-form-wrapper
+.container.answers-search-form
   .d-flex.align-items-center
     div
       = t(".search_form_description")
@@ -65,11 +65,11 @@
           .py-2
 
           / タグ選択
-          .row.search-form-units
+          .row.search-form-tags
             .col-sm-2.form-check-label.pt-sm-2
               = Tag.model_name.human
             .col-sm-10
-              = render "/tags/form", f: f
+              = render "/tags/form", f: f, hint: t(".hint")
 
             .py-2
 

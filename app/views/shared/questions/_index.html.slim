@@ -10,7 +10,7 @@
 / content_for(:question_partial)
 
 / 検索フォーム
-.container.search-form-wrapper
+.container.questions-search-form
   - if questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
       .container.border.p-3.search-form
           = render search_form_path, questions_search_form: questions_search_form
