@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
-  skip_before_action :require_login, only: %i[show]
-  before_action :set_answer, only: %i[show edit update destroy]
-  before_action :set_question, only: %i[new create show edit update destroy]
+  skip_before_action :require_login, only: %i[show] # 解答詳細はログイン不要
 
   def index; end
 
   def new
+    @question = Question.includes({ departments: [:university] }).find(params[:question_id])
     answer_id = current_user.question_id_to_answer_id_hash[@question.id]
     if answer_id
       # 当該の問題の解答を既に作成している場合は編集ページへredirect
@@ -21,6 +20,7 @@ class AnswersController < ApplicationController
   end
 
   def create
+    @question = Question.includes({ departments: [:university] }).find(params[:question_id])
     @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], tag_list: answer_params[:tag_list], files: answer_params[:files])
     set_tex
     if @answer.save
@@ -33,30 +33,37 @@ class AnswersController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
+    set_question
+  end
 
   def edit
+    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
+    set_question
     set_tag_suggestions
   end
 
   def update
+    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
+
     set_tex
     if @answer.update(answer_params)
       redirect_to @answer, success: t(".success")
     else
       # update失敗はファイル登録失敗時のみ
       # ファイル登録失敗時は、エラーメッセージと共に、元々登録されていたファイルを表示する
-      errors = @answer.errors
-      set_answer
-      errors[:files].each { |error| @answer.errors.add(:files, error) }
+      @answer.files = Answer.find(params[:id]).files.blobs
       flash.now[:danger] = t(".fail")
       render "answers/edit"
     end
   end
 
   def destroy
+    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
+    @question = @answer.question
     @answer.destroy!
-    redirect_to question_path(@question), success: t(".success")
+    redirect_to @question, success: t(".success")
   end
 
   private
@@ -69,18 +76,6 @@ class AnswersController < ApplicationController
     params.require(:answer).permit(tex: %i[code pdf_blob_signed_id id _destroy])[:tex]
   end
 
-  def set_answer
-    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
-  end
-
-  def set_question
-    @question = if params[:question_id]
-                  Question.includes({ departments: [:university] }).find(params[:question_id])
-                else
-                  @answer.question
-                end
-  end
-
   # texにpdfをattachし、texをanserに関連づける
   def set_tex
     if @answer.tex.nil?
@@ -91,6 +86,11 @@ class AnswersController < ApplicationController
     end
     # texにpdfをattachする
     @tex.attach_pdf
+  end
+
+  # question をセット
+  def set_question
+    @question = @answer.question
   end
 
   # ユーザーが同じ分野の問題につけたタグの一覧を取得する

@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     else
       if @user.errors.include?(:avatar)
         # ファイル登録失敗時は、エラーメッセージと共に、元々登録されていたファイルを表示する
-        @user.avatar.blob = User.find(params[:id]).avatar.blob
+        @user.avatar = User.find(params[:id]).avatar.blob
       else
         # ファイル登録成功時は、そのファイルを保存し、フォームに表示する
         change = @user.attachment_changes["avatar"]
