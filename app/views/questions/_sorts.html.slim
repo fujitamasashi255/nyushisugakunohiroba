@@ -8,9 +8,12 @@
         - when "year_new"
           = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
             class: (active_if(questions_path) || active_sort_link_if(questions_search_form, sort_type))
-        - when "bookmark_many"
+        - when "answers_many"
           = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
             class: active_sort_link_if(questions_search_form, sort_type)
-        - when "like_many"
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
-            class: active_sort_link_if(questions_search_form, sort_type)
+        / - when "bookmarks_many"
+        /   = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
+        /     class: active_sort_link_if(questions_search_form, sort_type)
+        / - when "like_many"
+        /   = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), url_with_params(search_questions_path, sort_type, questions_search_form_params), \
+        /     class: active_sort_link_if(questions_search_form, sort_type)

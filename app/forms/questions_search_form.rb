@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsSearchForm
-  SORT_TYPES = %w[year_new created_at_new bookmark_many like_many].each(&:freeze).freeze
+  SORT_TYPES = %w[year_new created_at_new answers_many].each(&:freeze).freeze
   SPECIFIC_CONDITIONS_ENUM = { nothing: 0, no_data: 1, all_data: 2 }.each_value(&:freeze).freeze
 
   include ActiveModel::Model
@@ -68,9 +68,7 @@ class QuestionsSearchForm
         relation = relation.order(year: :desc)
       when "created_at_new"
         relation = relation.order(created_at: :desc)
-      when "bookmark_many"
-        relation
-      when "like_many"
+      when "answers_many"
         relation
       end
 
