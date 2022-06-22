@@ -5,3 +5,8 @@ questionsElem.innerHTML = "<%= j(render partial: '/questions/question', layout: 
 paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
 Pagy.init(paginationElem);
 scrollToElem.scrollIntoView();
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+});

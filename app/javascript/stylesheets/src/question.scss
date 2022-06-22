@@ -79,6 +79,14 @@
 
 // 大学名横のアイコン
 //ブックマークアイコン
+.question-card i {
+  font-size: 2rem;
+}
+
+.question-card .univ-name-year-info{
+  height: 1.5rem;
+}
+
 .question-card .bi-bookmark{
   color: $deepsilver;
 }

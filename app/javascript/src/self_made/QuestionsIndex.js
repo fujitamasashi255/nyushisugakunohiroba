@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 $(function(){
   // questionカードが、スクロール後元に戻るようにする
-  $(".question-card").on("mouseleave", function(){
+  $(document).on("mouseleave", ".question-card", function(){
     $(this).scrollTop(0);
   });
   // ページを読み込んだ際に、選択されている大学名をボタンに表示
