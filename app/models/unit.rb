@@ -12,6 +12,6 @@ class Unit < ActiveYaml::Base
   scope :subjects, -> { pluck(:subject).uniq }
 
   def questions
-    Question.find(questions_units_mediators.map(&:question_id))
+    Question.find(questions_units_mediators.pluck(:question_id))
   end
 end

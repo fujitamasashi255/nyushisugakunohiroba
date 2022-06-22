@@ -126,7 +126,7 @@ RSpec.describe Question, type: :model do
       describe "units_to_association" do
         it "問題と関連するunitをnew_unitsに変更する" do
           new_units = Unit.all.to_a[3, 3]
-          new_unit_ids = new_units.map(&:id)
+          new_unit_ids = new_units.pluck(:id)
           @question.units_to_association(new_unit_ids)
           expect(@question.units).to contain_exactly(new_units[0], new_units[1], new_units[2])
         end
@@ -147,7 +147,7 @@ RSpec.describe Question, type: :model do
           }
         }
         question.departments_to_association(questions_departments_mediator_params)
-        expect(Department.find(question.questions_departments_mediators.map(&:department_id))).to contain_exactly(new_department1, new_department2)
+        expect(Department.find(question.questions_departments_mediators.pluck(:department_id))).to contain_exactly(new_department1, new_department2)
       end
     end
 

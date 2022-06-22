@@ -65,7 +65,7 @@ class User < ApplicationRecord
 
   # ユーザーの作成した解答のidをvalue、その問題のidをkeyとするhashを作成
   def question_id_to_answer_id_hash
-    answers.map { |answer| [answer.question_id, answer.id] }.to_h
+    answers.pluck(:question_id, :id).to_h
   end
 
   # ユーザーがanswerを作成したか判定
