@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersSearchForm
-  SORT_TYPES = %w[year_new created_at_new].each(&:freeze).freeze
+  SORT_TYPES = %w[year_new updated_at_new].each(&:freeze).freeze
   SPECIFIC_CONDITIONS_ENUM = { nothing: 0, no_data: 1, all_data: 2 }.each_value(&:freeze).freeze
 
   include ActiveModel::Model
@@ -66,8 +66,8 @@ class AnswersSearchForm
       case sort_type
       when "year_new"
         relation = relation.joins(:question).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
-      when "created_at_new"
-        relation = relation.order(created_at: :desc)
+      when "updated_at_new"
+        relation = relation.order(updated_at: :desc)
       end
 
       relation

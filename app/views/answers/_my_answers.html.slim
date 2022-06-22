@@ -22,6 +22,13 @@
 
               .py-1
 
+              .created-at
+                label.me-3
+                  = Answer.human_attribute_name(:updated_at)
+                = l(answer.updated_at, format: :short)
+
+              .py-1
+
               / タグ
               .tags
                 - if answer.tags.present?
