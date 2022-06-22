@@ -1,5 +1,7 @@
 - content_for(:title, t(".title"))
-- content_for(:page_title, t(".title"))
+- content_for :page_title do
+  i.bi.bi-book.me-2
+  = t(".title")
 - content_for :note do
   = t(".description")
 
@@ -9,63 +11,10 @@
 / 検索フォーム
 = render "/answers/search_form", answers_search_form: @answers_search_form, answers: @answers
 
+.py-2
+
 / 検索条件、並び替え
-.container.question-search-conditions
-  small
-    / 検索条件を表示
-    label
-      | #{AnswersSearchForm.human_attribute_name(:search_conditions)}
-    .py-1
-    table.table-sm.table-borderless
-      tbody
-        tr
-          th.align-top.text-nowrap
-            = University.model_name.human
-          th.align-top.text-nowrap
-            | ：
-          td.align-top class="university-search-condition"
-            = @answers_search_form.search_conditions[:university]
-        tr
-          th.align-top.text-nowrap
-            = Question.human_attribute_name(:year)
-          th.align-top.text-nowrap
-            | ：
-          td.align-top class="year-search-condition"
-            = @answers_search_form.search_conditions[:question_year]
-        tr
-          th.align-top.text-nowrap
-            = Unit.model_name.human
-          th.align-top.text-nowrap
-            | ：
-          td.align-top class="unit-search-condition"
-            = @answers_search_form.search_conditions[:unit]
-        tr
-          th.align-top.text-nowrap
-            = Tag.model_name.human
-          th.align-top.text-nowrap
-            | ：
-          td.align-top class="unit-search-condition"
-            = @answers_search_form.search_conditions[:tag].join("、")
+= render "/answers/sort", answers_search_form: @answers_search_form, answers: @answers
 
-    .py-3
-
-  - if @answers.present?
-    / 問題並び替え
-    .container
-      small
-        .sort-links.d-flex.flex-row
-          label.text-nowrap
-            | #{AnswersSearchForm.human_attribute_name(:sort_type)}：
-          .px-1.d-flex.flex-column.flex-sm-row.flex-wrap
-            - AnswersSearchForm::SORT_TYPES.each do |sort_type|
-              .me-2 class= sort_type
-                - case sort_type
-                - when "year_new"
-                  = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), @answers_search_form.url_with_params(search_user_answers_path, sort_type), \
-                    class: (active_if(user_answers_path) || active_sort_link_if(@answers_search_form, sort_type))
-                - when "created_at_new"
-                  = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), @answers_search_form.url_with_params(search_user_answers_path, sort_type), \
-                    class: active_sort_link_if(@answers_search_form, sort_type)
-
-
+/ 問題一覧
 = render partial: "/answers/answers", locals: { pagy: @pagy }
