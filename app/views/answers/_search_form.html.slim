@@ -19,14 +19,14 @@
               = Question.human_attribute_name(:year)
             .col-sm-8
               .d-flex
-                = f.input_field :start_year, collection: (Question.by_answers(answers).minimum(:year)..Question.by_answers(answers).maximum(:year)).to_a.reverse, include_blank: t("common.select_blank"), class: "form-control", selected: nil
+                = f.input_field :start_year, collection: Question.by_answers(answers).order(year: :desc).distinct.pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
                 .ms-1.d-flex
                   .align-self-center
                     = t("common.year")
                 .mx-2.d-flex
                   .align-self-center
                     | 〜
-                = f.input_field :end_year, collection: (Question.by_answers(answers).minimum(:year)..Question.by_answers(answers).maximum(:year)).to_a.reverse, include_blank: t("common.select_blank"), class: "form-control", selected: nil
+                = f.input_field :end_year, collection: Question.by_answers(answers).order(year: :desc).distinct.pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
                 .ms-1.d-flex
                   .align-self-center
                     = t("common.year")
