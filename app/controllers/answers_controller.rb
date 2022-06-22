@@ -78,7 +78,7 @@ class AnswersController < ApplicationController
 
   def search
     @answers_search_form = AnswersSearchForm.new(answers_search_form_params)
-    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, :tag_taggings, question: [:questions_departments_mediators, { departments: :university, image_attachment: :blob }]), link_extra: 'data-remote="true"')
+    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
     render "answers/index"
   end
 
@@ -115,6 +115,6 @@ class AnswersController < ApplicationController
 
   # ユーザーが同じ分野の問題につけたタグの一覧を取得する
   def set_tag_suggestions
-    gon.tags = @question.tags_belongs_to_same_unit_of_user(current_user).map(&:name)
+    gon.tags = @question.tags_belongs_to_same_unit_of_user(current_user).pluck(:name)
   end
 end

@@ -65,7 +65,7 @@ class AnswersSearchForm
       # 並び替え
       case sort_type
       when "year_new"
-        relation = relation.eager_load(:question).order("questions.year desc")
+        relation = relation.joins(:question).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
       when "created_at_new"
         relation = relation.order(created_at: :desc)
       end
