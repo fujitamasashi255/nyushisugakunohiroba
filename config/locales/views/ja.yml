@@ -1,4 +1,14 @@
 ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      short: "%y/%m/%d %H:%M"
   common:
     index: "一覧"
     create: "作成する"
@@ -109,6 +119,12 @@ ja:
     index:
       title: "問題検索"
       search: "問題検索"
+    question:
+      edit_question: "解答を編集する"
+      create_question: "解答を作成する"
+      bookmark: "ブックマークする"
+      unbookmark: "ブックマークを解除する"
+      answered: "解答作成済"
     show:
       title: "問題詳細"
       new: "解答を作成する"
@@ -123,7 +139,7 @@ ja:
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
     search_form:
       search_form_description: "検索条件を指定する"
-      hint: "指定した「出題年」、「大学」、「単元」にマッチするあなたの解答につけられたタグの一覧が表示されます"
+      hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
     index:
       title: "作成した解答一覧"
       description: "解答をクリックすると、詳細を見ることができます。"

@@ -11,6 +11,7 @@ ja:
           one: "並び順"
           year_new: "出題年が新しい順"
           created_at_new: "作成日が新しい順"
+          updated_at_new: "最終更新日が新しい順"
           answers_many: "解答が多い順"
         search_conditions: "検索条件"
       answers_search_form:
@@ -139,6 +140,8 @@ ja:
         point: "ポイント"
         files: "ファイル"
         tag_list: "タグ"
+        created_at: "作成日"
+        updated_at: "最終更新日"
 
   # enum
   enums:
