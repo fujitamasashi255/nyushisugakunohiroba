@@ -26,7 +26,7 @@ class Answer < ApplicationRecord
   VALID_IMAGE_TYPES = ["image/png", "image/jpeg"].freeze
   VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
 
-  validates :question_id, uniqueness: { scope: :answer_id }
+  validates :question_id, uniqueness: { scope: :user_id }
   validates \
     :files, \
     content_type: Answer::VALID_CONTENT_TYPES, \
