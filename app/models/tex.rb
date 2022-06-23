@@ -44,7 +44,7 @@ class Tex < ApplicationRecord
     texable.image.purge if texable.image.present?
 
     # 変換して得られるpngファイルのパス、名前（拡張子除く）を取得
-    image_path = Settings.tmp_png_path
+    image_path = "#{Settings.tmp_image_dir}#{Time.current.strftime('%Y%m%d%H%M%S')}.png"
     image_name = File.basename(image_path, ".*")
     # pdfファイルをpngファイルへ変換
     pdf_vip = Vips::Image.pdfload ActiveStorage::Blob.service.path_for(pdf.key), dpi: 600

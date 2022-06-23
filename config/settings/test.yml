@@ -1,5 +1,5 @@
-tmp_pdf_path: <%= Rails.root.join("spec/test_uploads/") %>test.pdf
-tmp_png_path: <%= Rails.root.join("spec/test_uploads/") %>test.png
+tmp_pdf_dir: <%= Rails.root.join("spec/test_uploads/") %>
+tmp_image_dir: <%= Rails.root.join("spec/test_uploads/") %>
 tex_test_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}
                 \r\n
                 \\usepackage{amssymb, amsmath, tikz, enumerate}
@@ -17,4 +17,5 @@ tex_test_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}
                 \r\n
                 \\end{document}"
 
+# mailer
 host: "localhost:3000"
