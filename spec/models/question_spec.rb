@@ -72,14 +72,6 @@ RSpec.describe Question, type: :model do
       end
     end
 
-    describe "default_scope" do
-      it "問題がyearの新しい順であること" do
-        expect(Question.all.first).to eq @question3
-        expect(Question.all.second).to eq @question1
-        expect(Question.all.third).to eq @question2
-      end
-    end
-
     describe "by_university_ids" do
       it "university_idが1または2である問題が取得できること" do
         expect(Question.all.by_university_ids([1, 2])).to contain_exactly(@question2, @question3)
@@ -126,7 +118,7 @@ RSpec.describe Question, type: :model do
       describe "units_to_association" do
         it "問題と関連するunitをnew_unitsに変更する" do
           new_units = Unit.all.to_a[3, 3]
-          new_unit_ids = new_units.pluck(:id)
+          new_unit_ids = new_units.map(&:id)
           @question.units_to_association(new_unit_ids)
           expect(@question.units).to contain_exactly(new_units[0], new_units[1], new_units[2])
         end

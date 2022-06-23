@@ -72,7 +72,7 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "問題が、出題年が新しい順に表示されること" do
-        expect(current_path).to eq questions_search_form_path
+        expect(current_path).to eq search_questions_path
         expect(page).to have_selector(".university-search-condition", text: "東京、名古屋")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")

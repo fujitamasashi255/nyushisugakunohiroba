@@ -42,7 +42,7 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "単元を指定せず、問題文texのコンパイルに失敗して新規作成できること" do
-        fill_in "texコード", with: ""
+        find("#tex-code").set("")
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
         expect(page).to have_selector("#compile-result", text: "No pages of output.")
@@ -66,7 +66,7 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "単元を指定せず、問題文texをコンパイルして新規作成できること" do
-        fill_in "texコード", with: Settings.tex_test_code
+        find("#tex-code").set(Settings.tex_test_code)
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました")
         expect(page).to have_selector("iframe[type='application/pdf']")
@@ -161,7 +161,7 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "問題文texのコンパイルに失敗すると問題文が登録されないこと" do
-        fill_in "texコード", with: ""
+        find("#tex-code").set("")
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
         expect(page).to have_selector("#compile-result", text: "No pages of output.")
@@ -174,6 +174,7 @@ RSpec.describe "Questions", type: :system, js: true do
   describe "問題一覧機能" do
     before do
       create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理", Settings.tex_test_code)
+      create_question(2010, "名古屋", "理系", 7, "II", "三角関数", Settings.tex_test_code)
       visit admin_questions_path
     end
 
@@ -186,13 +187,11 @@ RSpec.describe "Questions", type: :system, js: true do
     end
 
     it "問題を削除できること" do
+      question = Question.find_by(year: 2000)
       page.accept_confirm("本当に削除しますか") do
-        within(".question-card") do
-          find(".bi-trash").click
-        end
+        find("a[href='#{admin_question_path(question)}'] .bi-trash").click
       end
       expect(page).not_to have_content "東京"
-      expect(page).to have_content "見つかりませんでした"
     end
   end
 
