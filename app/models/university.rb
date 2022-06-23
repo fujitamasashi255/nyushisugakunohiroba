@@ -49,6 +49,6 @@ class University < ApplicationRecord
   private
 
   def different_departments?
-    errors.add(:base, :different_departments?) if departments.pluck(:name).uniq.size < departments.size
+    errors.add(:base, :different_departments?) if departments.map(&:name).uniq.size < departments.size
   end
 end

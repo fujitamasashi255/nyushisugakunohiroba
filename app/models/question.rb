@@ -38,7 +38,7 @@ class Question < ApplicationRecord
       .distinct
   }
   scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }) }
-  scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.pluck(:id) }) }
+  scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }) }
 
   def units
     Unit.find(questions_units_mediators.pluck(:unit_id))
@@ -110,13 +110,13 @@ class Question < ApplicationRecord
 
   # questionのdepartmentsが属するuniversityが1つだけかチェック
   def departments_belong_to_same_university?
-    depts = Department.find(questions_departments_mediators.pluck(:department_id))
-    errors.add(:base, :departments_belong_to_same_university?) if depts.pluck(:university_id).uniq.size > 1
+    depts = Department.find(questions_departments_mediators.map(&:department_id))
+    errors.add(:base, :departments_belong_to_same_university?) if depts.map(&:university_id).uniq.size > 1
   end
 
   # 同じ学部に2回以上登録できないことをチェック
   def different_departments?
-    dept_ids = questions_departments_mediators.pluck(:department_id)
+    dept_ids = questions_departments_mediators.map(&:department_id)
     errors.add(:base, :has_different_departments?) if dept_ids.uniq.size < dept_ids.size
   end
 

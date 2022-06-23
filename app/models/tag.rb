@@ -8,6 +8,6 @@ class Tag < ApplicationRecord
       .joins("INNER JOIN answers ON answers.id = taggings.taggable_id")\
       .joins("INNER JOIN questions ON answers.question_id = questions.id")\
       .distinct\
-      .where(questions: { id: questions.pluck(:id) })
+      .where(questions: { id: questions.map(&:id) })
   }
 end
