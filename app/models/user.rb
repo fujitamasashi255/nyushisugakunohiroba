@@ -75,6 +75,7 @@ class User < ApplicationRecord
 
   private
 
+  # コールバック
   def default_avatar
     return if avatar.attached?
 
