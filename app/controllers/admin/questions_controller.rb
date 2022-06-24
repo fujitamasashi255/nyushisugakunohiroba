@@ -3,7 +3,6 @@
 class Admin::QuestionsController < Admin::ApplicationController
   before_action :set_question_association_without_tex, only: %i[show]
   before_action :set_question_association_without_image, only: %i[edit]
-  before_action :set_question, only: %i[update destroy]
 
   def index
     @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
@@ -33,6 +32,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   def edit; end
 
   def update
+    @question = Question.find(params[:id])
     set_tex_and_attach_image
     if update_question_transaction
       redirect_to [:admin, @question], success: t(".success")
@@ -43,6 +43,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def destroy
+    @question = Question.includes(answers: [:tex, :rich_text_point, :tags, { files_attachments: :blob }]).find(params[:id])
     @question.destroy!
     redirect_to admin_questions_path, success: t(".success")
   end
@@ -87,11 +88,6 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   # set objects
-
-  def set_question
-    @question = Question.find(params[:id])
-  end
-
   def set_question_association_without_tex
     @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
   end
