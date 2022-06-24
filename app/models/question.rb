@@ -10,12 +10,6 @@
 #  updated_at :datetime         not null
 #
 class Question < ApplicationRecord
-  validates :year, presence: true
-  validate :departments_belong_to_same_university?
-  validate :questions_departments_mediators?
-  validate :year_dept_number_set_unique?
-  validate :different_departments?
-
   has_many :questions_departments_mediators, dependent: :destroy
   has_many :departments, through: :questions_departments_mediators
   has_many :questions_units_mediators, dependent: :destroy
@@ -26,6 +20,13 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :tex, reject_if: :all_blank
 
   delegate :name, to: :university, prefix: true, allow_nil: true
+
+  validates :year, presence: true
+  validate :departments_belong_to_same_university?
+  validate :questions_departments_mediators?
+  validate :year_dept_number_set_unique?
+  validate :different_departments?
+  validates :image, attached: true
 
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }

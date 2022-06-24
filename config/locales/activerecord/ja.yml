@@ -58,6 +58,8 @@ ja:
           attributes:
             year:
               blank: "を入力して下さい"
+            image:
+              blank: "を作成して下さい"
             base:
               questions_departments_mediators?: "区分を登録して下さい"
               departments_belong_to_same_university?: "異なる大学に登録することはできません"
