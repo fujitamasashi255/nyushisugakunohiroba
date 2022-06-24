@@ -69,7 +69,7 @@ class QuestionsSearchForm
       when "created_at_new"
         relation = relation.order(created_at: :desc)
       when "answers_many"
-        relation = relation.joins(:answers).group("questions.id").order(Arel.sql("count(answers.id) desc"))
+        relation = relation.left_joins(:answers).select("questions.*, COUNT(answers.id)").group("questions.id").order(Arel.sql("COUNT(answers.id) desc"))
       end
 
       relation
