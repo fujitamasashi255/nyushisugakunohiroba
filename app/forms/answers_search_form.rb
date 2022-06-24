@@ -57,7 +57,7 @@ class AnswersSearchForm
       end
 
       # タグによるquestionの絞り込み
-      if tag_list.present?
+      if tag_name_array.present?
         relation = relation.by_tag_name_array(tag_name_array).distinct
         search_conditions[:tag] = tag_name_array
       end
