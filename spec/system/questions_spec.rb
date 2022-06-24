@@ -27,9 +27,9 @@ RSpec.describe "Questions", type: :system, js: true do
 
   describe "問題検索・並び替え機能" do
     before do
-      create_question(2020, "京都", "文系", 5, "I", "図形と計量")
-      create_question(2010, "名古屋", "理系", 7, "II", "三角関数")
-      create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理")
+      create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
+      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
+      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
       visit questions_path
     end
 

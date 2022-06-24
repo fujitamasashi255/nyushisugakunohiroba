@@ -12,6 +12,7 @@
 FactoryBot.define do
   factory :question do
     year { (1980..Time.current.year).to_a.sample }
+    image { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/avatar_test.png"), "image/png") }
 
     # build(:question, :has_a_department_with_question_number, year: "hoge", department: fuga, question_number: 1)
     trait :has_a_department_with_question_number do
@@ -71,6 +72,21 @@ FactoryBot.define do
         evaluator.unitz.each do |unit|
           question.questions_units_mediators << build(:questions_units_mediator, unit_id: unit.id)
         end
+      end
+    end
+
+    # create(:question, :full_custom, year: 2000, department: department, question_number: 10, unit:"数と式・集合と論理")
+    trait :full_custom do
+      transient do
+        department { department { create(:department) } }
+        question_number { 10 }
+        unit { "数と式・集合と論理" }
+      end
+
+      before(:create) do |question, evaluator|
+        question.questions_departments_mediators << build(:questions_departments_mediator, department: evaluator.department, question_number: evaluator.question_number)
+        unit = Unit.find_by(name: evaluator.unit)
+        question.questions_units_mediators << build(:questions_units_mediator, unit:)
       end
     end
   end

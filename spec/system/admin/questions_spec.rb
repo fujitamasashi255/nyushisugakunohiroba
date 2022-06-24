@@ -32,40 +32,13 @@ RSpec.describe "Questions", type: :system, js: true do
         select 10, from: "問題番号"
       end
 
-      it "単元を指定せず、問題文texをコンパイルせず新規作成できること" do
+      it "問題文texをコンパイルせず新規作成できないこと" do
         click_button "問題を作成する"
-        expect(page).to have_content "問題を作成しました"
-        expect(page).to have_content "2000"
-        expect(page).to have_content "東京"
-        expect(page).to have_content "理系10"
-        expect(page).not_to have_content "単元"
+        expect(page).to have_content "問題を作成できませんでした"
+        expect(page).to have_content "問題文 を作成して下さい"
       end
 
-      it "単元を指定せず、問題文texのコンパイルに失敗して新規作成できること" do
-        find("#tex-code").set("")
-        click_button "コンパイルする"
-        expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
-        expect(page).to have_selector("#compile-result", text: "No pages of output.")
-        click_button "問題を作成する"
-        expect(page).to have_content "問題を作成しました"
-        expect(page).to have_content "2000"
-        expect(page).to have_content "東京"
-        expect(page).to have_content "理系10"
-        expect(page).not_to have_content "単元"
-        expect(page).not_to have_selector("img")
-      end
-
-      it "単元を指定し、問題文texをコンパイルせず新規作成できること" do
-        within(".subjectI") { check "数と式・集合と論理" }
-        click_button "問題を作成する"
-        expect(page).to have_content "問題を作成しました"
-        expect(page).to have_content "2000"
-        expect(page).to have_content "東京"
-        expect(page).to have_content "理系10"
-        expect(page).to have_content "数と式・集合と論理"
-      end
-
-      it "単元を指定せず、問題文texをコンパイルして新規作成できること" do
+      it "単元を指定せず新規作成できること" do
         find("#tex-code").set(Settings.tex_test_code)
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました")
@@ -75,6 +48,7 @@ RSpec.describe "Questions", type: :system, js: true do
         expect(page).to have_content "2000"
         expect(page).to have_content "東京"
         expect(page).to have_content "理系10"
+        expect(page).not_to have_content "単元"
         expect(page).to have_selector("img")
       end
 
@@ -112,9 +86,9 @@ RSpec.describe "Questions", type: :system, js: true do
       visit new_admin_question_path
     end
 
-    context "出題年、大学、学部、問題番号、単元のみが登録された問題を編集するとき" do
+    context "出題年、大学、学部、問題番号、単元、問題文texが登録された問題を編集するとき" do
       before do
-        create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理")
+        create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理", Settings.tex_test_code)
         find("a[role='button']", text: "編集").click
       end
 
@@ -152,13 +126,6 @@ RSpec.describe "Questions", type: :system, js: true do
         expect(page).to have_content "問題を変更できませんでした"
         expect(page).to have_content "区分を登録して下さい"
       end
-    end
-
-    context "出題年、大学、学部、問題番号、単元、問題文texが登録された問題を編集するとき" do
-      before do
-        create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理", Settings.tex_test_code)
-        find("a[role='button']", text: "編集").click
-      end
 
       it "問題文texのコンパイルに失敗すると問題文が登録されないこと" do
         find("#tex-code").set("")
@@ -166,15 +133,16 @@ RSpec.describe "Questions", type: :system, js: true do
         expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
         expect(page).to have_selector("#compile-result", text: "No pages of output.")
         click_button "問題を変更する"
-        expect(page).not_to have_selector("img")
+        expect(page).to have_content "問題を変更できませんでした"
+        expect(page).to have_content "問題文 を作成して下さい"
       end
     end
   end
 
   describe "問題一覧機能" do
     before do
-      create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理", Settings.tex_test_code)
-      create_question(2010, "名古屋", "理系", 7, "II", "三角関数", Settings.tex_test_code)
+      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
       visit admin_questions_path
     end
 
@@ -189,17 +157,18 @@ RSpec.describe "Questions", type: :system, js: true do
     it "問題を削除できること" do
       question = Question.find_by(year: 2000)
       page.accept_confirm("本当に削除しますか") do
-        find("a[href='#{admin_question_path(question)}'] .bi-trash").click
+        find("a[href='#{admin_question_path(question)}'] .bi-trash", visible: false).click
       end
+      expect(page).to have_content "問題を削除しました"
       expect(page).not_to have_content "東京"
     end
   end
 
   describe "問題検索・並び替え機能" do
     before do
-      create_question(2020, "京都", "文系", 5, "I", "図形と計量")
-      create_question(2010, "名古屋", "理系", 7, "II", "三角関数")
-      create_question(2000, "東京", "理系", 10, "I", "数と式・集合と論理")
+      create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
+      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
+      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
       visit admin_questions_path
       find(".toggle-btn").click
     end
