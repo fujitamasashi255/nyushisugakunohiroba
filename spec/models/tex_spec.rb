@@ -60,5 +60,14 @@ RSpec.describe Tex, type: :model do
         expect(attached_tex.pdf.attached?).to be_falsy
       end
     end
+
+    describe "restore" do
+      fit "texオブジェクトのpdf_blob_signed_idが空文字に、codeがデフォルト値になり、pdfが削除されること" do
+        attached_tex.restore
+        expect(attached_tex.pdf_blob_signed_id).to eq nil
+        expect(attached_tex.pdf.attached?).to be_falsy
+        expect(attached_tex.code).to eq Settings.tex_default_code
+      end
+    end
   end
 end

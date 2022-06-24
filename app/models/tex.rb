@@ -65,7 +65,7 @@ class Tex < ApplicationRecord
   end
 
   # texオブジェクトの属性を空にする
-  def clear_attributes
+  def restore
     pdf.purge
     self.code = Settings.tex_default_code
     self.pdf_blob_signed_id = nil
