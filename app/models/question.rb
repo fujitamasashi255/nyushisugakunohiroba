@@ -31,15 +31,15 @@ class Question < ApplicationRecord
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
   scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).select("questions.*").distinct }
-  scope :by_tag_list, lambda { |tag_list|
+  scope :by_tag_name_array, lambda { |tag_name_array|
     joins(:answers)\
       .joins("INNER JOIN taggings ON answers.id = taggings.taggable_id")\
       .joins("INNER JOIN tags ON tags.id = taggings.tag_id")\
-      .where(tags: { name: tag_list })\
+      .where(tags: { name: tag_name_array })\
       .distinct
   }
-  scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }) }
-  scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }) }
+  scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }).distinct }
+  scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }).distinct }
 
   def units
     Unit.find(questions_units_mediators.pluck(:unit_id))

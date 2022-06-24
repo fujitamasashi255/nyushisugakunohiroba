@@ -34,7 +34,7 @@ class AnswersSearchForm
       university_ids_no_blank = university_ids&.reject(&:blank?)
       unit_ids_no_blank = unit_ids&.reject(&:blank?)
       # tag_names="tag1, tag2"をtag_list=["tag1", "tag2"]へ
-      tag_list = tag_names.split(",")
+      tag_name_array = tag_names.split(",")
 
       relation = user.answers
 
@@ -58,8 +58,8 @@ class AnswersSearchForm
 
       # タグによるquestionの絞り込み
       if tag_list.present?
-        relation = relation.by_tag_list(tag_list).distinct
-        search_conditions[:tag] = tag_list
+        relation = relation.by_tag_name_array(tag_name_array).distinct
+        search_conditions[:tag] = tag_name_array
       end
 
       # 並び替え
