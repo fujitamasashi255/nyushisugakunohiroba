@@ -17,6 +17,7 @@ module AnswersSearchFormDecorator
     search_form_object.unit_ids&.each { |id| params_array << ["answers_search_form[unit_ids][]", id] }
     search_form_object.university_ids&.each { |id| params_array << ["answers_search_form[university_ids][]", id] }
     params_array << ["answers_search_form[sort_type]", sort_type]
+    params_array << ["answers_search_form[tag_names]", search_form_object.tag_names]
     params_array
   end
 end
