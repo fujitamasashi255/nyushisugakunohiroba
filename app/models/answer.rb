@@ -52,4 +52,6 @@ class Answer < ApplicationRecord
       .where(tags: { name: tag_name_array })\
       .distinct
   }
+
+  scope :by_questions, ->(questions) { where(question_id: questions.map(&:id)) }
 end

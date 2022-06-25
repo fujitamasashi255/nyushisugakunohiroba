@@ -4,7 +4,7 @@ class AnswersTagsController < ApplicationController
   def index
     tags_search_form = TagsSearchForm.new(tags_search_form_params)
     tags = tags_search_form.search_from_answers(current_user)
-    render json: tags.map { |tag| { value: tag.name, taggings_count: tag.taggings_count } }
+    render json: tags.map { |tag| { value: tag.name, count: tag.count } }
   end
 
   private

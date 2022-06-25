@@ -37,10 +37,7 @@ class TagsSearchForm
     # 単元によるquestionの絞り込み
     questions = questions.by_unit_ids(unit_ids).distinct if unit_ids.present?
 
-    # ユーザーによるquestionsの絞り込み
-    questions = questions.by_user(user).distinct
-
     # 取得したquestionsから、付けられた回数の多い順にタグを取得する
-    Tag.by_questions(questions).order(taggings_count: :desc)
+    user.answers.by_questions(questions).tag_counts_on(:tags).order(count: :desc)
   end
 end

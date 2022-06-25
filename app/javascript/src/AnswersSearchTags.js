@@ -25,7 +25,7 @@ const answersSearchSettings = {
       return `<div ${this.getAttributes(item)}
                   class='${this.settings.classNames.dropdownItem} ${item.class ? item.class : ""}'
                   tabindex="0"
-                  role="option">${item.value}(${item.taggings_count})</div>`
+                  role="option">${item.value}(${item.count})</div>`
     },
   }
 }
