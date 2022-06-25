@@ -1,7 +1,7 @@
 var answersElem = document.getElementById('answers-index');
 var paginationElem = document.getElementById('answers-pagination');
 var scrollToElem = document.querySelector('.other-users-answers');
-answersElem.innerHTML = "<%= j(render partial: "/answers/other_users_answers", collection: @other_users_answers, as: :answer, locals: { question: @question }) %>";
+answersElem.innerHTML = "<%= j(render partial: "/answers/another_user_answer", collection: @other_users_answers, as: :answer, locals: { question: @question }) %>";
 paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
 Pagy.init(paginationElem);
 scrollToElem.scrollIntoView();
