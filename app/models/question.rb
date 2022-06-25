@@ -24,7 +24,6 @@ class Question < ApplicationRecord
   validates :year, presence: true
   validate :departments_belong_to_same_university?
   validate :questions_departments_mediators?
-  validate :year_dept_number_set_unique?
   validate :different_departments?
   validates :image, attached: true
 
@@ -119,14 +118,5 @@ class Question < ApplicationRecord
   def different_departments?
     dept_ids = questions_departments_mediators.map(&:department_id)
     errors.add(:base, :has_different_departments?) if dept_ids.uniq.size < dept_ids.size
-  end
-
-  # 出題年、区分、問題番号の組は一意
-  def year_dept_number_set_unique?
-    year_dept_number_set_in_db = QuestionsDepartmentsMediator.joins(:question).where(question: { year: }).map { |medi| [medi.department_id, medi.question_number] }
-    creating_year_dept_number_set = questions_departments_mediators.map { |medi| [medi.department_id, medi.question_number] }
-    return if (year_dept_number_set_in_db & creating_year_dept_number_set).empty?
-
-    errors.add(:base, :year_dept_number_set_unique?)
   end
 end

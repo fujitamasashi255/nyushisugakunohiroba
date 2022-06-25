@@ -53,14 +53,6 @@ RSpec.describe Question, type: :model do
       expect(question.errors[:base]).to eq ["同一学部に同じ問題を2回以上登録できません"]
     end
 
-    it "出題年、区分、問題番号が同じ問題は作成できないこと" do
-      department = create(:department)
-      create(:question, :has_a_department_with_question_number, department:, question_number: 1, year: 2000)
-      question_another = build(:question, :has_a_department_with_question_number, department:, question_number: 1, year: 2000)
-      expect(question_another).to be_invalid
-      expect(question_another.errors[:base]).to eq ["出題年、区分、問題番号の組が同じ問題が存在します。"]
-    end
-
     it "問題文のない問題は登録できないこと" do
       question = build(:question, :has_a_department_with_question_number, image: nil)
       expect(question).to be_invalid

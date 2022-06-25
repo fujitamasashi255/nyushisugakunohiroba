@@ -51,20 +51,6 @@ RSpec.describe "Questions", type: :system, js: true do
         expect(page).not_to have_content "単元"
         expect(page).to have_selector("img")
       end
-
-      it "出題年、区分、問題番号の組が同じ問題が既に存在するとき新規作成できないこと" do
-        # 東京大学理系10番の問題を作成
-        create(:question, :has_a_department_with_question_number, department: department_of_tokyo, question_number: 10, year: 2000)
-        select "2000", from: "出題年"
-        within(".university-radio-buttons") { click_button }
-        choose "東京"
-        within(".university-radio-buttons") { click_button }
-        check "理系"
-        select "10", from: "問題番号"
-        click_button "問題を作成する"
-        expect(page).to have_content "問題を作成できませんでした"
-        expect(page).to have_content "出題年、区分、問題番号の組が同じ問題が存在します。"
-      end
     end
 
     context "区分が選択されていないとき" do
