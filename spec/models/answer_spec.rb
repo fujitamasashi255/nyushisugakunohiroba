@@ -97,5 +97,13 @@ RSpec.describe Answer, type: :model do
         expect(answers).to contain_exactly(@answer_kyoto, @answer_nagoya)
       end
     end
+
+    describe "by_questions(questions)" do
+      it "問題で解答を絞れること" do
+        questions = [@question_kyoto, @question_nagoya]
+        answers = Answer.all.by_questions(questions)
+        expect(answers).to contain_exactly(@answer_kyoto, @answer_nagoya)
+      end
+    end
   end
 end
