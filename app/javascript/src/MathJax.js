@@ -1,6 +1,7 @@
 MathJax = {
   options: {
-    skipHtmlTags: {'[+]': ['trix-editor']}
+    skipHtmlTags: {'[+]': ['trix-editor', 'tag']},
+    ignoreHtmlClass: 'tagify__input|tag'
   },
   tex: {
     packages: {'[+]': ['tagformat']},
