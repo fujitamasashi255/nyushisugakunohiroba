@@ -46,8 +46,8 @@ RSpec.describe Tex, type: :model do
 
     describe "attach_pdf" do
       it "pdfファイルを、そのActiveStorage::Blobを介してtexにattachできること" do
-        file_path = Rails.root.join("spec/files/pdf_test.pdf")
-        file_name = "pdf_test.pdf"
+        file_path = Rails.root.join("spec/files/test.pdf")
+        file_name = "test.pdf"
         blob = ActiveStorage::Blob.create_and_upload!(io: File.open(file_path), filename: file_name)
         tex = create(:tex, pdf_blob_signed_id: blob.signed_id, texable: question)
         tex.attach_pdf

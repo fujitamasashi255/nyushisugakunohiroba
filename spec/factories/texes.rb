@@ -29,7 +29,7 @@ FactoryBot.define do
     texable_type { texable&.class&.name }
 
     trait :with_attachment do
-      pdf { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/pdf_test.pdf"), "application/pdf") }
+      pdf { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.pdf"), "application/pdf") }
     end
   end
 end

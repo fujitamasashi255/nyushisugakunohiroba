@@ -12,7 +12,7 @@
 FactoryBot.define do
   factory :question do
     year { (1980..Time.current.year).to_a.sample }
-    image { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/avatar_test.png"), "image/png") }
+    image { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.png"), "image/png") }
 
     # build(:question, :has_a_department_with_question_number, year: "hoge", department: fuga, question_number: 1)
     trait :has_a_department_with_question_number do
