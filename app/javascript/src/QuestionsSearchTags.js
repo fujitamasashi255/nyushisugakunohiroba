@@ -13,7 +13,7 @@ const questionsTagsPath = "/questions_tags"
 
 // 問題検索時のtagifyの設定
 const questionsSearchSettings = {
-  originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', '),
+  originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
   whitelist : [],
   dropdown : {
     maxItems: 20,

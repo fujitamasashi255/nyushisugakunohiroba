@@ -20,7 +20,7 @@ class QuestionsSearchForm
       university: "なし", \
       question_year: "なし", \
       unit: "なし", \
-      tag: ["なし"] \
+      tag: "なし" \
     } \
   }
 
@@ -59,7 +59,7 @@ class QuestionsSearchForm
       # タグによるquestionの絞り込み
       if tag_name_array.present?
         relation = relation.by_tag_name_array(tag_name_array).distinct
-        search_conditions[:tag] = tag_name_array
+        search_conditions[:tag] = tag_name_array.join("、")
       end
 
       # 並び替え

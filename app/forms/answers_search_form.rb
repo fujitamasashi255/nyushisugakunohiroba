@@ -20,7 +20,7 @@ class AnswersSearchForm
       university: "なし", \
       question_year: "なし", \
       unit: "なし", \
-      tag: ["なし"] \
+      tag: "なし" \
     } \
   }
 
@@ -38,28 +38,28 @@ class AnswersSearchForm
 
       relation = user.answers
 
-      # 大学名によるquestionの絞り込み
+      # 大学名によるanswerの絞り込み
       if university_ids_no_blank.present?
         relation = relation.by_university_ids(university_ids_no_blank).distinct
         search_conditions[:university] = University.find(university_ids_no_blank).pluck(:name).join("、")
       end
 
-      # 出題年によるquestionの絞り込み
+      # 出題年によるanswerの絞り込み
       if start_year.present? & end_year.present?
         relation = relation.by_year(start_year, end_year).distinct
         search_conditions[:question_year] = "#{start_year} 年 〜 #{end_year} 年"
       end
 
-      # 単元によるquestionの絞り込み
+      # 単元によるanswerの絞り込み
       if unit_ids_no_blank.present?
         relation = relation.by_unit_ids(unit_ids_no_blank).distinct
         search_conditions[:unit] = Unit.find(unit_ids_no_blank).pluck(:name).join("、")
       end
 
-      # タグによるquestionの絞り込み
+      # タグによるanswerの絞り込み
       if tag_name_array.present?
         relation = relation.by_tag_name_array(tag_name_array).distinct
-        search_conditions[:tag] = tag_name_array
+        search_conditions[:tag] = tag_name_array.join("、")
       end
 
       # 並び替え

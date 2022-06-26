@@ -13,7 +13,7 @@ const answersTagsPath = "/answers_tags"
 
 // 解答検索時のtagifyの設定
 const answersSearchSettings = {
-  originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', '),
+  originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
   whitelist : [],
   dropdown : {
     classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
