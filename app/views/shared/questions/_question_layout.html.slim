@@ -13,7 +13,8 @@
         / カードの上部分
         .question-card-top.d-flex
           = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1" do
-            .univ-name-year-info.d-flex.align-items-center
+            / 大学名
+            .univ-name-year-info.d-flex.flex-row.align-items-center
               div
                 = question.year
                 = t("common.year")
@@ -22,7 +23,7 @@
                 = University.model_name.human
               div.ms-1.left-icons
                 = content_for "left_icons#{question.id}".to_sym
-                        / 区分一覧
+            / 区分一覧
             .row.department-info
               small.d-flex
                 = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators

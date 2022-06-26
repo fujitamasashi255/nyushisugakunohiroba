@@ -8,15 +8,15 @@
     / 問題詳細ページへの戻るアイコン
     .me-2
       = link_to question_path(@question) do
-        i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_question")
+        i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_question")
     / 問題削除アイコン
     .me-2
-      = link_to answer_path(@answer), method: :delete, data: { confirm: t(".destroy_confirm") } do
-        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="left" title=t(".destroy")
+      = link_to answer_path(@answer), method: :delete, data: { confirm: t("messages.delete_confirm") } do
+        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".destroy")
     / 問題文表示
     .dropdown
       a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
-        i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
+        i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".display_question_image")
       .dropdown-menu.p-1 id="dropdownQuestionImage"
         = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
 

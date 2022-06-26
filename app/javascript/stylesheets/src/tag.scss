@@ -1,5 +1,6 @@
 // tagifyをカスタマイズ
-$tag-bg: lightyellow;
+$tag-bg: rgb(230, 237, 243);
+$tag-text-color: rgb(39,93,144);
 //$tags-border-color: gold;
 
 
@@ -7,8 +8,9 @@ $tag-bg: lightyellow;
 
 .tag {
   border-radius: 3px;
-  background: lightyellow;
-  border: 2px solid gold;
+  background: rgb(230, 237, 243);
+  color: rgb(39,93,144);
+  border: 1px solid rgb(148, 187, 224);
   padding: .3em .5em;
   margin: 5px 0px 5px 5px;
 }
@@ -16,7 +18,9 @@ $tag-bg: lightyellow;
 .tagify__tag {
   z-index: 0;
   border-radius: 3px;
-  border: 2px solid gold;
+  border: 1px solid rgb(148, 187, 224);
+  background: rgb(230, 237, 243);
+  color: rgb(39,93,144);
 }
 
 .tags-look header {
@@ -41,6 +45,7 @@ $tag-bg: lightyellow;
 }
 
 .tags-look .tagify__dropdown__item:hover{
-  background: lightyellow;
-  border: 2px solid gold;
+  border: 1px solid rgb(148, 187, 224);
+  background: rgb(230, 237, 243);
+  color: rgb(39,93,144);
 }

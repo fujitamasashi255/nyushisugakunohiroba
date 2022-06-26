@@ -1,25 +1,35 @@
 - content_for(:title, t(".title"))
 - content_for(:page_title, t(".title"))
 
+- content_for :note do
+  .mt-2
+    .answer-show-note.d-flex.align-items-center
+      div
+        | ※問題文は画面右上の
+      div.ms-1
+        i.bi.bi-chat-right-text
+      div.ms-1
+        | をクリック
+
 .d-flex.fixed-top.justify-content-end.answer-top-icons
   / 解答がユーザーのものの場合のみ、解答編集へのリンク、削除リンクを表示する
   - if logged_in? & current_user&.own_answer?(@answer)
     / 解答編集ページへの戻るアイコン
     .me-2
       = link_to edit_answer_path(@answer) do
-        i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_edit")
+        i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_edit")
     / 問題削除アイコン
     .me-2
-      = link_to answer_path(@answer), method: :delete, data: { confirm: t(".destroy_confirm") } do
-        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="left" title=t(".destroy")
+      = link_to answer_path(@answer), method: :delete, data: { confirm: t("messages.delete_confirm") } do
+        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".destroy")
   / 問題詳細ページへのリンクアイコン
   .me-2
     = link_to question_path(@question) do
-      i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".to_question")
+      i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_question")
   / 問題文表示
   .dropdown
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
-      i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="left" title=t(".display_question_image")
+      i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".display_question_image")
     .dropdown-menu.p-1 id="dropdownQuestionImage"
       = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
 
@@ -38,7 +48,7 @@
           label.d-block.mb-2
             = Answer.human_attribute_name(:tag_list)
           - @answer.tags.each do |tag|
-            span.d-inline-block.tag.border
+            span.d-inline-block.tag
               = tag.name
 
           .py-2.py-lg-3

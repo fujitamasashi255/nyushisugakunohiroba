@@ -34,14 +34,6 @@ $file-height: 500px;
   font-size: 2rem;
 }
 
-//右上アイコンの色
-.bi-chat-right-text {
-  color: blue;
-}
-
-.answer-top-icons .bi-trash {
-  color: red;
-}
 
 // 問題文ドロップダウン
 // 画面サイズ992px以上の時、ドロップダウンを表示しない
@@ -69,7 +61,7 @@ $file-height: 500px;
 #dropdownQuestionImage {
   max-height: 500px;
   overflow-y: auto;
-  border: 2px solid blue;
+  border: 2px solid rgb(39,93,144);
 }
 
 // 問題文ドロップダウン、ポイントのスクロールバー
@@ -93,7 +85,7 @@ $file-height: 500px;
 // ページ内部
 // サブタイトルの問題情報
 .answer-subtitle .question-info {
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid rgb(39,93,144);
 }
 
 // 解答フォーム全体
@@ -245,7 +237,7 @@ $file-height: 500px;
 }
 
 .answer-card {
-  background-color: rgb(214, 212, 212);
+  background-color: whitesmoke;
   overflow-y: auto;
   font-size: 0.8rem;
 }
@@ -264,10 +256,21 @@ $file-height: 500px;
 }
 
 // ユーザー解答一覧
-.my-answer .answer-card-inner {
+.my-answer .answer-card {
   height: 420px;
 }
 
 .my-answer label {
   width: 4rem;
+}
+
+// 解答カード、大学名横アイコン
+// 大学名横のアイコン
+//ブックマークアイコン
+.answer-card i {
+  font-size: 2rem;
+}
+
+.answer-card .univ-name-year-info{
+  height: 1.5rem;
 }
