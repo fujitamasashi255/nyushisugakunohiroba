@@ -70,6 +70,7 @@ var compileAjax = function(path, code, signedIdElement, compileResultElement){
 $(function(){
   $(document).on('click', "#compile-button", function(){
     var button = $(this);
+    var submitButton = $("input[type='submit']");
     // コンパイルするtexコード Code
     var code = $('#tex-code').val();
     // 要素 t.input_field :pdf_blob_signed_id を取得
@@ -84,11 +85,14 @@ $(function(){
 
     // ボタンを「コンパイル中」にする
     disabledButton(button);
+    // submitボタンをdisabledにする
+    submitButton.prop("disabled", true)
     // Ajaxを送る
     compileAjax(pdfsPath, code, signedIdElement, compileResultElement);
     // 結果が表示されたらボタンを元に戻す
     compileResultElement.on('DOMSubtreeModified propertychange', function(){
       replacewithNewButton(button, signedIdElement.val());
+      submitButton.prop("disabled", false);
     });
   });
 });
