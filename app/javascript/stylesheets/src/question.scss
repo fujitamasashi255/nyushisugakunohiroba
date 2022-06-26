@@ -1,10 +1,11 @@
 @import "variables";
 
 // question#index
+$question-card-hight: 350px;
 
 @media only screen and (min-width: 576px){
   .question-card {
-    height: 400px;
+    height: $question-card-hight;
     min-width: 330px;
     overflow: auto;
     background-color: $whitesmoke;
@@ -16,7 +17,7 @@
 // 画面サイズ576px以下の問題カード幅
 @media only screen and (max-width: 575.98px){
   .question-card {
-    height: 400px;
+    height: $question-card-hight;
     width: 280px;
     overflow: auto;
     background-color: $whitesmoke;
