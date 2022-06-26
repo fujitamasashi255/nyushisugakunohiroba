@@ -25,7 +25,7 @@
                         / 区分一覧
             .row.department-info
               small.d-flex
-                = render "shared/departments/departments", {departments: question.departments, question: question}
+                = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
           / 大学名横アイコン
           .right-icons
             = content_for "right_icons#{question.id}".to_sym

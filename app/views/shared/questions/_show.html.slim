@@ -20,7 +20,7 @@
           / 区分
           .departments.text-nowrap
             -if question.departments.present?
-              = render "/shared/departments/departments", { departments: question.departments, question: question }
+              = render "/shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
 
         .py-2
 

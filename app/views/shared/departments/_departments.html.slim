@@ -1,14 +1,8 @@
-/ 変数：departments, question
+/ 変数：questions_departments_mediators
 
 .d-flex
-  / questionがあるときは、区分の横に問題番号あり
-  - if defined? question
-    - departments.each do |department|
-      .p-1.me-1.rounded.border.text-center.bg-white.department-name
-        = department.name
-        = department.questions_departments_mediators.find_by(question_id: question.id).question_number
-  / questionがないときは、区分の横に問題番号なし
-  - else
-    - departments.each do |department|
-      .p-1.me-1.rounded.border.text-center.bg-white.department-name
-        = department.name
+  - questions_departments_mediators.each do |qdm|
+    .p-1.me-1.rounded.border.text-center.bg-white.department-name
+      = qdm.department.name
+      = qdm.question_number
+
