@@ -40,19 +40,19 @@ class AnswersController < ApplicationController
 
   def show
     @answer = Answer.includes(question: { departments: :university }).with_attached_files.find(params[:id])
-    set_question
+    @question = @answer.question
   end
 
   def edit
     @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless current_user.own_answer?(@answer)
-    set_question
+    @question = @answer.question
     set_tag_suggestions
   end
 
   def update
-    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
+    @answer = Answer.find(params[:id])
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless current_user.own_answer?(@answer)
     set_tex
@@ -61,7 +61,9 @@ class AnswersController < ApplicationController
     else
       # update失敗はファイル登録失敗時のみ
       # ファイル登録失敗時は、エラーメッセージと共に、元々登録されていたファイルを表示する
-      @answer.files = Answer.find(params[:id]).files.blobs
+      @answer.files = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id]).files.blobs
+      @question = @answer.question
+      set_tag_suggestions
       flash.now[:danger] = t(".fail")
       render "answers/edit"
     end
@@ -106,11 +108,6 @@ class AnswersController < ApplicationController
     end
     # texにpdfをattachする
     @tex.attach_pdf
-  end
-
-  # question をセット
-  def set_question
-    @question = @answer.question
   end
 
   # ユーザーが同じ分野の問題につけたタグの一覧を取得する
