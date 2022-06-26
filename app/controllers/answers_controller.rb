@@ -25,7 +25,6 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @question = Question.includes({ departments: [:university] }).find(params[:question_id])
     @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], tag_list: answer_params[:tag_list], files: answer_params[:files])
     set_tex
     if @answer.save
@@ -33,13 +32,14 @@ class AnswersController < ApplicationController
     else
       # save失敗時は必ずfilesが不正なので、それをnilにする
       @answer.files = nil
+      @question = Question.includes({ departments: [:university] }).find(params[:question_id])
       flash.now[:danger] = t(".fail")
       render "answers/new"
     end
   end
 
   def show
-    @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
+    @answer = Answer.includes(question: { departments: :university }).with_attached_files.find(params[:id])
     set_question
   end
 
