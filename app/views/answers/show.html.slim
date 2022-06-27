@@ -38,84 +38,99 @@
   .answer-subtitle.d-flex.flex-row.align-items-center
     = render "answers/question_info", question: @question
 
+/ 解答の各項目に対する、その上にあるコンテンツ数
+- above_contents_count = 0
+
 / 解答
 .answer-show.container.p-4
-  - if @answer.contents_present?
-    .row
-      - if @answer.tags.present?
-        / タグ
-        .tags.col-lg-6.order-lg-2
-          label.d-block.mb-2
-            = Answer.human_attribute_name(:tag_list)
-          - @answer.tags.each do |tag|
-            span.d-inline-block.tag
-              = tag.name
+  .row
+    - if @answer.tags.present?
+      - above_contents_count += 1
+      / タグ
+      .tags.col-lg-6.order-lg-2
+        label.d-block.mb-2
+          = Answer.human_attribute_name(:tag_list)
+        - @answer.tags.each do |tag|
+          span.d-inline-block.tag
+            = tag.name
 
-          .py-2.py-lg-3
+        .py-2.py-lg-3
 
+    - if @answer.point.present?
+      - if above_contents_count.positive?
         .d-lg-none
           hr
           .py-2
 
-      - if @answer.point.present?
-        .point.col-lg-6.order-lg-1
-          label.d-block.mb-2
-            = Answer.human_attribute_name(:point)
-          .point-field
-            == @answer.point
+      - above_contents_count += 1
 
-          .py-2.py-lg-3
+      .point.col-lg-6.order-lg-1
+        label.d-block.mb-2
+          = Answer.human_attribute_name(:point)
+        .point-field
+          == @answer.point
 
-    - if @answer.files.attached?
+        .py-2.py-lg-3
+
+  - if @answer.files.attached?
+    - if above_contents_count.positive?
       hr
       .py-2.py-lg-3
 
-      / files
-      .files
-        label.mb-2.d-block
-          = Answer.human_attribute_name(:files)
-        / 登録ファイルのプレビュー
-        .d-flex.justify-content-around.preview
-          - if @answer.files.size >= 2
-            / カルーセルコントローラのprevボタン
-            a.carousel-prev.d-flex.flex-column role="button"
-              .my-auto
-                span.carousel-control-prev-icon
-          / カルーセル
-          .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-            / カルーセル部分
-            .carousel-inner.d-flex.align-items-center
-              - @answer.files_urls(:show).each.with_index do |file, index|
-                - case index
-                - when 0
-                  .carousel-item.active
-                    - if file.blob.content_type == "image/png"
-                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                    - elsif file.blob.content_type == "application/pdf"
-                      iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy"
-                - else
-                  .carousel-item
-                    - if file.blob.content_type == "image/png"
-                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                    - elsif file.blob.content_type == "application/pdf"
-                      iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
-          - if @answer.files.size >= 2
-            / カルーセルコントローラのnextボタン
-            a.carousel-next.d-flex.flex-column role="button"
-              .my-auto
-                span.carousel-control-next-icon
-      .py-2.py-lg-3
+    - above_contents_count += 1
 
-    - if @answer.tex.pdf.attached?
+    / files
+    .files
+      label.mb-2.d-block
+        = Answer.human_attribute_name(:files)
+      / 登録ファイルのプレビュー
+      .d-flex.justify-content-around.preview
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのprevボタン
+          a.carousel-prev.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-prev-icon
+        / カルーセル
+        .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+          / カルーセル部分
+          .carousel-inner.d-flex.align-items-center
+            - @answer.files_urls(:show).each.with_index do |file, index|
+              - case index
+              - when 0
+                .carousel-item.active
+                  - if file.blob.content_type == "image/png"
+                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                  - elsif file.blob.content_type == "application/pdf"
+                    iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy"
+              - else
+                .carousel-item
+                  - if file.blob.content_type == "image/png"
+                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                  - elsif file.blob.content_type == "application/pdf"
+                    iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのnextボタン
+          a.carousel-next.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-next-icon
+
+    .py-2.py-lg-3
+
+  - if @answer.tex.pdf.attached?
+    - if above_contents_count.positive?
       hr
       .py-2.py-lg-3
 
-      /tex
-      .tex
-        label.mb-2.d-block
-          = Tex.model_name.human
-        iframe type="application/pdf" src=url_for(@answer.tex.pdf) loading="lazy"
+    - above_contents_count += 1
 
-      .py-2.py-lg-3
-  - else
+    /tex
+    .tex
+      label.mb-2.d-block
+        = Tex.model_name.human
+      iframe type="application/pdf" src=url_for(@answer.tex.pdf) loading="lazy"
+
+    .py-2.py-lg-3
+
+  / 解答にコンテンツがない場合は「解答はありません」を表示
+  - if above_contents_count == 0
     = t(".no_result")

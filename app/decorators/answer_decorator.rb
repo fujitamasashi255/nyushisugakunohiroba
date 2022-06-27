@@ -26,8 +26,4 @@ module AnswerDecorator
     end
     content
   end
-
-  def contents_present?
-    tags.present? || point.present? || files.attached? || tex.pdf.attached?
-  end
 end
