@@ -66,7 +66,7 @@ class AnswersSearchForm
     # 並び替え
     case sort_type
     when "year_new"
-      relation = relation.joins(:question).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
+      relation = Answer.joins(:question).where(answers: { id: relation.select(:id) }).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
     when "updated_at_new"
       relation = relation.order(updated_at: :desc)
     end
