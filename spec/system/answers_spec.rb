@@ -254,6 +254,44 @@ RSpec.describe "Answers", type: :system, js: true do
     end
   end
 
+  describe "解答詳細機能" do
+    let(:department) { create(:department, name: "理系", university: create(:university, name: "東京", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
+
+    before do
+      # ユーザーを作成
+      user1 = create(:user, name: "TEST1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
+      user2 = create(:user, name: "TEST2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
+      question = create(:question, :full_custom, year: 2020, department:, question_number: 5, unit: "図形と計量")
+      # user1の京都大学、名古屋大学、東京大学の解答を作成
+      @answer1 = create(:answer, question:, user: user1, tag_names: "tag1")
+      @answer2 = create(:answer, question:, user: user2, tag_names: "tag2")
+      # ログイン
+      sign_in_as(user1)
+    end
+
+    context "user1がuse1の解答詳細にアクセスしたとき" do
+      before do
+        visit answer_path(@answer1)
+      end
+
+      it "解答編集、削除リンクが表示されていること" do
+        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(@answer1)}']")
+        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(@answer1)}'][data-method='delete']")
+      end
+    end
+
+    context "user1がuser2の解答詳細にアクセスしたとき" do
+      before do
+        visit answer_path(@answer2)
+      end
+
+      it "解答編集、削除リンクが表示されないこと" do
+        expect(page).not_to have_selector(".answer-top-icons a[href='#{edit_answer_path(@answer1)}']")
+        expect(page).not_to have_selector(".answer-top-icons a[href='#{answer_path(@answer1)}'][data-method='delete']")
+      end
+    end
+  end
+
   describe "解答検索、一覧機能" do
     let(:department_tokyo) { create(:department, name: "理系", university: create(:university, name: "東京", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
     let(:department_kyoto) { create(:department, name: "文系", university: create(:university, name: "京都", category: :national_or_public, prefecture: Prefecture.find_by!(name: "京都府"))) }
