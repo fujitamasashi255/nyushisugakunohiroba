@@ -152,9 +152,9 @@ RSpec.describe "Questions", type: :system, js: true do
 
   describe "問題検索・並び替え機能" do
     before do
-      create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+      create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量", created_at: Time.current.ago(2))
+      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数", created_at: Time.current.ago(1))
+      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理", created_at: Time.current)
       visit admin_questions_path
       find(".toggle-btn").click
     end
@@ -170,7 +170,8 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "すべての問題を、作成日が新しい順に並べ替えること" do
-        click_link "作成日が新しい順"
+        find(".created_at_new a", text: "作成日が新しい順").click
+        find(".created_at_new a[class='active']")
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -199,7 +200,8 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "問題を、作成日が新しい順に並べ替えること" do
-        click_link "作成日が新しい順"
+        find(".created_at_new a", text: "作成日が新しい順").click
+        find(".created_at_new a[class='active']")
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "2000 年 〜 2010 年")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -229,7 +231,8 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "問題を、作成日が新しい順に並べ替えること" do
-        click_link "作成日が新しい順"
+        find(".created_at_new a", text: "作成日が新しい順").click
+        find(".created_at_new a[class='active']")
         expect(page).to have_selector(".university-search-condition", text: "東京、名古屋")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -258,7 +261,8 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "問題を、作成日が新しい順に並べ替えること" do
-        click_link "作成日が新しい順"
+        find(".created_at_new a", text: "作成日が新しい順").click
+        find(".created_at_new a[class='active']")
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "数と式・集合と論理、三角関数")
