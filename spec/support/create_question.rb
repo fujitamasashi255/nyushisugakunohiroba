@@ -13,10 +13,10 @@ module CreateQuestion
 
     unless tex_code.nil?
       # 問題文texをコンパイル
-      fill_in "texコード", with: tex_code
+      find("#tex-code").set(tex_code)
       click_button "コンパイルする"
-      expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました。")
-      expect(page).to have_selector("embed[type='application/pdf']")
+      expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました")
+      expect(page).to have_selector("iframe[type='application/pdf']")
     end
     click_button "問題を作成する"
   end

@@ -103,7 +103,7 @@ RSpec.describe "Universities", type: :system, js: true do
 
     it "大学を削除できること" do
       # university_tokyoを削除
-      page.accept_confirm("本当に削除しますか") do
+      page.accept_confirm("削除しますか") do
         within(".university#{university_tokyo.id}-info") do
           find(".bi-trash").click
         end

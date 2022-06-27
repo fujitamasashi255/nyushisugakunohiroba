@@ -10,32 +10,62 @@
 #  updated_at :datetime         not null
 #
 class Question < ApplicationRecord
-  validates :year, presence: true
-  validate :departments_belong_to_same_university?
-  validate :questions_departments_mediators?
-  validate :year_dept_number_set_unique?
-  validate :different_departments?
-
   has_many :questions_departments_mediators, dependent: :destroy
   has_many :departments, through: :questions_departments_mediators
   has_many :questions_units_mediators, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_many :answered_users, through: :answers, source: :user
   has_one :tex, dependent: :destroy, as: :texable
   has_one_attached :image
   accepts_nested_attributes_for :tex, reject_if: :all_blank
 
-  default_scope { order(year: :desc) }
-  scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).select("questions.*").distinct }
+  delegate :name, to: :university, prefix: true, allow_nil: true
+
+  validates :year, presence: true
+  validate :departments_belong_to_same_university?
+  validate :questions_departments_mediators?
+  validate :different_departments?
+  validates :image, attached: true
+
+  scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
-  scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).select("questions.*").distinct }
+  scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }).distinct }
+  scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }).distinct }
+  scope :by_tag_name_array, lambda { |tag_name_array|
+    left_joins(:answers)\
+      .joins("INNER JOIN taggings ON answers.id = taggings.taggable_id")\
+      .joins("INNER JOIN tags ON tags.id = taggings.tag_id")\
+      .where(tags: { name: tag_name_array })\
+      .distinct
+  }
 
   def units
-    Unit.find(questions_units_mediators.map(&:unit_id))
+    Unit.find(questions_units_mediators.pluck(:unit_id))
   end
 
   def unit_ids
     units.pluck(:id)
   end
 
+  # questionの解答のうち、userのものを返す
+  def answer_of_user(user)
+    answers.find_by(user_id: user.id)
+  end
+
+  # 同じ単元を持つ問題に対してユーザーがつけたタグを返す
+  def tags_belongs_to_same_unit_of_user(user)
+    Tag\
+      .joins(:taggings)\
+      .joins("INNER JOIN answers ON answers.id = taggings.taggable_id")\
+      .joins("INNER JOIN questions ON answers.question_id = questions.id")\
+      .joins("INNER JOIN questions_units_mediators ON questions_units_mediators.question_id = questions.id")\
+      .where(questions_units_mediators: { unit_id: unit_ids })\
+      .where(answers: { user_id: user.id })\
+      .distinct
+  end
+
+  # unit_idzのunitをquestionの関連に入れる
   def units_to_association(unit_idz)
     questions_units_mediators.clear
     unit_idz.each do |unit_id|
@@ -88,14 +118,5 @@ class Question < ApplicationRecord
   def different_departments?
     dept_ids = questions_departments_mediators.map(&:department_id)
     errors.add(:base, :has_different_departments?) if dept_ids.uniq.size < dept_ids.size
-  end
-
-  # 出題年、区分、問題番号の組は一意
-  def year_dept_number_set_unique?
-    year_dept_number_set_in_db = QuestionsDepartmentsMediator.joins(:question).where(question: { year: }).map { |medi| [medi.department_id, medi.question_number] }
-    creating_year_dept_number_set = questions_departments_mediators.map { |medi| [medi.department_id, medi.question_number] }
-    return if (year_dept_number_set_in_db & creating_year_dept_number_set).empty?
-
-    errors.add(:base, :year_dept_number_set_unique?)
   end
 end

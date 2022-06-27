@@ -11,8 +11,15 @@ ja:
           one: "並び順"
           year_new: "出題年が新しい順"
           created_at_new: "作成日が新しい順"
-          bookmark_many: "お気に入りが多い順"
-          like_many: "いいねが多い順"
+          updated_at_new: "最終更新日が新しい順"
+          answers_many: "解答が多い順"
+        search_conditions: "検索条件"
+      answers_search_form:
+        sort_type:
+          one: "並び順"
+          year_new: "出題年が新しい順"
+          created_at_new: "作成日が新しい順"
+          answers_many: "解答が多い順"
         search_conditions: "検索条件"
       password_reset:
         email: "メールアドレス"
@@ -51,11 +58,12 @@ ja:
           attributes:
             year:
               blank: "を入力して下さい"
+            image:
+              blank: "を作成して下さい"
             base:
               questions_departments_mediators?: "区分を登録して下さい"
               departments_belong_to_same_university?: "異なる大学に登録することはできません"
               has_different_departments?: "同一学部に同じ問題を2回以上登録できません"
-              year_dept_number_set_unique?: "出題年、区分、問題番号の組が同じ問題が存在します。"
         questions_departments_mediator:
           attributes:
             question_id:
@@ -94,16 +102,13 @@ ja:
               blank: "を入力して下さい"
               confirmation: "と%{attribute}の入力が一致しません"
 
-
-
-
-
     models:
       university: "大学"
       department: "区分"
       question: "問題"
-      tex: "Tex"
+      tex: "TeX"
       user: "ユーザー"
+      tag: "タグ"
     attributes:
       university:
           name: "大学名"
@@ -119,7 +124,7 @@ ja:
       questions_departments_mediator:
         question_number: "問題番号"
       tex:
-        code: "texコード"
+        code: "コード"
         pdf: "コンパイル結果"
         pdf_blob_signed_id:
       user:
@@ -129,6 +134,12 @@ ja:
         password_confirmation: "パスワード確認"
         avatar: "プロフィール画像"
         remember: "ログイン状態を保持"
+      answer:
+        point: "ポイント"
+        files: "ファイル"
+        tag_list: "タグ"
+        created_at: "作成日"
+        updated_at: "最終更新日"
 
   # enum
   enums:

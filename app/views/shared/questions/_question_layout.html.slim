@@ -13,25 +13,26 @@
         / カードの上部分
         .question-card-top.d-flex
           = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1" do
-            .univ-name-year-info
-              span
+            / 大学名
+            .univ-name-year-info.d-flex.flex-row.align-items-center
+              div
                 = question.year
                 = t("common.year")
-              span.ms-1
+              div.ms-1
                 = question.university.name
                 = University.model_name.human
-          / 大学名横アイコン
-          = content_for "icons#{question.id}".to_sym
-
-        = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
-          .question-card-bottom
+              div.ms-1.left-icons
+                = content_for "left_icons#{question.id}".to_sym
             / 区分一覧
             .row.department-info
               small.d-flex
-                = render "shared/departments/departments", {departments: question.departments, question: question}
+                = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
+          / 大学名横アイコン
+          .right-icons
+            = content_for "right_icons#{question.id}".to_sym
 
-            .py-2
-
+        = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
+          .question-card-bottom.pt-1
             / 単元一覧
             small.row.unit-info
               = render "/shared/units/units", units: question.units
@@ -40,6 +41,6 @@
 
             / 問題文画像
             - if question.image.attached?
-              .question-body.border
-                = image_tag question.image, class: "bg-white p-3 img-fluid"
+              .question-body.border.question-image
+                = image_tag question.image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
               .py-1

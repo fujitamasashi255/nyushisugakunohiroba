@@ -28,6 +28,17 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user, success: t(".success")
     else
+      if @user.errors.include?(:avatar)
+        # ファイル登録失敗時は、エラーメッセージと共に、元々登録されていたファイルを表示する
+        @user.avatar = User.find(params[:id]).avatar.blob
+      else
+        # ファイル登録成功時は、そのファイルを保存し、フォームに表示する
+        change = @user.attachment_changes["avatar"]
+        if change.is_a?(ActiveStorage::Attached::Changes::CreateOne)
+          change.upload
+          change.blob.save
+        end
+      end
       flash.now[:danger] = t(".fail")
       render "users/edit"
     end

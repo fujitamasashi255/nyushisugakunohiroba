@@ -14,47 +14,42 @@ document.addEventListener('DOMContentLoaded', function(){
   let collapseElem = document.querySelector('#collapse-search-form');
   let collapseIconWrapper = document.querySelector('.search-form-icon');
   // 検索フォームの折りたたみが表示されると、ボタンのテキストを - に変更
-  collapseElem.addEventListener('show.bs.collapse', function(){
-    collapseIconWrapper.innerHTML = "";
-    let Icon = document.createElement("i");
-    Icon.setAttribute("class", "bi bi-dash-square toggle-btn");
-    Icon.setAttribute("data-bs-toggle", "collapse");
-    Icon.setAttribute("href", "#collapse-search-form");
-    Icon.setAttribute("role", "button");
-    collapseIconWrapper.append(Icon);
-  });
-  // 検索フォームの折りたたみが非表示になると、ボタンのテキストを + に変更
-  collapseElem.addEventListener('hide.bs.collapse', function(){
-    collapseIconWrapper.innerHTML = "";
-    let Icon = document.createElement("i");
-    Icon.setAttribute("class", "bi bi-plus-square toggle-btn");
-    Icon.setAttribute("data-bs-toggle", "collapse");
-    Icon.setAttribute("href", "#collapse-search-form");
-    Icon.setAttribute("role", "button");
-    collapseIconWrapper.append(Icon);
-  });
+  if(collapseElem){
+    collapseElem.addEventListener('show.bs.collapse', function(){
+      collapseIconWrapper.innerHTML = "";
+      let Icon = document.createElement("i");
+      Icon.setAttribute("class", "bi bi-dash-square toggle-btn");
+      Icon.setAttribute("data-bs-toggle", "collapse");
+      Icon.setAttribute("href", "#collapse-search-form");
+      Icon.setAttribute("role", "button");
+      collapseIconWrapper.append(Icon);
+    });
+    // 検索フォームの折りたたみが非表示になると、ボタンのテキストを + に変更
+    collapseElem.addEventListener('hide.bs.collapse', function(){
+      collapseIconWrapper.innerHTML = "";
+      let Icon = document.createElement("i");
+      Icon.setAttribute("class", "bi bi-plus-square toggle-btn");
+      Icon.setAttribute("data-bs-toggle", "collapse");
+      Icon.setAttribute("href", "#collapse-search-form");
+      Icon.setAttribute("role", "button");
+      collapseIconWrapper.append(Icon);
+    });
+  }
 });
 
-
-// ページを読み込んだ際に、選択されている大学名をボタンに表示
 $(function(){
+  // questionカードが、スクロール後元に戻るようにする
+  $(document).on("mouseleave", ".question-card", function(){
+    $(this).scrollTop(0);
+  });
+  // ページを読み込んだ際に、選択されている大学名をボタンに表示
   var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
   var dropDownButton = $('.search-form-universities button');
   displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
-});
-
-// 検索フォーム大学選択チェックボックス選択時に、選択した大学名をボタンに表示
-$(function(){
+  // 検索フォーム大学選択チェックボックス選択時に、選択した大学名をボタンに表示
   $('.search-form-universities input[type="checkbox"]').on('change', function(){
     var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
     var dropDownButton = $('.search-form-universities button');
     displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
-  });
-});
-
-// questionカードが、スクロール後元に戻るようにする
-$(function(){
-  $(".question-card").on("mouseleave", function(){
-    $(this).scrollTop(0);
   });
 });

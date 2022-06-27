@@ -27,20 +27,25 @@
     .py-2.py-lg-3
 
     / プロフィール画像
-    .row
+    .row.avatar
       .col-lg-3.col-sm-4.col-5
-        = f.label :avatar, for: "user-avatar-file-input", class: "avatar-label"
+        = f.label :avatar, for: "user-avatar-input", class: "avatar-label"
       .col-lg-9.col-sm-8.col-7.d-flex
         .d-flex.flex-column.align-items-center
-          = image_tag @user.avatar, class: "avatar", id: "avatar-preview"
+          / プロフィール画像のプレビュー
+          div id="avatar-preview"
+            = image_tag @user.avatar_url(:profile), loading: "lazy"
           = f.hidden_field :avatar, value: f.object.avatar.signed_id if f.object.avatar.attached?
-          = f.label :avatar, for: "user-avatar-file-input"
-            .d-flex-column.align-items-center
-              = f.input :avatar, as: :file, wrapper: false, label: false, \
-                input_html: { class: "d-none", id: "user-avatar-file-input", accept: "image/*", direct_upload: true }
-              .d-flex.mt-2
+          / プロフィール画像ラベル
+          = f.label :avatar, for: "user-avatar-input"
+            .d-flex-column.align-items-center.mt-2
+              / ファイル登録ボタン（表示）
+              .d-flex
                 .btn.btn-outline-dark.mx-auto role="button"
-                  | ファイルを選択
+                  = t(".select_file")
+              / ファイル登録input（非表示）
+              = f.input :avatar, as: :file, wrapper: false, label: false, hint: t(".avatar_hint"), \
+                input_html: { class: "d-none", id: "user-avatar-input", accept: "image/*" }
 
     .py-3
 

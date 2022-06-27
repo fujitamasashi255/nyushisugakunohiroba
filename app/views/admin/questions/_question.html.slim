@@ -1,8 +1,8 @@
-- content_for "icons#{question.id}".to_sym do
+- content_for "right_icons#{question.id}".to_sym do
   span.d-block
     / 編集ボタン
     = link_to edit_admin_question_path(question) do
-      i.bi.bi-pencil-square role="img" aria-label="Pencil"
+      i.bi.bi-pencil role="img" aria-label="Pencil"
     / 削除ボタン
     = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
       i.bi.bi-trash role="img" aria-label="Trash"

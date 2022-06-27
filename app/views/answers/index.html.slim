@@ -1,0 +1,19 @@
+- content_for(:title, t(".title"))
+- content_for :page_title do
+  i.bi.bi-book.me-2
+  = t(".title")
+
+
+- content_for :answer_partial do
+    = render partial: "/answers/my_answer", collection: @answers, as: :answer
+
+/ 検索フォーム
+= render "/answers/search_form", answers_search_form: @answers_search_form, answers: @answers
+
+.py-2
+
+/ 検索条件、並び替え
+= render "/answers/sort", answers_search_form: @answers_search_form, answers: @answers
+
+/ 解答一覧
+= render partial: "/answers/answers", locals: { pagy: @pagy }

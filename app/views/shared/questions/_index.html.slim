@@ -10,7 +10,7 @@
 / content_for(:question_partial)
 
 / 検索フォーム
-.container.search-form-wrapper
+.container.questions-search-form
   - if questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
       .container.border.p-3.search-form
           = render search_form_path, questions_search_form: questions_search_form
@@ -46,37 +46,44 @@
             th.align-top.text-nowrap
               | ：
             td.align-top class="university-search-condition"
-              = questions_search_form.search_conditions[University.model_name.human]
+              = questions_search_form.search_conditions[:university]
           tr
             th.align-top.text-nowrap
               = Question.human_attribute_name(:year)
             th.align-top.text-nowrap
               | ：
             td.align-top class="year-search-condition"
-              = questions_search_form.search_conditions[Question.human_attribute_name(:year)]
+              = questions_search_form.search_conditions[:question_year]
           tr
             th.align-top.text-nowrap
               = Unit.model_name.human
             th.align-top.text-nowrap
               | ：
             td.align-top class="unit-search-condition"
-              = questions_search_form.search_conditions[Unit.model_name.human]
+              = questions_search_form.search_conditions[:unit]
+          / 管理画面では検索条件にタグを表示しない
+          - unless admin_controller?(controller)
+            tr
+              th.align-top.text-nowrap
+                = Tag.model_name.human
+              th.align-top.text-nowrap
+                | ：
+              td.align-top class="tags-search-condition"
+                = questions_search_form.search_conditions[:tag]
+
       .py-3
 
   - if questions.present?
     / 問題並び替え
     .container
       small
-        = render sorts_path, questions_search_form_params: questions_search_form_params
+        = render sorts_path, questions_search_form: questions_search_form
 
     / 問題一覧
-    .container.questions-index
-      .row
-        = render partial: content_for(:question_partial), layout: "/shared/questions/question_layout", collection: questions, as: :question
+    .container
+      .row id="questions-index"
+        = content_for :question_partial
 
   / ページネーション
-  .container
-    .py-3.pagination
-    == pagy_bootstrap_nav(pagy)
-    .text-center
-      == pagy_info(pagy)
+  .container id="questions-pagination"
+    = render "shared/pagy", pagy: pagy

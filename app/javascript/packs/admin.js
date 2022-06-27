@@ -10,11 +10,7 @@ import "src/self_made/TexCompile"
 import "src/self_made/QuestionsIndex"
 import "../stylesheets/admin.scss"
 
-import I18n from 'src/i18n-js/index.js.erb'
-I18n.locale = 'ja'
-export function t(arg) {
-  return I18n.t(arg)
-}
-
 Rails.start()
 ActiveStorage.start()
+
+import 'src/pagy.js.erb'

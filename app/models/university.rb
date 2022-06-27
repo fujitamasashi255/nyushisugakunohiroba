@@ -29,6 +29,21 @@ class University < ApplicationRecord
   belongs_to_active_hash :prefecture
   accepts_nested_attributes_for :departments, reject_if: :all_blank, allow_destroy: true
 
+  # questionを持つ大学に絞る
+  scope :by_have_question, lambda {
+    joins(departments: :questions)\
+      .where.not(questions: { id: nil }) \
+      .distinct
+  }
+
+  # userの、questionを持つ大学に絞る
+  scope :by_have_question_of_user, lambda { |user|
+    joins(departments: { questions: :answers })\
+      .where.not(questions: { id: nil })\
+      .where(answers: { user_id: user.id })\
+      .distinct
+  }
+
   default_scope { order(:prefecture_id) }
 
   private

@@ -8,9 +8,19 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "../stylesheets/application.scss"
 import "bootstrap"
+window.bootstrap = require("bootstrap");
 import "src/self_made/QuestionsIndex"
 import "src/self_made/FlashMessages"
 import "src/self_made/Users"
+import "src/self_made/TexCompile"
+import "src/self_made/AnswerForm"
+import "src/self_made/AnswersIndex"
+import "src/ToolTip"
+import "src/MathJax"
+import "src/CreateEditAnswerTags"
+import "src/QuestionsSearchTags"
+import "src/AnswersSearchTags"
+import "src/ActionText"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
@@ -20,3 +30,5 @@ export function t(arg) {
 
 Rails.start()
 ActiveStorage.start()
+
+import 'src/pagy.js.erb'

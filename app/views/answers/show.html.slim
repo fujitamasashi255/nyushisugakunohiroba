@@ -1,0 +1,136 @@
+- content_for(:title, t(".title"))
+- content_for(:page_title, t(".title"))
+
+- content_for :note do
+  .mt-2
+    .answer-show-note.d-flex.align-items-center
+      div
+        | ※問題文は画面右上の
+      div.ms-1
+        i.bi.bi-chat-right-text
+      div.ms-1
+        | をクリック
+
+.d-flex.fixed-top.justify-content-end.answer-top-icons
+  / 解答がユーザーのものの場合のみ、解答編集へのリンク、削除リンクを表示する
+  - if logged_in? & current_user&.own_answer?(@answer)
+    / 解答編集ページへの戻るアイコン
+    .me-2
+      = link_to edit_answer_path(@answer) do
+        i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_edit")
+    / 問題削除アイコン
+    .me-2
+      = link_to answer_path(@answer), method: :delete, data: { confirm: t("messages.delete_confirm") } do
+        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".destroy")
+  / 問題詳細ページへのリンクアイコン
+  .me-2
+    = link_to question_path(@question) do
+      i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_question")
+  / 問題文表示
+  .dropdown
+    a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
+      i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".display_question_image")
+    .dropdown-menu.p-1 id="dropdownQuestionImage"
+      = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
+
+/ タイトル横の問題情報
+- content_for :page_subtitle do
+  .answer-subtitle.d-flex.flex-row.align-items-center
+    = render "answers/question_info", question: @question
+
+/ 解答の各項目に対する、その上にあるコンテンツ数
+- above_contents_count = 0
+
+/ 解答
+.answer-show.container.p-4
+  .row
+    - if @answer.tags.present?
+      - above_contents_count += 1
+      / タグ
+      .tags.col-lg-6.order-lg-2
+        label.d-block.mb-2
+          = Answer.human_attribute_name(:tag_list)
+        - @answer.tags.each do |tag|
+          span.d-inline-block.tag
+            = tag.name
+
+        .py-2.py-lg-3
+
+    - if @answer.point.present?
+      - if above_contents_count.positive?
+        .d-lg-none
+          hr
+          .py-2
+
+      - above_contents_count += 1
+
+      .point.col-lg-6.order-lg-1
+        label.d-block.mb-2
+          = Answer.human_attribute_name(:point)
+        .point-field
+          == @answer.point
+
+        .py-2.py-lg-3
+
+  - if @answer.files.attached?
+    - if above_contents_count.positive?
+      hr
+      .py-2.py-lg-3
+
+    - above_contents_count += 1
+
+    / files
+    .files
+      label.mb-2.d-block
+        = Answer.human_attribute_name(:files)
+      / 登録ファイルのプレビュー
+      .d-flex.justify-content-around.preview
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのprevボタン
+          a.carousel-prev.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-prev-icon
+        / カルーセル
+        .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+          / カルーセル部分
+          .carousel-inner.d-flex.align-items-center
+            - @answer.files_urls(:show).each.with_index do |file, index|
+              - case index
+              - when 0
+                .carousel-item.active
+                  - if file.blob.content_type == "image/png"
+                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                  - elsif file.blob.content_type == "application/pdf"
+                    iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy"
+              - else
+                .carousel-item
+                  - if file.blob.content_type == "image/png"
+                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                  - elsif file.blob.content_type == "application/pdf"
+                    iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのnextボタン
+          a.carousel-next.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-next-icon
+
+    .py-2.py-lg-3
+
+  - if @answer.tex.pdf.attached?
+    - if above_contents_count.positive?
+      hr
+      .py-2.py-lg-3
+
+    - above_contents_count += 1
+
+    /tex
+    .tex
+      label.mb-2.d-block
+        = Tex.model_name.human
+      iframe type="application/pdf" src=url_for(@answer.tex.pdf) loading="lazy"
+
+    .py-2.py-lg-3
+
+  / 解答にコンテンツがない場合は「解答はありません」を表示
+  - if above_contents_count == 0
+    = t(".no_result")

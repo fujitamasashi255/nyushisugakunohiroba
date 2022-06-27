@@ -1,7 +1,8 @@
 - content_for(:title, t('.title'))
 
-- content_for :buttons do
-  = link_to t("common.edit"), edit_admin_question_path(@question), class: "btn btn-outline-dark", role: "button"
-  = link_to t("common.destroy"), admin_question_path(@question), method: :delete, class: "btn btn-outline-dark ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }
+- content_for :links do
+  .admin
+    = link_to t("common.edit"), edit_admin_question_path(@question), class: "btn btn-outline-dark", role: "button"
+    = link_to t("common.destroy"), admin_question_path(@question), method: :delete, class: "btn btn-outline-dark ms-1", role: "button", data: { confirm: t("messages.delete_confirm") }
 
 = render "/shared/questions/show", question: @question

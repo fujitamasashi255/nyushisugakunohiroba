@@ -1,5 +1,8 @@
+- content_for :tex_title do
+  = Question.human_attribute_name(:image)
+
 .container
-  = render "shared/errors_base", object: question
+  = render "shared/errors", object: question
 
 .container
   .col-11
@@ -9,7 +12,7 @@
           .row
             /出題年
             .col-sm-3
-              = f.input :year, collection: 1980..Time.current.year, include_blank: false
+              = f.input :year, collection: (1980..Time.current.year).to_a.reverse, include_blank: false
 
             / 大学名
             .col-sm-9
@@ -19,7 +22,7 @@
               / 大学名ドロップダウンボタン
               .university-radio-buttons.container.ps-0
                 .row
-                  .col-6.d-grid.gap-2
+                  .col-6.d-grid.gap-2.dropdown
                     button[type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside"]
                       = question.university.name if question.university.present?
                     / 大学名ドロップダウンメニュー（ラジオボタン ）
@@ -80,7 +83,12 @@
 
         /tex
         .container
-          = render "texes/form", {f: f, tex: question.tex || Tex.new}
+          label.form-group
+            = Question.human_attribute_name(:image)
+
+          .py-1
+
+          = render "texes/form", {f: f, tex: question.tex || Tex.new(code: Settings.admin_tex_default_code) }
 
       .py-3
 

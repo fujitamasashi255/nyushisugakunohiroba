@@ -1,12 +1,5 @@
 @import "variables";
 
-// 変数定義
-$sidebar-width: 160px;
-$sidebar-height: 60px;
-$header-height: 60px;
-$footer-height: 60px;
-
-
 // 画面サイズ1200px以上の時
 @media only screen and (min-width: 1200px){
   // フォントサイズ
@@ -24,6 +17,11 @@ $footer-height: 60px;
   #page-body {
     padding-right: $sidebar-width;
   }
+
+  // 注意書き
+#note {
+  font-size: 0.8rem;
+}
 
   main {
     margin: 0 4rem;
@@ -112,8 +110,8 @@ html {
 
 // サイドバー、オフキャンバスプロフィール画像
 #sidebar .avatar{
-  width: $icon-size-large;
-  height: $icon-size-large;
+  //width: $icon-size-large;
+  //height: $icon-size-large;
   border-radius: 100px;
 }
 
@@ -156,3 +154,4 @@ footer .footer-contents {
 .footer-contents .footer-copyright {
   font-size: 0.75rem;
 }
+

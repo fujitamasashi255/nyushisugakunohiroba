@@ -28,13 +28,19 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  # ログイン記憶フォームで利用する仮想属性
   attribute :remember, :boolean, default: -> { false }
 
-  before_create :default_image
+  # ユーザー作成時にデフォルトのavatarをattachする
+  before_create :default_avatar
 
   validates :name, presence: true, length: { maximum: 10 }
   validates :role, presence: true
-  validates :avatar, content_type: ["image/png", "image/jpeg"]
+  validates \
+    :avatar, \
+    content_type: ["image/png", "image/jpeg"], \
+    size: { less_than: 1.megabytes, message: "サイズは1MB以下にして下さい" }, \
+    limit: { max: 1, message: "は1つにして下さい" }
 
   validates :password, length: { minimum: 8 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
@@ -52,14 +58,27 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_one_attached :avatar
+  has_many :answers, dependent: :destroy
+  has_many :answered_questions, through: :answers, source: :question
 
-  enum role: { general: 0, guest: 1, admin: 2 }, _default: :admin
+  enum role: { general: 0, guest: 1, admin: 2 }, _default: :general
+
+  # ユーザーの作成した解答のidをvalue、その問題のidをkeyとするhashを作成
+  def question_id_to_answer_id_hash
+    answers.pluck(:question_id, :id).to_h
+  end
+
+  # ユーザーがanswerを作成したか判定
+  def own_answer?(answer)
+    answers.include?(answer)
+  end
 
   private
 
-  def default_image
+  # コールバック
+  def default_avatar
     return if avatar.attached?
 
-    avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.png")), filename: "blank-profile-picture.png", content_type: "image/png")
+    avatar.attach(io: File.open(Rails.root.join("app/assets/images/blank-profile-picture.jpg")), filename: "blank-profile-picture.jpg", content_type: "image/png")
   end
 end

@@ -14,6 +14,8 @@ Rails.application.configure do
     Bullet.raise         = true # raise an error if n+1 query occurs
   end
 
+  config.active_job.queue_adapter = :test
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.cache_classes = false

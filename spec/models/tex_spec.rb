@@ -46,8 +46,8 @@ RSpec.describe Tex, type: :model do
 
     describe "attach_pdf" do
       it "pdfファイルを、そのActiveStorage::Blobを介してtexにattachできること" do
-        file_path = Rails.root.join("spec/files/pdf_test.pdf")
-        file_name = "pdf_test.pdf"
+        file_path = Rails.root.join("spec/files/test.pdf")
+        file_name = "test.pdf"
         blob = ActiveStorage::Blob.create_and_upload!(io: File.open(file_path), filename: file_name)
         tex = create(:tex, pdf_blob_signed_id: blob.signed_id, texable: question)
         tex.attach_pdf
@@ -58,6 +58,15 @@ RSpec.describe Tex, type: :model do
         attached_tex.pdf_blob_signed_id = nil
         attached_tex.attach_pdf
         expect(attached_tex.pdf.attached?).to be_falsy
+      end
+    end
+
+    describe "restore" do
+      it "texオブジェクトのpdf_blob_signed_idが空文字に、codeがデフォルト値になり、pdfが削除されること" do
+        attached_tex.restore
+        expect(attached_tex.pdf_blob_signed_id).to eq nil
+        expect(attached_tex.pdf.attached?).to be_falsy
+        expect(attached_tex.code).to eq Settings.tex_default_code
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CompilesController < ApplicationController
+class PdfsController < ApplicationController
   def create
     code = params[:code]
     signed_id = params[:id]
@@ -14,7 +14,7 @@ class CompilesController < ApplicationController
       # コンパイル結果のバイナリ
       pdf_binary = LatexToPdf.generate_pdf(code, LatexToPdf.config)
       # コンパイルして得られるpdfのパス
-      pdf_path = Settings.tmp_pdf_path
+      pdf_path = "#{Settings.tmp_pdf_dir}#{current_user.id}#{Time.current.strftime('%Y%m%d%H%M%S')}.pdf"
       File.open(pdf_path, "w+b") do |f|
         f.write(pdf_binary)
       end

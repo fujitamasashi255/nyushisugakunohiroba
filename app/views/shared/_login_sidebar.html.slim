@@ -1,20 +1,24 @@
 - content_for :sidebar_top_items do
   = render "shared/sidebar_item", item_name: t(".questions_search"), link: questions_path, icon_class: "bi bi-search"
-  = render "shared/sidebar_item", item_name: t(".answers_index"), link: "#", icon_class: "bi bi-book"
-  = render "shared/sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
-  = render "shared/sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
+  = render "shared/sidebar_item", item_name: t(".answers_index"), link: user_answers_path(current_user), icon_class: "bi bi-book"
+  / お気に入りの問題
+  / = render "shared/sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
+  / いいねした解答
+  / = render "shared/sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
 
 
 
 - content_for :offcanvas_top_items
   = render "shared/offcanvas_sidebar_item", item_name: t(".questions_search"), link: questions_path, icon_class: "bi bi-search"
-  = render "shared/offcanvas_sidebar_item", item_name: t(".answers_index"), link: "#", icon_class: "bi bi-book"
-  = render "shared/offcanvas_sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
-  = render "shared/offcanvas_sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
+  = render "shared/offcanvas_sidebar_item", item_name: t(".answers_index"), link: user_answers_path(current_user), icon_class: "bi bi-book"
+  / お気に入りの問題
+  / = render "shared/offcanvas_sidebar_item", item_name: t(".bookmarked_questions"), link: "#", icon_class: "bi bi-bookmark-check"
+  / いいねした解答
+  / = render "shared/offcanvas_sidebar_item", item_name: t(".liked_questions"), link: "#", icon_class: "bi bi-heart"
 
 / アカウントアイコン
 - content_for :sidebar_avatar do
-  = image_tag current_user.avatar, class: "avatar"
+  = image_tag current_user.avatar_url(:sidebar), class: "avatar", loading: "lazy"
 
 / アカウント名
 - content_for :sidebar_account_name do

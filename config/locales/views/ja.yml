@@ -1,4 +1,14 @@
 ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      short: "%y/%m/%d %H:%M"
   common:
     index: "一覧"
     create: "作成する"
@@ -13,13 +23,29 @@ ja:
     math: "数学"
 
   messages:
-    delete_confirm: "本当に削除しますか"
+    delete_confirm: "削除しますか"
     compile:
       success: "コンパイルに成功しました。"
       fail: "コンパイルに失敗しました。ログが表示されます。"
     compiling: "コンパイル中"
     still_logged_in: "既にログインしています"
     require_login: "ログインして下さい"
+
+  javascript:
+    answer_form:
+      tex_collapse:
+        open: "解答を書く"
+        close: "閉じる"
+    tex_compile:
+      compiling: "コンパイル中"
+      compile: "コンパイルする"
+      success: "コンパイルに成功しました"
+      fail: "コンパイルに失敗しました。ログが表示されます。"
+    tag:
+      hint: "この問題と同じ分野の問題にあなたがつけたタグの一覧"
+
+
+
 
   helpers:
     submit:
@@ -36,6 +62,15 @@ ja:
         update: "更新する"
       password_reset:
         create: "送信する"
+      answer:
+        create: "解答を作成する"
+        update: "解答を更新する"
+      answers_search_form:
+        create: "検索する"
+  decorators:
+    answer:
+      close: "閉じる"
+      open: "解答を書く"
 
   cocoon:
     departments:
@@ -51,6 +86,12 @@ ja:
     questions:
       index:
         search_form_description: "検索条件を指定する"
+      show:
+        other_users_answers:
+          title: "他のユーザーの解答"
+          description: "解答をクリックすると、詳細を見ることができます。"
+      search_form:
+        hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
     sidebar_layout:
       account: "アカウント"
     logout_sidebar:
@@ -78,8 +119,60 @@ ja:
     index:
       title: "問題検索"
       search: "問題検索"
+    question:
+      edit_question: "解答を編集する"
+      create_question: "解答を作成する"
+      bookmark: "ブックマークする"
+      unbookmark: "ブックマークを解除する"
+      answered: "解答作成済"
     show:
       title: "問題詳細"
+      new: "解答を作成する"
+      edit: "解答を編集する"
+  answers:
+    form:
+      saving: "保存中"
+      point-input: "入力"
+      point-preview: "プレビュー"
+      select_file: "ファイルを選択"
+      files_hint: "1MB以下の画像またはPDFを3つまで"
+      tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
+    search_form:
+      search_form_description: "検索条件を指定する"
+      hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
+    index:
+      title: "作成した解答一覧"
+    new:
+      title: "解答作成"
+      display_question_image: "問題文を表示する"
+      to_question: "問題詳細へ"
+    create:
+      success: "解答を作成しました"
+      fail: "解答を作成できませんでした"
+    show:
+      to_edit: "解答編集へ"
+      title: "解答"
+      destroy: "解答を削除する"
+      display_question_image: "問題文を表示する"
+      to_question: "問題詳細へ"
+      no_result: "解答はありません"
+    edit:
+      title: "解答編集"
+      destroy: "解答を削除する"
+      display_question_image: "問題文を表示する"
+      to_question: "問題詳細へ"
+    update:
+      success: "解答を更新しました"
+      fail: "解答を更新できませんでした"
+    destroy:
+      success: "解答を削除しました"
+    my_answer:
+      edit: "解答を編集する"
+      destroy: "解答を削除する"
+      to_question: "問題詳細へ"
+
+
+
   users:
     new:
       title: "新規ユーザー登録"
@@ -96,9 +189,11 @@ ja:
     edit:
       title: "プロフィール編集"
       name_hint: "10文字以下"
+      avatar_hint: "1MB以下"
       delete_account_confirm: "退会しますか"
       delete_account: "退会する"
       change_password: "パスワードを変更する"
+      select_file: "ファイルを選択"
     update:
       success: "プロフィールを更新しました"
       fail: "プロフィールを更新できませんでした"

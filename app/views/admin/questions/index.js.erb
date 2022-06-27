@@ -1,0 +1,7 @@
+var questionsElem = document.getElementById('questions-index');
+var paginationElem = document.getElementById('questions-pagination');
+var scrollToElem = document.querySelector('.question-search-conditions');
+questionsElem.innerHTML = "<%= j(render partial: "/admin/questions/question", layout: "/shared/questions/question_layout", collection: @questions, as: :question) %>";
+paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
+Pagy.init(paginationElem);
+scrollToElem.scrollIntoView();

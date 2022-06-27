@@ -1,0 +1,6 @@
+- if object.errors.messages.any?
+  - object.errors.full_messages.each do |message|
+    .row
+      .text-danger
+        | ・#{message}
+  .py-3

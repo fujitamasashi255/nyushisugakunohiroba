@@ -1,10 +1,17 @@
 // called from views/texes/_form
 
-import { t } from "../../packs/admin";
+import I18n from 'src/i18n-js/index.js.erb'
+I18n.locale = 'ja'
+export function t(arg) {
+  return I18n.t(arg)
+}
+
+// PDFを作成するコントローラpdfs_controllerへのパス path
+const pdfsPath = "/pdfs";
 
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){
-  $('<embed>', {type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
+  $('<iframe>', {loading: "lazy", type: "application/pdf", height: "500", width: "100%", marginwidth: "0"}).attr('src', pdfUrl).appendTo(renderElement);
 }
 
 // logTextをrenderElementに表示する
@@ -14,19 +21,19 @@ var renderLogText = function(logText, renderElement){
 
 // 「コンパイル中」ボタンにする
 var disabledButton = function(button){
-  button.addClass("disabled").empty().text(t("messages.compiling"));
+  button.addClass("disabled").empty().text(t("javascript.tex_compile.compiling"));
   var disabledDisplay = $('<span>', {class: "spinner-border spinner-border-sm mr-1", role: "status", aria: {hidden: "true"}});
   button.prepend(disabledDisplay);
 }
 
 // 「コンパイルする」ボタンに戻す
-var replacewithNewButton = function(button, path, signedId){
-  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).attr('data-compile-path', path).text(t("compile.create"));
+var replacewithNewButton = function(button, signedId){
+  var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).text(t("javascript.tex_compile.compile"));
   button.replaceWith(newButton)
   if(signedId){
-    $('<span>', {id: "compile-message", class: "text-success ms-2"}).text(t("messages.compile.success")).insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-success ms-2 d-inline-block"}).text(t("javascript.tex_compile.success")).insertAfter(newButton);
   }else{
-    $('<span>', {id: "compile-message", class: "text-danger ms-2"}).text(t("messages.compile.fail")).insertAfter(newButton);
+    $('<span>', {id: "compile-message", class: "text-danger ms-2 d-inline-block"}).text(t("javascript.tex_compile.fail")).insertAfter(newButton);
   }
 }
 
@@ -63,8 +70,7 @@ var compileAjax = function(path, code, signedIdElement, compileResultElement){
 $(function(){
   $(document).on('click', "#compile-button", function(){
     var button = $(this);
-    // コンパイルするコントローラへのパス path
-    var path = button.data("compile-path");
+    var submitButton = $("input[type='submit']");
     // コンパイルするtexコード Code
     var code = $('#tex-code').val();
     // 要素 t.input_field :pdf_blob_signed_id を取得
@@ -79,11 +85,38 @@ $(function(){
 
     // ボタンを「コンパイル中」にする
     disabledButton(button);
+    // submitボタンをdisabledにする
+    submitButton.prop("disabled", true)
     // Ajaxを送る
-    compileAjax(path, code, signedIdElement, compileResultElement);
+    compileAjax(pdfsPath, code, signedIdElement, compileResultElement);
     // 結果が表示されたらボタンを元に戻す
     compileResultElement.on('DOMSubtreeModified propertychange', function(){
-      replacewithNewButton(button, path, signedIdElement.val());
+      replacewithNewButton(button, signedIdElement.val());
+      submitButton.prop("disabled", false);
     });
   });
 });
+
+// 画面サイズがlg以下の時、texタブにクラスを追加削除
+var mql = window.matchMedia('(max-width: 992px)');
+function displayTabCopntent(e){
+  if(e.matches){
+    // 画面サイズが992px以下になった時の処理
+    $("#tab-compile-result").attr("class", "tab-pane fade");
+  }else{
+    // 画面サイズが992px以上になった時の処理
+    $("#tab-compile-result").attr("class", "tab-pane fade active show");
+    $(".nav-tabs a[href='#tab-compile-result']").attr("class", "nav-link");
+    $("#tab-tex-code").attr("class", "tab-pane fade active show");
+    $(".nav-tabs a[href='#tab-tex-code']").attr("class", "nav-link active");
+  }
+}
+
+mql.addEventListener("change", displayTabCopntent);
+
+$(function(){
+  if(window.innerWidth < 992){
+    $("#tab-compile-result").attr("class", "tab-pane fade");
+  }
+});
+

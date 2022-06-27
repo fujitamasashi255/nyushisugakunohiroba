@@ -37,13 +37,14 @@
   color: red;
 }
 
-// 大学選択ドロップダウン
-.search-form-universities .dropdown-item {
-  padding-left: 2rem;
-}
-
 // 単元選択ドロップダウン
 // dropdown-item の幅
 .units-check-boxes .dropdown-item {
   padding-left: 2.5rem;
+}
+
+// 大学選択ドロップダウン
+// dropdown-item の幅
+.university-radio-buttons .dropdown-item, .search-form-universities .dropdown-item {
+  padding-left: 2rem;
 }

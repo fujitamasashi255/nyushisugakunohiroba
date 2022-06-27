@@ -3,11 +3,10 @@
 class Admin::QuestionsController < Admin::ApplicationController
   before_action :set_question_association_without_tex, only: %i[show]
   before_action :set_question_association_without_image, only: %i[edit]
-  before_action :set_question, only: %i[update destroy]
 
   def index
     @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
-    @pagy, @questions = pagy(@questions_search_form.search)
+    @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true"')
   end
 
   def new
@@ -33,6 +32,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   def edit; end
 
   def update
+    @question = Question.find(params[:id])
     set_tex_and_attach_image
     if update_question_transaction
       redirect_to [:admin, @question], success: t(".success")
@@ -43,8 +43,16 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def destroy
+    @question = Question.includes(answers: [:tex, :rich_text_point, :tags, { files_attachments: :blob }]).find(params[:id])
     @question.destroy!
     redirect_to admin_questions_path, success: t(".success")
+  end
+
+  def search
+    @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
+    @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true"')
+    @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
+    render "admin/questions/index"
   end
 
   private
@@ -75,12 +83,11 @@ class Admin::QuestionsController < Admin::ApplicationController
     other_params[:unit_ids].reject(&:blank?)
   end
 
-  # set objects
-
-  def set_question
-    @question = Question.find(params[:id])
+  def questions_search_form_params
+    params.require(:questions_search_form).permit(:start_year, :end_year, :sort_type, :tag_names, university_ids: [], unit_ids: [])
   end
 
+  # set objects
   def set_question_association_without_tex
     @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
   end

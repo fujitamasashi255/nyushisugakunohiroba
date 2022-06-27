@@ -1,21 +1,35 @@
-label.form-group
-  = Question.human_attribute_name(:image)
-
-.py-1
+/ 変数
+/ f
+/ tex
 
 .row.small
-  / 問題文のtexコード
-  .col-md-6
-    = f.simple_fields_for tex do |t|
-      = t.input :code, input_html: { style: "min-height: 500px", id: "tex-code"}
-      = t.input_field :pdf_blob_signed_id, id: "pdf_blob_signed_id", type: "hidden"
-    button.btn.btn-outline-dark id="compile-button" type="button" data-compile-path= "#{compile_path}"
-      = t("compile.create")
+  / タブ部分（画面サイズlg以上の時非表示）
+  .d-lg-none.px-0
+    ul.nav.nav-tabs role="tablist"
+      li.nav-item
+        a.nav-link.active data-bs-toggle="tab" href="#tab-tex-code"
+          = Tex.human_attribute_name(:code)
+      li.nav-item
+        a.nav-link data-bs-toggle="tab" href="#tab-compile-result"
+          = Tex.human_attribute_name(:pdf)
 
-  / texをコンパイルした結果
-  .col-md-6
-    label
-      = Tex.human_attribute_name(:pdf)
-    .border.rounded.p-2.bg-white id="compile-result" style='height: 500px'
-      - if tex.pdf.attached?
-        embed.d-block type="application/pdf" height="500" width="100%" marginwidth="0" src="#{url_for(tex.pdf)}"
+  / texコード
+  .d-lg-flex.tab-content.px-0
+    / texコード入力エリア
+    .tab-pane.fade.active.show role="tabpanel" id="tab-tex-code"
+      = f.simple_fields_for tex do |t|
+        .d-none.d-lg-block
+          = t.label :code
+        = t.input :code, label: false, input_html: { style: "min-height: 500px", id: "tex-code"}
+        // texにattachするpdfのblobオブジェクトのsigned_id
+        = t.input_field :pdf_blob_signed_id, id: "pdf_blob_signed_id", type: "hidden"
+    / texコード出力エリア
+    .tab-pane.fade.active.show role="tabpanel" id="tab-compile-result"
+      .d-none.d-lg-block
+        = Tex.human_attribute_name(:pdf)
+      .border.rounded.p-2.bg-white id="compile-result" style='height: 500px'
+        - if tex.pdf.attached?
+          iframe.d-block type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(tex.pdf) loading="lazy"
+  .px-0
+    button.btn.btn-outline-dark id="compile-button" type="button"
+      = t("compile.create")

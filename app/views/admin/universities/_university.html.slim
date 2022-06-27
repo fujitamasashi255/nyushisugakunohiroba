@@ -4,11 +4,11 @@ tr class="university#{university.id}-info"
   td.align-middle.departments
     - if university.departments.present?
       .d-flex
-        = render "/shared/departments/departments", departments: university.departments
+        = render "/admin/departments/departments_without_question_number.html", departments: university.departments
   td.align-middle[style="width:25%"]
     / 編集ボタン
     = link_to edit_admin_university_path(university) do
-      i.bi.bi-pencil-square role="img" aria-label="Pencil"
+      i.bi.bi-pencil role="img" aria-label="Pencil"
     / 削除ボタン
     = link_to admin_university_path(university), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
       i.bi.bi-trash role="img" aria-label="Trash"
