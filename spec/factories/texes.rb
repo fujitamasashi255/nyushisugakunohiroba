@@ -20,6 +20,7 @@ FactoryBot.define do
   factory :tex do
     code { "" }
     pdf_blob_signed_id { "" }
+    pdf { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.pdf"), "application/pdf") }
 
     transient do
       texable { nil }

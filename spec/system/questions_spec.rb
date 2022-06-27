@@ -207,7 +207,7 @@ RSpec.describe "Questions", type: :system, js: true do
     end
   end
 
-  fdescribe "問題詳細機能" do
+  describe "問題詳細機能" do
     context "userが問題の解答を作成しており、他にも問題の解答を作成しているユーザーがいるとき" do
       before do
         @answer = create(:answer, question: @question_kyoto, user:, tag_names: "tag1")

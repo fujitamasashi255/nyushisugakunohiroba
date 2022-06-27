@@ -13,6 +13,8 @@ FactoryBot.define do
 
     before(:create) do |answer, evaluator|
       answer.tag_list.add(evaluator.tag_names)
+      tex = build(:tex, texable: answer)
+      answer.tex = tex
     end
 
     trait :attached_text_file do
