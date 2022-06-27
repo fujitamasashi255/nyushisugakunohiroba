@@ -20,7 +20,7 @@ RSpec.describe Answer, type: :model do
     it "ユーザーは解答にjpg、png、pdf以外のファイルをattachできないこと" do
       answer = build(:answer, :attached_text_file, question: @question, user: @user)
       expect(answer).to be_invalid
-      expect(answer.errors[:files]).to eq ["ファイルの種類が不正です"]
+      expect(answer.errors[:files]).to eq ["の種類が正しくありません"]
     end
 
     it "ユーザーは解答にjpgファイルをattachできること" do

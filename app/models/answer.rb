@@ -29,7 +29,7 @@ class Answer < ApplicationRecord
   validates :question_id, uniqueness: { scope: :user_id, message: "解答は既に作成されています" }
   validates \
     :files, \
-    content_type: { in: Answer::VALID_CONTENT_TYPES, message: "ファイルの種類が不正です" }, \
+    content_type: { in: Answer::VALID_CONTENT_TYPES, message: "の種類が正しくありません" }, \
     size: { less_than: 1.megabytes, message: "のサイズは1MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
 
