@@ -23,7 +23,7 @@ ja:
     math: "数学"
 
   messages:
-    delete_confirm: "本当に削除しますか"
+    delete_confirm: "削除しますか"
     compile:
       success: "コンパイルに成功しました。"
       fail: "コンパイルに失敗しました。ログが表示されます。"
@@ -142,7 +142,6 @@ ja:
       hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
     index:
       title: "作成した解答一覧"
-      description: "解答をクリックすると、詳細を見ることができます。"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示する"
@@ -156,19 +155,21 @@ ja:
       destroy: "解答を削除する"
       display_question_image: "問題文を表示する"
       to_question: "問題詳細へ"
-      destroy_confirm: "削除しますか"
       no_result: "解答はありません"
     edit:
       title: "解答編集"
       destroy: "解答を削除する"
       display_question_image: "問題文を表示する"
       to_question: "問題詳細へ"
-      destroy_confirm: "削除しますか"
     update:
       success: "解答を更新しました"
       fail: "解答を更新できませんでした"
     destroy:
       success: "解答を削除しました"
+    my_answer:
+      edit: "解答を編集する"
+      destroy: "解答を削除する"
+      to_question: "問題詳細へ"
 
 
 
