@@ -27,9 +27,9 @@ class AnswersSearchForm
   def search(user)
     case specific_search_condition
     when SPECIFIC_CONDITIONS_ENUM[:no_data]
-      Answer.none
+      relation = Answer.none
     when SPECIFIC_CONDITIONS_ENUM[:all_data]
-      user.answers.includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob })
+      relation = user.answers
     when SPECIFIC_CONDITIONS_ENUM[:nothing]
       university_ids_no_blank = university_ids&.reject(&:blank?)
       unit_ids_no_blank = unit_ids&.reject(&:blank?)
@@ -61,16 +61,16 @@ class AnswersSearchForm
         relation = relation.by_tag_name_array(tag_name_array).distinct
         search_conditions[:tag] = tag_name_array.join("、")
       end
-
-      # 並び替え
-      case sort_type
-      when "year_new"
-        relation = relation.joins(:question).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
-      when "updated_at_new"
-        relation = relation.order(updated_at: :desc)
-      end
-
-      relation
     end
+
+    # 並び替え
+    case sort_type
+    when "year_new"
+      relation = relation.joins(:question).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
+    when "updated_at_new"
+      relation = relation.order(updated_at: :desc)
+    end
+
+    relation
   end
 end

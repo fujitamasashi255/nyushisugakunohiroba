@@ -27,9 +27,9 @@ class QuestionsSearchForm
   def search
     case specific_search_condition
     when SPECIFIC_CONDITIONS_ENUM[:no_data]
-      Question.none
+      relation = Question.none
     when SPECIFIC_CONDITIONS_ENUM[:all_data]
-      Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] })
+      relation = Question.all
     when SPECIFIC_CONDITIONS_ENUM[:nothing]
       university_ids_no_blank = university_ids&.reject(&:blank?)
       unit_ids_no_blank = unit_ids&.reject(&:blank?)
@@ -61,18 +61,18 @@ class QuestionsSearchForm
         relation = relation.by_tag_name_array(tag_name_array).distinct
         search_conditions[:tag] = tag_name_array.join("、")
       end
-
-      # 並び替え
-      case sort_type
-      when "year_new"
-        relation = relation.order(year: :desc)
-      when "created_at_new"
-        relation = relation.order(created_at: :desc)
-      when "answers_many"
-        relation = relation.left_joins(:answers).select("questions.*, COUNT(answers.id)").group("questions.id").order(Arel.sql("COUNT(answers.id) desc"))
-      end
-
-      relation
     end
+
+    # 並び替え
+    case sort_type
+    when "year_new"
+      relation = relation.order(year: :desc)
+    when "created_at_new"
+      relation = relation.order(created_at: :desc)
+    when "answers_many"
+      relation = relation.left_joins(:answers).select("questions.*, COUNT(answers.id)").group("questions.id").order(Arel.sql("COUNT(answers.id) desc"))
+    end
+
+    relation
   end
 end
