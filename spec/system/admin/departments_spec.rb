@@ -82,7 +82,9 @@ RSpec.describe "Departments", type: :system, js: true do
       find(".bi-plus-square").click
       all(".nested-fields input")[1].set("文系")
       expect(all(".nested-fields").count).to eq 2
-      click_button "大学・区分を変更する"
+      page.accept_confirm("変更しますか") do
+        click_button "大学・区分を変更する"
+      end
       expect(page).to have_content "大学・区分を変更しました"
       expect(page).to have_selector ".university-name", text: "東京"
       expect(all(".department-name").count).to eq 2
@@ -93,7 +95,9 @@ RSpec.describe "Departments", type: :system, js: true do
     it "区分を削除できること" do
       find(".bi-trash").click
       expect(all(".nested-fields").count).to eq 0
-      click_button "大学・区分を変更する"
+      page.accept_confirm("変更しますか") do
+        click_button "大学・区分を変更する"
+      end
       expect(page).to have_content "大学・区分を変更しました"
       expect(page).to have_selector ".university-name", text: "東京"
       expect(page).not_to have_selector ".department-name"
@@ -103,7 +107,9 @@ RSpec.describe "Departments", type: :system, js: true do
       find(".bi-plus-square").click
       all(".nested-fields input")[1].set("理系")
       expect(all(".nested-fields").count).to eq 2
-      click_button "大学・区分を変更する"
+      page.accept_confirm("変更しますか") do
+        click_button "大学・区分を変更する"
+      end
       expect(page).to have_content "大学・区分を変更できませんでした"
       expect(page).to have_content "同じ名前の区分を登録することはできません"
       expect(page).to have_field "大学名", with: "東京"
