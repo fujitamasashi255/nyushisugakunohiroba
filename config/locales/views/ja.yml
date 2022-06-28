@@ -23,6 +23,7 @@ ja:
     math: "数学"
 
   messages:
+    update_confirm: "変更しますか"
     delete_confirm: "削除しますか"
     compile:
       success: "コンパイルに成功しました。"

@@ -54,7 +54,9 @@ RSpec.describe "Universities", type: :system, js: true do
 
     it "大学名を変更できること" do
       fill_in "大学名", with: "大阪"
-      click_button "大学・区分を変更する"
+      page.accept_confirm("変更しますか") do
+        click_button "大学・区分を変更する"
+      end
       expect(current_path).to eq admin_university_path(edit_university)
       expect(page).to have_content "大学・区分を変更しました"
       expect(page).to have_content "大阪"
@@ -62,7 +64,9 @@ RSpec.describe "Universities", type: :system, js: true do
 
     it "大学名を空欄にはできないこと" do
       fill_in "大学名", with: ""
-      click_button "大学・区分を変更する"
+      page.accept_confirm("変更しますか") do
+        click_button "大学・区分を変更する"
+      end
       expect(page).to have_content "大学・区分を変更できませんでした"
       expect(page).to have_selector ".invalid-feedback", text: "大学名 を入力して下さい"
     end
@@ -70,7 +74,9 @@ RSpec.describe "Universities", type: :system, js: true do
     it "既に存在する大学と同じ名前には変更できないこと" do
       create(:university, name: "東京")
       fill_in "大学名", with: "東京", fill_options: { clear: :backspace }
-      click_button "大学・区分を変更する"
+      page.accept_confirm("変更しますか") do
+        click_button "大学・区分を変更する"
+      end
       expect(page).to have_content "大学・区分を変更できませんでした"
       expect(page).to have_content "大学名 は既に存在します"
       expect(page).to have_field "大学名", with: "東京"

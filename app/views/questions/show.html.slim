@@ -1,5 +1,7 @@
 - content_for(:title, t('.title'))
-- content_for(:page_title, t('.title'))
+- content_for :page_title do
+  i.bi.bi-card-text.me-2
+  = t(".title")
 
 - content_for :links do
   - if logged_in?

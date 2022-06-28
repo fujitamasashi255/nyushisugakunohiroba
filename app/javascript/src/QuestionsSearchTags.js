@@ -22,6 +22,9 @@ const questionsSearchSettings = {
     closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
   },
   templates: {
+    dropdownHeader(suggestions){
+      return '<header class="ps-1">( )内の数は、そのタグが付けられた回数を表します。</header>';
+    },
     dropdownItem( item, tagify ){
       return `<div ${this.getAttributes(item)}
                   class='${this.settings.classNames.dropdownItem} ${item.class ? item.class : ""}'

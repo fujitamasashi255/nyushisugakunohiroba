@@ -26,6 +26,7 @@ class Answer < ApplicationRecord
   VALID_IMAGE_TYPES = ["image/png", "image/jpeg"].freeze
   VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
 
+  after_destroy :destroy_tags
   validates :question_id, uniqueness: { scope: :user_id, message: "解答は既に作成されています" }
   validates \
     :files, \
@@ -52,6 +53,13 @@ class Answer < ApplicationRecord
       .where(tags: { name: tag_name_array })\
       .distinct
   }
-
   scope :by_questions, ->(questions) { where(question_id: questions.map(&:id)) }
+
+  private
+
+  def destroy_tags
+    tags.each do |tag|
+      tag.destroy if tag.taggings_count == 1
+    end
+  end
 end
