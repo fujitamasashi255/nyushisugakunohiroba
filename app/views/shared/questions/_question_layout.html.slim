@@ -12,7 +12,7 @@
       .col-12.question-card.border.mb-4.d-flex.flex-column
         / カードの上部分
         .question-card-top.d-flex
-          = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1" do
+          = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1 d-flex align-items-center" do
             / 大学名
             .univ-name-year-info.d-flex.flex-row.align-items-center
               div
@@ -23,15 +23,15 @@
                 = University.model_name.human
               div.ms-1.left-icons
                 = content_for "left_icons#{question.id}".to_sym
-            / 区分一覧
-            .row.department-info
-              small.d-flex
-                = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
           / 大学名横アイコン
           .right-icons
             = content_for "right_icons#{question.id}".to_sym
 
         = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
+          / 区分一覧
+          .row.department-info
+            small.d-flex
+              = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
           .question-card-bottom.pt-1
             / 単元一覧
             small.row.unit-info

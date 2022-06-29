@@ -1,4 +1,6 @@
-- content_for(:title, t('.title'))
+- set_meta_tags title: t(".title")
+
+- content_for(:page_title, t(".title"))
 
 .container.border.p-3
   h3

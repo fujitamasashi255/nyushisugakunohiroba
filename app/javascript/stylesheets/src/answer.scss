@@ -263,10 +263,43 @@ $file-height: 500px;
 // 解答カード、大学名横アイコン
 // 大学名横のアイコン
 //ブックマークアイコン
-.answer-card i {
-  font-size: 2rem;
-}
-
 .answer-card .univ-name-year-info{
   height: 1.5rem;
+}
+
+// 右上ドロップダウンの▼を表示しない
+.answer-card .dropdown-toggle::after {
+  display: none;
+}
+
+//「・・・」アイコンを囲む円
+.answer-card .dropdown .dropdown-toggle {
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+
+//「・・・」アイコンを囲む円
+.answer-card .dropdown .dropdown-toggle:hover {
+  background-color: rgb(230, 237, 243);
+  border: 1px solid rgb(148, 187, 224);
+  .bi-three-dots {
+    color: rgb(39,93,144);
+  }
+}
+
+//「・・・」アイコンのサイズと色
+.answer-card .dropdown .dropdown-toggle i {
+  color: $deepsilver;
+  font-size: 1.25rem;
+}
+
+
+//「・・・」アイコンクリック時に開かれるドロップダウン
+.answer-card .dropdown-item {
+  font-size: 0.85rem;
+  i {
+    font-size: 1rem;
+  }
 }

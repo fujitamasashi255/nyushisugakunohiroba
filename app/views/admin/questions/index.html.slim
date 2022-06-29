@@ -1,4 +1,6 @@
-- content_for(:title, t('.title'))
+- set_meta_tags title: t(".title")
+
+- content_for(:page_title, t(".title"))
 
 - content_for :question_partial do
   = render partial: "/admin/questions/question", layout: "/shared/questions/question_layout", collection: @questions, as: :question
