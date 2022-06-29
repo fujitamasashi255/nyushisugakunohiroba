@@ -1,4 +1,8 @@
-- set_meta_tags title: t(".title")
+- set_meta_tags \
+  title: t(".title"), \
+  description: @answer.twitter_share_text, \
+  og: { image: url_for(@question.image) }, \
+  twitter: { card: "summary_large_image" }
 
 - content_for(:page_title, t(".title"))
 
