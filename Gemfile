@@ -86,6 +86,9 @@ gem "oj"
 # SEO
 gem "meta-tags"
 
+# 初期データ投入
+gem "seed-fu"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
@@ -97,9 +100,6 @@ group :development, :test do
 
   # N+1問題の検出
   gem "bullet"
-
-  # 初期データ投入
-  gem "seed-fu"
 end
 
 group :development do
