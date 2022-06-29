@@ -7,14 +7,14 @@
         = Question.human_attribute_name(:year)
       .col-sm-8
         .d-flex
-          = f.input_field :start_year, collection: Question.order(year: :desc).pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
+          = f.input_field :start_year, collection: Question.select(:year).distinct.order(year: :desc).pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
           .ms-1.d-flex
             .align-self-center
               = t("common.year")
           .mx-2.d-flex
             .align-self-center
               | 〜
-          = f.input_field :end_year, collection: Question.order(year: :desc).pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
+          = f.input_field :end_year, collection: Question.select(:year).distinct.order(year: :desc).pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
           .ms-1.d-flex
             .align-self-center
               = t("common.year")
