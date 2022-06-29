@@ -11,7 +11,7 @@ end
 User.seed(:email) do |s|
   s.name = "ゲスト"
   s.email = "guest@nyushisugakunohiroba.jp"
-  s.password  = "password"
-  s.password  = "password"
+  s.password  = "password1234"
+  s.password  = "password1234"
   s.role = :guest
 end

@@ -2,7 +2,9 @@
 
 require "csv"
 
-csv_national_or_public = CSV.read("db/fixtures/universities-national-or-public.csv")
+# csvデータは [大学名, 都道府県, 学部名] の形式
+
+csv_national_or_public = CSV.read("db/fixtures/national-or-public-univs-depts.csv")
 csv_national_or_public.each do |university|
   University.seed(:name) do |s|
     s.name = university[0]
@@ -11,7 +13,7 @@ csv_national_or_public.each do |university|
   end
 end
 
-csv_private = CSV.read("db/fixtures/universities-private.csv")
+csv_private = CSV.read("db/fixtures/private-univs-depts.csv")
 csv_private.each do |university|
   University.seed(:name) do |s|
     s.name = university[0]
