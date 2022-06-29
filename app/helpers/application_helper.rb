@@ -33,4 +33,33 @@ module ApplicationHelper
     twitter_share_url.query = URI.encode_www_form(query_array)
     twitter_share_url.to_s
   end
+
+  # SEO
+  def default_meta_tags
+    {
+      site: "入試数学の広場",
+      reverse: true,
+      separator: "|",
+      og: defalut_og,
+      twitter: default_twitter_card
+    }
+  end
+
+  private
+
+  def defalut_og
+    {
+      title: :full_title,          # :full_title とすると、サイトに表示される <title> と全く同じものを表示できる
+      description: :description,   # 上に同じ
+      url: request.url,
+      image: "https://example.com/hoge.png"
+    }
+  end
+
+  def default_twitter_card
+    {
+      card: "summary_large_image",
+      site: "@hogehoge"            # twitter ID
+    }
+  end
 end

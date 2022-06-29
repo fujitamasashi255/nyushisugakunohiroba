@@ -111,7 +111,7 @@ ja:
 
   static_pages:
     top:
-      title: "入試数学の広場"
+      title: "トップ"
 
   compile:
     create: "コンパイルする"

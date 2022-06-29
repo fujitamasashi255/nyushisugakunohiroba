@@ -83,6 +83,9 @@ gem "gon"
 # pagyの高速化
 gem "oj"
 
+# SEO
+gem "meta-tags"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"
