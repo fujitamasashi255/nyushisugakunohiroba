@@ -37,10 +37,12 @@ module ApplicationHelper
   # SEO
   def default_meta_tags
     {
-      site: "入試数学の広場",
+      site: Settings.site.name,
       reverse: true,
       separator: "|",
+      # canonical: "https://nyushisugakunohiroba#{request.fullpath}",
       og: defalut_og,
+      # icon: "/favicon.png", type: "image/png",
       twitter: default_twitter_card
     }
   end
@@ -49,6 +51,7 @@ module ApplicationHelper
 
   def defalut_og
     {
+      site_name: Settings.site.name,
       title: :full_title,          # :full_title とすると、サイトに表示される <title> と全く同じものを表示できる
       description: :description,   # 上に同じ
       url: request.url,
