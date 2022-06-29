@@ -22,4 +22,15 @@ module ApplicationHelper
     class_name = controller.class.name
     class_name.gsub("::#{class_name.demodulize}", "").include?("Admin")
   end
+
+  # twitter共有のためのURLを生成
+  def twitter_share_url(text = nil, url = nil)
+    twitter_share_url = URI.parse("https://twitter.com/intent/tweet")
+    query_array = []
+    query_array << ["text", text]
+    query_array << ["url", url]
+    query_array << ["hashtags", t("common.site_name")]
+    twitter_share_url.query = URI.encode_www_form(query_array)
+    twitter_share_url.to_s
+  end
 end

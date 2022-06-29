@@ -12,9 +12,13 @@
         | をクリック
 
 .d-flex.fixed-top.justify-content-end.answer-top-icons
+  / twitter共有リンク
+  .me-2
+    = link_to twitter_share_url(@answer.twitter_share_text, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
+      i.bi.bi-twitter  data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".share_twitter")
   / 解答がユーザーのものの場合のみ、解答編集へのリンク、削除リンクを表示する
   - if logged_in? & current_user&.own_answer?(@answer)
-    / 解答編集ページへの戻るアイコン
+    / 解答編集ページへアイコン
     .me-2
       = link_to edit_answer_path(@answer) do
         i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_edit")

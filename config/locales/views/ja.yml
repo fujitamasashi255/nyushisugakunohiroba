@@ -153,6 +153,7 @@ ja:
     show:
       to_edit: "解答編集へ"
       title: "解答"
+      share_twitter: "twitterで共有する"
       destroy: "解答を削除する"
       display_question_image: "問題文を表示する"
       to_question: "問題詳細へ"
@@ -168,9 +169,12 @@ ja:
     destroy:
       success: "解答を削除しました"
     my_answer:
-      edit: "解答を編集する"
-      destroy: "解答を削除する"
-      to_question: "問題詳細へ"
+      edit: "解答を編集"
+      destroy: "解答を削除"
+      to_question: "問題詳細"
+      share_twitter: "twitterで共有"
+    another_user_answer:
+      share_twitter: "twitterで共有"
 
 
 

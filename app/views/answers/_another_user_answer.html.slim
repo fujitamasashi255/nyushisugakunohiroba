@@ -12,10 +12,12 @@
               .user-name.ms-2
                 = answer.user_name
 
-          / ユーザー名横アイコン
-          / 解答お気に入り
-          / = link_to "#", class: "d-block" do
-            / i.bi.bi-heart role="img" aria-label="Heart"
+          / 大学名横アイコン
+          /.right-icons
+            /.d-flex.align-items-center
+              / 解答お気に入り
+              / = link_to "#", class: "d-block" do
+                / i.bi.bi-heart role="img" aria-label="Heart"
 
         = link_to answer_path(answer), class: "d-block flex-grow-1" do
           .answer-card-bottom.mt-3.d-flex.flex-column
