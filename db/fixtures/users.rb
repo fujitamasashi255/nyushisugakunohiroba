@@ -3,8 +3,8 @@
 User.seed(:email) do |s|
   s.name = "管理人"
   s.email = "admin@nyushisugakunohiroba.jp"
-  s.password  = "password"
-  s.password  = "password"
+  s.password  = "password1234"
+  s.password  = "password1234"
   s.role = :admin
 end
 
