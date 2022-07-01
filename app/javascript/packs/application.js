@@ -6,7 +6,6 @@
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "../stylesheets/application.scss"
 import "bootstrap"
 window.bootstrap = require("bootstrap");
 import "src/self_made/QuestionsIndex"

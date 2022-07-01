@@ -8,7 +8,6 @@ import "bootstrap"
 import "src/self_made/AdminQuestionsNewEdit"
 import "src/self_made/TexCompile"
 import "src/self_made/QuestionsIndex"
-import "../stylesheets/admin.scss"
 
 Rails.start()
 ActiveStorage.start()
