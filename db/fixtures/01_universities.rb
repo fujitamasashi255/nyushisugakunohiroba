@@ -9,7 +9,7 @@ csv_national_or_public.each do |university|
   University.seed(:name) do |s|
     s.name = university[0]
     s.category = :national_or_public
-    s.prefecture = Prefecture.find_by(name: university[1])
+    s.prefecture_id = Prefecture.find_by(name: university[1]).id
   end
 end
 
