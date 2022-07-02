@@ -5,9 +5,9 @@ require("jquery")
 require("@nathanvda/cocoon")
 
 import "bootstrap"
-import "src/self_made/AdminQuestionsNewEdit"
-import "src/self_made/TexCompile"
-import "src/self_made/QuestionsIndex"
+import "src/admin/QuestionsNewEdit"
+import "src/TexCompile"
+import "src/questions/Index"
 
 Rails.start()
 ActiveStorage.start()
