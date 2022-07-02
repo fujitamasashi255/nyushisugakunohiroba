@@ -87,14 +87,14 @@
                     - case index
                     - when 0
                       .carousel-item.active
-                        - if file.blob.content_type == "image/png"
+                        - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
                           = image_tag file, class: "d-block img-fluid", loading: "lazy"
                         - elsif file.blob.content_type == "application/pdf"
                           iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"
                         = f.hidden_field :file, value: file.blob.signed_id
                     - else
                       .carousel-item
-                        - if file.blob.content_type == "image/png"
+                        - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
                           = image_tag file, class: "d-block img-fluid", loading: "lazy"
                         - elsif file.blob.content_type == "application/pdf"
                           iframe.d-block type="application/pdf" src=url_for(file) loading="lazy"

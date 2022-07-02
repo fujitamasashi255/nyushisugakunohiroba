@@ -23,7 +23,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Answer < ApplicationRecord
-  VALID_IMAGE_TYPES = ["image/png", "image/jpeg"].freeze
+  VALID_IMAGE_TYPES = ["image/png", "image/jpg", "image/jpeg"].freeze
   VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
 
   after_destroy :destroy_tags
