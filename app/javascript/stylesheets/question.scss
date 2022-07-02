@@ -44,14 +44,26 @@ $question-card-hight: 350px;
   max-width: 600px;
 }
 
-.question-show-container .general a {
-  color: black;
+// 問題詳細上のリンク一覧
+.question-show-container .question-links {
+  a {
+    font-size: 0.9rem;
+    color: $linksilver;
+    i {
+      font-size: 1.8rem;
+      color: $linksilver;
+    }
+  }
+  a:hover {
+    color: black;
+    i {
+      color: black;
+    }
+  }
 }
 
-.question-show-container .general a:hover {
-  color: $deepsilver;
-  text-decoration: underline $deepsilver;
-}
+
+
 
 .question-show {
   background-color: $whitesmoke;

@@ -17,28 +17,11 @@
         | をクリック
 
 .d-flex.fixed-top.justify-content-end.answer-top-icons
-  / twitter共有リンク
-  .me-2
-    = link_to twitter_share_url(@answer.twitter_share_text, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
-      i.bi.bi-twitter  data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".share_twitter")
-  / 解答がユーザーのものの場合のみ、解答編集へのリンク、削除リンクを表示する
-  - if logged_in? & current_user&.own_answer?(@answer)
-    / 解答編集ページへアイコン
-    .me-2
-      = link_to edit_answer_path(@answer) do
-        i.bi.bi-pencil data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_edit")
-    / 問題削除アイコン
-    .me-2
-      = link_to answer_path(@answer), method: :delete, data: { confirm: t("messages.delete_confirm") } do
-        i.bi.bi-trash data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".destroy")
-  / 問題詳細ページへのリンクアイコン
-  .me-2
-    = link_to question_path(@question) do
-      i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_question")
+
   / 問題文表示
   .dropdown
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
-      i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".display_question_image")
+      i.bi.bi-chat-right-text
     .dropdown-menu.p-1 id="dropdownQuestionImage"
       = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
 
@@ -49,6 +32,46 @@
 
 / 解答の各項目に対する、その上にあるコンテンツ数
 - above_contents_count = 0
+
+/ 解答上リンク
+.answer-links.d-flex
+  / twitter共有リンク
+  .me-4
+    = link_to twitter_share_url(@answer.twitter_share_text, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
+      figure.mb-0
+        .d-flex.flex-column.align-items-center
+          i.bi.bi-twitter
+          / アイコン説明
+          figcaption.nav-item-text
+            = t(".share_twitter")
+  / 解答がユーザーのものの場合のみ、解答編集へのリンク、削除リンクを表示する
+  - if logged_in? & current_user&.own_answer?(@answer)
+    / 解答編集ページへアイコン
+    .me-4
+      = link_to edit_answer_path(@answer) do
+        figure.mb-0
+          .d-flex.flex-column.align-items-center
+            i.bi.bi-pencil
+            figcaption.nav-item-text
+              = t(".to_edit")
+    / 問題削除アイコン
+    .me-4
+      = link_to answer_path(@answer), method: :delete, data: { confirm: t("messages.delete_confirm") } do
+        figure.mb-0
+          .d-flex.flex-column.align-items-center
+            i.bi.bi-trash
+            figcaption.nav-item-text
+              = t(".destroy")
+  / 問題詳細ページへのリンクアイコン
+  .me-4
+    = link_to question_path(@question) do
+      figure.mb-0
+        .d-flex.flex-column.align-items-center
+          i.bi.bi-card-text.me-1
+          figcaption.nav-item-text
+            = t(".to_question")
+
+.py-2
 
 / 解答
 .answer-show.container.p-4

@@ -31,7 +31,7 @@ $file-height: 500px;
 
 // 右上アイコンの大きさ
 .answer-top-icons i {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 
@@ -39,21 +39,21 @@ $file-height: 500px;
 // 画面サイズ992px以上の時、ドロップダウンを表示しない
 @media only screen and (min-width: 992px){
   #dropdownQuestionImage {
-    width: 420px;
+    width: 520px;
   }
 }
 
 // 画面サイズ768px以上992px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 992px) and (min-width: 768px) {
   #dropdownQuestionImage {
-    width: 350px;
+    width: 420px;
   }
 }
 
 // 画面サイズ768px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 767.98px){
   #dropdownQuestionImage {
-    width: 300px;
+    width: 320px;
   }
 }
 
@@ -87,6 +87,25 @@ $file-height: 500px;
 .answer-subtitle .question-info {
   border-bottom: 2px solid rgb(39,93,144);
 }
+
+// 解答フォーム上のリンク一覧
+.answer-links {
+  a {
+    font-size: 0.9rem;
+    color: $linksilver;
+    i {
+      font-size: 1.8rem;
+      color: $linksilver;
+    }
+  }
+  a:hover {
+    color: black;
+    i {
+      color: black;
+    }
+  }
+}
+
 
 // 解答フォーム全体
 .answer-form-field, .answer-show {
