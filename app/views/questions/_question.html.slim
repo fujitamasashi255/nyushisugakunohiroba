@@ -6,21 +6,21 @@
       /ドロップダウンボタン
       = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
         i.bi.bi-three-dots.mx-auto
-      / 大学名ドロップダウンメニュー（セレクトボックス ）
+      / ドロップダウンメニュー
       .dropdown-menu.dropdown-menu-start style="max-width: 300px"
         - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
           / 解答作成後
           = link_to edit_answer_path(question_id_to_answer_id_hash_of_user[question.id]), class: "dropdown-item d-flex align-items-center" do
             i.bi.bi-pencil.me-2
-            =t(".edit_question")
+            = t(".edit_question")
         - else
           / 解答作成前
           = link_to new_question_answer_path(question), class: "dropdown-item d-flex align-items-center" do
             i.bi.bi-pencil.me-2
-            =t(".create_question")
+            = t(".create_question")
 
 - content_for "left_icons#{question.id}".to_sym do
   - if logged_in?
     / 解答作成済チェック
     - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
-      i.bi.bi-check role="img" aria-label="Checkcircle" data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".answered")
+      i.bi.bi-check

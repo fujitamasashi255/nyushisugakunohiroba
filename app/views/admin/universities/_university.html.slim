@@ -5,10 +5,12 @@ tr class="university#{university.id}-info"
     - if university.departments.present?
       .d-flex
         = render "/admin/departments/departments_without_question_number.html", departments: university.departments
-  td.align-middle[style="width:25%"]
+  td.align-middle
     / 編集ボタン
-    = link_to edit_admin_university_path(university) do
-      i.bi.bi-pencil role="img" aria-label="Pencil"
+    = link_to edit_admin_university_path(university), class: "d-flex align-items-center" do
+      i.bi.bi-pencil role="img" aria-label="Pencil" style="font-size: 1.25rem;"
+      .ms-2
+        = t(".edit")
     / 削除ボタン
-    = link_to admin_university_path(university), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
-      i.bi.bi-trash role="img" aria-label="Trash"
+    / = link_to admin_university_path(university), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
+    /   i.bi.bi-trash role="img" aria-label="Trash"

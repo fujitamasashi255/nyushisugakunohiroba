@@ -84,13 +84,19 @@ html {
 }
 
 // サイドバー
+// アカウントのサブナビアイテム
 .sub-nav-item {
-  font-size: 0.8em;
+  font-size: 0.7rem;
   margin-left: calc($icon-size-large - 1.25rem);
 }
 
-#sidebar .nav-item a:hover {
-  text-decoration: underline white;
+#sidebar .nav-item {
+  a:hover {
+    text-decoration: underline white;
+  }
+  a .nav-item-text:hover {
+    text-decoration: underline white;
+  }
 }
 
 #sidebar {
@@ -110,8 +116,6 @@ html {
 
 // サイドバー、オフキャンバスプロフィール画像
 #sidebar .avatar{
-  //width: $icon-size-large;
-  //height: $icon-size-large;
   border-radius: 50%;
 }
 
@@ -119,6 +123,9 @@ html {
 #sidebar #offcanvasHumberger {
   background-color: black;
   font-size: $font-size-medium;
+  .sub-nav-item {
+    font-size: 0.85rem;
+  }
 }
 
 // サイドバーオフキャンバス下部のフッター

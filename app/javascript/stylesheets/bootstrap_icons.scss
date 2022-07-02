@@ -13,18 +13,6 @@
   }
 }
 
-.question-card, .answer-card, .answer-top-icons {
-  .bi-trash, .bi-pencil, .bi-card-text{
-    color: $deepsilver;
-  }
-
-  .bi-trash:hover,
-  .bi-pencil:hover,
-  .bi-card-text:hover{
-    color: red;
-  }
-}
-
 .bi-check, .bi-chat-right-text{
   color: rgb(39,93,144);
 }

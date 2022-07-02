@@ -236,7 +236,7 @@ ja:
         title: "管理画面トップ"
     shared:
       header:
-        home: "ホーム"
+        top: "サイトトップ"
         logout: "ログアウト"
     universities:
       index:
@@ -256,6 +256,8 @@ ja:
         fail: "大学・区分を変更できませんでした"
       destroy:
         success: "大学・区分を削除しました"
+      university:
+        edit: "編集"
 
     questions:
       new:
@@ -277,4 +279,8 @@ ja:
         success: "問題を削除しました"
       form:
         saving: "保存中・・・"
+      question:
+        edit: "問題を編集する"
+        delete: "問題を削除する"
+
 
