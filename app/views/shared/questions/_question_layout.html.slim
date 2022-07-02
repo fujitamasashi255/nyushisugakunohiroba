@@ -21,10 +21,11 @@
               div.ms-1
                 = question.university.name
                 = University.model_name.human
+              / 大学名横アイコン
               div.ms-1.left-icons
                 = content_for "left_icons#{question.id}".to_sym
-          / 大学名横アイコン
-          .right-icons
+          / 右端アイコン
+          .right-icons.pt-2
             = content_for "right_icons#{question.id}".to_sym
 
         = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
