@@ -1,5 +1,5 @@
 // 読み込みを許可するファイルタイプ
-export const validImageType = ["image/png", "image/jpg"];
+export const validImageType = ["image/png", "image/jpeg", "image/jpg"];
 export const pdfType = "application/pdf";
 
 // previewFileメソッド

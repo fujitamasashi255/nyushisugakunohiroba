@@ -1,11 +1,11 @@
 / 検索フォーム
 .container.answers-search-form
-  .d-flex.align-items-center
-    div
-      = t(".search_form_description")
-    / 検索フォーム折りたたみ開閉ボタン
-    .search-form-icon.ms-2
-      i.bi.bi-plus-square.toggle-btn data-bs-toggle="collapse" href="#collapse-search-form" role="button"
+  .d-flex
+    a.d-flex.align-items-center.toggle-btn data-bs-toggle="collapse" href="#collapse-search-form"
+      div
+        = t(".search_form_description")
+      .search-form-icon.ms-2
+        i.bi.bi-plus-square
 
   / 折りたたまれた検索フォーム
   .collapse.mx-auto id="collapse-search-form"

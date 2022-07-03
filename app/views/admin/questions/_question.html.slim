@@ -1,10 +1,17 @@
 - content_for "right_icons#{question.id}".to_sym do
-  span.d-block
-    / 編集ボタン
-    = link_to edit_admin_question_path(question) do
-      i.bi.bi-pencil role="img" aria-label="Pencil"
-    / 削除ボタン
-    = link_to admin_question_path(question), method: :delete, class: "ms-1", data: { confirm: t("messages.delete_confirm") } do
-      i.bi.bi-trash role="img" aria-label="Trash"
+  .dropdown.d-flex.align-items-center
+    /ドロップダウンボタン
+    = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
+      i.bi.bi-three-dots.mx-auto
+    / ドロップダウンメニュー
+    .dropdown-menu.dropdown-menu-start style="max-width: 300px"
+      / 編集ボタン
+      = link_to edit_admin_question_path(question), class: "dropdown-item d-flex align-items-center"  do
+        i.bi.bi-pencil.me-2
+        = t(".edit")
+      / 削除ボタン
+      = link_to admin_question_path(question), class: "dropdown-item d-flex align-items-center", method: :delete, data: { confirm: t("messages.delete_confirm") } do
+        i.bi.bi-trash.me-2
+        = t(".delete")
 
 - content_for("question_path#{question.id}".to_sym, admin_question_path(question))

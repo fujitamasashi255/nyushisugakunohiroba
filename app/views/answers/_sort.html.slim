@@ -47,7 +47,7 @@
             | #{AnswersSearchForm.human_attribute_name(:sort_type)}：
           .px-1.d-flex.flex-column.flex-sm-row.flex-wrap
             - AnswersSearchForm::SORT_TYPES.each do |sort_type|
-              .me-2 class= sort_type
+              .me-3 class= sort_type
                 - case sort_type
                 - when "year_new"
                   = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \

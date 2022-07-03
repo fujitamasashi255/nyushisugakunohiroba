@@ -1,4 +1,4 @@
-import {previewAvatar} from "src/self_made/PreviewFile"
+import {previewAvatar} from "src/PreviewFile"
 
 
 $(function(){

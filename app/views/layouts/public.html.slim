@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    = display_meta_tags(default_meta_tags)
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'error', media: 'all'
+    = stylesheet_pack_tag 'error', media: 'all'
+
+  body
+    header
+    main
+      h3
+        | 入試数学の広場
+      .content
+        = yield
+      .links
+        .link
+          = link_to "トップへ戻る", root_path
+        .link
+          = link_to "お問い合わせ", "#"

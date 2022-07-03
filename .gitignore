@@ -44,3 +44,8 @@ vendor/bundler
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
+
+# error pages
+public/404.html
+public/422.html
+public/500.html

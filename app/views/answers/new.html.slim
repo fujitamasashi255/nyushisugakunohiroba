@@ -6,16 +6,26 @@
 
 - content_for :icons do
   .d-flex.fixed-top.justify-content-end.answer-top-icons
-    / 問題詳細ページへの戻るアイコン
-    .me-2
-      = link_to question_path(@question) do
-        i.bi.bi-card-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".to_question")
     / 問題文表示
     .dropdown
-      a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
-        i.bi.bi-chat-right-text data-bs-toggle="tooltip" data-bs-placement="bottom" title=t(".display_question_image")
+      a.dropdown-toggle.align-items-center id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
+        figure.mb-0
+          .d-flex
+            i.bi.bi-chat-right-text.mx-auto
+          / アイコン説明
+          / figcaption.nav-item-text
+          /   = t(".display_question_image")
+
       .dropdown-menu.p-1 id="dropdownQuestionImage"
         = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
+
+- content_for :links
+  .answer-links
+    / 問題詳細ページへの戻るアイコン
+    = link_to question_path(@question), class: "d-flex align-items-center" do
+        i.bi.bi-card-text.me-1
+        div
+          = t(".to_question")
 
 = render "form", form_model: [@question, @answer], answer: @answer, question: @question
 

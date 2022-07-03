@@ -16,23 +16,17 @@ document.addEventListener('DOMContentLoaded', function(){
   // 検索フォームの折りたたみが表示されると、ボタンのテキストを - に変更
   if(collapseElem){
     collapseElem.addEventListener('show.bs.collapse', function(){
-      collapseIconWrapper.innerHTML = "";
-      let Icon = document.createElement("i");
-      Icon.setAttribute("class", "bi bi-dash-square toggle-btn");
-      Icon.setAttribute("data-bs-toggle", "collapse");
-      Icon.setAttribute("href", "#collapse-search-form");
-      Icon.setAttribute("role", "button");
-      collapseIconWrapper.append(Icon);
+      let newIcon = document.createElement("i");
+      newIcon.setAttribute("class", "bi bi-dash-square");
+      oldIcon = collapseIconWrapper.lastChild;
+      collapseIconWrapper.replaceChild(newIcon, oldIcon);
     });
     // 検索フォームの折りたたみが非表示になると、ボタンのテキストを + に変更
-    collapseElem.addEventListener('hide.bs.collapse', function(){
-      collapseIconWrapper.innerHTML = "";
-      let Icon = document.createElement("i");
-      Icon.setAttribute("class", "bi bi-plus-square toggle-btn");
-      Icon.setAttribute("data-bs-toggle", "collapse");
-      Icon.setAttribute("href", "#collapse-search-form");
-      Icon.setAttribute("role", "button");
-      collapseIconWrapper.append(Icon);
+    collapseElem.addEventListener('hidden.bs.collapse', function(){
+      let newIcon = document.createElement("i");
+      newIcon.setAttribute("class", "bi bi-plus-square");
+      oldIcon = collapseIconWrapper.lastChild;
+      collapseIconWrapper.replaceChild(newIcon, oldIcon);
     });
   }
 });

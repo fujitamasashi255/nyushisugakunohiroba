@@ -6,16 +6,18 @@
 
 - content_for :links do
   - if logged_in?
-    .general
+    .question-links
       - if @question_id_to_answer_id_hash_of_user.keys.include?(@question.id)
         / 解答作成後
-        = link_to edit_answer_path(@question_id_to_answer_id_hash_of_user[@question.id]) do
-          i.bi.bi-pencil.me-1
-          = t(".edit")
+        = link_to edit_answer_path(@question_id_to_answer_id_hash_of_user[@question.id]), class: "d-flex align-items-center" do
+          i.bi.bi-pencil.me-2
+          div
+            = t(".edit")
       - else
         / 解答作成前
-        = link_to new_question_answer_path(@question.id) do
-          i.bi.bi-pencil.me-1
-          = t(".new")
+        = link_to new_question_answer_path(@question.id), class: "d-flex align-items-center" do
+          i.bi.bi-pencil.me-2
+          div
+            = t(".new")
 
 = render "/shared/questions/show", question: @question, other_users_answers: @other_users_answers, pagy: @pagy

@@ -2,7 +2,8 @@
 / content_for :buttons
 
 .question-show-container.mx-auto
-  = content_for :links
+  .question-links-wrapper.d-flex
+    = content_for :links
   .py-2
   .d-flex.question-show.p-3
     / 大学、区分、単元、問題文を囲む

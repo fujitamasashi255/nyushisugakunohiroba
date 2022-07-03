@@ -24,11 +24,11 @@
             / タグ
             .tags
               - if answer.tags.present?
-                  label.d-block
-                    = Answer.human_attribute_name(:tag_list)
-                  - answer.tags.each do |tag|
-                    span.d-inline-block.tag
-                      = tag.name
+                label.d-block
+                  = Answer.human_attribute_name(:tag_list)
+                - answer.tags.each do |tag|
+                  span.d-inline-block.tag
+                    = tag.name
               - else
                 label.me-3
                   = Answer.human_attribute_name(:tag_list)

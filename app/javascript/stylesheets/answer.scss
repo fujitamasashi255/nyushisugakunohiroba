@@ -3,6 +3,7 @@
 // 変数定義
 // tex、files の高さ
 $file-height: 500px;
+$tex-height: 700px;
 
 
 // iconsは画面右上に固定
@@ -31,7 +32,7 @@ $file-height: 500px;
 
 // 右上アイコンの大きさ
 .answer-top-icons i {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 
@@ -39,21 +40,21 @@ $file-height: 500px;
 // 画面サイズ992px以上の時、ドロップダウンを表示しない
 @media only screen and (min-width: 992px){
   #dropdownQuestionImage {
-    width: 420px;
+    width: 520px;
   }
 }
 
 // 画面サイズ768px以上992px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 992px) and (min-width: 768px) {
   #dropdownQuestionImage {
-    width: 350px;
+    width: 420px;
   }
 }
 
 // 画面サイズ768px以下の時、ドロップダウンを表示しない
 @media only screen and (max-width: 767.98px){
   #dropdownQuestionImage {
-    width: 300px;
+    width: 260px;
   }
 }
 
@@ -87,6 +88,25 @@ $file-height: 500px;
 .answer-subtitle .question-info {
   border-bottom: 2px solid rgb(39,93,144);
 }
+
+// 解答フォーム上のリンク一覧
+.answer-links {
+  a {
+    font-size: 0.9rem;
+    color: $linksilver;
+    i {
+      font-size: 1.8rem;
+      color: $linksilver;
+    }
+  }
+  a:hover {
+    color: black;
+    i {
+      color: black;
+    }
+  }
+}
+
 
 // 解答フォーム全体
 .answer-form-field, .answer-show {
@@ -186,7 +206,7 @@ $file-height: 500px;
   }
 
   .tex iframe{
-    height: $file-height;
+    height: $tex-height;
     width: 100%;
   }
 
@@ -216,22 +236,24 @@ $file-height: 500px;
       width: 75%;
     }
     .tex {
-      width: 70%;
+      width: 50%;
     }
   }
 }
 // 画面サイズ992px以下の時
 @media only screen and (max-width: 992px){
   .answer-show {
-    .files, .tex {
+    .files {
       width: 100%;
+    }
+    .tex {
+      width: 80%;
     }
   }
 }
 
 //answer一覧
 // 問題詳細ページとユーザー解答一覧ページの共通設定
-
 .answer-card {
   background-color: whitesmoke;
   overflow-y: auto;
@@ -268,12 +290,12 @@ $file-height: 500px;
 }
 
 // 右上ドロップダウンの▼を表示しない
-.answer-card .dropdown-toggle::after {
+.answer-card .dropdown-toggle::after, .question-card .dropdown-toggle::after {
   display: none;
 }
 
 //「・・・」アイコンを囲む円
-.answer-card .dropdown .dropdown-toggle {
+.answer-card .dropdown .dropdown-toggle, .question-card .dropdown .dropdown-toggle {
   border-radius: 50%;
   width: 2.3rem;
   height: 2.3rem;
@@ -281,7 +303,7 @@ $file-height: 500px;
 
 
 //「・・・」アイコンを囲む円
-.answer-card .dropdown .dropdown-toggle:hover {
+.answer-card .dropdown .dropdown-toggle:hover, .question-card .dropdown .dropdown-toggle:hover {
   background-color: rgb(230, 237, 243);
   border: 1px solid rgb(148, 187, 224);
   .bi-three-dots {
@@ -290,16 +312,16 @@ $file-height: 500px;
 }
 
 //「・・・」アイコンのサイズと色
-.answer-card .dropdown .dropdown-toggle i {
+.answer-card .dropdown .dropdown-toggle i, .question-card .dropdown .dropdown-toggle i {
   color: $deepsilver;
   font-size: 1.25rem;
 }
 
 
 //「・・・」アイコンクリック時に開かれるドロップダウン
-.answer-card .dropdown-item {
-  font-size: 0.85rem;
+.answer-card .dropdown-item, .question-card .dropdown-item{
+  font-size: 1rem;
   i {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 }

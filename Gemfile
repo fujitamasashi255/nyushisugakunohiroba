@@ -89,6 +89,9 @@ gem "meta-tags"
 # 初期データ投入
 gem "seed-fu"
 
+# エラーページ
+gem "hanmoto"
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"

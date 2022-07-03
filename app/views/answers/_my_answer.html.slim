@@ -21,7 +21,7 @@
                   = University.model_name.human
 
             / 大学名横アイコン
-            .right-icons
+            .right-icons.pt-2
               .dropdown.d-flex.align-items-center
                 /ドロップダウンボタン
                 = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
@@ -55,18 +55,18 @@
             .created-at
               label.me-3
                 = Answer.human_attribute_name(:updated_at)
-              = l(answer.updated_at, format: :short)
+              = l(answer.updated_at, format: :default)
 
             .py-1
 
             / タグ
             .tags
               - if answer.tags.present?
-                  label.d-block
-                    = Answer.human_attribute_name(:tag_list)
-                  - answer.tags.each do |tag|
-                    span.d-inline-block.tag
-                      = tag.name
+                label.d-block
+                  = Answer.human_attribute_name(:tag_list)
+                - answer.tags.each do |tag|
+                  span.d-inline-block.tag
+                    = tag.name
               - else
                 label.me-3
                   = Answer.human_attribute_name(:tag_list)

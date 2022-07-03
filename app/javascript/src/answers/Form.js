@@ -1,4 +1,4 @@
-import {previewFile} from "src/self_made/PreviewFile"
+import {previewFile} from "src/PreviewFile"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'

@@ -6,7 +6,7 @@ ja:
       short: "%m/%d"
   time:
     formats:
-      default: "%Y/%m/%d %H:%M:%S"
+      default: "%Y年%m月%d日"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
   common:
@@ -145,23 +145,23 @@ ja:
       title: "作成した解答一覧"
     new:
       title: "解答作成"
-      display_question_image: "問題文を表示する"
+      display_question_image: "問題文を表示"
       to_question: "問題詳細へ"
     create:
       success: "解答を作成しました"
       fail: "解答を作成できませんでした"
     show:
-      to_edit: "解答編集へ"
+      to_edit: "解答編集"
       title: "解答"
-      share_twitter: "twitterで共有する"
-      destroy: "解答を削除する"
+      share_twitter: "twitterで共有"
+      destroy: "解答削除"
       display_question_image: "問題文を表示する"
       to_question: "問題詳細へ"
       no_result: "解答はありません"
     edit:
       title: "解答編集"
-      destroy: "解答を削除する"
-      display_question_image: "問題文を表示する"
+      destroy: "解答削除"
+      display_question_image: "問題文を表示"
       to_question: "問題詳細へ"
     update:
       success: "解答を更新しました"
@@ -236,7 +236,7 @@ ja:
         title: "管理画面トップ"
     shared:
       header:
-        home: "ホーム"
+        top: "サイトトップ"
         logout: "ログアウト"
     universities:
       index:
@@ -256,6 +256,8 @@ ja:
         fail: "大学・区分を変更できませんでした"
       destroy:
         success: "大学・区分を削除しました"
+      university:
+        edit: "編集"
 
     questions:
       new:
@@ -277,4 +279,8 @@ ja:
         success: "問題を削除しました"
       form:
         saving: "保存中・・・"
+      question:
+        edit: "問題を編集する"
+        delete: "問題を削除する"
+
 
