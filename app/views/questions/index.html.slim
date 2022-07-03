@@ -1,8 +1,16 @@
-- set_meta_tags title: t(".title")
+ruby:
+  title = case params[:action]
+    when "index"
+      t(".search")
+    when "search"
+      t(".title")
+    end
+
+- set_meta_tags title: title
 
 - content_for :page_title do
   i.bi.bi-search.me-1
-  = t(".title")
+  = t(".search")
 
 - content_for :question_partial do
   = render partial: "/questions/question", layout: "/shared/questions/question_layout", collection: @questions, as: :question, locals: { question_id_to_answer_id_hash_of_user: @question_id_to_answer_id_hash_of_user }

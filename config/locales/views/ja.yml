@@ -86,7 +86,9 @@ ja:
   shared:
     questions:
       index:
+        title: "問題一覧"
         search_form_description: "検索条件を指定する"
+        note: "解答作成には、ログインが必要です"
       show:
         other_users_answers:
           title: "他のユーザーの解答"
@@ -112,13 +114,14 @@ ja:
   static_pages:
     top:
       title: "トップ"
+      search_question: "問題検索"
 
   compile:
     create: "コンパイルする"
 
   questions:
     index:
-      title: "問題検索"
+      title: "問題一覧"
       search: "問題検索"
     question:
       edit_question: "解答を編集する"
