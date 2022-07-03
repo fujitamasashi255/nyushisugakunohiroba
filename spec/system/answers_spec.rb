@@ -23,7 +23,7 @@ RSpec.describe "Answers", type: :system, js: true do
       end
 
       it "問題詳細へのリンクが表示されていること" do
-        expect(page).to have_selector ".answer-top-icons a[href='#{question_path(question)}']"
+        expect(page).to have_selector ".answer-links a[href='#{question_path(question)}']"
       end
 
       it "アイコンをクリックすると問題文が表示されること" do
@@ -45,9 +45,9 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".answer-show", text: "解答はありません")
         # リンクが表示されているか
         created_answer = Answer.order(created_at: :desc).first
-        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(created_answer)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(created_answer)}'][data-method='delete']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{question_path(question)}']")
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
       end
     end
 
@@ -65,9 +65,9 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".question-info .departments", text: "DEPT5")
         # リンクが表示されているか
         created_answer = Answer.order(created_at: :desc).first
-        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(created_answer)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(created_answer)}'][data-method='delete']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{question_path(question)}']")
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
       end
     end
 
@@ -85,9 +85,9 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".question-info .departments", text: "DEPT5")
         # リンクが表示されているか
         created_answer = Answer.order(created_at: :desc).first
-        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(created_answer)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(created_answer)}'][data-method='delete']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{question_path(question)}']")
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
       end
     end
 
@@ -130,9 +130,9 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".question-info .departments", text: "DEPT5")
         # リンクが表示されているか
         created_answer = Answer.order(created_at: :desc).first
-        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(created_answer)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(created_answer)}'][data-method='delete']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{question_path(question)}']")
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
       end
 
       it "jpg、png、pdf以外のファイルを登録して、解答が作成できないこと" do
@@ -200,9 +200,9 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".question-info .departments", text: "DEPT5")
         # リンクが表示されているか
         created_answer = Answer.order(created_at: :desc).first
-        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(created_answer)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(created_answer)}'][data-method='delete']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{question_path(question)}']")
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
       end
     end
   end
@@ -222,8 +222,8 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".question-info .university", text: "UNIV")
         expect(page).to have_selector(".question-info .departments", text: "DEPT5")
         # 問題詳細、解答削除リンクが表示されている
-        expect(page).to have_selector(".answer-top-icons a[href='#{question_path(question)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(@answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(@answer)}'][data-method='delete']")
         # アイコンをクリックすると問題文が表示される
         find(".answer-top-icons a[id='questionImageDropdownButton']").click
         expect(page).to have_selector "#dropdownQuestionImage img"
@@ -275,8 +275,8 @@ RSpec.describe "Answers", type: :system, js: true do
       end
 
       it "解答編集、削除リンクが表示されていること" do
-        expect(page).to have_selector(".answer-top-icons a[href='#{edit_answer_path(@answer1)}']")
-        expect(page).to have_selector(".answer-top-icons a[href='#{answer_path(@answer1)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(@answer1)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(@answer1)}'][data-method='delete']")
       end
     end
 
@@ -286,8 +286,8 @@ RSpec.describe "Answers", type: :system, js: true do
       end
 
       it "解答編集、削除リンクが表示されないこと" do
-        expect(page).not_to have_selector(".answer-top-icons a[href='#{edit_answer_path(@answer1)}']")
-        expect(page).not_to have_selector(".answer-top-icons a[href='#{answer_path(@answer1)}'][data-method='delete']")
+        expect(page).not_to have_selector(".answer-links a[href='#{edit_answer_path(@answer1)}']")
+        expect(page).not_to have_selector(".answer-links a[href='#{answer_path(@answer1)}'][data-method='delete']")
       end
     end
   end

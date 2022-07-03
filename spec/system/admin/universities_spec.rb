@@ -106,17 +106,5 @@ RSpec.describe "Universities", type: :system, js: true do
       expect(page).to have_selector ".university-name", text: "東京"
       expect(page).not_to have_selector ".university-name", text: "京都"
     end
-
-    it "大学を削除できること" do
-      # university_tokyoを削除
-      page.accept_confirm("削除しますか") do
-        within(".university#{university_tokyo.id}-info") do
-          find(".bi-trash").click
-        end
-      end
-      expect(page).to have_content "大学・区分を削除しました"
-      expect(all(".university-name").count).to eq 1
-      expect(page).to have_selector ".university-name", text: "京都"
-    end
   end
 end

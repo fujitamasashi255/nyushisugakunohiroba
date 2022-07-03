@@ -142,6 +142,7 @@ RSpec.describe "Questions", type: :system, js: true do
 
     it "問題を削除できること" do
       question = Question.find_by(year: 2000)
+      find(".question-card-top a[href='#{admin_question_path(question)}").sibling(".right-icons").find(".dropdown-toggle").click
       page.accept_confirm("削除しますか") do
         find("a[href='#{admin_question_path(question)}'] .bi-trash", visible: false).click
       end
