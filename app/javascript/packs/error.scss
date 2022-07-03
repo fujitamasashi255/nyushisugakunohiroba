@@ -1,0 +1,17 @@
+header {
+  margin-top: 100px;
+}
+
+main {
+  display: flex;
+  flex-flow: column;
+  h3, .content, .links {
+    margin: 5px auto;
+  }
+  .links {
+    display: flex;
+    .link {
+      margin: 0px 2rem;
+    }
+  }
+}
