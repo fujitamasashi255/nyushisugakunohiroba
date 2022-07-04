@@ -33,6 +33,9 @@
 
       = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
         .question-card-bottom.pt-1
+          / 管理画面では問題作成日を記載
+          = content_for "created_at#{question.id}".to_sym
+
           / 単元一覧
           small.row.unit-info
             = render "/shared/units/units", units: question.units

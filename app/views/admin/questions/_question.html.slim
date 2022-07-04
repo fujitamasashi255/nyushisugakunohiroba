@@ -15,3 +15,9 @@
         = t(".delete")
 
 - content_for("question_path#{question.id}".to_sym, admin_question_path(question))
+
+- content_for "created_at#{question.id}".to_sym do
+  .created-at.pb-1
+    label.me-3
+      = Question.human_attribute_name(:created_at)
+    = l(question.created_at, format: :default)

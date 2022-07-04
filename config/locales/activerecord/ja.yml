@@ -121,6 +121,7 @@ ja:
       question:
         year: "出題年"
         image: "問題文"
+        created_at: "作成日"
       questions_departments_mediator:
         question_number: "問題番号"
       tex:
