@@ -45,8 +45,9 @@
                 .btn.btn-outline-dark.mx-auto role="button"
                   = t(".select_file")
               / ファイル登録input（非表示）
-              = f.input :avatar, as: :file, wrapper: false, label: false, hint: t(".avatar_hint"), \
-                input_html: { class: "d-none", id: "user-avatar-input", accept: "image/*" }
+              .text-center
+                = f.input :avatar, as: :file, wrapper: false, label: false, hint: t(".avatar_hint"), \
+                  input_html: { class: "d-none", id: "user-avatar-input", accept: "image/*" }
 
     .py-3
 
