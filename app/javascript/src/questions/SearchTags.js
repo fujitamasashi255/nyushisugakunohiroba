@@ -23,7 +23,7 @@ const questionsSearchSettings = {
   },
   templates: {
     dropdownHeader(suggestions){
-      return '<header class="ps-1">( )内の数は、そのタグが付けられた回数を表します。</header>';
+      return '<header class="ps-1">( )内の数は、そのタグが付けられた回数を表します</header>';
     },
     dropdownItem( item, tagify ){
       return `<div ${this.getAttributes(item)}
