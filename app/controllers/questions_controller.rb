@@ -10,7 +10,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
+    # @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
+    @question = Question.find(params[:id])
     @question_id_to_answer_id_hash_of_user = logged_in? ? current_user.question_id_to_answer_id_hash : {}
     @pagy, @other_users_answers = pagy(@question.answers.includes(:rich_text_point, :tags, user: { avatar_attachment: :blob }).where.not(user_id: current_user&.id), link_extra: 'data-remote="true"')
   end
