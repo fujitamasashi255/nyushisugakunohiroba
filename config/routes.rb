@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   resources :password_resets, only: %i[new create edit update]
   # ユーザーページのルーティング
-  root to: "static_pages#top"
+  root to: "top#show"
   resources :questions, only: %i[index show] do
     resources :answers, only: %i[new create show edit update destroy], shallow: true
     # 問題検索、並び替え

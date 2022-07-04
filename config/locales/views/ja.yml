@@ -109,7 +109,9 @@ ja:
       logout_confirm: "ログアウトしてもいいですか"
 
   static_pages:
-    top:
+
+  top:
+    show:
       title: "トップ"
       search_question: "問題検索"
       popular_questions:
