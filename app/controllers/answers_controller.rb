@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless params[:user_id] == current_user.id
     @answers_search_form = AnswersSearchForm.new(specific_search_condition: AnswersSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
-    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
+    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:user, :rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
   end
 
   def new
@@ -80,7 +80,7 @@ class AnswersController < ApplicationController
 
   def search
     @answers_search_form = AnswersSearchForm.new(answers_search_form_params)
-    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
+    @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:user, :rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true"')
     render "answers/index"
   end
 

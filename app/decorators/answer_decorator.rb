@@ -29,6 +29,6 @@ module AnswerDecorator
 
   def twitter_share_text
     department_info = question.questions_departments_mediators.map { |qdm| "#{qdm.department.name}#{qdm.question_number}" }.join("、")
-    "#{question.university.name}大学 #{department_info} の解答"
+    "#{user.name}さんの#{question.university.name}大学 #{department_info} の解答"
   end
 end
