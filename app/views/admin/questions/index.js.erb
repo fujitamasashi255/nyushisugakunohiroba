@@ -4,6 +4,6 @@ var sortLinksElem = document.querySelector('.sort-links-wrapper');
 var scrollToElem = document.querySelector('.questions-index-title');
 questionsElem.innerHTML = "<%= j(render partial: "/admin/questions/question", layout: "/shared/questions/question_layout", collection: @questions, as: :question) %>";
 paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
-sortLinksElem.innerHTML = "<%= j(render '/questions/sorts', questions_search_form: @questions_search_form) %>";
+sortLinksElem.innerHTML = "<%= j(render '/admin/questions/sorts', questions_search_form: @questions_search_form) %>";
 Pagy.init(paginationElem);
 scrollToElem.scrollIntoView();
