@@ -13,12 +13,17 @@ html
 
   body.d-xl-flex.flex-nowrap.flex-xl-row-reverse
     #page-body.d-flex.flex-column.flex-xl-grow-1
-      header
+      / ヘッダー
+      header style="border-bottom: 1px solid silver"
         #site-logo.d-flex.align-items-center.ps-3
           = link_to root_path do
             | 入試数学の広場
 
-      .py-2
+      .py-5
+
+      .top
+        .container.text-center
+          = content_for :top_title
 
       / メイン
       main
@@ -27,9 +32,9 @@ html
           = render "layouts/flash_messages"
 
         // タイトル
-        .container
+        .container.title
           .d-flex.flex-column
-            .title
+            .main-title
               h4.my-auto
                 = content_for :page_title
             .subtitle.mt-2
@@ -39,7 +44,7 @@ html
           .py-4
 
         // コンテンツ
-        .container
+        .container.contents
           = yield
 
       .py-3

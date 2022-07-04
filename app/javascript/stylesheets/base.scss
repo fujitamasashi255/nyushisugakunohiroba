@@ -76,6 +76,9 @@ html {
 // サイトロゴ部分の高さ
 #site-logo {
   min-height: $header-height;
+  a {
+    color: rgb(39,93,144);
+  }
 }
 
 // サイドバー

@@ -1,6 +1,35 @@
 - set_meta_tags title: t(".title")
 
-.top
+/ トップページタイトル
+- content_for :top_title do
+  .top-title
+    h4
+      = t("common.site_name")
+  .top-description.d-inline-block
+    span.text-nowrap
+      | 大学入試数学の問題検索・分類、解答共有
+    span.text-nowrap
+      | のためのサービス
+  .py-2
+
+
+/ トップページのコンテンツ
+.top-contents
+  / 問題検索フォーム
+  .container.questions-search-form
+    h4
+      i.bi.bi-search.me-1
+      = t(".search_question")
+    .note
+      = t(".questions_search.description")
+
+    .py-2
+
+    .container.border.p-3.search-form
+      = render "/questions/search_form", questions_search_form: @questions_search_form
+
+  .py-5
+
   - if @questions.present?
     / 人気の問題2つ
     .container.popular-questions
@@ -33,20 +62,5 @@
 
       .row id="answers-index"
         = render partial: "/answers/top_answer", collection: @answers, as: :answer
-
-  .py-3
-
-  / 問題検索フォーム
-  .container.questions-search-form
-    h4
-      i.bi.bi-search.me-1
-      = t(".search_question")
-    .note
-      = t(".questions_search.description")
-
-    .py-2
-
-    .container.border.p-3.search-form
-      = render "/questions/search_form", questions_search_form: @questions_search_form
 
   .py-3
