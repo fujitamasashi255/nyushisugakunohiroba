@@ -1,0 +1,40 @@
+/ 変数
+/ answers_search_form
+
+/ 検索条件、並び替え
+.container.question-search-conditions
+  small
+    / 検索条件を表示
+    label
+      | #{AnswersSearchForm.human_attribute_name(:search_conditions)}
+    .py-1
+    table.table-sm.table-borderless
+      tbody
+        tr
+          th.align-top.text-nowrap
+            = University.model_name.human
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="university-search-condition"
+            = answers_search_form.search_conditions[:university]
+        tr
+          th.align-top.text-nowrap
+            = Question.human_attribute_name(:year)
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="year-search-condition"
+            = answers_search_form.search_conditions[:question_year]
+        tr
+          th.align-top.text-nowrap
+            = Unit.model_name.human
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="unit-search-condition"
+            = answers_search_form.search_conditions[:unit]
+        tr
+          th.align-top.text-nowrap
+            = Tag.model_name.human
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="tags-search-condition"
+            = answers_search_form.search_conditions[:tag]
