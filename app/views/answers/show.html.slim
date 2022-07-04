@@ -4,7 +4,9 @@
   og: { image: url_for(@question.image) }, \
   twitter: { card: "summary_large_image" }
 
-- content_for(:page_title, t(".title"))
+- content_for :page_title do
+  i.bi.bi-book.me-1
+  = t(".title")
 
 - content_for :note do
   .mt-2
@@ -16,8 +18,7 @@
       div.ms-1
         | をクリック
 
-.d-flex.fixed-top.justify-content-end.answer-top-icons
-
+.d-flex.justify-content-end.answer-top-icons
   / 問題文表示
   .dropdown
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"

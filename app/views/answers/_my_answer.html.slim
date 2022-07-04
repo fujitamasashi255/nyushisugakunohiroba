@@ -4,97 +4,96 @@
   twitter: { card: "summary_large_image" }
 
 / カード部分
-.col-md-6.my-answer
-    .container.p-4
-      .row.d-flex.justify-content-center.p-1
-        .col-12.answer-card.border.mb-4.d-flex.flex-column
-          / カードの上部分
-          .answer-card-top.d-flex
-            = link_to answer_path(answer), class: "d-block flex-grow-1 py-1 d-flex align-items-center" do
-              / 大学名
-              .univ-name-year-info.d-flex.flex-row.align-items-center
-                div
-                  = answer.question_year
-                  = t("common.year")
-                div.ms-1
-                  = answer.question.university_name
-                  = University.model_name.human
-
-            / 大学名横アイコン
-            .right-icons.pt-2
-              .dropdown.d-flex.align-items-center
-                /ドロップダウンボタン
-                = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
-                  i.bi.bi-three-dots.mx-auto
-                / 大学名ドロップダウンメニュー（セレクトボックス ）
-                .dropdown-menu.dropdown-menu-start style="max-width: 300px"
-                    / twitter共有リンク
-                    = link_to twitter_share_url(answer.twitter_share_text, answer_url(answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link dropdown-item d-flex align-items-center" do
-                      i.bi.bi-twitter.me-2
-                      = t(".share_twitter")
-                    / 解答編集ページへの戻るアイコン
-                    = link_to edit_answer_path(answer), class: "dropdown-item d-flex align-items-center" do
-                      i.bi.bi-pencil.me-2
-                      = t(".edit")
-                    / 問題削除アイコン
-                    = link_to answer_path(answer), method: :delete, class: "dropdown-item d-flex align-items-center", data: { confirm: t("messages.delete_confirm") } do
-                      i.bi.bi-trash.me-2
-                      = t(".destroy")
-                    / 問題詳細ページへのリンクアイコン
-                    = link_to question_path(answer.question), class: "dropdown-item d-flex align-items-center" do
-                      i.bi.bi-card-text.me-2
-                      = t(".to_question")
-          = link_to answer_path(answer), class: "d-block flex-grow-1" do
+.col-md-6.my-answer.d-flex.justify-content-center
+  .answer-card-wrapper.mb-4
+    .answer-card.px-2.py-1.border.d-flex.flex-column
+      / カードの上部分
+      .answer-card-top.d-flex
+        = link_to answer_path(answer), class: "d-block flex-grow-1 py-1 d-flex align-items-center" do
+          / 大学名
+          .univ-name-year-info.d-flex.flex-row.align-items-center.flex-wrap
+            div
+              = answer.question_year
+              = t("common.year")
+            div.mx-1
+              = answer.question.university_name
+              = University.model_name.human
             / 区分一覧
             .row.department-info
               small.d-flex
                 = render "shared/departments/departments", questions_departments_mediators: answer.question.questions_departments_mediators
 
-            .py-1
+        / 大学名横アイコン
+        .right-icons.pt-2
+          .dropdown.d-flex.align-items-center
+            /ドロップダウンボタン
+            = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
+              i.bi.bi-three-dots.mx-auto
+            / 大学名ドロップダウンメニュー（セレクトボックス ）
+            .dropdown-menu.dropdown-menu-start style="max-width: 300px"
+                / twitter共有リンク
+                = link_to twitter_share_url(answer.twitter_share_text, answer_url(answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link dropdown-item d-flex align-items-center" do
+                  i.bi.bi-twitter.me-2
+                  = t(".share_twitter")
+                / 解答編集ページへの戻るアイコン
+                = link_to edit_answer_path(answer), class: "dropdown-item d-flex align-items-center" do
+                  i.bi.bi-pencil.me-2
+                  = t(".edit")
+                / 解答削除アイコン
+                = link_to answer_path(answer), method: :delete, class: "dropdown-item d-flex align-items-center", data: { confirm: t("messages.delete_confirm") } do
+                  i.bi.bi-trash.me-2
+                  = t(".destroy")
+                / 問題詳細ページへのリンクアイコン
+                = link_to question_path(answer.question), class: "dropdown-item d-flex align-items-center" do
+                  i.bi.bi-card-text.me-2
+                  = t(".to_question")
+      = link_to answer_path(answer), class: "d-block flex-grow-1" do
 
-            .created-at
-              label.me-3
-                = Answer.human_attribute_name(:updated_at)
-              = l(answer.updated_at, format: :default)
+        .py-1
 
-            .py-1
+        .created-at
+          label.me-3
+            = Answer.human_attribute_name(:updated_at)
+          = l(answer.updated_at, format: :default)
 
-            / タグ
-            .tags
-              - if answer.tags.present?
-                label.d-block
-                  = Answer.human_attribute_name(:tag_list)
-                - answer.tags.each do |tag|
-                  span.d-inline-block.tag
-                    = tag.name
-              - else
-                label.me-3
-                  = Answer.human_attribute_name(:tag_list)
-                | なし
+        .py-2
 
-            .py-1
+        / タグ
+        .tags
+          - if answer.tags.present?
+            label.d-block
+              = Answer.human_attribute_name(:tag_list)
+            - answer.tags.each do |tag|
+              span.d-inline-block.tag
+                = tag.name
+          - else
+            label.me-3
+              = Answer.human_attribute_name(:tag_list)
+            | なし
 
-            / ポイント
-            .point-container
-              - if answer.point.present?
-                label.d-block
-                  = Answer.human_attribute_name(:point)
-                .p-2.point
-                  == answer.point
-              - else
-                label.me-3
-                  = Answer.human_attribute_name(:point)
-                | なし
+        .py-2
 
-            .py-1
+        / ポイント
+        .point-container
+          - if answer.point.present?
+            label.d-block
+              = Answer.human_attribute_name(:point)
+            .p-2.point
+              == answer.point
+          - else
+            label.me-3
+              = Answer.human_attribute_name(:point)
+            | なし
 
-            / 問題文画像
-            - if answer.question_image.attached?
-              label.d-block
-                = Question.human_attribute_name(:image)
-              .question-body.border.question-image
-                = image_tag answer.question_image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
-              .py-1
+        .py-1
+
+        / 問題文画像
+        - if answer.question_image.attached?
+          label.d-block
+            = Question.human_attribute_name(:image)
+          .question-body.border.question-image
+            = image_tag answer.question_image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
+          .py-1
 
 
 

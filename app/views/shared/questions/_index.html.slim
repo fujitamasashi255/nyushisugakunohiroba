@@ -71,26 +71,29 @@
             td.align-top class="tags-search-condition"
               = questions_search_form.search_conditions[:tag]
 
-    .py-4
+    .py-5
 
 / 問題一覧
 - if questions.present?
-  .container
+  .container.questions-index-title
     h4.d-flex.align-items-center
-      i.bi.bi-collection
+      i.bi.bi-card-text
       .ms-1
         = t(".title")
-    - unless logged_in?
-      .note.d-flex.align-items-center
-        i.bi.bi-exclamation-triangle
-        .ms-1
-          = t(".note")
+
+    / 管理画面および未ログイン時にはチェックマークの説明を表示しない
+    - if logged_in? && !admin_controller?(controller)
+      .note
+        i.bi.bi-check.me-1.fs-5
+        | は解答作成済みであることを表します
 
     .py-3
 
     / 問題並び替え
-    small
+    small.sort-links-wrapper
       = render sorts_path, questions_search_form: questions_search_form
+
+  .py-2
 
   / 問題カードの一覧
   .container

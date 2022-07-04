@@ -1,49 +1,48 @@
 / カード部分
-.col-md-6.another-user-answer
-  .container.p-4
-    .row.d-flex.justify-content-center.p-1
-      .col-12.answer-card.border.mb-4.d-flex.flex-column.p-3
-        / カードの上部分
-        .answer-card-top.d-flex.align-items-center
-          = link_to answer_path(answer), class: "d-block flex-grow-1 py-1" do
-            .user-info.d-flex.align-items-center
-              .avatar
-                = image_tag answer.user.avatar_url(:normal), loading: "lazy"
-              .user-name.ms-2
-                = answer.user_name
+.col-md-6.another-user-answer.d-flex.justify-content-center
+  .answer-card-wrapper.mb-4
+    .answer-card.px-2.py-1.border.d-flex.flex-column
+      / カードの上部分
+      .answer-card-top.d-flex.align-items-center
+        = link_to answer_path(answer), class: "d-block flex-grow-1 py-1" do
+          .user-info.d-flex.align-items-center
+            .avatar
+              = image_tag answer.user.avatar_url(:normal), loading: "lazy"
+            .user-name.ms-2
+              = answer.user_name
 
-          / 大学名横アイコン
-          /.right-icons
-            /.d-flex.align-items-center
-              / 解答お気に入り
-              / = link_to "#", class: "d-block" do
-                / i.bi.bi-heart role="img" aria-label="Heart"
+        / 大学名横アイコン
+        /.right-icons
+          /.d-flex.align-items-center
+            / 解答お気に入り
+            / = link_to "#", class: "d-block" do
+              / i.bi.bi-heart role="img" aria-label="Heart"
 
-        = link_to answer_path(answer), class: "d-block flex-grow-1" do
-          .answer-card-bottom.mt-3.d-flex.flex-column
-            / タグ
-            .tags
-              - if answer.tags.present?
-                label.d-block
-                  = Answer.human_attribute_name(:tag_list)
-                - answer.tags.each do |tag|
-                  span.d-inline-block.tag
-                    = tag.name
-              - else
-                label.me-3
-                  = Answer.human_attribute_name(:tag_list)
-                | なし
+      = link_to answer_path(answer), class: "d-block flex-grow-1" do
+        .answer-card-bottom.mt-3.d-flex.flex-column
+          / タグ
+          .tags
+            - if answer.tags.present?
+              label.d-block
+                = Answer.human_attribute_name(:tag_list)
+              - answer.tags.each do |tag|
+                span.d-inline-block.tag
+                  = tag.name
+            - else
+              label.me-3
+                = Answer.human_attribute_name(:tag_list)
+              | なし
 
-            .py-2
+          .py-2
 
-            / ポイント
-            .point-container
-              - if answer.point.present?
-                label.d-block
-                  = Answer.human_attribute_name(:point)
-                .p-2.point
-                  == answer.point
-              - else
-                label.me-3
-                  = Answer.human_attribute_name(:point)
-                | なし
+          / ポイント
+          .point-container
+            - if answer.point.present?
+              label.d-block
+                = Answer.human_attribute_name(:point)
+              .p-2.point
+                == answer.point
+            - else
+              label.me-3
+                = Answer.human_attribute_name(:point)
+              | なし

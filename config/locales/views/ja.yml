@@ -31,6 +31,7 @@ ja:
     compiling: "コンパイル中"
     still_logged_in: "既にログインしています"
     require_login: "ログインして下さい"
+    note_answer_make: "解答作成には、ログインが必要です"
 
   javascript:
     answer_form:
@@ -86,13 +87,9 @@ ja:
   shared:
     questions:
       index:
-        title: "問題一覧"
+        title: "検索結果の問題一覧"
         search_form_description: "検索条件を指定する"
-        note: "解答作成には、ログインが必要です"
       show:
-        other_users_answers:
-          title: "他のユーザーの解答"
-          description: "解答をクリックすると、詳細を見ることができます。"
       search_form:
         hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
     sidebar_layout:
@@ -115,6 +112,16 @@ ja:
     top:
       title: "トップ"
       search_question: "問題検索"
+      popular_questions:
+        one: "人気の問題"
+        description: "カードをクリックすると、他のユーザーが作成した解答を見ることができます"
+      newest_answers:
+        one: "最新の解答"
+        description: "カードをクリックすると、詳細を見ることができます"
+      questions_search:
+        description: "条件を指定して、「検索する」ボタンを押してください"
+
+
 
   compile:
     create: "コンパイルする"
@@ -145,7 +152,9 @@ ja:
       search_form_description: "検索条件を指定する"
       hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
     index:
-      title: "作成した解答一覧"
+      search: "作成した解答から検索する"
+      title: "解答一覧"
+      page_title: "検索結果の解答一覧"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示"
@@ -178,6 +187,15 @@ ja:
       share_twitter: "twitterで共有"
     another_user_answer:
       share_twitter: "twitterで共有"
+    top_answer:
+      share_twitter: "twitterで共有"
+      to_question: "問題詳細へ"
+    sort:
+      title: "作成した解答一覧"
+    other_users_answers:
+      title: "他のユーザーの解答"
+      description: "解答をクリックすると、詳細を見ることができます"
+      no_answers: "解答はありません"
 
 
 

@@ -10,18 +10,21 @@ $tex-height: 700px;
 // 画面サイズ1200px以上の時の右上アイコンの表示位置
 @media only screen and (min-width: 1200px){
   .answer-top-icons {
-    margin-top: 10px;
-    margin-right: calc(20px + $sidebar-width);
     z-index: 1;
+    position: fixed;
+    top: 10px;
+    right: calc(20px + $sidebar-width);
   }
 }
 
 // 画面サイズ1200px以下の時の右上アイコンの表示位置
 @media only screen and (max-width: 1200px){
   .answer-top-icons {
-    margin-top: 10px;
-    margin-right: 20px;
     z-index: 1;
+    position: fixed;
+    position: fixed;
+    top: 10px;
+    right: 20px;
   }
 }
 
@@ -37,21 +40,21 @@ $tex-height: 700px;
 
 
 // 問題文ドロップダウン
-// 画面サイズ992px以上の時、ドロップダウンを表示しない
+// 画面サイズ992px以上の時
 @media only screen and (min-width: 992px){
   #dropdownQuestionImage {
     width: 520px;
   }
 }
 
-// 画面サイズ768px以上992px以下の時、ドロップダウンを表示しない
+// 画面サイズ768px以上992px以下の時
 @media only screen and (max-width: 992px) and (min-width: 768px) {
   #dropdownQuestionImage {
     width: 420px;
   }
 }
 
-// 画面サイズ768px以下の時、ドロップダウンを表示しない
+// 画面サイズ768px以下の時
 @media only screen and (max-width: 767.98px){
   #dropdownQuestionImage {
     width: 260px;
@@ -254,10 +257,31 @@ $tex-height: 700px;
 
 //answer一覧
 // 問題詳細ページとユーザー解答一覧ページの共通設定
-.answer-card {
-  background-color: whitesmoke;
-  overflow-y: auto;
-  font-size: 0.8rem;
+// 画面サイズ576px以上の解答カード
+@media only screen and (min-width: 576px){
+  .answer-card {
+    width: 100%;
+    overflow: auto;
+    background-color: $whitesmoke;
+    font-size: 0.8rem;
+  }
+  .answer-card-wrapper {
+    width: 95%;
+  }
+}
+
+
+// 画面サイズ576px以下の解答カード
+@media only screen and (max-width: 575.98px){
+  .answer-card {
+    width: 100%;
+    overflow: auto;
+    background-color: $whitesmoke;
+    font-size: 0.8rem;
+  }
+  .answer-card-wrapper {
+    width: 90%;
+  }
 }
 
 .answer-card:hover {
@@ -273,8 +297,8 @@ $tex-height: 700px;
   height: 350px;
 }
 
-// ユーザー解答一覧
-.my-answer .answer-card {
+// トッッペー時, ユーザー解答一覧
+.my-answer .answer-card, .top-answer .answer-card {
   height: 420px;
 }
 

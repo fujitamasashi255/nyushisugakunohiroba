@@ -1,0 +1,22 @@
+/ 見出し
+.other-users-answers
+  .sort-links
+  h5
+    i.bi.bi-book.me-1
+    = t(".title")
+
+/ 他のユーザーの解答があれば表示
+- if other_users_answers.present?
+  - content_for :answer_partial do
+      = render partial: "/answers/another_user_answer", collection: other_users_answers, as: :answer, locals: { question: question }
+
+  .note
+    = t(".description")
+
+  .py-2
+
+  = render "/answers/answers", { question: question, other_users_answers: other_users_answers, pagy: pagy }
+/ 他のユーザーの解答がなければ、「解答はありません」を表示
+- else
+  .py-2
+  = t(".no_answers")

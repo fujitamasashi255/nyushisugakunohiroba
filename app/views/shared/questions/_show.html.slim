@@ -39,18 +39,8 @@
             div.question-image
               = image_tag question.image_url(:show), class: "bg-white p-3 img-fluid", loading: "lazy"
 
+.py-3
+
 / generalのページでは、他のユーザーの解答一覧を表示する
 - unless admin_controller?(controller)
-  - if other_users_answers.present?
-    .py-3
-
-    - content_for :answer_partial do
-        = render partial: "/answers/another_user_answer", collection: other_users_answers, as: :answer, locals: { question: question }
-
-    .other-users-answers
-      .sort-links
-      h5
-        = t(".other_users_answers.title")
-      small
-        = t(".other_users_answers.description")
-      = render "/answers/answers", { question: question, other_users_answers: other_users_answers, pagy: pagy }
+  = render "/answers/other_users_answers", { other_users_answers: other_users_answers, question: question, pagy: pagy }
