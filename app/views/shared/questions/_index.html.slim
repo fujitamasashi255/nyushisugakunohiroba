@@ -79,13 +79,13 @@
     h4.d-flex.align-items-center
       i.bi.bi-card-text
       .ms-1
-        = t(".title")
+        = t(".search_result")
 
     / 管理画面および未ログイン時にはチェックマークの説明を表示しない
     - if logged_in? && !admin_controller?(controller)
       .note
         i.bi.bi-check.me-1.fs-5
-        | は解答作成済みであることを表します
+        = t(".icon_description")
 
     .py-3
 
