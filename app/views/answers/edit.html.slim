@@ -1,8 +1,19 @@
 - set_meta_tags title: t(".title")
 
 - content_for :page_title do
-  i.bi.bi-pencil.me-1
-  = t(".title")
+    i.bi.bi-pencil.me-1
+    = t(".title")
+
+- content_for :under_title do
+  .d-flex.flex-row.align-items-center.mt-2
+    = render "answers/question_info", question: @question
+  .note.d-flex.align-items-center.mt-2
+    div
+      | ※問題文は画面右上の
+    div.ms-1
+      i.bi.bi-chat-right-text
+    div.ms-1
+      | をクリック
 
 - content_for :icons do
   .d-flex.justify-content-end.answer-top-icons

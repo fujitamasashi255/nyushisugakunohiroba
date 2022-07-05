@@ -6,7 +6,7 @@
 
 
 - content_for :answer_partial do
-    = render partial: "/answers/my_answer", collection: @answers, as: :answer
+  = render partial: "/answers/my_answer", collection: @answers, as: :answer
 
 / 検索フォーム
 = render "/answers/search_form", answers_search_form: @answers_search_form, answers: @answers

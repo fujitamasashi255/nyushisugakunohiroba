@@ -4,6 +4,7 @@
   og: { image: url_for(@question.image) }, \
   twitter: { card: "summary_large_image" }
 
+/ タイトル
 - content_for :page_title do
   .user-info.d-flex.align-items-center
     .avatar
@@ -15,8 +16,10 @@
       i.bi.bi-book.ms-2.me-1
       = t(".title")
 
-- content_for :note do
-  .mt-2
+- content_for :under_title do
+  .d-flex.flex-row.align-items-center.mt-2
+    = render "answers/question_info", question: @question
+  .note.mt-2
     .answer-show-note.d-flex.align-items-center
       div
         | ※問題文は画面右上の
@@ -25,6 +28,7 @@
       div.ms-1
         | をクリック
 
+/ コンテンツ
 .d-flex.justify-content-end.answer-top-icons
   / 問題文表示
   .dropdown
@@ -32,11 +36,6 @@
       i.bi.bi-chat-right-text
     .dropdown-menu.p-1 id="dropdownQuestionImage"
       = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
-
-/ タイトル横の問題情報
-- content_for :page_subtitle do
-  .answer-subtitle.d-flex.flex-row.align-items-center
-    = render "answers/question_info", question: @question
 
 / 解答の各項目に対する、その上にあるコンテンツ数
 - above_contents_count = 0

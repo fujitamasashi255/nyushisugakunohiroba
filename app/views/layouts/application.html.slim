@@ -33,14 +33,11 @@ html
       main
         // タイトル
         .container.title
-          .d-flex.flex-column
-            .main-title
-              h4.my-auto
-                = content_for :page_title
-            .subtitle.mt-2
-                = content_for :page_subtitle
-            .mt-2.note
-              = content_for :note
+          .main-title
+            h4.my-auto
+              = content_for :page_title
+          .under-title
+            = content_for :under_title
           .py-4
 
         // コンテンツ

@@ -1,6 +1,7 @@
 - set_meta_tags title: t(".title")
 
-- content_for(:page_title, t(".title"))
+- content_for :page_title
+  = t(".title")
 
 .container.password-reset-form
   .message.p-4
