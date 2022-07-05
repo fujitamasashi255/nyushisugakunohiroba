@@ -108,6 +108,8 @@ ja:
       profile: "プロフィール"
       logout: "ログアウト"
       logout_confirm: "ログアウトしてもいいですか"
+    inquiry:
+      link_description: "お問い合わせ（Google Form）"
 
   static_pages:
     description:
@@ -148,7 +150,7 @@ ja:
   answers:
     form:
       saving: "保存中"
-      point_description_link: "ポイントの書き方はこちら（別タブで開きます）"
+      point_description_link: "ポイントの書き方（別タブで開きます）"
       point_input: "入力"
       point_preview: "プレビュー"
       select_file: "ファイルを選択"

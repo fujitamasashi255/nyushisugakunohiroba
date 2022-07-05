@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   root to: "top#show"
   # static pages
   get "privacy", to: "static_pages#privacy"
-  get "terms", to: "static_pages#privacy"
-  get "inquiry", to: "static_pages#privacy"
+  get "terms", to: "static_pages#terms"
   get "description", to: "static_pages#description"
 
   resources :questions, only: %i[index show] do
