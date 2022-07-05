@@ -3,7 +3,14 @@
 Rails.application.routes.draw do
   resources :password_resets, only: %i[new create edit update]
   # ユーザーページのルーティング
+  # トップ
   root to: "top#show"
+  # static pages
+  get "privacy", to: "static_pages#privacy"
+  get "terms", to: "static_pages#privacy"
+  get "inquiry", to: "static_pages#privacy"
+  get "description", to: "static_pages#description"
+
   resources :questions, only: %i[index show] do
     resources :answers, only: %i[new create show edit update destroy], shallow: true
     # 問題検索、並び替え

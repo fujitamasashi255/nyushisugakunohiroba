@@ -20,6 +20,9 @@ import "src/questions/SearchTags"
 import "src/answers/SearchTags"
 import "src/ActionText"
 
+const images = require.context("../images", true);
+const imagePath = name => images(name, true);
+
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
 export function t(arg) {

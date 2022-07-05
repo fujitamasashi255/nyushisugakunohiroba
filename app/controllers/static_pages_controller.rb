@@ -8,4 +8,6 @@ class StaticPagesController < ApplicationController
   def terms; end
 
   def inquiry; end
+
+  def description; end
 end

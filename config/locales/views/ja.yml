@@ -110,6 +110,9 @@ ja:
       logout_confirm: "ログアウトしてもいいですか"
 
   static_pages:
+    description:
+      title: "サイト説明"
+      page_title: "ポイントの書き方"
 
   top:
     show:
@@ -123,7 +126,6 @@ ja:
         description: "カードをクリックすると、詳細を見ることができます"
       questions_search:
         description: "条件を指定して、「検索する」ボタンを押してください"
-
 
 
   compile:
@@ -146,8 +148,9 @@ ja:
   answers:
     form:
       saving: "保存中"
-      point-input: "入力"
-      point-preview: "プレビュー"
+      point_description_link: "ポイントの書き方はこちら（別タブで開きます）"
+      point_input: "入力"
+      point_preview: "プレビュー"
       select_file: "ファイルを選択"
       files_hint: "1MB以下の画像またはPDFを3つまで"
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"

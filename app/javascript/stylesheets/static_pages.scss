@@ -1,0 +1,16 @@
+@import "variables";
+
+.point-description {
+  .tex-document {
+    padding: 1rem 3rem;
+    margin: 10px;
+    border: 1px solid $deepsilver;
+  }
+  a {
+    color: $deepsilver;
+  }
+  a:hover {
+    color: black;
+    text-decoration: underline 1px solid black;
+  }
+}
