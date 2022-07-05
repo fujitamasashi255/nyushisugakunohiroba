@@ -3,9 +3,9 @@
   .d-flex.flex-column
     .footer-main.d-flex.flex-column
       div.nav-item
-        = link_to "利用規約", "#"
+        = link_to t(".terms"), terms_path
       div.nav-item
-        = link_to "プライバシーポリシー", "#"
+        = link_to t(".privacy"), privacy_path
       div.nav-item
         = render "/shared/inquiry"
     .sns-icons
