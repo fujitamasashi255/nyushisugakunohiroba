@@ -11,7 +11,7 @@
   #sidebar {
     height: -webkit-fill-available;
     width: $sidebar-width;
-    font-size: $font-size-medium;
+    font-size: inherit;
   }
 
   #page-body {
@@ -84,7 +84,7 @@ html {
 // サイドバー
 // アカウントのサブナビアイテム
 .sub-nav-item {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   margin-left: calc($icon-size-large - 1.25rem);
 }
 
@@ -120,7 +120,7 @@ html {
 // オフキャンバス
 #sidebar #offcanvasHumberger {
   background-color: black;
-  font-size: $font-size-medium;
+  font-size: $font-size-large;
   .sub-nav-item {
     font-size: 0.85rem;
   }
