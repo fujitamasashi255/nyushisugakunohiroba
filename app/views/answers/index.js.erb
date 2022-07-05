@@ -7,6 +7,7 @@ paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
 sortLinksElem.innerHTML = "<%= j(render '/answers/sort', answers_search_form: @answers_search_form) %>";
 Pagy.init(paginationElem);
 scrollToElem.scrollIntoView();
-var pointElems = document.querySelectorAll(".trix-content")
+var pointElems = document.querySelectorAll(".trix-content");
+MathJax.texReset([0]);
 MathJax.typeset(pointElems);
 

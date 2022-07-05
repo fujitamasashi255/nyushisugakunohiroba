@@ -5,5 +5,6 @@ answersElem.innerHTML = "<%= j(render partial: "/answers/another_user_answer", c
 paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
 Pagy.init(paginationElem);
 scrollToElem.scrollIntoView();
-var pointElems = document.querySelectorAll(".trix-content")
+var pointElems = document.querySelectorAll(".trix-content");
+MathJax.texReset([0]);
 MathJax.typeset(pointElems);

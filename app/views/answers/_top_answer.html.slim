@@ -71,6 +71,8 @@
                 = Answer.human_attribute_name(:point)
               .p-2.point
                 == answer.point
+              span style="visibility: hidden;"
+                | \(\nextSection\)
             - else
               label.me-3
                 = Answer.human_attribute_name(:point)
