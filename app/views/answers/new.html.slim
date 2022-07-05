@@ -20,7 +20,7 @@
         = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
 
 - content_for :links
-  .answer-links
+  .answer-links.d-flex
     / 問題詳細ページへの戻るアイコン
     = link_to question_path(@question), class: "d-flex align-items-center" do
         i.bi.bi-card-text.me-1
