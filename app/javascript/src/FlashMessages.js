@@ -1,5 +1,8 @@
 $(function(){
-  setTimeout(function(){
-    $(".flash-messages .alert-success").fadeTo(4000, 0);
-  }, 2000);
+  var flashElem = $(".flash-messages .alert-success");
+  if(flashElem.length > 0){
+    setTimeout(function(){
+      flashElem.fadeTo(4000, 0);
+    }, 2000);
+  }
 });

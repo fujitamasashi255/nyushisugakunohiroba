@@ -19,18 +19,18 @@ html
           = link_to root_path do
             | 入試数学の広場
 
-      .py-5
+      / フラッシュメッセージ
+      .flash-messages
+        = render "layouts/flash_messages"
 
       .top
         .container.text-center
           = content_for :top_title
 
+      .py-3
+
       / メイン
       main
-        / フラッシュメッセージ
-        .flash-messages
-          = render "layouts/flash_messages"
-
         // タイトル
         .container.title
           .d-flex.flex-column
