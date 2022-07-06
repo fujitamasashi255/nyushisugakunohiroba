@@ -1,6 +1,10 @@
 site:
   name: "入試数学の広場"
 
+url:
+  google_form: "https://docs.google.com/forms/d/e/1FAIpQLSeazz0uwwS1lxEqDMTBW24SwA-4K4KRRnd_3MRSV1TxoXCzSg/viewform?usp=sf_link"
+  twitter: "#"
+
 admin_tex_default_code: "\\documentclass[17pt, dvipdfmx]{jsarticle}\
                         \r\n\
                         \\usepackage{amssymb, amsmath, tikz, enumerate}\
