@@ -29,7 +29,7 @@ module ApplicationHelper
     query_array = []
     query_array << ["text", text]
     query_array << ["url", url]
-    query_array << ["hashtags", t("common.site_name")]
+    query_array << ["hashtags", Settings.site.name]
     twitter_share_url.query = URI.encode_www_form(query_array)
     twitter_share_url.to_s
   end
@@ -40,9 +40,15 @@ module ApplicationHelper
       site: Settings.site.name,
       reverse: true,
       separator: "|",
+      charset: "utf-8",
       # canonical: "https://nyushisugakunohiroba#{request.fullpath}",
       og: defalut_og,
-      # icon: "/favicon.png", type: "image/png",
+      description: "大学入試数学の問題検索・分類、解答共有ができるサービスです。",
+      icon: [
+        { href: image_url("favicon.png"), sizes: "16x16", type: "image/png" },
+        { href: image_url("apple-touch-icon.png"), rel: "apple-touch-icon", sizes: "180x180", type: "image/png" }
+      ],
+      keywords: "数学,入試問題,入試数学",
       twitter: default_twitter_card
     }
   end
@@ -56,14 +62,15 @@ module ApplicationHelper
       description: :description,   # 上に同じ
       url: request.url,
       type: "website",
-      image: "https://example.com/hoge.png"
+      image: image_url("ogp.png"),
+      locale: "ja_JP"
     }
   end
 
   def default_twitter_card
     {
       card: "summary", # または summary_large_image
-      site: "@hogehoge"            # twitter ID
+      site: "@nyushi__sugaku"            # twitter ID
     }
   end
 end

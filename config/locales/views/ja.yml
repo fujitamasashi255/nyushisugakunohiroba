@@ -14,7 +14,6 @@ ja:
     create: "作成する"
     edit: "編集する"
     destroy: "削除する"
-    site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
     select_blank: "未選択"
@@ -110,11 +109,22 @@ ja:
       logout_confirm: "ログアウトしてもいいですか"
     inquiry:
       link_description: "お問い合わせ（Google Form）"
+    footer:
+      terms: "利用規約"
+      privacy: "プライバシーポリシー"
+    footer_in_sidebar:
+      terms: "利用規約"
+      privacy: "プライバシーポリシー"
 
   static_pages:
     description:
       title: "サイト説明"
       page_title: "ポイントの書き方"
+    terms:
+      title: "利用規約"
+    privacy:
+      title: "プライバシーポリシー"
+      twitter: "公式ツイッター"
 
   top:
     show:

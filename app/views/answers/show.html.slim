@@ -1,6 +1,6 @@
 - set_meta_tags \
   title: t(".title"), \
-  description: @answer.twitter_share_text, \
+  description: @answer.og_description, \
   og: { image: url_for(@question.image) }, \
   twitter: { card: "summary_large_image" }
 
@@ -44,7 +44,7 @@
 .answer-links.d-flex
   / twitter共有リンク
   .me-4
-    = link_to twitter_share_url(@answer.twitter_share_text, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
+    = link_to twitter_share_url(@answer.og_description, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
       figure.mb-0
         .d-flex.flex-column.align-items-center
           i.bi.bi-twitter

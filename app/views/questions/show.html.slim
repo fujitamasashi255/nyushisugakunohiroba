@@ -1,4 +1,7 @@
-- set_meta_tags title: t(".title")
+- set_meta_tags \
+  description: @question.og_description, \
+  title: t(".title")
+
 
 - content_for :page_title do
   i.bi.bi-card-text.me-2

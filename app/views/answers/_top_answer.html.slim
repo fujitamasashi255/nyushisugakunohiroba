@@ -1,5 +1,5 @@
 - set_meta_tags \
-  description: answer.twitter_share_text, \
+  description: answer.og_description, \
   og: { image: url_for(answer.question.image) }, \
   twitter: { card: "summary_large_image" }
 
@@ -38,7 +38,7 @@
               / 大学名ドロップダウンメニュー（セレクトボックス ）
               .dropdown-menu.dropdown-menu-start style="max-width: 300px"
                   / twitter共有リンク
-                  = link_to twitter_share_url(answer.twitter_share_text, answer_url(answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link dropdown-item d-flex align-items-center" do
+                  = link_to twitter_share_url(answer.og_description, answer_url(answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link dropdown-item d-flex align-items-center" do
                     i.bi.bi-twitter.me-2
                     = t(".share_twitter")
                   / 問題詳細ページへのリンクアイコン

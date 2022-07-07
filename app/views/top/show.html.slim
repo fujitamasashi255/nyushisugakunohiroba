@@ -1,4 +1,4 @@
-- set_meta_tags title: t(".title")
+- set_meta_tags title: ""
 
 / トップページタイトル
 - content_for :top_title do
@@ -6,12 +6,12 @@
 
   .top-title
     h4
-      = t("common.site_name")
+      = Settings.site.name
   .top-description.d-inline-block
     span.text-nowrap
       | 大学入試数学の問題検索・分類、解答共有
     span.text-nowrap
-      | のためのサービス
+      | ができるサービスです。
   .py-2
 
 
