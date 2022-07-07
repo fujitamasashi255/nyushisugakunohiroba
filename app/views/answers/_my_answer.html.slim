@@ -1,8 +1,3 @@
-/- set_meta_tags \
-  description: answer.og_description_in_my_answer(current_user), \
-  og: { image: url_for(answer.question.image) }, \
-  twitter: { card: "summary_large_image" }
-
 / カード部分
 .col-md-6.my-answer.d-flex.justify-content-center
   .answer-card-wrapper.mb-4
@@ -31,10 +26,6 @@
               i.bi.bi-three-dots.mx-auto
             / 大学名ドロップダウンメニュー（セレクトボックス ）
             .dropdown-menu.dropdown-menu-start style="max-width: 300px"
-                / twitter共有リンク
-                /= link_to twitter_share_url(answer.og_description_in_my_answer(current_user), answer_url(answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link dropdown-item d-flex align-items-center" do
-                  i.bi.bi-twitter.me-2
-                  = t(".share_twitter")
                 / 解答編集ページへの戻るアイコン
                 = link_to edit_answer_path(answer), class: "dropdown-item d-flex align-items-center" do
                   i.bi.bi-pencil.me-2
