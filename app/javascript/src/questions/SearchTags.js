@@ -15,7 +15,11 @@ const questionsTagsPath = "/questions_tags"
 const questionsSearchSettings = {
   originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
   whitelist : [],
+  autoComplete: {
+    enabled: false,
+  },
   dropdown : {
+    fuzzySearch: false,
     maxItems: 20,
     classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
     enabled: 0,             // <- show suggestions on focus
@@ -23,13 +27,21 @@ const questionsSearchSettings = {
   },
   templates: {
     dropdownHeader(suggestions){
-      return '<header class="ps-1">( )内の数は、そのタグが付けられた回数を表します。</header>';
+      if(suggestions[0] === ""){
+        return '<header class="ps-2 py-3">タグが見つかりませんでした</header>';
+      }else{
+        return '<header class="ps-2 py-1">( )内の数は、そのタグが付けられた回数を表します</header>';
+      }
     },
     dropdownItem( item, tagify ){
-      return `<div ${this.getAttributes(item)}
-                  class='${this.settings.classNames.dropdownItem} ${item.class ? item.class : ""}'
-                  tabindex="0"
-                  role="option">${item.value}(${item.taggings_count})</div>`
+      if(item.value == ""){
+        return "";
+      }else{
+        return `<div ${this.getAttributes(item)}
+        class='${this.settings.classNames.dropdownItem} ${item.class ? item.class : ""}'
+        tabindex="0"
+        role="option">${item.value}(${item.taggings_count})</div>`
+      }
     },
   }
 }
@@ -48,6 +60,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // listen to any keystrokes which modify tagify's input
     tagify.on('focus', onFocus);
+    tagify.on('input', onInput);
+
+    //入力中はドロップダウン を表示しない
+    function onInput( e ){
+      tagify.dropdown.hide.call(tagify);
+      tagify.whitelist = null;
+    }
 
     // タグ入力フィールドがフォーカスされたら以下が実行される
     function onFocus( e ){
@@ -80,7 +99,12 @@ document.addEventListener("DOMContentLoaded", function(){
       fetch(questionsTagsPath + "/?" + params.toString(), {signal:controller.signal})
         .then(response => response.json())
         .then(function(newWhiteList){
-          tagify.whitelist = newWhiteList; // update whitelist Array in-place
+          if(newWhiteList.length == 0){
+            // sugestions がないときは、""をwhitelistに入れる
+            tagify.whitelist = [""];
+          }else{
+            tagify.whitelist = newWhiteList; // update whitelist Array in-place
+          }
           tagify.loading(false).dropdown.show(); // render the suggestions dropdown
         })
     }

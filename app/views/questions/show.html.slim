@@ -1,23 +1,25 @@
-- set_meta_tags title: t(".title")
+- set_meta_tags \
+  description: @question.og_description, \
+  title: t(".title")
+
 
 - content_for :page_title do
   i.bi.bi-card-text.me-2
   = t(".title")
 
 - content_for :links do
-  - if logged_in?
-    .question-links
-      - if @question_id_to_answer_id_hash_of_user.keys.include?(@question.id)
-        / 解答作成後
-        = link_to edit_answer_path(@question_id_to_answer_id_hash_of_user[@question.id]), class: "d-flex align-items-center" do
-          i.bi.bi-pencil.me-2
-          div
-            = t(".edit")
-      - else
-        / 解答作成前
-        = link_to new_question_answer_path(@question.id), class: "d-flex align-items-center" do
-          i.bi.bi-pencil.me-2
-          div
-            = t(".new")
+  .question-links
+    - if @question_id_to_answer_id_hash_of_user.keys.include?(@question.id)
+      / 解答作成後
+      = link_to edit_answer_path(@question_id_to_answer_id_hash_of_user[@question.id]), class: "d-flex align-items-center" do
+        i.bi.bi-pencil.me-2
+        div
+          = t(".edit")
+    - else
+      / 解答作成前
+      = link_to new_question_answer_path(@question.id), class: "d-flex align-items-center" do
+        i.bi.bi-pencil.me-2
+        div
+          = t(".new")
 
 = render "/shared/questions/show", question: @question, other_users_answers: @other_users_answers, pagy: @pagy

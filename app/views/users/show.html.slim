@@ -1,6 +1,7 @@
 - set_meta_tags title: t(".title")
 
-- content_for(:page_title, t(".title"))
+- content_for :page_title do
+  = t(".title")
 
 .container.user-show
   / 名前

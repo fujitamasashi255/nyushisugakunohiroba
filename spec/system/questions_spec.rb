@@ -30,10 +30,10 @@ RSpec.describe "Questions", type: :system, js: true do
         visit questions_path
       end
 
-      it "問題が表示されないこと" do
+      it "問題が表示されていること" do
         expect(page).to have_selector(".search-form")
-        expect(page).not_to have_selector(".question-search-conditions")
-        expect(page).not_to have_selector(".question-index")
+        expect(page).to have_selector(".question-search-conditions")
+        expect(page).to have_selector("#questions-index")
       end
     end
   end
@@ -265,7 +265,8 @@ RSpec.describe "Questions", type: :system, js: true do
       end
 
       it "他のユーザーの解答が表示されないこと" do
-        expect(page).not_to have_content "他のユーザーの解答"
+        expect(page).not_to have_selector(".answer-card")
+        expect(page).to have_selector(".other-users-answers", text: "解答はありません")
       end
     end
   end

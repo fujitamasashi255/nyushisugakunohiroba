@@ -1,0 +1,84 @@
+- set_meta_tags title: t(".title")
+
+- content_for :page_title do
+  = t(".page_title")
+
+
+.point-description
+  div
+    | ポイントは解答一覧に表示されます。問題、解答の分類・整理に役立てて下さい。
+
+  .py-3
+
+  div
+    p
+      | ポイントには、TeXと同じようにして数式を書くことができます。
+    ol
+      li
+        p
+          | 数式が適切に表示されるかどうかは、「プレビュー」タブを押して確認することができます。
+      li
+        p.text-underlin
+          | 文中の数式（インライン数式）は、
+          mark.tex-code.mx-1.ignore-mathjax
+            | $（数式）$
+          | と書いてください。
+        p
+          | （例）左の画像のように入力すると、右の画像のように表示されます。
+        .container
+          .row
+            .col-6
+              = image_pack_tag "point-description-1-code.png", width: "100%"
+            .col-6
+              = image_pack_tag "point-description-1-result.png", width: "100%"
+
+      .py-3
+
+      li
+        p.ignore-mathjax
+          | 1行の別行立て数式（ディスプレー数式）は、
+          mark
+            | $$（数式）$$
+          |と書いてください。
+        p
+          | （例）左の画像のように入力すると、右の画像のように表示されます。
+        .container
+          .row
+            .col-6
+              = image_pack_tag "point-description-2-code.png", width: "100%"
+            .col-6
+              = image_pack_tag "point-description-2-result.png", width: "100%"
+
+      .py-3
+
+      li
+        p
+          | 複数行の別行立て数式は、align 環境を利用してください。
+        p
+          | （例）左の画像のように入力すると、右の画像のように表示されます。
+        .container
+          .row
+            .col-6
+              = image_pack_tag "point-description-3-code.png", width: "100%"
+            .col-6
+              = image_pack_tag "point-description-3-result.png", width: "100%"
+
+      .py-3
+
+        p.ignore-mathjax
+          | このように、align環境では
+          mark
+            | \\
+          | で改行され、
+          mark
+            | &
+          | の位置で縦に揃います。
+        p
+          | 数式番号が不要な場合は、align*環境を利用して下さい。
+
+      li
+        p
+          |  ポイントの数式表示はMathJaxというライブラリを利用しています。TeXと同じようにして数式を書くことができますが、enumerate環境などの文書を整形するためのマクロは利用できません。利用可能なコマンドは次のリンク先を参考にしてください。
+        p
+          = link_to "Easy Copy MathJax", "https://easy-copy-mathjax.nakaken88.com/"
+          | （外部サイト）

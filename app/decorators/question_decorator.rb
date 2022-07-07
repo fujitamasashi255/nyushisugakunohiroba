@@ -13,4 +13,9 @@ module QuestionDecorator
       image
     end
   end
+
+  def og_description
+    department_info = questions_departments_mediators.map { |qdm| "#{qdm.department.name}#{qdm.question_number}" }.join("、")
+    "#{university.name}大学 #{department_info} の問題"
+  end
 end

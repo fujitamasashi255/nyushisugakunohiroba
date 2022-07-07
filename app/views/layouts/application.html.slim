@@ -13,33 +13,35 @@ html
 
   body.d-xl-flex.flex-nowrap.flex-xl-row-reverse
     #page-body.d-flex.flex-column.flex-xl-grow-1
-      header
+      / ヘッダー
+      header style="border-bottom: 1px solid silver"
         #site-logo.d-flex.align-items-center.ps-3
           = link_to root_path do
             | 入試数学の広場
 
-      .py-2
+      / フラッシュメッセージ
+      .flash-messages
+        = render "layouts/flash_messages"
+
+      .top
+        .container.text-center
+          = content_for :top_title
+
+      .py-3
 
       / メイン
       main
-        / フラッシュメッセージ
-        .flash-messages
-          = render "layouts/flash_messages"
-
         // タイトル
-        .container
-          .d-flex.flex-column
-            .title
-              h4.my-auto
-                = content_for :page_title
-            .subtitle.mt-2
-                = content_for :page_subtitle
-            .mt-2 id="note"
-              = content_for :note
+        .container.title
+          .main-title
+            h4.my-auto
+              = content_for :page_title
+          .under-title
+            = content_for :under_title
           .py-4
 
         // コンテンツ
-        .container
+        .container.contents
           = yield
 
       .py-3

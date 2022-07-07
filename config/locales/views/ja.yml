@@ -14,7 +14,6 @@ ja:
     create: "作成する"
     edit: "編集する"
     destroy: "削除する"
-    site_name: "入試数学の広場"
     admin_page: "管理ページ"
     univs_depts: "大学・区分"
     select_blank: "未選択"
@@ -31,6 +30,7 @@ ja:
     compiling: "コンパイル中"
     still_logged_in: "既にログインしています"
     require_login: "ログインして下さい"
+    note_answer_make: "解答作成には、ログインが必要です"
 
   javascript:
     answer_form:
@@ -86,11 +86,10 @@ ja:
   shared:
     questions:
       index:
+        search_result: "検索結果の問題一覧"
         search_form_description: "検索条件を指定する"
+        icon_description: "は解答作成済みであることを表します"
       show:
-        other_users_answers:
-          title: "他のユーザーの解答"
-          description: "解答をクリックすると、詳細を見ることができます。"
       search_form:
         hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
     sidebar_layout:
@@ -108,17 +107,45 @@ ja:
       profile: "プロフィール"
       logout: "ログアウト"
       logout_confirm: "ログアウトしてもいいですか"
+    inquiry:
+      link_description: "お問い合わせ（Google Form）"
+    footer:
+      terms: "利用規約"
+      privacy: "プライバシーポリシー"
+    footer_in_sidebar:
+      terms: "利用規約"
+      privacy: "プライバシーポリシー"
 
   static_pages:
-    top:
+    description:
+      title: "サイト説明"
+      page_title: "ポイントの書き方"
+    terms:
+      title: "利用規約"
+    privacy:
+      title: "プライバシーポリシー"
+      twitter: "公式ツイッター"
+
+  top:
+    show:
       title: "トップ"
+      search_question: "問題検索"
+      popular_questions:
+        one: "人気の問題"
+        description: "カードをクリックすると、他のユーザーが作成した解答を見ることができます"
+      newest_answers:
+        one: "最新の解答"
+        description: "カードをクリックすると、詳細を見ることができます"
+      questions_search:
+        description: "条件を指定して、「検索する」ボタンを押してください"
+
 
   compile:
     create: "コンパイルする"
 
   questions:
     index:
-      title: "問題検索"
+      title: "問題一覧"
       search: "問題検索"
     question:
       edit_question: "解答を編集する"
@@ -133,8 +160,9 @@ ja:
   answers:
     form:
       saving: "保存中"
-      point-input: "入力"
-      point-preview: "プレビュー"
+      point_description_link: "ポイントの書き方（別タブで開きます）"
+      point_input: "入力"
+      point_preview: "プレビュー"
       select_file: "ファイルを選択"
       files_hint: "1MB以下の画像またはPDFを3つまで"
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
@@ -142,7 +170,9 @@ ja:
       search_form_description: "検索条件を指定する"
       hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
     index:
-      title: "作成した解答一覧"
+      search: "作成した解答から検索する"
+      title: "解答一覧"
+      search_result: "検索結果の解答一覧"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示"
@@ -175,6 +205,15 @@ ja:
       share_twitter: "twitterで共有"
     another_user_answer:
       share_twitter: "twitterで共有"
+    top_answer:
+      share_twitter: "twitterで共有"
+      to_question: "問題詳細へ"
+    sort:
+      title: "作成した解答一覧"
+    other_users_answers:
+      title: "他のユーザーの解答"
+      description: "解答をクリックすると、詳細を見ることができます"
+      no_answers: "解答はありません"
 
 
 

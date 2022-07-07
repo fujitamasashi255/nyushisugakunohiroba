@@ -1,13 +1,25 @@
 - set_meta_tags \
   title: t(".title"), \
-  description: @answer.twitter_share_text, \
+  description: @answer.og_description, \
   og: { image: url_for(@question.image) }, \
   twitter: { card: "summary_large_image" }
 
-- content_for(:page_title, t(".title"))
+/ タイトル
+- content_for :page_title do
+  .user-info.d-flex.align-items-center
+    .avatar
+      = image_tag @answer.user.avatar_url(:normal), loading: "lazy"
+    .user-name.ms-2
+      = @answer.user_name
+    div.ms-1
+      | の
+      i.bi.bi-book.ms-2.me-1
+      = t(".title")
 
-- content_for :note do
-  .mt-2
+- content_for :under_title do
+  .d-flex.flex-row.align-items-center.mt-2
+    = render "answers/question_info", question: @question
+  .note.mt-2
     .answer-show-note.d-flex.align-items-center
       div
         | ※問題文は画面右上の
@@ -16,19 +28,14 @@
       div.ms-1
         | をクリック
 
-.d-flex.fixed-top.justify-content-end.answer-top-icons
-
+/ コンテンツ
+.d-flex.justify-content-end.answer-top-icons
   / 問題文表示
   .dropdown
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
       i.bi.bi-chat-right-text
     .dropdown-menu.p-1 id="dropdownQuestionImage"
       = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
-
-/ タイトル横の問題情報
-- content_for :page_subtitle do
-  .answer-subtitle.d-flex.flex-row.align-items-center
-    = render "answers/question_info", question: @question
 
 / 解答の各項目に対する、その上にあるコンテンツ数
 - above_contents_count = 0
@@ -37,7 +44,7 @@
 .answer-links.d-flex
   / twitter共有リンク
   .me-4
-    = link_to twitter_share_url(@answer.twitter_share_text, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
+    = link_to twitter_share_url(@answer.og_description, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
       figure.mb-0
         .d-flex.flex-column.align-items-center
           i.bi.bi-twitter

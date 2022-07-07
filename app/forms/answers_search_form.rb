@@ -45,7 +45,9 @@ class AnswersSearchForm
       end
 
       # 出題年によるanswerの絞り込み
-      if start_year.present? & end_year.present?
+      if start_year.present? || end_year.present?
+        self.start_year = Question.minimum(:year) if start_year.blank?
+        self.end_year = Question.maximum(:year) if end_year.blank?
         relation = relation.by_year(start_year, end_year).distinct
         search_conditions[:question_year] = "#{start_year} 年 〜 #{end_year} 年"
       end

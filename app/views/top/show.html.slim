@@ -1,0 +1,68 @@
+- set_meta_tags title: ""
+
+/ トップページタイトル
+- content_for :top_title do
+  .py-5
+
+  .top-title
+    h4
+      = Settings.site.name
+  .top-description.d-inline-block
+    span.text-nowrap
+      | 大学入試数学の問題検索・分類、解答共有
+    span.text-nowrap
+      | ができるサービスです。
+  .py-2
+
+
+/ トップページのコンテンツ
+.top-contents
+  / 問題検索フォーム
+  .container.questions-search-form
+    h4
+      i.bi.bi-search.me-1
+      = t(".search_question")
+    .note
+      = t(".questions_search.description")
+
+    .py-2
+
+    .container.border.p-3.search-form
+      = render "/questions/search_form", questions_search_form: @questions_search_form
+
+  .py-5
+
+  - if @questions.present?
+    / 人気の問題2つ
+    .container.popular-questions
+      h4.d-flex.align-items-center
+        i.bi.bi-card-text.me-2
+        = t(".popular_questions.one")
+      .note
+        = t(".popular_questions.description")
+
+      .py-2
+
+      / 問題カードの一覧
+      .row id="questions-index"
+        = render partial: "/questions/question", layout: "/shared/questions/question_layout", collection: @questions, as: :question, locals: { question_id_to_answer_id_hash_of_user: @question_id_to_answer_id_hash_of_user }
+
+  .py-3
+
+  - if @answers.present?
+    / 最新の解答2つ
+    .container.newest-answers
+      .sort-links
+      h4.d-flex.align-items-center
+        i.bi.bi-book
+        .ms-1
+          = t(".newest_answers.one")
+      .note
+        = t(".newest_answers.description")
+
+      .py-2
+
+      .row id="answers-index"
+        = render partial: "/answers/top_answer", collection: @answers, as: :answer
+
+  .py-3

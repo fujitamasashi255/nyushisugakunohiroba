@@ -1,20 +1,37 @@
 - set_meta_tags title: t(".title")
 
 - content_for :page_title do
-  i.bi.bi-book.me-2
-  = t(".title")
+  i.bi.bi-search.me-2
+  = t(".search")
 
 
 - content_for :answer_partial do
-    = render partial: "/answers/my_answer", collection: @answers, as: :answer
+  = render partial: "/answers/my_answer", collection: @answers, as: :answer
 
 / 検索フォーム
 = render "/answers/search_form", answers_search_form: @answers_search_form, answers: @answers
 
 .py-2
 
-/ 検索条件、並び替え
-= render "/answers/sort", answers_search_form: @answers_search_form, answers: @answers
+/ 検索条件
+= render "/answers/search_conditions", answers_search_form: @answers_search_form
+
+.py-5
+
+- if @answers.present?
+  / 解答並び替え
+  h4.d-flex.align-items-center.answers-index-title
+    i.bi.bi-book
+    .ms-1
+      = t(".search_result")
+
+  .py-1
+
+  small.sort-links-wrapper
+    / 並び替え
+    = render "/answers/sort", answers_search_form: @answers_search_form
+
+.py-2
 
 / 解答一覧
 = render partial: "/answers/answers", locals: { pagy: @pagy }

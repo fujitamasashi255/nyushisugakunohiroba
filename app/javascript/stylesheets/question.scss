@@ -1,27 +1,34 @@
 @import "variables";
 
 // question#index
-$question-card-hight: 350px;
+$question-card-hight: 380px;
 
+// 画面サイズ576px以上の問題カード
 @media only screen and (min-width: 576px){
   .question-card {
     height: $question-card-hight;
-    min-width: 330px;
     overflow: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
+    width: 100%;
+  }
+  .question-card-wrapper {
+    width: 95%;
   }
 }
 
 
-// 画面サイズ576px以下の問題カード幅
+// 画面サイズ576px以下の問題カード
 @media only screen and (max-width: 575.98px){
   .question-card {
     height: $question-card-hight;
-    width: 280px;
     overflow: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
+    width: 100%;
+  }
+  .question-card-wrapper {
+    width: 90%;
   }
 }
 
@@ -92,12 +99,8 @@ $question-card-hight: 350px;
 
 // 大学名横のアイコン
 //ブックマークアイコン
-.question-card i {
+.question-card-wrapper i {
   font-size: 2rem;
-}
-
-.question-card .univ-name-year-info{
-  height: 1.5rem;
 }
 
 // 右上ドロップダウンの▼を表示しない

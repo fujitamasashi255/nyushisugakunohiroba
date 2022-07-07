@@ -157,7 +157,6 @@ RSpec.describe "Questions", type: :system, js: true do
       create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数", created_at: Time.current.ago(1))
       create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理", created_at: Time.current)
       visit admin_questions_path
-      find(".toggle-btn").click
     end
 
     context "検索条件を指定しないとき" do

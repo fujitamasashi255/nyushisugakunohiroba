@@ -1,8 +1,11 @@
 - set_meta_tags title: t(".title")
 
-- content_for(:page_title, t(".title"))
-- content_for :page_subtitle do
-  = link_to t(".user_new"), new_user_path, class: "user-new-link"
+- content_for :page_title do
+  = t(".title")
+
+- content_for :under_title do
+  .mt-2
+    = link_to t(".user_new"), new_user_path, class: "user-new-link"
 
 .container.login-form
   = simple_form_for @user, url: login_path do |f|

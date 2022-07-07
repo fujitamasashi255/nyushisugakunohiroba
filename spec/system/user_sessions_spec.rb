@@ -36,7 +36,7 @@ RSpec.describe "UserSessions", type: :system, js: true do
       it "プロフィールページにアクセスできないこと" do
         visit user_path(user)
         expect(page).to have_content "ログインして下さい"
-        expect(current_path).to eq root_path
+        expect(current_path).to eq login_path
       end
     end
 

@@ -4,8 +4,19 @@
   i.bi.bi-pencil.me-1
   = t(".title")
 
+- content_for :under_title do
+  .d-flex.flex-row.align-items-center.mt-2
+    = render "answers/question_info", question: @question
+  .note.d-flex.align-items-center.mt-2
+    div
+      | ※問題文は画面右上の
+    div.ms-1
+      i.bi.bi-chat-right-text
+    div.ms-1
+      | をクリック
+
 - content_for :icons do
-  .d-flex.fixed-top.justify-content-end.answer-top-icons
+  .d-flex.justify-content-end.answer-top-icons
     / 問題文表示
     .dropdown
       a.dropdown-toggle.align-items-center id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
@@ -20,7 +31,7 @@
         = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
 
 - content_for :links
-  .answer-links
+  .answer-links.d-flex
     / 問題詳細ページへの戻るアイコン
     = link_to question_path(@question), class: "d-flex align-items-center" do
         i.bi.bi-card-text.me-1

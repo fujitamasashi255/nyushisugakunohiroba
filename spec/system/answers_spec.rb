@@ -104,7 +104,9 @@ RSpec.describe "Answers", type: :system, js: true do
         find("input[id='answer-files-input']", visible: false).attach_file(
           Rails.root.join("spec/files/test.png") \
         )
-        find("#delete-files-button").click
+        page.accept_confirm("登録したファイルを削除しますか") do
+          find("#delete-files-button").click
+        end
         expect(page).not_to have_selector(".preview img")
       end
 
@@ -178,7 +180,9 @@ RSpec.describe "Answers", type: :system, js: true do
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに成功しました")
         expect(page).to have_selector("iframe[type='application/pdf']")
-        find("#delete-tex-button").click
+        page.accept_confirm("TeXのコード、コンパイル結果を削除しますか") do
+          find("#delete-tex-button").click
+        end
         expect(page).not_to have_selector("textarea[id='tex-code']", text: "テスト")
         expect(page).not_to have_selector("#compile-result iframe")
       end
@@ -232,7 +236,9 @@ RSpec.describe "Answers", type: :system, js: true do
 
     context "ファイルだけを編集するとき" do
       it "クリアボタンを押すと登録されたファイルが削除されること" do
-        find("#delete-files-button").click
+        page.accept_confirm("登録したファイルを削除しますか") do
+          find("#delete-files-button").click
+        end
         expect(page).not_to have_selector(".preview img")
         find("input[value='解答を更新する']").click
         expect(page).to have_selector(".title", text: "解答")
@@ -244,7 +250,9 @@ RSpec.describe "Answers", type: :system, js: true do
     context "texを編集するとき" do
       it "クリアボタンを押すと作成したtexのpdfが削除されること" do
         expect(page).to have_selector("#compile-result iframe")
-        find("#delete-tex-button").click
+        page.accept_confirm("TeXのコード、コンパイル結果を削除しますか") do
+          find("#delete-tex-button").click
+        end
         find("input[value='解答を更新する']").click
         expect(page).to have_selector(".title", text: "解答")
         expect(page).to have_content "解答を更新しました"

@@ -11,17 +11,12 @@
   #sidebar {
     height: -webkit-fill-available;
     width: $sidebar-width;
-    font-size: $font-size-medium;
+    font-size: inherit;
   }
 
   #page-body {
     padding-right: $sidebar-width;
   }
-
-  // 注意書き
-#note {
-  font-size: 0.8rem;
-}
 
   main {
     margin: 0 4rem;
@@ -81,12 +76,15 @@ html {
 // サイトロゴ部分の高さ
 #site-logo {
   min-height: $header-height;
+  a {
+    color: rgb(39,93,144);
+  }
 }
 
 // サイドバー
 // アカウントのサブナビアイテム
 .sub-nav-item {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   margin-left: calc($icon-size-large - 1.25rem);
 }
 
@@ -122,7 +120,7 @@ html {
 // オフキャンバス
 #sidebar #offcanvasHumberger {
   background-color: black;
-  font-size: $font-size-medium;
+  font-size: $font-size-large;
   .sub-nav-item {
     font-size: 0.85rem;
   }
@@ -164,4 +162,9 @@ footer .footer-contents {
 
 .footer-contents .bi-twitter {
   font-size: 1.25rem;
+}
+
+// 注意書き
+.note {
+  font-size: 0.8rem;
 }

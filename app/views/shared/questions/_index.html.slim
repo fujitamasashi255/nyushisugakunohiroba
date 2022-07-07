@@ -11,7 +11,7 @@
 
 / 検索フォーム
 .container.questions-search-form
-  - if questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
+  - if questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data]
       .container.border.p-3.search-form
           = render search_form_path, questions_search_form: questions_search_form
   - else
@@ -32,59 +32,74 @@
 .py-3
 
 / 検索条件、並び替え
-- unless questions_search_form.specific_search_condition == QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:no_data]
-  .container.question-search-conditions
-    small
-      / 検索条件を表示
-      label
-        | #{QuestionsSearchForm.human_attribute_name(:search_conditions)}
-      .py-1
-      table.table-sm.table-borderless
-        tbody
+.container.question-search-conditions
+  small
+    / 検索条件を表示
+    label
+      | #{QuestionsSearchForm.human_attribute_name(:search_conditions)}
+    .py-1
+    table.table-sm.table-borderless
+      tbody
+        tr
+          th.align-top.text-nowrap
+            = University.model_name.human
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="university-search-condition"
+            = questions_search_form.search_conditions[:university]
+        tr
+          th.align-top.text-nowrap
+            = Question.human_attribute_name(:year)
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="year-search-condition"
+            = questions_search_form.search_conditions[:question_year]
+        tr
+          th.align-top.text-nowrap
+            = Unit.model_name.human
+          th.align-top.text-nowrap
+            | ：
+          td.align-top class="unit-search-condition"
+            = questions_search_form.search_conditions[:unit]
+        / 管理画面では検索条件にタグを表示しない
+        - unless admin_controller?(controller)
           tr
             th.align-top.text-nowrap
-              = University.model_name.human
+              = Tag.model_name.human
             th.align-top.text-nowrap
               | ：
-            td.align-top class="university-search-condition"
-              = questions_search_form.search_conditions[:university]
-          tr
-            th.align-top.text-nowrap
-              = Question.human_attribute_name(:year)
-            th.align-top.text-nowrap
-              | ：
-            td.align-top class="year-search-condition"
-              = questions_search_form.search_conditions[:question_year]
-          tr
-            th.align-top.text-nowrap
-              = Unit.model_name.human
-            th.align-top.text-nowrap
-              | ：
-            td.align-top class="unit-search-condition"
-              = questions_search_form.search_conditions[:unit]
-          / 管理画面では検索条件にタグを表示しない
-          - unless admin_controller?(controller)
-            tr
-              th.align-top.text-nowrap
-                = Tag.model_name.human
-              th.align-top.text-nowrap
-                | ：
-              td.align-top class="tags-search-condition"
-                = questions_search_form.search_conditions[:tag]
+            td.align-top class="tags-search-condition"
+              = questions_search_form.search_conditions[:tag]
 
-      .py-3
+    .py-5
 
-  - if questions.present?
+/ 問題一覧
+- if questions.present?
+  .container.questions-index-title
+    h4.d-flex.align-items-center
+      i.bi.bi-card-text
+      .ms-1
+        = t(".search_result")
+
+    / 管理画面および未ログイン時にはチェックマークの説明を表示しない
+    - if logged_in? && !admin_controller?(controller)
+      .note
+        i.bi.bi-check.me-1.fs-5
+        = t(".icon_description")
+
+    .py-3
+
     / 問題並び替え
-    .container
-      small
-        = render sorts_path, questions_search_form: questions_search_form
+    small.sort-links-wrapper
+      = render sorts_path, questions_search_form: questions_search_form
 
-    / 問題一覧
-    .container
-      .row id="questions-index"
-        = content_for :question_partial
+  .py-2
 
-  / ページネーション
-  .container id="questions-pagination"
-    = render "shared/pagy", pagy: pagy
+  / 問題カードの一覧
+  .container
+    .row id="questions-index"
+      = content_for :question_partial
+
+/ ページネーション
+.container id="questions-pagination"
+  = render "shared/pagy", pagy: pagy

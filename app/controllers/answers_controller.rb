@@ -72,10 +72,13 @@ class AnswersController < ApplicationController
   def destroy
     @answer = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id])
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
-    redirect_to root_path unless current_user.own_answer?(@answer)
-    @question = @answer.question
-    @answer.destroy!
-    redirect_to @question, success: t(".success")
+    if current_user.own_answer?(@answer)
+      @question = @answer.question
+      @answer.destroy!
+      redirect_to @question, success: t(".success")
+    else
+      redirect_to root_path
+    end
   end
 
   def search

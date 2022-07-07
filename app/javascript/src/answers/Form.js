@@ -91,6 +91,9 @@ $(function(){
   removeBrTagsAfterDisplayMath();
   $(".answer-form a[href='#tab-point-result']").on("click", function(){
     var pointCode = $("#tab-point-code trix-editor").html();
+    // 数式番号をリセット
+    MathJax.texReset([0]);
+    // 数式をタイプセット
     MathJax.typeset($("#tab-point-result").html(pointCode));
     removeBrTagsAfterDisplayMath();
   });
@@ -142,21 +145,25 @@ $(function(){
   const deleteFilesIcon = $("<i class='bi bi-x-lg'></i>");
   // ファイル削除ボタンを押したら
   deleteFilesButton.on("click", function(){
-    // inputに登録されているファイルを削除
-    fileInput.val(null);
-    // DBに登録されているファイルを削除
-    var path = $(this).data("delete-files-path");
-    if(path){
-      $.ajax({url: path, type: 'DELETE'});
+    if(!confirm('登録したファイルを削除しますか')){
+      // キャンセルの時の処理
+      return false;
+    }else{
+      // inputに登録されているファイルを削除
+      fileInput.val(null);
+      // DBに登録されているファイルを削除
+      var path = $(this).data("delete-files-path");
+      if(path){
+        $.ajax({url: path, type: 'DELETE'});
+      }
+      // ファイル登録前のカルールの内容、コントローラ、ファイル削除アイコンをクリア
+      carouselInner.empty();
+      carouselPrevDiv.empty();
+      carouselNextDiv.empty();
+      deleteFilesButton.empty();
+      // carouselInnerの高さを調整
+      carouselInner.attr("style", "height: inherit");
     }
-    // ファイル登録前のカルールの内容、コントローラ、ファイル削除アイコンをクリア
-    carouselInner.empty();
-    carouselPrevDiv.empty();
-    carouselNextDiv.empty();
-    deleteFilesButton.empty();
-    // carouselInnerの高さを調整
-    carouselInner.attr("style", "height: inherit");
-
   });
 
   // TeXクリアボタン
@@ -164,18 +171,24 @@ $(function(){
   const deleteTeXIcon = $("<i class='bi bi-x-lg'></i>");
   // TeX削除ボタンを押したら
   $(deleteTeXButton).on("click", function(){
-    var path = $(this).data("delete-tex-path");
-    $(this).data("delete-tex-path", null);
-    // pdf_blob_signed_idをリセット
-    $("#pdf_blob_signed_id").val(null);
-    $("#compile-result").empty();
-    var compileMessage = $("#compile-message");
-    if(compileMessage){
-      compileMessage.remove();
-    }
-    $("#tex-code").val(default_tex_code);
-    if(path){
-      $.ajax({url: path, type: 'DELETE'});
+    if(!confirm('TeXのコード、コンパイル結果を削除しますか')){
+      // キャンセルの時の処理
+      return false;
+    }else{
+      // OKの時の処理
+      var path = $(this).data("delete-tex-path");
+      $(this).data("delete-tex-path", null);
+      // pdf_blob_signed_idをリセット
+      $("#pdf_blob_signed_id").val(null);
+      $("#compile-result").empty();
+      var compileMessage = $("#compile-message");
+      if(compileMessage){
+        compileMessage.remove();
+      }
+      $("#tex-code").val(default_tex_code);
+      if(path){
+        $.ajax({url: path, type: 'DELETE'});
+      }
     }
   });
 });

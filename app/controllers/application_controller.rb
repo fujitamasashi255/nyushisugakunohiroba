@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   include Pagy::Backend
 
+  # current_user をdecorateできるようにする
   def current_user
     (u = super) && ActiveDecorator::Decorator.instance.decorate(u)
   end
@@ -15,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authenticated
-    redirect_to root_path, danger: t("messages.require_login")
+    redirect_to login_path, danger: t("messages.require_login")
   end
 end

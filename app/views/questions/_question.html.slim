@@ -1,23 +1,22 @@
 - content_for("question_path#{question.id}".to_sym, question_path(question))
 
 - content_for "right_icons#{question.id}".to_sym do
-  - if logged_in?
-    .dropdown.d-flex.align-items-center
-      /ドロップダウンボタン
-      = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
-        i.bi.bi-three-dots.mx-auto
-      / ドロップダウンメニュー
-      .dropdown-menu.dropdown-menu-start style="max-width: 300px"
-        - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
-          / 解答作成後
-          = link_to edit_answer_path(question_id_to_answer_id_hash_of_user[question.id]), class: "dropdown-item d-flex align-items-center" do
-            i.bi.bi-pencil.me-2
-            = t(".edit_question")
-        - else
-          / 解答作成前
-          = link_to new_question_answer_path(question), class: "dropdown-item d-flex align-items-center" do
-            i.bi.bi-pencil.me-2
-            = t(".create_question")
+  .dropdown.d-flex.align-items-center
+    /ドロップダウンボタン
+    = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do
+      i.bi.bi-three-dots.mx-auto
+    / ドロップダウンメニュー
+    .dropdown-menu.dropdown-menu-start style="max-width: 300px"
+      - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
+        / 解答作成後
+        = link_to edit_answer_path(question_id_to_answer_id_hash_of_user[question.id]), class: "dropdown-item d-flex align-items-center" do
+          i.bi.bi-pencil.me-2
+          = t(".edit_question")
+      - else
+        / 解答作成前
+        = link_to new_question_answer_path(question), class: "dropdown-item d-flex align-items-center" do
+          i.bi.bi-pencil.me-2
+          = t(".create_question")
 
 - content_for "left_icons#{question.id}".to_sym do
   - if logged_in?

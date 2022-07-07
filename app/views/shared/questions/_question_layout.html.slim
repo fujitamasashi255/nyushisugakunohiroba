@@ -5,43 +5,45 @@
 / 問題詳細へのパス: content_for "question_path#{question.id}".to_sym
 
 / 画面サイズmd以上：2列、md以下:1列
-.col-md-6
-  .container.p-4
-    .row.d-flex.justify-content-center.p-1
-      / カード部分
-      .col-12.question-card.border.mb-4.d-flex.flex-column
-        / カードの上部分
-        .question-card-top.d-flex
-          = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1 d-flex align-items-center" do
-            / 大学名
-            .univ-name-year-info.d-flex.flex-row.align-items-center
-              div
-                = question.year
-                = t("common.year")
-              div.ms-1
-                = question.university.name
-                = University.model_name.human
-              / 大学名横アイコン
-              div.ms-1.left-icons
-                = content_for "left_icons#{question.id}".to_sym
-          / 右端アイコン
-          .right-icons.pt-2
-            = content_for "right_icons#{question.id}".to_sym
+.col-md-6.d-flex.justify-content-center
+  .question-card-wrapper.position-relative.mb-5
+    / 大学名横アイコン
+    .left-icons.position-absolute.translate-middle style="top: 1px; left: 5px;"
+      = content_for "left_icons#{question.id}".to_sym
+    / カード部分
+    .question-card.px-2.py-1.border.d-flex.flex-column
+      / カードの上部分
+      .question-card-top.d-flex
+        = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1 d-flex align-items-center" do
+          / 大学名
+          .univ-name-year-info.d-flex.flex-row.align-items-center
+            div
+              = question.year
+              = t("common.year")
+            div.mx-1
+              = question.university.name
+              = University.model_name.human
+            / 区分一覧
+            .row.department-info
+              small.d-flex
+                = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
+        / 右端アイコン
+        .right-icons.pt-0
+          = content_for "right_icons#{question.id}".to_sym
 
-        = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
-          / 区分一覧
-          .row.department-info
-            small.d-flex
-              = render "shared/departments/departments", questions_departments_mediators: question.questions_departments_mediators
-          .question-card-bottom.pt-1
-            / 単元一覧
-            small.row.unit-info
-              = render "/shared/units/units", units: question.units
+      = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1" do
+        .question-card-bottom.pt-1
+          / 管理画面では問題作成日を記載
+          = content_for "created_at#{question.id}".to_sym
 
+          / 単元一覧
+          small.row.unit-info
+            = render "/shared/units/units", units: question.units
+
+          .py-1
+
+          / 問題文画像
+          - if question.image.attached?
+            .question-body.border.question-image
+              = image_tag question.image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
             .py-1
-
-            / 問題文画像
-            - if question.image.attached?
-              .question-body.border.question-image
-                = image_tag question.image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
-              .py-1

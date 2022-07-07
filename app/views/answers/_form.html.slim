@@ -3,20 +3,6 @@
 / answer
 / question
 
-- content_for :page_subtitle do
-  .answer-subtitle.d-flex.flex-row.align-items-center
-    = render "answers/question_info", question:
-
-- content_for :note do
-  .mt-2
-    .answer-form-note.d-flex.align-items-center
-      div
-        | ※問題文は画面右上の
-      div.ms-1
-        i.bi.bi-chat-right-text
-      div.ms-1
-        | をクリック
-
 .answer-top-icons-wrapper
   = content_for :icons
 
@@ -42,14 +28,16 @@
 
         .point.col-lg-6.order-lg-1
           / ポイント
-          = f.label :point
+          .d-flex.flex-row.align-items-center
+            = f.label :point, class: "text-nowrap"
+            = link_to t(".point_description_link"), description_path, class: "ms-3 point-description-link note", target: :_blank
           ul.nav.nav-tabs.mt-2 role="tablist"
             li.nav-item
               a.nav-link.active data-bs-toggle="tab" href="#tab-point-code"
-                = t(".point-input")
+                = t(".point_input")
             li.nav-item
               a.nav-link data-bs-toggle="tab" href="#tab-point-result"
-                = t(".point-preview")
+                = t(".point_preview")
           .tab-content
             .tab-pane.fade.active.show.border role="tabpanel" id="tab-point-code"
               = f.input :point, as: :rich_text_area, label: false, wrapper: false
