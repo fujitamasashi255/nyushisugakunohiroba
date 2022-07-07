@@ -1,7 +1,7 @@
 - set_meta_tags \
   title: t(".title"), \
   description: @answer.og_description, \
-  og: { image: url_for(@question.image) }, \
+  og: { image: polymorphic_url(@question.image) }, \
   twitter: { card: "summary_large_image" }
 
 / タイトル
