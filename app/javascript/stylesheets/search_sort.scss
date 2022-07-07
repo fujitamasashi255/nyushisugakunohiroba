@@ -48,3 +48,12 @@
 .university-radio-buttons .dropdown-item, .search-form-universities .dropdown-item {
   padding-left: 2rem;
 }
+
+// 大学選択ドロップダウンボタン
+.search-form-universities .dropdown-toggle {
+  overflow-x: auto;
+}
+
+.search-form-universities .dropdown-toggle::-webkit-scrollbar {
+  display:none;
+}

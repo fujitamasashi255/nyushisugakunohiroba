@@ -22,6 +22,8 @@ export const previewFile = function(file, wrapper, preview){
       var fileTag = $("<iframe>");
       fileTag.attr("type", "application/pdf");
       fileTag.attr("loading", "lazy");
+      fileTag.attr("marginheight", "0");
+      fileTag.attr("marginwidth", "0");
     }
     fileTag.attr("src", fileUrl); // ファイルのURLをfileTagにセット
     (fileTag).appendTo(preview); // fileTagを#previewの中に追加
