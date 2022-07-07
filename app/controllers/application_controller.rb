@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   include Pagy::Backend
 
+  # current_user をdecorateできるようにする
   def current_user
     (u = super) && ActiveDecorator::Decorator.instance.decorate(u)
   end
