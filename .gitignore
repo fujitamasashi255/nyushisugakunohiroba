@@ -23,6 +23,8 @@
 !/storage/.keep
 
 /public/assets
+/public/compile_result/*
+!/public/compile_result/.keep
 .byebug_history
 
 # Ignore uploaded files in test.
