@@ -67,7 +67,7 @@ class Question < ApplicationRecord
 
   # unit_idzのunitをquestionの関連に入れる
   def units_to_association(unit_idz)
-    questions_units_mediators.clear
+    questions_units_mediators&.destroy_all
     unit_idz.each do |unit_id|
       questions_units_mediators.new(unit_id:)
     end
@@ -76,8 +76,7 @@ class Question < ApplicationRecord
   # questions_departments_mediator_params は { questions_departments_mediator: { dept_id: { question_number: hoge } }, ・・・ } の形のハッシュ
   def departments_to_association(questions_departments_mediator_params)
     # DBの question と関連するQuestionsDepartmentsMediatorレコードを削除する
-    departments.destroy_all if questions_departments_mediators.exists?
-
+    questions_departments_mediators&.destroy_all
     return if questions_departments_mediator_params.blank?
 
     # paramsから@questionと関連するQuestionsDepartmentsMediatorレコードを作成
@@ -93,12 +92,8 @@ class Question < ApplicationRecord
 
   # tex.pdfをpngにして、余白を取り除いた画像を@question.imageにattachする
   # tex.pdf がなく、imageがattachされている場合はそのimageを削除する
-  def attach_question_image
-    if tex.pdf.attached?
-      image.attach(tex.pdf_to_img_blob.signed_id)
-    elsif image.attached?
-      image.purge
-    end
+  def attach_image_from_pdf
+    convert_pdf_to_img_and_attach if tex.compile_result_url?
   end
 
   private
@@ -118,5 +113,41 @@ class Question < ApplicationRecord
   def different_departments?
     dept_ids = questions_departments_mediators.map(&:department_id)
     errors.add(:base, :has_different_departments?) if dept_ids.uniq.size < dept_ids.size
+  end
+
+  # question.tex.compile_result_urlにあるpdfをpngに変換し余白を取り除いた画像をquestionにattachする
+  def convert_pdf_to_img_and_attach
+    # 変換されるpdfのパス
+    pdf_path = tex.compile_result_path
+    return unless File.file?(pdf_path) && File.exist?(pdf_path)
+
+    # 変換して得られるpngファイルのパス、名前（拡張子除く）を取得
+    image_path = "#{Settings.tmp_image_dir}#{Time.current.strftime('%Y%m%d%H%M%S')}.png"
+    image_name = File.basename(image_path, ".*")
+    # pdfファイルをpngファイルへ変換
+    # pdf_vip = Vips::Image.pdfload ActiveStorage::Blob.service.path_for(pdf.key), dpi: 600
+    pdf_vip = Vips::Image.pdfload pdf_path.to_s, dpi: 600
+    pdf_vip.write_to_file image_path, Q: 100
+    img_vip = Vips::Image.new_from_file(image_path)
+
+    # pngファイルの余白を削除
+    # 右余白は左余白と同じだけ削除する
+    image_width = img_vip.width
+    # "find_trim" returns: Array<Integer, Integer, Integer, Integer>) — Left edge of image, Top edge of extract area, Width of extract area, Height of extract area
+    extract_amount = img_vip.find_trim
+    extract_amount[2] = image_width - extract_amount[0] * 2
+    # 上下の余白を追加
+    margin = 10
+    extract_amount[1] -= margin
+    extract_amount[3] += margin * 2
+    left, top, width, height = extract_amount
+    img_vip = img_vip.extract_area(left, top, width, height)
+    img_vip.write_to_file image_path, Q: 100
+
+    # blobを作成
+    # ActiveStorage::Blob.create_and_upload!(io: File.open(image_path), filename: image_name)
+    image.attach(io: File.open(image_path), filename: image_name)
+    # ファイルを削除
+    File.delete(image_path)
   end
 end

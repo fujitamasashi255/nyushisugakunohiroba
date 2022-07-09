@@ -7,7 +7,7 @@ $question-card-hight: 380px;
 @media only screen and (min-width: 576px){
   .question-card {
     height: $question-card-hight;
-    overflow: auto;
+    overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
     width: 100%;
@@ -22,7 +22,7 @@ $question-card-hight: 380px;
 @media only screen and (max-width: 575.98px){
   .question-card {
     height: $question-card-hight;
-    overflow: auto;
+    overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
     width: 100%;

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resource :files, only: %i[destroy]
   end
 
-  resource :pdfs, only: %i[create]
+  resource :tex_compile, only: %i[create]
   resources :texes, only: %i[destroy]
 
   get "login" => "user_sessions#new", :as => :login

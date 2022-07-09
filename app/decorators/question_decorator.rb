@@ -9,6 +9,8 @@ module QuestionDecorator
       image.variant(resize_to_fit: [500, nil], saver: { strip: true })
     when :index
       image.variant(resize_to_limit: [500, nil], saver: { strip: true })
+    when :twitter_card
+      image.variant(resize_and_pad: [800, 418], saver: { strip: true })
     else
       image
     end

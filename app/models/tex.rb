@@ -6,10 +6,10 @@
 #
 #  id                 :uuid             not null, primary key
 #  code               :text
+#  compile_result_url :string           default(""), not null
 #  texable_type       :string           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  pdf_blob_signed_id :string
 #  texable_id         :uuid             not null
 #
 # Indexes
@@ -21,6 +21,7 @@ class Tex < ApplicationRecord
   has_one_attached :pdf
 
   attribute :code, :text, default: Settings.tex_default_code
+  attribute :compile_result_url, :string, default: ""
 
   validates \
     :pdf, \
@@ -29,45 +30,24 @@ class Tex < ApplicationRecord
     limit: { max: 1, message: "は1つ以下にして下さい" }
 
   def attach_pdf
-    if pdf_blob_signed_id?
-      pdf.attach(pdf_blob_signed_id)
-    elsif pdf.attached?
+    if compile_result_url.present?
+      pdf.attach(io: File.open(compile_result_path), filename: File.basename(compile_result_path), content_type: "application/pdf") if File.file?(compile_result_path) && File.exist?(compile_result_path)
+    elsif pdf.attached? & (texable_type == "Answer")
       pdf.purge
     end
-  end
-
-  # texオブジェクトに対し、そのpdfをpngに変換し余白を取り除いたファイルのblobを返す
-  def pdf_to_img_blob
-    return if pdf.blank? || texable_type != "Question"
-
-    # 作成前にあるimg_blobを削除
-    texable.image.purge if texable.image.present?
-
-    # 変換して得られるpngファイルのパス、名前（拡張子除く）を取得
-    image_path = "#{Settings.tmp_image_dir}#{Time.current.strftime('%Y%m%d%H%M%S')}.png"
-    image_name = File.basename(image_path, ".*")
-    # pdfファイルをpngファイルへ変換
-    pdf_vip = Vips::Image.pdfload ActiveStorage::Blob.service.path_for(pdf.key), dpi: 600
-    pdf_vip.write_to_file image_path, Q: 100
-    img_vip = Vips::Image.new_from_file(image_path)
-
-    # pngファイルの余白を削除
-    # 右余白は左余白と同じだけ削除する
-    image_width = img_vip.width
-    extract_amount = img_vip.find_trim
-    extract_amount[2] = image_width - extract_amount[0] * 2
-    left, top, width, height = extract_amount
-    img_vip = img_vip.extract_area(left, top, width, height)
-    img_vip.write_to_file image_path, Q: 100, compression: 9
-
-    # blobを作成
-    ActiveStorage::Blob.create_and_upload!(io: File.open(image_path), filename: image_name)
   end
 
   # texオブジェクトの属性を空にする
   def restore
     pdf.purge
     self.code = Settings.tex_default_code
-    self.pdf_blob_signed_id = nil
+    File.delete(compile_result_path) if File.file?(compile_result_path) && File.exist?(compile_result_path)
+    self.compile_result_url = ""
+  end
+
+  # 外部からpdfにアクセスするurl tex.compile_result_url を
+  # 内部からpdfにアクセスする tex.compile_result_path へ変換
+  def compile_result_path
+    Rails.root.join("public/#{Settings.dir.compile_result}/#{File.basename(compile_result_url)}")
   end
 end

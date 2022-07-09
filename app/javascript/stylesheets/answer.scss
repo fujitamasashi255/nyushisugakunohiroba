@@ -270,7 +270,7 @@ $tex-height: 700px;
 @media only screen and (min-width: 576px){
   .answer-card {
     width: 100%;
-    overflow: auto;
+    overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
   }
@@ -284,7 +284,7 @@ $tex-height: 700px;
 @media only screen and (max-width: 575.98px){
   .answer-card {
     width: 100%;
-    overflow: auto;
+    overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
   }

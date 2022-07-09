@@ -236,23 +236,86 @@ RSpec.describe Question, type: :model do
       end
     end
 
-    describe "画像の添付" do
+    describe "attach_image_from_pdf" do
+      require "fileutils"
+
+      # question.image = spec/files/test.png
       let!(:question) { create(:question, :has_a_department_with_question_number) }
 
-      describe "attach_question_image" do
+      before do
+        FileUtils.cp Rails.root.join("spec/files/test.pdf"), Rails.root.join("public/compile_result/")
+      end
+
+      after(:each) do
+        File.delete(Rails.root.join("public/compile_result/test.pdf"))
+      end
+
+      it "texのcompile_result_urlがあり、そのurlのpdfファイルがあるとき、pdfを画像にしたものを問題にattachできること" do
+        expect(question.image.blob.filename).to eq "test.png"
+        create(:tex, compile_result_url: "http://localhost:3000/compile_result/test.pdf", texable: question)
+        question.attach_image_from_pdf
+        expect(question.image.attached?).to be_truthy
+        expect(question.image.blob.filename).not_to eq "test.png"
+      end
+
+      it "texのcompile_result_urlがあり、そのurlのpdfファイルがないとき、問題にattachされていた画像は変わらないこと" do
+        expect(question.image.blob.filename).to eq "test.png"
+        create(:tex, compile_result_url: "http://localhost:3000/compile_result/no_exist.pdf", texable: question)
+        question.attach_image_from_pdf
+        expect(question.image.attached?).to be_truthy
+        expect(question.image.blob.filename).to eq "test.png"
+      end
+
+      it "texのcompile_result_urlがないとき、問題にattachされていた画像は変わらないこと" do
+        expect(question.image.blob.filename).to eq "test.png"
+        create(:tex, compile_result_url: "", texable: question)
+        question.attach_image_from_pdf
+        expect(question.image.attached?).to be_truthy
+        expect(question.image.blob.filename).to eq "test.png"
+      end
+    end
+
+    describe "convert_pdf_to_img_and_attach" do
+      # question.image = spec/files/test.png
+      let!(:question) { create(:question, :has_a_department_with_question_number) }
+
+      context "compile_result_urlがあり、そのurlのpdfがあるとき" do
+        let!(:attached_tex) { create(:tex, :with_attachment, compile_result_url: "http://localhost:3000/#{Settings.dir.compile_result}/test_new.pdf", texable: question) }
+
         before do
-          create(:tex, :with_attachment, texable: question)
-          question.attach_question_image
+          # public/compile_resultにtest_new.pdfを作成
+          FileUtils.cp Rails.root.join("spec/files/test.pdf"), Rails.root.join("public/#{Settings.dir.compile_result}/test_new.pdf")
         end
 
-        it "texのpdfがあるとき、pdfを画像にしたものを問題にattachできること" do
-          expect(question.image.attached?).to be_truthy
+        after(:each) do
+          path = Rails.root.join("public/#{Settings.dir.compile_result}/test_new.pdf")
+          File.delete(path) if File.file?(path) && File.exist?(path)
         end
 
-        it "texのpdfがないとき、問題にattachされていた画像が削除されること" do
-          question.tex.pdf.purge
-          question.attach_question_image
-          expect(question.image.attached?).to be_falsy
+        it "画像がattachされること" do
+          expect(question.image.blob.filename).to eq "test.png"
+          question.send(:convert_pdf_to_img_and_attach)
+          expect(question.image.blob.filename).not_to eq "test.png"
+        end
+      end
+
+      context "compile_result_urlがあり、そのurlのpdfがないとき" do
+        let!(:attached_tex) { create(:tex, :with_attachment, compile_result_url: "http://localhost:3000/#{Settings.dir.compile_result}/test_new.pdf", texable: question) }
+
+        it "attachされている画像は変わらないこと" do
+          expect(question.image.blob.filename).to eq "test.png"
+          question.send(:convert_pdf_to_img_and_attach)
+          expect(question.image.blob.filename).to eq "test.png"
+        end
+      end
+
+      context "compile_result_urlが空文字のとき" do
+        let!(:attached_tex) { create(:tex, :with_attachment, compile_result_url: "", texable: question) }
+
+        it "attachされている画像は変わらないこと" do
+          expect(question.image.blob.filename).to eq "test.png"
+          question.send(:convert_pdf_to_img_and_attach)
+          expect(question.image.blob.filename).to eq "test.png"
         end
       end
     end

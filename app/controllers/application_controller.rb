@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def not_authenticated
     redirect_to login_path, danger: t("messages.require_login")
   end
+
+  def file_delete_if_exist(path)
+    File.delete(path) if File.file?(path) && File.exist?(path)
+  end
 end

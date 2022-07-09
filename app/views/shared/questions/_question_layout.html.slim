@@ -16,7 +16,7 @@
       .question-card-top.d-flex
         = link_to content_for("question_path#{question.id}".to_sym), class: "d-block flex-grow-1 py-1 d-flex align-items-center" do
           / 大学名
-          .univ-name-year-info.d-flex.flex-row.align-items-center
+          .univ-name-year-info.d-flex.flex-row.align-items-center.flex-wrap
             div
               = question.year
               = t("common.year")
@@ -37,13 +37,15 @@
           = content_for "created_at#{question.id}".to_sym
 
           / 単元一覧
-          small.row.unit-info
+          small.unit-info
             = render "/shared/units/units", units: question.units
 
           .py-1
 
           / 問題文画像
           - if question.image.attached?
+            label.d-block
+              = Question.human_attribute_name(:image)
             .question-body.border.question-image
               = image_tag question.image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
             .py-1

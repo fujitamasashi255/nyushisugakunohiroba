@@ -31,9 +31,4 @@ module AnswerDecorator
     department_info = question.questions_departments_mediators.map { |qdm| "#{qdm.department.name}#{qdm.question_number}" }.join("、")
     "#{user.name}さんの#{question.university.name}大学 #{department_info} の解答"
   end
-
-  def og_description_in_my_answer(uzer)
-    department_info = question.questions_departments_mediators.map { |qdm| "#{qdm.department.name}#{qdm.question_number}" }.join("、")
-    "#{uzer.name}さんの#{question.university.name}大学 #{department_info} の解答"
-  end
 end

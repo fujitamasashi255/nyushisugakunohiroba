@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2022_06_12_190964) do
     t.string "texable_type", null: false
     t.uuid "texable_id", null: false
     t.text "code"
-    t.string "pdf_blob_signed_id"
+    t.string "compile_result_url", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["texable_type", "texable_id"], name: "index_texes_on_texable"

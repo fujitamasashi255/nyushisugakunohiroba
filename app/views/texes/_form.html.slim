@@ -2,7 +2,7 @@
 / f
 / tex
 
-.row.small
+.small
   / タブ部分（画面サイズlg以上の時非表示）
   .d-lg-none.px-0
     ul.nav.nav-tabs role="tablist"
@@ -20,16 +20,16 @@
       = f.simple_fields_for tex do |t|
         .d-none.d-lg-block
           = t.label :code
-        = t.input :code, label: false, input_html: { style: "min-height: 500px", id: "tex-code"}
-        // texにattachするpdfのblobオブジェクトのsigned_id
-        = t.input_field :pdf_blob_signed_id, id: "pdf_blob_signed_id", type: "hidden"
+        = t.input :code, label: false, input_html: { id: "tex-code"}
+        / texにattachするpdfのurl
+        = t.input_field :compile_result_url, id: "compile_result_url", type: "hidden"
     / texコード出力エリア
     .tab-pane.fade.active.show role="tabpanel" id="tab-compile-result"
       .d-none.d-lg-block
         = Tex.human_attribute_name(:pdf)
-      .border.rounded.p-2.bg-white id="compile-result" style='height: 500px'
+      .border.rounded.p-0.bg-white id="compile-result"
         - if tex.pdf.attached?
-          iframe.d-block type="application/pdf" height="500" width="100%" marginwidth="0" src=url_for(tex.pdf) loading="lazy"
+          iframe.d-block type="application/pdf" marginheight="0" marginwidth="0" src=url_for(tex.pdf) loading="lazy"
   .px-0
     button.btn.btn-outline-dark id="compile-button" type="button"
       = t("compile.create")

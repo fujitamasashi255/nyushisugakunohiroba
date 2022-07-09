@@ -9,6 +9,11 @@
     .dropdown-menu.dropdown-menu-start style="max-width: 300px"
       - if question_id_to_answer_id_hash_of_user.keys.include?(question.id)
         / 解答作成後
+        / 解答詳細リンク
+        = link_to answer_path(question_id_to_answer_id_hash_of_user[question.id]), class: "dropdown-item d-flex align-items-center" do
+          i.bi.bi-book.me-2
+          = t(".my_question")
+        / 解答編集リンク
         = link_to edit_answer_path(question_id_to_answer_id_hash_of_user[question.id]), class: "dropdown-item d-flex align-items-center" do
           i.bi.bi-pencil.me-2
           = t(".edit_question")
