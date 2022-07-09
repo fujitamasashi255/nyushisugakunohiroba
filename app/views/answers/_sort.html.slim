@@ -1,7 +1,7 @@
 .sort-links.d-flex.flex-row
   label.text-nowrap
     | #{AnswersSearchForm.human_attribute_name(:sort_type)}：
-  .px-1.d-flex.flex-column.flex-sm-row.flex-wrap
+  .px-1.d-flex.flex-row.flex-wrap
     - AnswersSearchForm::SORT_TYPES.each do |sort_type|
       .me-3 class= sort_type
         - case sort_type
