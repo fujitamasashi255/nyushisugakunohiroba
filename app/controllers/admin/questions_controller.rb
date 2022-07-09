@@ -16,12 +16,11 @@ class Admin::QuestionsController < Admin::ApplicationController
   def create
     @question = Question.new(question_params)
     set_depts_units_association_from_params
-    set_tex_and_attach_image
+    @question.build_tex(tex_params)
+    attach_tex_pdf_and_attach_question_image
     if @question.save
       redirect_to [:admin, @question], success: t(".success")
     else
-      # レコードの新規作成に失敗したら、attach予定のimage blobを削除する
-      ActiveStorage::Blob.find(@question.image.blob.id).purge if @question.image.blob.present?
       flash.now[:danger] = t(".fail")
       render "admin/questions/new"
     end
@@ -33,7 +32,9 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def update
     @question = Question.find(params[:id])
-    set_tex_and_attach_image
+    @question.tex.update(tex_params)
+    # @question = Question.includes(departments: :universty).find(params[:id])
+    attach_tex_pdf_and_attach_question_image
     if update_question_transaction
       redirect_to [:admin, @question], success: t(".success")
     else
@@ -64,7 +65,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   def other_params
-    params.require(:question).permit(tex: %i[code pdf_blob_signed_id id _destroy], department_ids: [], unit_ids: [])
+    params.require(:question).permit(tex: %i[code compile_result_url id _destroy], department_ids: [], unit_ids: [])
   end
 
   def tex_params
@@ -88,12 +89,14 @@ class Admin::QuestionsController < Admin::ApplicationController
   end
 
   # set objects
+  # show
   def set_question_association_without_tex
-    @question = Question.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators).find(params[:id])
+    @question = Question.with_attached_image.includes(:questions_units_mediators, { questions_departments_mediators: [department: :university] }).find(params[:id])
   end
 
+  # edit
   def set_question_association_without_image
-    @question = Question.includes({ departments: [:university, :questions_departments_mediators] }, :questions_units_mediators).find(params[:id])
+    @question = Question.includes(:questions_units_mediators, { questions_departments_mediators: [department: :university] }).find(params[:id])
   end
 
   def set_depts_units_association_from_params
@@ -104,20 +107,17 @@ class Admin::QuestionsController < Admin::ApplicationController
     @question.departments_to_association(questions_departments_mediator_params[:department])
   end
 
-  # texのセットおよびpdf、imageのattach
-  def set_tex_and_attach_image
-    # texは新規作成時nil、編集時nilでない。
-    if @question.tex.nil?
-      @tex = @question.build_tex(tex_params)
-    else
-      @tex = @question.tex
-      @tex.update(tex_params)
-    end
+  # texにpdfをattachし、、questionにimageをattachする
+  def attach_tex_pdf_and_attach_question_image
     # texにpdfをattachする
-    @tex.attach_pdf
+    @question.tex.attach_pdf
 
-    # pdfの画像をquestionにattachする
-    @question.attach_question_image
+    # pdfを画像に変換し、それをquestionにattachする
+    @question.attach_image_from_pdf
+
+    # publicのpdfファイルを削除
+    pdf_path = @question.tex.compile_result_path
+    file_delete_if_exist(pdf_path)
   end
 
   # transaction
@@ -129,10 +129,6 @@ class Admin::QuestionsController < Admin::ApplicationController
     end
     true
   rescue ActiveRecord::RecordInvalid
-    # アップデートに失敗したら、アップデート前のレコードにエラーメッセージを追加
-    errors = @question.errors
-    set_question_association_without_image
-    @question.errors.merge!(errors)
     false
   end
 end

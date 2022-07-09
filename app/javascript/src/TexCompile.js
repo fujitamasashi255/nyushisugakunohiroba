@@ -7,7 +7,7 @@ export function t(arg) {
 }
 
 // PDFを作成するコントローラpdfs_controllerへのパス path
-const pdfsPath = "/pdfs";
+const pdfsPath = "/tex_compile";
 
 // pdfUrlのファイルをrenderElementに表示する
 var renderPdf = function(pdfUrl, renderElement){
@@ -16,7 +16,7 @@ var renderPdf = function(pdfUrl, renderElement){
 
 // logTextをrenderElementに表示する
 var renderLogText = function(logText, renderElement){
-  $('<div>', { id: "log-text" }).html(logText).appendTo(renderElement);
+  $('<div>', { id: "log-text", class: "p-2" }).html(logText).appendTo(renderElement);
 }
 
 // 「コンパイル中」ボタンにする
@@ -38,21 +38,20 @@ var replacewithNewButton = function(button, signedId){
 }
 
 // コンパイルをリクエストするajax通信を実行し、その結果を表示する
-var compileAjax = function(path, code, signedIdElement, compileResultElement){
-  $.post(path, {code: code, id: signedIdElement.val()}, null, "json").done(function(data, statusText, jqXHR){
+var compileAjax = function(path, code, pdfUrlElement, compileResultElement){
+  $.post(path, {code: code, pdf_url: pdfUrlElement.val()}, null, "json").done(function(data, statusText, jqXHR){
     //  コンパイル結果のBlobオブジェクトのsigned_idを設定
-    signedIdElement.val(data.signed_id);
-    if(Boolean(data.signed_id)){
+    pdfUrlElement.val(data.url);
+    if(Boolean(data.url)){
       // コンパイル成功時
-      // 帰ってくるデータ data = json: {url: url_for(blob), signed_id: blob.signed_id}
+      // 帰ってくるデータ data = json: { url: compile_result_url }
       // コンパイル結果のpdfのurl
       var pdfUrl = data.url;
-      // コンパイルを表示する要素 compileResultElement を取得
-      // コンパイル結果を表示する
+      // コンパイル結果をcompileResultElementに表示する
       renderPdf(pdfUrl, compileResultElement);
     }else{
       // コンパイル失敗時
-      // 帰ってくるデータ data = json: {log_text: e.log, signed_id: nil}
+      // 帰ってくるデータ data = json: {log_text: e.log, url: nil}
       // ログのテキスト logText
       var logText = data.log_text;
       // logTextをcompileResultElementに表示する
@@ -73,8 +72,8 @@ $(function(){
     var submitButton = $("input[type='submit']");
     // コンパイルするtexコード Code
     var code = $('#tex-code').val();
-    // 要素 t.input_field :pdf_blob_signed_id を取得
-    var signedIdElement = $('#pdf_blob_signed_id');
+    // 要素 t.input_field :compile_result_url を取得
+    var pdfUrlElement = $('#compile_result_url');
     // コンパイル結果を表示する要素 compileResultElement
     var compileResultElement = $('#compile-result');
 
@@ -88,10 +87,10 @@ $(function(){
     // submitボタンをdisabledにする
     submitButton.prop("disabled", true)
     // Ajaxを送る
-    compileAjax(pdfsPath, code, signedIdElement, compileResultElement);
+    compileAjax(pdfsPath, code, pdfUrlElement, compileResultElement);
     // 結果が表示されたらボタンを元に戻す
     compileResultElement.on('DOMSubtreeModified propertychange', function(){
-      replacewithNewButton(button, signedIdElement.val());
+      replacewithNewButton(button, pdfUrlElement.val());
       submitButton.prop("disabled", false);
     });
   });

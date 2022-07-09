@@ -4,6 +4,8 @@ site:
 url:
   google_form: "https://docs.google.com/forms/d/e/1FAIpQLSeazz0uwwS1lxEqDMTBW24SwA-4K4KRRnd_3MRSV1TxoXCzSg/viewform?usp=sf_link"
   twitter: "https://twitter.com/nyushi__sugaku"
+dir:
+  compile_result: "compile_result"
 
 admin_tex_default_code: "\\documentclass[17pt, dvipdfmx]{jsarticle}\
                         \r\n\

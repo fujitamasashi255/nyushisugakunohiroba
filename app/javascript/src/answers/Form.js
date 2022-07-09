@@ -179,7 +179,7 @@ $(function(){
       var path = $(this).data("delete-tex-path");
       $(this).data("delete-tex-path", null);
       // pdf_blob_signed_idをリセット
-      $("#pdf_blob_signed_id").val(null);
+      $("#compile_result_url").val("");
       $("#compile-result").empty();
       var compileMessage = $("#compile-message");
       if(compileMessage){

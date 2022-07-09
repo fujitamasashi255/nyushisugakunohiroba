@@ -113,14 +113,16 @@ RSpec.describe "Questions", type: :system, js: true do
         expect(page).to have_content "区分を登録して下さい"
       end
 
-      it "問題文texのコンパイルに失敗すると問題文が登録されないこと" do
+      it "問題文texのコンパイルに失敗しても問題文が消えずに問題を変更できること" do
         find("#tex-code").set("")
         click_button "コンパイルする"
         expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
         expect(page).to have_selector("#compile-result", text: "No pages of output.")
         click_button "問題を変更する"
-        expect(page).to have_content "問題を変更できませんでした"
-        expect(page).to have_content "問題文 を作成して下さい"
+        expect(page).to have_content "2000"
+        expect(page).to have_content "東京"
+        expect(page).to have_content "理系10"
+        expect(page).not_to have_content "単元"
       end
     end
   end

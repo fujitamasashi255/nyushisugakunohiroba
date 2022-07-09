@@ -150,6 +150,7 @@ ja:
     question:
       edit_question: "解答を編集する"
       create_question: "解答を作成する"
+      my_question: "作成した解答詳細"
       bookmark: "ブックマークする"
       unbookmark: "ブックマークを解除する"
       answered: "解答作成済"

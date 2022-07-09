@@ -26,7 +26,8 @@ class AnswersController < ApplicationController
 
   def create
     @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], tag_list: answer_params[:tag_list], files: answer_params[:files])
-    set_tex
+    @answer.build_tex(tex_params)
+    attach_tex_pdf
     if @answer.save
       redirect_to @answer, success: t(".success")
     else
@@ -55,7 +56,8 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless current_user.own_answer?(@answer)
-    set_tex
+    @answer.tex.update(tex_params)
+    attach_tex_pdf
     if @answer.update(answer_params)
       redirect_to @answer, success: t(".success")
     else
@@ -94,23 +96,21 @@ class AnswersController < ApplicationController
   end
 
   def tex_params
-    params.require(:answer).permit(tex: %i[code pdf_blob_signed_id id _destroy])[:tex]
+    params.require(:answer).permit(tex: %i[code compile_result_url id _destroy])[:tex]
   end
 
   def answers_search_form_params
     params.require(:answers_search_form).permit(:start_year, :end_year, :tag_names, :sort_type, university_ids: [], unit_ids: [])
   end
 
-  # texにpdfをattachし、texをanserに関連づける
-  def set_tex
-    if @answer.tex.nil?
-      @tex = @answer.build_tex(tex_params)
-    else
-      @tex = @answer.tex
-      @tex.update(tex_params)
-    end
+  # texにpdfをattachする
+  def attach_tex_pdf
     # texにpdfをattachする
-    @tex.attach_pdf
+    @answer.tex.attach_pdf
+
+    # publicのpdfファイルを削除
+    pdf_path = @answer.tex.compile_result_path
+    file_delete_if_exist(pdf_path)
   end
 
   # ユーザーが同じ分野の問題につけたタグの一覧を取得する
