@@ -62,9 +62,6 @@ gem "ruby-vips"
 # 定数管理
 gem "config"
 
-# cronを設定
-gem "whenever", require: false
-
 # 認証
 gem "sorcery"
 
@@ -138,6 +135,9 @@ group :development do
 
   # メール
   gem "letter_opener_web", "~> 2.0"
+
+  # cronを設定
+  gem "whenever", require: false
 end
 
 group :test do

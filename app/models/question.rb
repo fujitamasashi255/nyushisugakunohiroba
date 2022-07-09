@@ -137,7 +137,7 @@ class Question < ApplicationRecord
     extract_amount = img_vip.find_trim
     extract_amount[2] = image_width - extract_amount[0] * 2
     # 上下の余白を追加
-    margin = 10
+    margin = 50
     extract_amount[1] -= margin
     extract_amount[3] += margin * 2
     left, top, width, height = extract_amount
