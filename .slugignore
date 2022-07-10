@@ -1,0 +1,8 @@
+spec
+.editorconfig
+log
+.overcommit.yml
+.rubocop.yml
+.rubocop_todo.yml
+.rspec
+README.md

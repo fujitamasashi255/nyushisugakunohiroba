@@ -60,7 +60,7 @@
                     = t(".select_file")
             .d-flex.flex-column
               = f.input :files, as: :file, wrapper: false, label: false, hint: t(".files_hint"), \
-                input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true }
+                input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true, direct_upload: true }
 
 
         .col-lg-8.mt-2.mt-lg-0

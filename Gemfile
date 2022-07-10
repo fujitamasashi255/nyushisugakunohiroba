@@ -89,6 +89,9 @@ gem "seed-fu"
 # エラーページ
 gem "hanmoto"
 
+# 外部ストレージ設定
+gem "aws-sdk-s3", require: false
+
 group :development, :test do
   # デバッグ
   gem "debug", ">= 1.0.0"

@@ -3,7 +3,8 @@
   #log-text {
     height: 600px;
     overflow: auto;
-    white-space: pre;
+    white-space: break-spaces;
+    width: 100%;
   }
   iframe {
     height: 600px;

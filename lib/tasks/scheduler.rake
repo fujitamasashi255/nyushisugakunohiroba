@@ -16,8 +16,3 @@ task clean_rails_latex_dir: :environment do
     end
   end
 end
-
-task test_scheduler: :environment do
-  puts "scheduler test"
-  puts "it works."
-end
