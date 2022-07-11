@@ -4,4 +4,5 @@
     a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
       i.bi.bi-chat-right-text
     .dropdown-menu.p-1 id="dropdownQuestionImage"
-      = image_tag question.image_url(:dropdown), class: "img-fluid", loading: "lazy"
+      / loading: "lazy" にしない
+      = image_tag question.image_url(:dropdown), class: "img-fluid"
