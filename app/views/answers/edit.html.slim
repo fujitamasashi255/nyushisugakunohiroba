@@ -16,19 +16,7 @@
       | をクリック
 
 - content_for :icons do
-  .d-flex.justify-content-end.answer-top-icons
-    / 問題文表示
-    .dropdown
-      a.dropdown-toggle.align-items-center id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
-        figure.mb-0
-          .d-flex
-            i.bi.bi-chat-right-text.mx-auto
-          / アイコン説明
-          / figcaption.nav-item-text
-          /   = t(".display_question_image")
-
-      .dropdown-menu.p-1 id="dropdownQuestionImage"
-        = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
+  = render "answers/top_icons", question: @question
 
 - content_for :links
   .answer-links.d-flex
