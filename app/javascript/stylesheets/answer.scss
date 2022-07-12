@@ -325,13 +325,22 @@ $tex-height: 700px;
   }
 }
 
+.answer-card {
+  a:hover {
+    text-decoration: none;
+  }
+  .question-body{
+    background-color: white;
+  }
+  .point {
+    background-color: white;
+  }
+}
+
 .answer-card:hover {
   background-color: $silver;
 }
 
-.answer-card .point {
-  background-color: white;
-}
 
 // 問題詳細ページの他ユーザーの解答一覧
 .another-user-answer .answer-card {

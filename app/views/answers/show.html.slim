@@ -127,11 +127,7 @@
           / カルーセル
           .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
             / カルーセル部分
-<<<<<<< HEAD
             .carousel-inner.carousel-button.d-flex.align-items-center
-=======
-            .carousel-inner.carousel-button.d-flex.align-items-center
->>>>>>> 02fa36ffda4c7eda3ad7a5462e12d03718642f09
               - @answer.files_urls(:show).each.with_index do |file, index|
                 - case index
                 - when 0
@@ -148,11 +144,7 @@
                       iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
           - if @answer.files.size >= 2
             / カルーセルコントローラのnextボタン
-<<<<<<< HEAD
             a.carousel-next.carousel-button.d-flex.flex-column role="button"
-=======
-            a.carousel-next.carousel-button.d-flex.flex-column role="button"
->>>>>>> 02fa36ffda4c7eda3ad7a5462e12d03718642f09
               .my-auto
                 span.carousel-control-next-icon
         / カルーセルインディケーター

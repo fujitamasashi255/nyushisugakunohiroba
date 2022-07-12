@@ -50,16 +50,6 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-    //カルーセルインディケーターをアクティブから非アクティブに
-var unActivateIndicatorIcon = function(indicatorIcon){
-  indicatorIcon.removeClass("bi-circle-fill").addClass("bi-circle");
-}
-
-//カルーセルインディケーターを非アクティブからアクティブに
-var activateIndicatorIcon = function(indicatorIcon){
-  indicatorIcon.removeClass("bi-circle").addClass("bi-circle-fill");
-}
-
   // TeXのおりたたみ
   var collapseElem = document.querySelector("#texField");
   var collapseLink = document.querySelector("a[href='#texField']");
@@ -103,16 +93,6 @@ var adjustCarouselInnerHeight = function(carouselInner){
     // プレビューファイルあり
     carouselInner.attr("style", "height: 550px");
   }
-}
-
-//カルーセルインディケーターをアクティブから非アクティブに
-var unActivateIndicator = function(Indicator){
-  Indicator.removeClass("bi-circle-fill").addClass("bi-circle");
-}
-
-//カルーセルインディケーターを非アクティブからアクティブに
-var activateIndicator = function(Indicator){
-  Indicator.removeClass("bi-circle").addClass("bi-circle-fill");
 }
 
 $(function(){

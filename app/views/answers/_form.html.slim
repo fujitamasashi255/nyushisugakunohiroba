@@ -72,11 +72,7 @@
           .preview
             .d-flex.justify-content-around
               / カルーセルコントローラのprevボタン
-<<<<<<< HEAD
               a.carousel-prev.carousel-button.d-flex.flex-column role="button"
-=======
-              a.carousel-prev.carousel-button.d-flex.flex-column role="button"
->>>>>>> 02fa36ffda4c7eda3ad7a5462e12d03718642f09
                 .my-auto
                   - if answer.files.size >= 2
                     span.carousel-control-prev-icon
@@ -102,11 +98,7 @@
                             iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
                           = f.hidden_field :file, value: file.blob.signed_id
               / カルーセルコントローラのnextボタン
-<<<<<<< HEAD
               a.carousel-next.carousel-button.d-flex.flex-column role="button"
-=======
-              a.carousel-next.carousel-button.d-flex.flex-column role="button"
->>>>>>> 02fa36ffda4c7eda3ad7a5462e12d03718642f09
                 .my-auto
                   - if answer.files.size >= 2
                     span.carousel-control-next-icon
