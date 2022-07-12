@@ -32,13 +32,33 @@ document.addEventListener("DOMContentLoaded", function(){
     var carouselObj = new bootstrap.Carousel('#carouselAnswerFiles');
     var nextButton = document.querySelector('.carousel-next');
     var prevButton = document.querySelector('.carousel-prev');
+    // ボタンを押すとスライド
     nextButton.addEventListener("click", function(){
       carouselObj.next();
     });
     prevButton.addEventListener("click", function(){
       carouselObj.prev();
     });
+    // スライドするとインディケーターを変化させる
+    carousel.addEventListener('slide.bs.carousel', event => {
+      var nextIndicator = document.querySelectorAll('.indicator i').item(event.to);
+      var currentIndicator = document.querySelectorAll('.indicator i').item(event.from);
+      nextIndicator.classList.remove("bi-circle");
+      nextIndicator.classList.add("bi-circle-fill");
+      currentIndicator.classList.remove("bi-circle-fill");
+      currentIndicator.classList.add("bi-circle");
+    });
   }
+
+    //カルーセルインディケーターをアクティブから非アクティブに
+var unActivateIndicatorIcon = function(indicatorIcon){
+  indicatorIcon.removeClass("bi-circle-fill").addClass("bi-circle");
+}
+
+//カルーセルインディケーターを非アクティブからアクティブに
+var activateIndicatorIcon = function(indicatorIcon){
+  indicatorIcon.removeClass("bi-circle").addClass("bi-circle-fill");
+}
 
   // TeXのおりたたみ
   var collapseElem = document.querySelector("#texField");
@@ -66,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 });
 
-
 ////////////////////////////JQuery////////////////////////////
 
 // MathJaxによる数式表示時、ディスプレー数式の直後のbrは削除する
@@ -82,7 +101,7 @@ var removeBrTagsAfterDisplayMath = function(){
 var adjustCarouselInnerHeight = function(carouselInner){
   if(carouselInner.find(".carousel-item").length >= 1){
     // プレビューファイルあり
-    carouselInner.attr("style", "height: 500px");
+    carouselInner.attr("style", "height: 550px");
   }
 }
 
@@ -109,6 +128,7 @@ $(function(){
   // カルーセルコントローラ
   const carouselPrevDiv = $(".files .carousel-prev div");
   const carouselNextDiv = $(".files .carousel-next div");
+  const carouselIndicators = $(".files .indicators-wrapper");
   const carouselItem = $("<div class='carousel-item'></div>");
   const carouselItemActive = $("<div class='carousel-item active'></div>");
 
@@ -116,14 +136,15 @@ $(function(){
   fileInput.on("change", function(e){
     var files = e.target.files; // 読み込んだファイル
     if(files.length >= 1){
-      // ファイル登録前のカルーセルの内容、コントローラをクリア
+      // ファイル登録前のカルーセルの内容、コントローラ、インディケータをクリア
       carouselInner.empty();
       carouselPrevDiv.empty();
       carouselNextDiv.empty();
       deleteFilesButton.empty();
+      carouselIndicators.empty();
       deleteFilesButton.append(deleteFilesIcon);
       // carouselInnerの高さを調整
-      carouselInner.attr("style", "height: 500px");
+      carouselInner.attr("style", "height: 550px");
 
       $.each(files, function(idx, file){
         if(idx == 0){
@@ -132,10 +153,16 @@ $(function(){
           previewFile(file, carouselItem, carouselInner);
         }
       });
-      // 読み込んだファイル数が2つ以上の時、carouselコントローラ を表示する
+      // 読み込んだファイル数が2つ以上の時、carouselコントローラ、インディケーター を表示する
       if(files.length >= 2){
+        // コントローラ
         carouselNextDiv.append("<span class='carousel-control-next-icon'>");
         carouselPrevDiv.append("<span class='carousel-control-prev-icon'>");
+        // インディケーター
+        carouselIndicators.append("<div class='mx-1 indicator'><i class='bi bi-circle-fill'>");
+        for(var i=0; i < files.length-1; i++){
+          carouselIndicators.append("<div class='mx-1 indicator'><i class='bi bi-circle'>");
+        }
       }
     }
   });
@@ -156,11 +183,12 @@ $(function(){
       if(path){
         $.ajax({url: path, type: 'DELETE'});
       }
-      // ファイル登録前のカルールの内容、コントローラ、ファイル削除アイコンをクリア
+      // ファイル登録前のカルールの内容、コントローラ、インディケーター、ファイル削除アイコンをクリア
       carouselInner.empty();
       carouselPrevDiv.empty();
       carouselNextDiv.empty();
       deleteFilesButton.empty();
+      carouselIndicators.empty();
       // carouselInnerの高さを調整
       carouselInner.attr("style", "height: inherit");
     }

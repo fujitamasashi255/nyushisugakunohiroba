@@ -61,47 +61,56 @@
             .d-flex.flex-column
               = f.input :files, as: :file, wrapper: false, label: false, hint: t(".files_hint"), \
                 input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true, direct_upload: true }
+              .note.mt-2
+                = t(".files_description1")
+                br
+                = t(".files_description2")
 
 
         .col-lg-8.mt-2.mt-lg-0
           / 登録ファイルのプレビュー
-          .d-flex.justify-content-around.preview
-            / カルーセルコントローラのprevボタン
-            a.carousel-prev.d-flex.flex-column role="button"
-              .my-auto
-                - if answer.files.size >= 2
-                  span.carousel-control-prev-icon
-            / カルーセル
-            .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-              / カルーセル部分
-              .carousel-inner.d-flex.align-items-center
-                - if answer.files.attached?
-                  - answer.files_urls(:show).each.with_index do |file, index|
-                    - case index
-                    - when 0
-                      .carousel-item.active
-                        - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                          = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                        - elsif file.blob.content_type == "application/pdf"
-                          iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-                        = f.hidden_field :file, value: file.blob.signed_id
-                    - else
-                      .carousel-item
-                        - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                          = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                        - elsif file.blob.content_type == "application/pdf"
-                          iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-                        = f.hidden_field :file, value: file.blob.signed_id
-            / カルーセルコントローラのnextボタン
-            a.carousel-next.d-flex.flex-column role="button"
-              .my-auto
-                - if answer.files.size >= 2
-                  span.carousel-control-next-icon
-            / ファイル削除ボタン
-            div
-              a role="button" id="delete-files-button" data-delete-files-path=(answer_files_path(answer.id) if answer.id)
-                - if answer.files.attached?
-                  i.bi.bi-x-lg
+          .preview
+            .d-flex.justify-content-around
+              / カルーセルコントローラのprevボタン
+              a.carousel-prev.carousel-button.d-flex.flex-column role="button"
+                .my-auto
+                  - if answer.files.size >= 2
+                    span.carousel-control-prev-icon
+              / カルーセル
+              .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-interval="false"
+                / カルーセル部分
+                .carousel-inner.d-flex.align-items-center
+                  - if answer.files.attached?
+                    - answer.files_urls(:show).each.with_index do |file, index|
+                      - case index
+                      - when 0
+                        .carousel-item.active
+                          - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                            = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                          - elsif file.blob.content_type == "application/pdf"
+                            iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+                          = f.hidden_field :file, value: file.blob.signed_id
+                      - else
+                        .carousel-item
+                          - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                            = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                          - elsif file.blob.content_type == "application/pdf"
+                            iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+                          = f.hidden_field :file, value: file.blob.signed_id
+              / カルーセルコントローラのnextボタン
+              a.carousel-next.carousel-button.d-flex.flex-column role="button"
+                .my-auto
+                  - if answer.files.size >= 2
+                    span.carousel-control-next-icon
+              / ファイル削除ボタン
+              div
+                a role="button" id="delete-files-button" data-delete-files-path=(answer_files_path(answer.id) if answer.id)
+                  - if answer.files.attached?
+                    i.bi.bi-x-lg
+            / カルーセルインディケーター
+            .indicators.d-flex
+              .indicators-wrapper.d-flex.flex-row.mx-auto
+                = render "answers/carousel_indicators", number: answer.files.size
 
       .py-2.py-lg-3
       hr
