@@ -168,3 +168,22 @@ footer .footer-contents {
 .note {
   font-size: 0.8rem;
 }
+
+// モーダル
+.modal {
+  font-size: 1rem;
+  a {
+    font-size: 0.9rem;
+    color: $linksilver;
+    i {
+      font-size: 1.8rem;
+      color: $linksilver;
+    }
+  }
+  a:hover {
+    color: black;
+    i {
+      color: black;
+    }
+  }
+}

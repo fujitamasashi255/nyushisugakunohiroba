@@ -19,9 +19,17 @@
           = t(".edit_question")
       - else
         / 解答作成前
-        = link_to new_question_answer_path(question), class: "dropdown-item d-flex align-items-center" do
-          i.bi.bi-pencil.me-2
-          = t(".create_question")
+        / ログインしているとき
+        - if logged_in?
+          = link_to new_question_answer_path(question), class: "dropdown-item d-flex align-items-center" do
+            i.bi.bi-pencil.me-2
+            = t(".create_question")
+        / ログインしていないとき
+        - else
+          = link_to "#", class: "dropdown-item d-flex align-items-center", data: { bs_toggle: "modal", bs_target: "#loginModal"} do
+            i.bi.bi-pencil.me-2
+            = t(".create_question")
+  = render "shared/login_modal"
 
 - content_for "left_icons#{question.id}".to_sym do
   - if logged_in?
