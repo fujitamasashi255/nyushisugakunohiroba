@@ -62,9 +62,6 @@ gem "ruby-vips"
 # 定数管理
 gem "config"
 
-# cronを設定
-gem "whenever", require: false
-
 # 認証
 gem "sorcery"
 
@@ -91,6 +88,9 @@ gem "seed-fu"
 
 # エラーページ
 gem "hanmoto"
+
+# 外部ストレージ設定
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   # デバッグ
@@ -138,6 +138,9 @@ group :development do
 
   # メール
   gem "letter_opener_web", "~> 2.0"
+
+  # cronを設定
+  gem "whenever", require: false
 end
 
 group :test do

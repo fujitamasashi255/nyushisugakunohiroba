@@ -17,6 +17,8 @@ admin_tex_default_code: "\\documentclass[17pt, dvipdfmx]{jsarticle}\
                         \r\n\
                         \\pagestyle{empty}\
                         \r\n\
+                        \\renewcommand{\\baselinestretch}{1}\
+                        \r\n\
                         \r\n\
                         \\begin{document}\
                         \r\n\
@@ -32,6 +34,8 @@ tex_default_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}\
                   \\usepackage[margin=1cm]{geometry}\
                   \r\n\
                   \\pagestyle{empty}\
+                  \r\n\
+                  \\renewcommand{\\baselinestretch}{1}\
                   \r\n\
                   \r\n\
                   \\begin{document}\

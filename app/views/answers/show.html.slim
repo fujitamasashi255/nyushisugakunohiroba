@@ -29,13 +29,7 @@
         | をクリック
 
 / コンテンツ
-.d-flex.justify-content-end.answer-top-icons
-  / 問題文表示
-  .dropdown
-    a.dropdown-toggle id="questionImageDropdownButton" data-bs-toggle="dropdown"  data-bs-auto-close="inside" href="#"
-      i.bi.bi-chat-right-text
-    .dropdown-menu.p-1 id="dropdownQuestionImage"
-      = image_tag @question.image_url(:dropdown), class: "bg-white p-3 img-fluid", loading: "lazy"
+= render "answers/top_icons", question: @question
 
 / 解答の各項目に対する、その上にあるコンテンツ数
 - above_contents_count = 0
@@ -123,35 +117,40 @@
       label.mb-2.d-block
         = Answer.human_attribute_name(:files)
       / 登録ファイルのプレビュー
-      .d-flex.justify-content-around.preview
-        - if @answer.files.size >= 2
-          / カルーセルコントローラのprevボタン
-          a.carousel-prev.d-flex.flex-column role="button"
-            .my-auto
-              span.carousel-control-prev-icon
-        / カルーセル
-        .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-          / カルーセル部分
-          .carousel-inner.d-flex.align-items-center
-            - @answer.files_urls(:show).each.with_index do |file, index|
-              - case index
-              - when 0
-                .carousel-item.active
-                  - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                  - elsif file.blob.content_type == "application/pdf"
-                    iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-              - else
-                .carousel-item
-                  - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                  - elsif file.blob.content_type == "application/pdf"
-                    iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-        - if @answer.files.size >= 2
-          / カルーセルコントローラのnextボタン
-          a.carousel-next.d-flex.flex-column role="button"
-            .my-auto
-              span.carousel-control-next-icon
+      .preview
+        .d-flex.justify-content-around
+          - if @answer.files.size >= 2
+            / カルーセルコントローラのprevボタン
+            a.carousel-prev.d-flex.flex-column role="button"
+              .my-auto
+                span.carousel-control-prev-icon
+          / カルーセル
+          .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+            / カルーセル部分
+            .carousel-inner.carousel-button.d-flex.align-items-center
+              - @answer.files_urls(:show).each.with_index do |file, index|
+                - case index
+                - when 0
+                  .carousel-item.active
+                    - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                    - elsif file.blob.content_type == "application/pdf"
+                      iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+                - else
+                  .carousel-item
+                    - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                    - elsif file.blob.content_type == "application/pdf"
+                      iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+          - if @answer.files.size >= 2
+            / カルーセルコントローラのnextボタン
+            a.carousel-next.carousel-button.d-flex.flex-column role="button"
+              .my-auto
+                span.carousel-control-next-icon
+        / カルーセルインディケーター
+        .indicators.d-flex
+          .indicators-wrapper.d-flex.flex-row.mx-auto
+            = render "answers/carousel_indicators", number: @answer.files.size
 
     .py-2.py-lg-3
 

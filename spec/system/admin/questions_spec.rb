@@ -129,8 +129,8 @@ RSpec.describe "Questions", type: :system, js: true do
 
   describe "問題一覧機能" do
     before do
-      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
-      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
+      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理])
+      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数])
       visit admin_questions_path
     end
 
@@ -155,9 +155,9 @@ RSpec.describe "Questions", type: :system, js: true do
 
   describe "問題検索・並び替え機能" do
     before do
-      create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量", created_at: Time.current.ago(2))
-      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数", created_at: Time.current.ago(1))
-      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理", created_at: Time.current)
+      create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[三角関数 図形と計量], created_at: Time.current.ago(2))
+      create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数 数と式・集合と論理 図形と計量], created_at: Time.current.ago(1))
+      create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[三角関数 数と式・集合と論理], created_at: Time.current)
       visit admin_questions_path
     end
 

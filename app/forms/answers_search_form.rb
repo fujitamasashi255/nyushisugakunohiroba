@@ -48,19 +48,19 @@ class AnswersSearchForm
       if start_year.present? || end_year.present?
         self.start_year = Question.minimum(:year) if start_year.blank?
         self.end_year = Question.maximum(:year) if end_year.blank?
-        relation = relation.by_year(start_year, end_year).distinct
+        relation = relation.by_year(start_year, end_year)
         search_conditions[:question_year] = "#{start_year} 年 〜 #{end_year} 年"
       end
 
       # 単元によるanswerの絞り込み
       if unit_ids_no_blank.present?
-        relation = relation.by_unit_ids(unit_ids_no_blank).distinct
+        relation = relation.by_unit_ids(unit_ids_no_blank)
         search_conditions[:unit] = Unit.find(unit_ids_no_blank).pluck(:name).join("、")
       end
 
       # タグによるanswerの絞り込み
       if tag_name_array.present?
-        relation = relation.by_tag_name_array(tag_name_array).distinct
+        relation = relation.by_tag_name_array(tag_name_array)
         search_conditions[:tag] = tag_name_array.join("、")
       end
     end

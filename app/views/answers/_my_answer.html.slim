@@ -1,5 +1,5 @@
 / カード部分
-.col-md-6.my-answer.d-flex.justify-content-center
+.col-md-6.my-answer.d-flex.justify-content-center.mb-3
   .answer-card-wrapper.mb-4
     .answer-card.px-2.py-1.border.d-flex.flex-column
       / カードの上部分
@@ -85,7 +85,7 @@
           label.d-block
             = Question.human_attribute_name(:image)
           .question-body.border.question-image
-            = image_tag answer.question_image_url(:index), class: "bg-white p-3 img-fluid", loading: "lazy"
+            = image_tag answer.question_image_url(:index), class: "img-fluid", loading: "lazy"
           .py-1
 
 

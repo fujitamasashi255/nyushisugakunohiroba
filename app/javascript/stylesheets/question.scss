@@ -1,12 +1,11 @@
 @import "variables";
 
 // question#index
-$question-card-hight: 380px;
 
 // 画面サイズ576px以上の問題カード
 @media only screen and (min-width: 576px){
   .question-card {
-    height: $question-card-hight;
+    height: 380px;
     overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
@@ -21,7 +20,7 @@ $question-card-hight: 380px;
 // 画面サイズ576px以下の問題カード
 @media only screen and (max-width: 575.98px){
   .question-card {
-    height: $question-card-hight;
+    height: 330px;
     overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
@@ -51,7 +50,7 @@ $question-card-hight: 380px;
   max-width: 600px;
 }
 
-// 問題詳細上のリンク一覧
+// 問題詳細上リンク一覧
 .question-show-container .question-links {
   a {
     font-size: 0.9rem;

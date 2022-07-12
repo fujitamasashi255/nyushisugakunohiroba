@@ -29,7 +29,17 @@ class Question < ApplicationRecord
 
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
-  scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  # OR検索
+  # scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  # AND検索
+  scope :by_unit_ids, lambda { |unit_ids|\
+    joins(:questions_units_mediators)\
+      .group(:id)\
+      .where(questions_units_mediators: { unit_id: unit_ids })\
+      .having("COUNT(DISTINCT questions_units_mediators.id) = ?", unit_ids.size)\
+      .distinct
+  }
+
   scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }).distinct }
   scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }).distinct }
   scope :by_tag_name_array, lambda { |tag_name_array|
@@ -137,9 +147,12 @@ class Question < ApplicationRecord
     extract_amount = img_vip.find_trim
     extract_amount[2] = image_width - extract_amount[0] * 2
     # 上下の余白を追加
-    margin = 10
-    extract_amount[1] -= margin
-    extract_amount[3] += margin * 2
+    height_margin = 200
+    width_margin = 200
+    extract_amount[0] -= width_margin
+    extract_amount[1] -= height_margin
+    extract_amount[2] += width_margin * 2
+    extract_amount[3] += height_margin * 2
     left, top, width, height = extract_amount
     img_vip = img_vip.extract_area(left, top, width, height)
     img_vip.write_to_file image_path, Q: 100

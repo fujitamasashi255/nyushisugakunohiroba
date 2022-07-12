@@ -27,10 +27,10 @@ var disabledButton = function(button){
 }
 
 // 「コンパイルする」ボタンに戻す
-var replacewithNewButton = function(button, signedId){
+var replacewithNewButton = function(button, compileResultUrl){
   var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).text(t("javascript.tex_compile.compile"));
   button.replaceWith(newButton)
-  if(signedId){
+  if(compileResultUrl){
     $('<span>', {id: "compile-message", class: "text-success ms-2 d-inline-block"}).text(t("javascript.tex_compile.success")).insertAfter(newButton);
   }else{
     $('<span>', {id: "compile-message", class: "text-danger ms-2 d-inline-block"}).text(t("javascript.tex_compile.fail")).insertAfter(newButton);

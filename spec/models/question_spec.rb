@@ -67,9 +67,9 @@ RSpec.describe Question, type: :model do
       @second_unit = @all_units.second
       @third_unit = @all_units.third
       {
-        1 => { year: 2002, university_id: 3, unitz: [@first_unit, @second_unit] }, # question1のunits
+        1 => { year: 2002, university_id: 3, unitz: [@first_unit, @second_unit, @third_unit] }, # question1のunits
         2 => { year: 2001, university_id: 1, unitz: [@second_unit, @third_unit] }, # question2のunits
-        3 => { year: 2003, university_id: 2, unitz: [@second_unit, @first_unit] }  # question3のunits
+        3 => { year: 2003, university_id: 2, unitz: [@first_unit, @second_unit] }  # question3のunits
       }.each do |key, value|
         instance_variable_set("@question#{key}", create(:question, :has_univ_id_and_unitz, year: value[:year], university_id: value[:university_id], unitz: value[:unitz]))
       end
@@ -92,16 +92,16 @@ RSpec.describe Question, type: :model do
         expect(Question.all.by_unit_ids([@first_unit.id])).to contain_exactly(@question1, @question3)
       end
 
-      it "idが最も小さいunitと2番目に小さいunitの少なくとも一方を含む問題が取得できること" do
-        expect(Question.all.by_unit_ids([@first_unit.id, @second_unit.id])).to contain_exactly(@question1, @question2, @question3)
+      it "idが最も小さいunitと2番目に小さいunitの両方を含む問題が取得できること" do
+        expect(Question.all.by_unit_ids([@first_unit.id, @second_unit.id])).to contain_exactly(@question1, @question3)
       end
     end
 
     describe "by_tag_name_array(tag_name_array)" do
       before do
-        @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-        @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-        @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+        @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[図形と計量])
+        @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数])
+        @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理])
         create(:answer, question: @question_kyoto, user:, tag_names: "tag1")
         create(:answer, question: @question_nagoya, user:, tag_names: "tag2")
         create(:answer, question: @question_tokyo, user:, tag_names: "tag3")
@@ -117,9 +117,9 @@ RSpec.describe Question, type: :model do
       before do
         @user1 = create(:user, name: "test1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
         @user2 = create(:user, name: "test2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
-        @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-        @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-        @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+        @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[図形と計量])
+        @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数])
+        @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理])
         create(:answer, question: @question_kyoto, user: @user1)
         create(:answer, question: @question_nagoya, user: @user1)
         create(:answer, question: @question_nagoya, user: @user2)
@@ -136,9 +136,9 @@ RSpec.describe Question, type: :model do
       before do
         user1 = create(:user, name: "test1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
         user2 = create(:user, name: "test2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
-        @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-        @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-        @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+        @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[図形と計量])
+        @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数])
+        @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理])
         @answer1 = create(:answer, question: @question_kyoto, user: user1)
         @answer2 = create(:answer, question: @question_nagoya, user: user1)
         @answer3 = create(:answer, question: @question_nagoya, user: user2)
@@ -174,7 +174,7 @@ RSpec.describe Question, type: :model do
 
       describe "answer_of_user(user)" do
         before do
-          @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
+          @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[図形と計量])
           @answer = create(:answer, question: @question_kyoto, user:)
         end
 
@@ -186,9 +186,9 @@ RSpec.describe Question, type: :model do
 
       describe "tags_belongs_to_same_unit_of_user(user)" do
         before do
-          @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-          @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-          @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "図形と計量")
+          @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[図形と計量])
+          @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数])
+          @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[図形と計量])
           @answer1 = create(:answer, question: @question_kyoto, user:, tag_names: "tag1")
           @answer2 = create(:answer, question: @question_nagoya, user:, tag_names: "tag2")
           @answer3 = create(:answer, question: @question_tokyo, user:, tag_names: "tag3")

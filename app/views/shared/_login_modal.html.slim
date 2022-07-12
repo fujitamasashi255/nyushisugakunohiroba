@@ -1,0 +1,9 @@
+.modal id="loginModal" tabindex="-1" role="dialog"
+  .modal-dialog style="padding-top: 50px;"
+    .modal-content
+      .modal-body
+        .message.mb-3
+          = t(".modal_confirm")
+        .links.d-flex
+          = link_to t(".login"), login_path, class: "me-3"
+          = link_to t(".close_modal"), "#", data: { bs_dismiss: "modal" }

@@ -12,9 +12,9 @@ RSpec.describe "Questions", type: :system, js: true do
     user1 = create(:user, name: "USER1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
     user2 = create(:user, name: "USER2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
     # 京都大学、名古屋大学、東京大学の問題
-    @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-    @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-    @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+    @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[三角関数 図形と計量])
+    @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数 数と式・集合と論理 図形と計量])
+    @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[三角関数 数と式・集合と論理])
     # 京都大学の解答：2個、名古屋大学の解答：1個、東京大学の解答：0個
     create(:answer, question: @question_kyoto, user: user1, tag_names: "tag1", point: "ポイント1")
     create(:answer, question: @question_kyoto, user: user2, tag_names: nil, point: nil)
