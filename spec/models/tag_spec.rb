@@ -24,9 +24,9 @@ RSpec.describe Tag, type: :model do
     let(:department_nagoya) { create(:department, name: "理系", university: create(:university, name: "名古屋", category: :national_or_public, prefecture: Prefecture.find_by!(name: "愛知県"))) }
 
     before do
-      @question_kyoto = create(:question, :full_custom, year: 2020, department: department_kyoto, question_number: 5, unit: "図形と計量")
-      @question_nagoya = create(:question, :full_custom, year: 2010, department: department_nagoya, question_number: 7, unit: "三角関数")
-      @question_tokyo = create(:question, :full_custom, year: 2000, department: department_tokyo, question_number: 10, unit: "数と式・集合と論理")
+      @question_kyoto = create(:question, :full_custom, year: 2020, department: department_kyoto, question_number: 5, unit_names: %w[図形と計量])
+      @question_nagoya = create(:question, :full_custom, year: 2010, department: department_nagoya, question_number: 7, unit_names: %w[三角関数])
+      @question_tokyo = create(:question, :full_custom, year: 2000, department: department_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理])
       create(:answer, question: @question_kyoto, user:, tag_names: "tag1")
       create(:answer, question: @question_nagoya, user:, tag_names: "tag2")
       create(:answer, question: @question_tokyo, user:, tag_names: "tag3")

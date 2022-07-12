@@ -75,18 +75,20 @@ FactoryBot.define do
       end
     end
 
-    # create(:question, :full_custom, year: 2000, department: department, question_number: 10, unit:"数と式・集合と論理")
+    # create(:question, :full_custom, year: 2000, department: department, question_number: 10, units:["数と式・集合と論理"])
     trait :full_custom do
       transient do
         department { department { create(:department) } }
         question_number { 10 }
-        unit { "数と式・集合と論理" }
+        unit_names { %w[数と式・集合と論理] }
       end
 
       before(:create) do |question, evaluator|
         question.questions_departments_mediators << build(:questions_departments_mediator, department: evaluator.department, question_number: evaluator.question_number)
-        unit = Unit.find_by(name: evaluator.unit)
-        question.questions_units_mediators << build(:questions_units_mediator, unit:)
+        evaluator.unit_names.each do |unit_name|
+          unit = Unit.find_by!(name: unit_name)
+          question.questions_units_mediators << build(:questions_units_mediator, unit_id: unit.id)
+        end
       end
     end
   end

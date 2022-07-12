@@ -54,7 +54,7 @@ class QuestionsSearchForm
 
       # 単元によるquestionの絞り込み
       if unit_ids_no_blank.present?
-        relation = relation.by_unit_ids(unit_ids_no_blank).distinct
+        relation = relation.by_unit_ids(unit_ids_no_blank)
         search_conditions[:unit] = Unit.find(unit_ids_no_blank).pluck(:name).join("、")
       end
 

@@ -79,9 +79,9 @@ RSpec.describe Answer, type: :model do
     let(:department_nagoya) { create(:department, name: "理系", university: create(:university, name: "名古屋", category: :national_or_public, prefecture: Prefecture.find_by!(name: "愛知県"))) }
 
     before do
-      @question_kyoto = create(:question, :full_custom, year: 2020, department: department_kyoto, question_number: 5, unit: "図形と計量")
-      @question_nagoya = create(:question, :full_custom, year: 2010, department: department_nagoya, question_number: 7, unit: "三角関数")
-      @question_tokyo = create(:question, :full_custom, year: 2000, department: department_tokyo, question_number: 10, unit: "数と式・集合と論理")
+      @question_kyoto = create(:question, :full_custom, year: 2020, department: department_kyoto, question_number: 5, unit_names: %w[図形と計量])
+      @question_nagoya = create(:question, :full_custom, year: 2010, department: department_nagoya, question_number: 7, unit_names: %w[図形と計量 三角関数])
+      @question_tokyo = create(:question, :full_custom, year: 2000, department: department_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理 図形と計量])
       @answer_kyoto = create(:answer, question: @question_kyoto, user: @user, tag_names: "tag1")
       @answer_nagoya = create(:answer, question: @question_nagoya, user: @user, tag_names: "tag2")
       @answer_tokyo = create(:answer, question: @question_tokyo, user: @user, tag_names: "tag3")
@@ -109,7 +109,7 @@ RSpec.describe Answer, type: :model do
         unit1 = Unit.find_by(name: "図形と計量")
         unit2 = Unit.find_by(name: "三角関数")
         answers = Answer.all.by_unit_ids([unit1.id, unit2.id])
-        expect(answers).to contain_exactly(@answer_kyoto, @answer_nagoya)
+        expect(answers).to contain_exactly(@answer_nagoya)
       end
     end
 

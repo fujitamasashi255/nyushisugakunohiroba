@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Answers", type: :system, js: true do
   let!(:user) { create(:user, name: "TEST", email: "test@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin) }
   let!(:department) { create(:department, name: "DEPT", university: create(:university, name: "UNIV", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
-  let!(:question) { create(:question, :full_custom, year: 2000, department:, question_number: 5, unit: "三角関数") }
+  let!(:question) { create(:question, :full_custom, year: 2000, department:, question_number: 5, unit_names: %w[三角関数]) }
 
   describe "解答新規作成機能" do
     before do
@@ -269,7 +269,7 @@ RSpec.describe "Answers", type: :system, js: true do
       # ユーザーを作成
       user1 = create(:user, name: "TEST1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
       user2 = create(:user, name: "TEST2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
-      question = create(:question, :full_custom, year: 2020, department:, question_number: 5, unit: "図形と計量")
+      question = create(:question, :full_custom, year: 2020, department:, question_number: 5, unit_names: %w[図形と計量])
       # user1の京都大学、名古屋大学、東京大学の解答を作成
       @answer1 = create(:answer, question:, user: user1, tag_names: "tag1")
       @answer2 = create(:answer, question:, user: user2, tag_names: "tag2")
@@ -311,10 +311,10 @@ RSpec.describe "Answers", type: :system, js: true do
       user1 = create(:user, name: "TEST1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
       user2 = create(:user, name: "TEST2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
       # 京都大学、名古屋大学、東京大学、九州大学の問題を作成
-      question_kyoto = create(:question, :full_custom, year: 2020, department: department_kyoto, question_number: 5, unit: "図形と計量")
-      question_nagoya = create(:question, :full_custom, year: 2010, department: department_nagoya, question_number: 7, unit: "三角関数")
-      question_tokyo = create(:question, :full_custom, year: 2000, department: department_tokyo, question_number: 10, unit: "数と式・集合と論理")
-      question_kyusyu = create(:question, :full_custom, year: 1990, department: department_kyusyu, question_number: 12, unit: "二次関数")
+      question_kyoto = create(:question, :full_custom, year: 2020, department: department_kyoto, question_number: 5, unit_names: %w[数と式・集合と論理])
+      question_nagoya = create(:question, :full_custom, year: 2010, department: department_nagoya, question_number: 7, unit_names: %w[数と式・集合と論理 三角関数])
+      question_tokyo = create(:question, :full_custom, year: 2000, department: department_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理 三角関数 二次関数])
+      question_kyusyu = create(:question, :full_custom, year: 1990, department: department_kyusyu, question_number: 12, unit_names: %w[二次関数 三角関数])
       # user1の京都大学、名古屋大学、東京大学の解答を作成
       @answer_kyoto1 = create(:answer, question: question_kyoto, user: user1, tag_names: "tag1", updated_at: Time.current.ago(2))
       @answer_nagoya1 = create(:answer, question: question_nagoya, user: user1, tag_names: "tag2", updated_at: Time.current.ago(1))

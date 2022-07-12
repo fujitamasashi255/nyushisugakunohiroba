@@ -45,8 +45,18 @@ class Answer < ApplicationRecord
   delegate :year, :image, :image_url, to: :question, prefix: true, allow_nil: true
 
   scope :by_university_ids, ->(university_ids) { joins(question: { departments: :university }).where(universities: { id: university_ids }).distinct }
-  scope :by_year, ->(start_year, end_year) { joins(:question).where(questions: { year: start_year..end_year }) }
-  scope :by_unit_ids, ->(unit_ids) { joins(question: :questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  scope :by_year, ->(start_year, end_year) { joins(:question).where(questions: { year: start_year..end_year }).distinct }
+  # OR検索
+  # scope :by_unit_ids, ->(unit_ids) { joins(question: :questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  # AND検索
+  scope :by_unit_ids, lambda { |unit_ids|\
+    joins(question: :questions_units_mediators)\
+      .group(:id)\
+      .where(questions_units_mediators: { unit_id: unit_ids })\
+      .having("COUNT(DISTINCT questions_units_mediators.id) = ?", unit_ids.size)\
+      .distinct
+  }
+
   scope :by_tag_name_array, lambda { |tag_name_array|
     joins("INNER JOIN taggings ON answers.id = taggings.taggable_id")\
       .joins("INNER JOIN tags ON tags.id = taggings.tag_id")\
