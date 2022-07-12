@@ -132,7 +132,7 @@ class Question < ApplicationRecord
     return unless File.file?(pdf_path) && File.exist?(pdf_path)
 
     # 変換して得られるpngファイルのパス、名前（拡張子除く）を取得
-    image_path = "#{Settings.tmp_image_dir}#{Time.current.strftime('%Y%m%d%H%M%S')}.png"
+    image_path = "#{Settings.dir.tmp_image}/#{Time.current.strftime('%Y%m%d%H%M%S')}.png"
     image_name = File.basename(image_path, ".*")
     # pdfファイルをpngファイルへ変換
     # pdf_vip = Vips::Image.pdfload ActiveStorage::Blob.service.path_for(pdf.key), dpi: 600

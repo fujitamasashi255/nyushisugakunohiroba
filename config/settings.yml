@@ -6,6 +6,7 @@ url:
   twitter: "https://twitter.com/nyushi__sugaku"
 dir:
   compile_result: "compile_result"
+  tmp_image: <%= Rails.root.join("tmp/rails-latex") %>
 
 admin_tex_default_code: "\\documentclass[17pt, dvipdfmx]{jsarticle}\
                         \r\n\
@@ -18,6 +19,12 @@ admin_tex_default_code: "\\documentclass[17pt, dvipdfmx]{jsarticle}\
                         \\pagestyle{empty}\
                         \r\n\
                         \\renewcommand{\\baselinestretch}{1}\
+                        \r\n\
+                        \\setcounter{enumi}{1}\
+                        \r\n\
+                        \\renewcommand{\\theenumi}{\\arabic{enumi}}\
+                        \r\n\
+                        \\renewcommand{\\labelenumi}{(\\theenumi)}\
                         \r\n\
                         \r\n\
                         \\begin{document}\

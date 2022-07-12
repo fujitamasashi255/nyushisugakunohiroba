@@ -1,5 +1,7 @@
-tmp_pdf_dir: <%= Rails.root.join("spec/test_uploads/") %>
-tmp_image_dir: <%= Rails.root.join("spec/test_uploads/") %>
+dir:
+  tmp_pdf: <%= Rails.root.join("spec/test_uploads/") %>
+  tmp_image: <%= Rails.root.join("spec/test_uploads/") %>
+
 tex_test_code: "\\documentclass[12pt, dvipdfmx]{jsarticle}
                 \r\n
                 \\usepackage{amssymb, amsmath, tikz, enumerate}

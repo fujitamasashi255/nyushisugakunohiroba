@@ -11,6 +11,6 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     driven_by(:selenium, using: :headless_chrome, screen_size: [1400, 1400])
-    page.driver.browser.download_path = Settings.tmp_pdf_dir
+    page.driver.browser.download_path = Settings.dir.tmp_pdf
   end
 end
