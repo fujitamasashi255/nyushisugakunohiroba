@@ -32,13 +32,33 @@ document.addEventListener("DOMContentLoaded", function(){
     var carouselObj = new bootstrap.Carousel('#carouselAnswerFiles');
     var nextButton = document.querySelector('.carousel-next');
     var prevButton = document.querySelector('.carousel-prev');
+    // ボタンを押すとスライド
     nextButton.addEventListener("click", function(){
       carouselObj.next();
     });
     prevButton.addEventListener("click", function(){
       carouselObj.prev();
     });
+    // スライドするとインディケーターを変化させる
+    carousel.addEventListener('slide.bs.carousel', event => {
+      var nextIndicator = document.querySelectorAll('.indicator i').item(event.to);
+      var currentIndicator = document.querySelectorAll('.indicator i').item(event.from);
+      nextIndicator.classList.remove("bi-circle");
+      nextIndicator.classList.add("bi-circle-fill");
+      currentIndicator.classList.remove("bi-circle-fill");
+      currentIndicator.classList.add("bi-circle");
+    });
   }
+
+    //カルーセルインディケーターをアクティブから非アクティブに
+var unActivateIndicatorIcon = function(indicatorIcon){
+  indicatorIcon.removeClass("bi-circle-fill").addClass("bi-circle");
+}
+
+//カルーセルインディケーターを非アクティブからアクティブに
+var activateIndicatorIcon = function(indicatorIcon){
+  indicatorIcon.removeClass("bi-circle").addClass("bi-circle-fill");
+}
 
   // TeXのおりたたみ
   var collapseElem = document.querySelector("#texField");
@@ -65,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 });
-
 
 ////////////////////////////JQuery////////////////////////////
 

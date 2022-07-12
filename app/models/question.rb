@@ -29,7 +29,17 @@ class Question < ApplicationRecord
 
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).distinct }
   scope :by_year, ->(start_year, end_year) { where(year: start_year..end_year) }
-  scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  # OR検索
+  # scope :by_unit_ids, ->(unit_ids) { joins(:questions_units_mediators).where(questions_units_mediators: { unit_id: unit_ids }).distinct }
+  # AND検索
+  scope :by_unit_ids, lambda { |unit_ids|\
+    joins(:questions_units_mediators)\
+      .group(:id)\
+      .where(questions_units_mediators: { unit_id: unit_ids })\
+      .having("COUNT(DISTINCT questions_units_mediators.id) = ?", unit_ids.size)\
+      .distinct
+  }
+
   scope :by_user, ->(user) { joins(:answers).where(answers: { user_id: user.id }).distinct }
   scope :by_answers, ->(answers) { joins(:answers).where(answers: { id: answers.map(&:id) }).distinct }
   scope :by_tag_name_array, lambda { |tag_name_array|

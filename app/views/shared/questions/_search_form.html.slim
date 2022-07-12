@@ -2,10 +2,10 @@
   = simple_form_for form_model, url: submit_path, method: :get do |f|
     / 出題年範囲選択
     .row.search-form-years
-      .col-sm-2.col-form-label
+      .col-md-2.col-form-label.text-md-center
         label
         = Question.human_attribute_name(:year)
-      .col-sm-8
+      .col-md-8
         .d-flex
           = f.input_field :start_year, collection: Question.select(:year).distinct.order(year: :desc).pluck(:year), include_blank: t("common.select_blank"), class: "form-control", selected: nil
           .ms-1.d-flex
@@ -23,9 +23,9 @@
 
     / 大学選択
     .row.search-form-universities
-      .col-sm-2.col-form-label
+      .col-md-2.col-form-label.text-md-center
         = University.model_name.human
-      .col-sm-10
+      .col-md-10
         .d-grid.gap-2.bg-white.dropdown
           /ドロップダウンボタン
           button[type="button" class="btn btn-outline-dark dropdown-toggle university-name" data-bs-toggle="dropdown" data-bs-auto-close="outside" id="dropdownMenuClickableInside" style="max-width: 100%"]
@@ -34,7 +34,7 @@
             - University.categories.keys.each do |category|
               label.form-label
                 = University.categories_i18n[category]
-              small.row.ms-2.row-cols-auto
+              mdall.row.ms-2.row-cols-auto
                 = f.collection_check_boxes :university_ids, University.by_have_question.where(category: category), :id, :name, item_wrapper_tag: :div, item_wrapper_class: 'form-check col px-0' do |b|
                   = b.label(class: 'form-check-label')
                     .dropdown-item
@@ -45,9 +45,13 @@
 
     / 単元選択
     .row.search-form-units
-      .col-sm-2.form-check-label
-        = Unit.model_name.human
-      .col-sm-10
+      .col-md-2.form-check-label.text-md-center
+        .d-flex.flex-md-column.align-items-center
+          .label
+            = Unit.model_name.human
+          .note
+            = t(".unit_note")
+      .col-md-10
         = render "/shared/units/checkboxes", f: f
 
     .py-2
@@ -56,10 +60,10 @@
     / 管理画面ではタグ検索を表示しない
     - unless admin_controller?(controller)
       .row.search-form-tags
-        .col-sm-2.form-check-label.pt-sm-2
+        .col-md-2.form-check-label.pt-md-2.text-md-center
           = Tag.model_name.human
-        .col-sm-10
-          = render "/tags/form", f: f, hint: t(".hint")
+        .col-md-10
+          = render "/tags/form", f: f, hint: t(".tag_hint")
 
       .py-2
 

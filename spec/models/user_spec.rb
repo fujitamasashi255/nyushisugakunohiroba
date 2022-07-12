@@ -118,9 +118,9 @@ RSpec.describe User, type: :model do
 
     before do
       # 京都大学、名古屋大学、東京大学の問題
-      @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit: "図形と計量")
-      @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit: "三角関数")
-      @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit: "数と式・集合と論理")
+      @question_kyoto = create(:question, :full_custom, year: 2020, department: department_of_kyoto, question_number: 5, unit_names: %w[図形と計量])
+      @question_nagoya = create(:question, :full_custom, year: 2010, department: department_of_nagoya, question_number: 7, unit_names: %w[三角関数])
+      @question_tokyo = create(:question, :full_custom, year: 2000, department: department_of_tokyo, question_number: 10, unit_names: %w[数と式・集合と論理])
       # 京都大学の解答：2個、名古屋大学の解答：1個、東京大学の解答：0個
       @answer_kyoto = create(:answer, question: @question_kyoto, user:)
       @answer_nagoya = create(:answer, question: @question_nagoya, user:)

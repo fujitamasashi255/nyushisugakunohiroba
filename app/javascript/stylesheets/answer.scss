@@ -290,6 +290,15 @@ $tex-height: 700px;
   .answer-card-wrapper {
     width: 95%;
   }
+  // 問題詳細ページの他ユーザーの解答一覧
+  .another-user-answer .answer-card {
+    height: 350px;
+  }
+
+  // トップページ, ユーザー解答一覧
+  .my-answer .answer-card, .top-answer .answer-card {
+    height: 420px;
+  }
 }
 
 
@@ -303,6 +312,16 @@ $tex-height: 700px;
   }
   .answer-card-wrapper {
     width: 90%;
+  }
+
+  // 問題詳細ページの他ユーザーの解答一覧
+  .another-user-answer .answer-card {
+    height: 300px;
+  }
+
+  // トップページ, ユーザー解答一覧
+  .my-answer .answer-card, .top-answer .answer-card {
+    height: 370px;
   }
 }
 
@@ -319,7 +338,7 @@ $tex-height: 700px;
   height: 350px;
 }
 
-// トッッペー時, ユーザー解答一覧
+// トッッページ, ユーザー解答一覧
 .my-answer .answer-card, .top-answer .answer-card {
   height: 420px;
 }

@@ -91,7 +91,9 @@ ja:
         icon_description: "は解答作成済みであることを表します"
       show:
       search_form:
-        hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
+        tag_hint: "指定した「出題年」、「大学」、「単元」にマッチする問題につけられたタグの一覧が表示されます"
+        unit_note: "（AND検索）"
+
     sidebar_layout:
       account: "アカウント"
     logout_sidebar:
@@ -115,6 +117,10 @@ ja:
     footer_in_sidebar:
       terms: "利用規約"
       privacy: "プライバシーポリシー"
+    login_modal:
+      modal_confirm: "解答を作成するにはログインが必要です。"
+      login: "ログイン"
+      close_modal: "閉じる"
 
   static_pages:
     description:
@@ -171,7 +177,8 @@ ja:
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
     search_form:
       search_form_description: "検索条件を指定する"
-      hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
+      tags_hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
+      unit_note: "（AND検索）"
     index:
       search: "作成した解答から検索する"
       title: "解答一覧"

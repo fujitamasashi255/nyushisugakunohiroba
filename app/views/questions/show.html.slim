@@ -17,9 +17,16 @@
           = t(".edit")
     - else
       / 解答作成前
-      = link_to new_question_answer_path(@question.id), class: "d-flex align-items-center" do
-        i.bi.bi-pencil.me-2
-        div
+      / ログインしているとき
+      - if logged_in?
+        = link_to new_question_answer_path(@question.id), class: "d-flex align-items-center" do
+          i.bi.bi-pencil.me-2
           = t(".new")
+      / ログインしていないとき
+      - else
+        = link_to "#", class: "d-flex align-items-center", data: { bs_toggle: "modal", bs_target: "#loginModal"} do
+          i.bi.bi-pencil.me-2
+          = t(".new")
+        = render "shared/login_modal"
 
 = render "/shared/questions/show", question: @question, other_users_answers: @other_users_answers, pagy: @pagy
