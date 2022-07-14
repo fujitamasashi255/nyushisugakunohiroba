@@ -26,29 +26,33 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
+
   // カルーセル
   var carousel = document.querySelector('.carousel');
   if(carousel){
     var carouselObj = new bootstrap.Carousel('#carouselAnswerFiles');
     var nextButton = document.querySelector('.carousel-next');
     var prevButton = document.querySelector('.carousel-prev');
-    // ボタンを押すとスライド
-    nextButton.addEventListener("click", function(){
-      carouselObj.next();
-    });
-    prevButton.addEventListener("click", function(){
-      carouselObj.prev();
-    });
-    // スライドするとインディケーターを変化させる
-    carousel.addEventListener('slide.bs.carousel', event => {
-      var nextIndicator = document.querySelectorAll('.indicator i').item(event.to);
-      var currentIndicator = document.querySelectorAll('.indicator i').item(event.from);
-      nextIndicator.classList.remove("bi-circle");
-      nextIndicator.classList.add("bi-circle-fill");
-      currentIndicator.classList.remove("bi-circle-fill");
-      currentIndicator.classList.add("bi-circle");
-    });
+    if(nextButton){
+      // ボタンを押すとスライド
+      nextButton.addEventListener("click", function(){
+        carouselObj.next();
+      });
+      prevButton.addEventListener("click", function(){
+        carouselObj.prev();
+      });
+      // スライドするとインディケーターを変化させる
+      carousel.addEventListener('slide.bs.carousel', event => {
+        var nextIndicator = document.querySelectorAll('.indicator i').item(event.to);
+        var currentIndicator = document.querySelectorAll('.indicator i').item(event.from);
+        nextIndicator.classList.remove("bi-circle");
+        nextIndicator.classList.add("bi-circle-fill");
+        currentIndicator.classList.remove("bi-circle-fill");
+        currentIndicator.classList.add("bi-circle");
+      });
+    }
   }
+
 
   // TeXのおりたたみ
   var collapseElem = document.querySelector("#texField");
@@ -87,13 +91,6 @@ var removeBrTagsAfterDisplayMath = function(){
   });
 }
 
-//プレビューファイルの有無で、carouselInnerの高さを変える
-var adjustCarouselInnerHeight = function(carouselInner){
-  if(carouselInner.find(".carousel-item").length >= 1){
-    // プレビューファイルあり
-    carouselInner.attr("style", "height: 550px");
-  }
-}
 
 $(function(){
   // ポイントのプレビュー
@@ -105,109 +102,6 @@ $(function(){
     // 数式をタイプセット
     MathJax.typeset($("#tab-point-result").html(pointCode));
     removeBrTagsAfterDisplayMath();
-  });
-
-  // ファイルのプレビュー
-  const fileInput = $("#answer-files-input");
-  // プレビュー画像を追加する要素
-  const carouselInner = $(".files .carousel-inner");
-
-  // ファイル数に応じてcarouselInnerの高さを調整
-  adjustCarouselInnerHeight(carouselInner);
-
-  // カルーセルコントローラ
-  const carouselPrevDiv = $(".files .carousel-prev div");
-  const carouselNextDiv = $(".files .carousel-next div");
-  const carouselIndicators = $(".files .indicators-wrapper");
-  const carouselItem = $("<div class='carousel-item'></div>");
-  const carouselItemActive = $("<div class='carousel-item active'></div>");
-
-  // input[type=file]でファイルを読み込んだら実行
-  fileInput.on("change", function(e){
-    var files = e.target.files; // 読み込んだファイル
-    if(files.length >= 1){
-      // ファイル登録前のカルーセルの内容、コントローラ、インディケータをクリア
-      carouselInner.empty();
-      carouselPrevDiv.empty();
-      carouselNextDiv.empty();
-      deleteFilesButton.empty();
-      carouselIndicators.empty();
-      deleteFilesButton.append(deleteFilesIcon);
-      // carouselInnerの高さを調整
-      carouselInner.attr("style", "height: 550px");
-
-      $.each(files, function(idx, file){
-        if(idx == 0){
-          previewFile(file, carouselItemActive, carouselInner);
-        }else{
-          previewFile(file, carouselItem, carouselInner);
-        }
-      });
-      // 読み込んだファイル数が2つ以上の時、carouselコントローラ、インディケーター を表示する
-      if(files.length >= 2){
-        // コントローラ
-        carouselNextDiv.append("<span class='carousel-control-next-icon'>");
-        carouselPrevDiv.append("<span class='carousel-control-prev-icon'>");
-        // インディケーター
-        carouselIndicators.append("<div class='mx-1 indicator'><i class='bi bi-circle-fill'>");
-        for(var i=0; i < files.length-1; i++){
-          carouselIndicators.append("<div class='mx-1 indicator'><i class='bi bi-circle'>");
-        }
-      }
-    }
-  });
-
-  // カルーセルのprevボタンを押したらインディケーターを変化させる
-  $(".files .carousel-prev").on("click", function(){
-    var currentIndicatorIcon = $(".files .indicator .bi-circle-fill")
-    var nextIndicatorIcon = currentIndicatorIcon.closest(".indicator").prev().children();
-    if(nextIndicatorIcon.length > 0){
-      activateIndicator(nextIndicatorIcon);
-    }else{
-      nextIndicatorIcon = $(".files .indicators-wrapper .indicator:last-child i");
-      activateIndicator(nextIndicatorIcon);
-    }
-    unActivateIndicator(currentIndicatorIcon)
-  });
-
-  // カルーセルのnextボタンを押したらインディケーターを変化させる
-  $(".files .carousel-next").on("click", function(){
-    var currentIndicatorIcon = $(".files .indicator .bi-circle-fill")
-    var nextIndicatorIcon = currentIndicatorIcon.closest(".indicator").next().children();
-    if(nextIndicatorIcon.length > 0){
-      activateIndicator(nextIndicatorIcon);
-    }else{
-      nextIndicatorIcon = $(".files .indicators-wrapper .indicator:first-child i");
-      activateIndicator(nextIndicatorIcon);
-    }
-    unActivateIndicator(currentIndicatorIcon)
-  });
-
-  // ファイルクリアボタン
-  const deleteFilesButton = $("#delete-files-button");
-  const deleteFilesIcon = $("<i class='bi bi-x-lg'></i>");
-  // ファイル削除ボタンを押したら
-  deleteFilesButton.on("click", function(){
-    if(!confirm('登録したファイルを削除しますか')){
-      // キャンセルの時の処理
-      return false;
-    }else{
-      // inputに登録されているファイルを削除
-      fileInput.val(null);
-      // DBに登録されているファイルを削除
-      var path = $(this).data("delete-files-path");
-      if(path){
-        $.ajax({url: path, type: 'DELETE'});
-      }
-      // ファイル登録前のカルールの内容、コントローラ、インディケーター、ファイル削除アイコンをクリア
-      carouselInner.empty();
-      carouselPrevDiv.empty();
-      carouselNextDiv.empty();
-      deleteFilesButton.empty();
-      carouselIndicators.empty();
-      // carouselInnerの高さを調整
-      carouselInner.attr("style", "height: inherit");
-    }
   });
 
   // TeXクリアボタン

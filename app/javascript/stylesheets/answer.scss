@@ -146,18 +146,24 @@ $tex-height: 700px;
   text-decoration: underline 1px solid black;
 }
 
-// カルーセルインディケーター
-.files .indicators {
-  i.bi-circle {
-    color: $deepsilver;
-    font-size: 0.5rem;
+// ファイル登録
+.files {
+  // カルーセルインディケーター
+  .indicators {
+    i.bi-circle {
+      color: $deepsilver;
+      font-size: 0.5rem;
+    }
+    i.bi-circle-fill {
+      color: red;
+      font-size: 0.5rem;
+    }
   }
-  i.bi-circle-fill {
+  // エラーメッセージ
+  .error_message {
     color: red;
-    font-size: 0.5rem;
   }
 }
-
 
 // ファイル、tex 削除ボタン
 .answer-form #delete-tex-button,
