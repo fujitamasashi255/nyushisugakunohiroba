@@ -34,7 +34,7 @@ FactoryBot.define do
     password_confirmation { "1234abcd" }
   end
 
-  trait :attached_over_1MB_file do
-    avatar { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/over_1MB_image.png"), "image/png") }
+  trait :attached_over_3MB_file do
+    avatar { Rack::Test::UploadedFile.new(Rails.root.join("spec/files/over_3MB_image.png"), "image/png") }
   end
 end

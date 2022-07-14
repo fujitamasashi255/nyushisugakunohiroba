@@ -116,41 +116,40 @@
     .files
       label.mb-2.d-block
         = Answer.human_attribute_name(:files)
-      / 登録ファイルのプレビュー
-      .preview
-        .d-flex.justify-content-around
-          - if @answer.files.size >= 2
-            / カルーセルコントローラのprevボタン
-            a.carousel-prev.d-flex.flex-column role="button"
-              .my-auto
-                span.carousel-control-prev-icon
-          / カルーセル
-          .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
-            / カルーセル部分
-            .carousel-inner.carousel-button.d-flex.align-items-center
-              - @answer.files_urls(:show).each.with_index do |file, index|
-                - case index
-                - when 0
-                  .carousel-item.active
-                    - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                    - elsif file.blob.content_type == "application/pdf"
-                      iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-                - else
-                  .carousel-item
-                    - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                      = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                    - elsif file.blob.content_type == "application/pdf"
-                      iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-          - if @answer.files.size >= 2
-            / カルーセルコントローラのnextボタン
-            a.carousel-next.carousel-button.d-flex.flex-column role="button"
-              .my-auto
-                span.carousel-control-next-icon
-        / カルーセルインディケーター
-        .indicators.d-flex
-          .indicators-wrapper.d-flex.flex-row.mx-auto
-            = render "answers/carousel_indicators", number: @answer.files.size
+      / 登録ファイルを表示
+      .d-flex.justify-content-around
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのprevボタン
+          a.carousel-prev.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-prev-icon
+        / カルーセル
+        .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-ride="carousel" data-bs-interval="false"
+          / カルーセル部分
+          .carousel-inner.carousel-button.d-flex.align-items-center
+            - @answer.files_urls(:show).each.with_index do |file, index|
+              - case index
+              - when 0
+                .carousel-item.active
+                  - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                  - elsif file.blob.content_type == "application/pdf"
+                    iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+              - else
+                .carousel-item
+                  - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                  - elsif file.blob.content_type == "application/pdf"
+                    iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+        - if @answer.files.size >= 2
+          / カルーセルコントローラのnextボタン
+          a.carousel-next.carousel-button.d-flex.flex-column role="button"
+            .my-auto
+              span.carousel-control-next-icon
+      / カルーセルインディケーター
+      .indicators.d-flex
+        .indicators-wrapper.d-flex.flex-row.mx-auto
+          = render "answers/carousel_indicators", number: @answer.files.size
 
     .py-2.py-lg-3
 

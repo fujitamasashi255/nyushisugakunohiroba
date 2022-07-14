@@ -3,6 +3,7 @@ export const validImageType = ["image/png", "image/jpeg", "image/jpg"];
 export const pdfType = "application/pdf";
 
 // previewFileメソッド
+// file を wrapper で囲まれたpreview に表示
 export const previewFile = function(file, wrapper, preview){
   // FileReaderオブジェクトを作成
   const reader = new FileReader();

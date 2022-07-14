@@ -1,5 +1,5 @@
-tmp_pdf_dir: <%= Rails.root.join("tmp/rails-latex/") %>
-tmp_image_dir: <%= Rails.root.join("tmp/rails-latex/") %>
+dir:
+  tmp_image: <%= Rails.root.join("tmp/rails-latex/") %>
 
 # mailer
 host: "localhost:3000"

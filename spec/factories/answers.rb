@@ -66,8 +66,8 @@ FactoryBot.define do
       end
     end
 
-    trait :attached_over_1MB_file do
-      files { [Rack::Test::UploadedFile.new(Rails.root.join("spec/files/over_1MB_image.png"), "image/png")] }
+    trait :attached_over_3MB_file do
+      files { [Rack::Test::UploadedFile.new(Rails.root.join("spec/files/over_3MB_image.png"), "image/png")] }
     end
   end
 end

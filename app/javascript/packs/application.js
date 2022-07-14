@@ -5,6 +5,7 @@
 
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
+import "src/ActionText"
 import "channels"
 import "bootstrap"
 window.bootstrap = require("bootstrap");
@@ -18,7 +19,7 @@ import "src/MathJax"
 import "src/answers/CreateEditTags"
 import "src/questions/SearchTags"
 import "src/answers/SearchTags"
-import "src/ActionText"
+
 
 const images = require.context("../images", true);
 const imagePath = name => images(name, true);

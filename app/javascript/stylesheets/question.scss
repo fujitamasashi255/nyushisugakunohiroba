@@ -36,13 +36,16 @@
 }
 
 
-.question-card a:hover {
-  text-decoration: none;
+.question-card {
+  a:hover {
+    text-decoration: none;
+  }
+  .question-body{
+    background-color: white;
+  }
 }
 
-#questions-index .question-body{
-  background-color: white;
-}
+
 
 // question#show
 

@@ -14,7 +14,7 @@ class TexCompilesController < ApplicationController
       # コンパイル結果のバイナリ
       pdf_binary = LatexToPdf.generate_pdf(code, LatexToPdf.config)
       # コンパイルして得られるpdfのパス
-      file_name = "#{current_user.id}#{Time.current.strftime('%Y%m%d%H%M%S')}.pdf"
+      file_name = "#{SecureRandom.uuid}.pdf"
       new_pdf_path = Rails.root.join("public/#{Settings.dir.compile_result}/#{file_name}")
       File.open(new_pdf_path, "w+b") do |f|
         f.write(pdf_binary)

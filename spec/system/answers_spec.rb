@@ -118,6 +118,8 @@ RSpec.describe "Answers", type: :system, js: true do
             Rails.root.join("spec/files/test.pdf")\
           ]
         )
+        find(".files input[type='hidden']:nth-child(3)", visible: false)
+        sleep(2)
         find("input[value='解答を作成する']").click
         expect(page).to have_selector(".title", text: "解答")
         expect(page).to have_content "解答を作成しました"
@@ -156,20 +158,25 @@ RSpec.describe "Answers", type: :system, js: true do
             Rails.root.join("spec/files/testcopy.png") \
           ]\
         )
+        find(".files .error_message", text: "アップロードできるファイルは3つまでです")
         find("input[value='解答を作成する']").click
-        expect(page).to have_selector(".title", text: "解答作成")
-        expect(page).to have_content "解答を作成できませんでした"
-        expect(page).to have_selector(".files .invalid-feedback", text: "ファイル は3つ以下にして下さい")
+        expect(page).to have_selector(".title", text: "解答")
+        expect(page).to have_content "解答を作成しました"
+        expect(page).not_to have_selector(".files img[src$='test.png']", visible: false)
+        expect(page).not_to have_selector(".files img[src$='test.jpg']", visible: false)
+        expect(page).not_to have_selector(".files img[src$='test.pdf']", visible: false)
+        expect(page).not_to have_selector(".files img[src$='testcopy.png']", visible: false)
       end
 
-      it "1MB以上のファイルを登録して解答が作成できないこと" do
+      it "3MB以上のファイルを登録して解答が作成できないこと" do
         find("input[id='answer-files-input']", visible: false).attach_file(\
-          Rails.root.join("spec/files/over_1MB_image.png") \
+          Rails.root.join("spec/files/over_3MB_image.png") \
         )
+        find(".files .error_message", text: "アップロードできるファイルの最大サイズは3MBです")
         find("input[value='解答を作成する']").click
-        expect(page).to have_selector(".title", text: "解答作成")
-        expect(page).to have_content "解答を作成できませんでした"
-        expect(page).to have_selector(".files .invalid-feedback", text: "ファイル のサイズは1MB以下にして下さい")
+        expect(page).to have_selector(".title", text: "解答")
+        expect(page).to have_content "解答を作成しました"
+        expect(page).not_to have_selector(".files img[src$='over_3MB_image.png']")
       end
     end
 
