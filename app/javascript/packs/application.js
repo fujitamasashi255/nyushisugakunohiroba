@@ -19,7 +19,6 @@ import "src/MathJax"
 import "src/answers/CreateEditTags"
 import "src/questions/SearchTags"
 import "src/answers/SearchTags"
-import "src/answers/Files"
 
 
 const images = require.context("../images", true);
