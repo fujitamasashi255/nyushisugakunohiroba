@@ -171,9 +171,7 @@ ja:
       point_input: "入力"
       point_preview: "プレビュー"
       select_file: "ファイルを選択"
-      files_hint: "1MB以下の画像またはPDFを3つまで"
-      files_description1: "ファイルは選択時の並び順で表示されます。"
-      files_description2: "選択時に「名前順」、「サイズ順」などで並べ替えてから選択することで、お好みの順に表示することができます。"
+      files_hint: "3MB以下の画像またはPDFを3つまで"
       tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
     search_form:
       search_form_description: "検索条件を指定する"
