@@ -60,10 +60,10 @@ RSpec.describe Answer, type: :model do
       expect(answer).to be_valid
     end
 
-    it "ユーザーは解答に1MB以下のファイルしかattachできないこと" do
-      answer = build(:answer, :attached_over_1MB_file, question: @question, user: @user)
+    it "ユーザーは解答に3MB以下のファイルしかattachできないこと" do
+      answer = build(:answer, :attached_over_3MB_file, question: @question, user: @user)
       expect(answer).to be_invalid
-      expect(answer.errors[:files]).to eq ["のサイズは1MB以下にして下さい"]
+      expect(answer.errors[:files]).to eq ["のサイズは3MB以下にして下さい"]
     end
 
     it "ユーザーは解答に3つ以下のファイルしかattachできないこと" do
