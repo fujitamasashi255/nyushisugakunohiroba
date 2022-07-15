@@ -11,6 +11,14 @@ module AnswerDecorator
           file.variant(resize_to_fit: [600, 600], saver: { strip: true })
         end
       end
+    when :sort
+      files.map do |file|
+        if file.content_type == "application/pdf"
+          file
+        elsif Answer::VALID_IMAGE_TYPES.include?(file.content_type)
+          file.variant(resize_to_fit: [350, 350], saver: { strip: true })
+        end
+      end
     else
       files
     end

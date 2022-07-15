@@ -9,7 +9,7 @@ export function t(arg) {
 }
 
 // 問題検索時のajaxのパス
-const questionsTagsPath = "/questions_tags"
+const questionsTagsPath = "/questions/tags"
 
 // 問題検索時のtagifyの設定
 const questionsSearchSettings = {

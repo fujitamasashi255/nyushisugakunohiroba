@@ -23,11 +23,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :questions_tags, only: %i[index]
-  resources :answers_tags, only: %i[index]
+  namespace :answers do
+    resources :tags, only: %i[index]
+  end
 
-  resources :answers, only: [] do
-    resource :files, only: %i[destroy]
+  namespace :questions do
+    resources :tags, only: %i[index]
+  end
+
+  scope module: "answers" do
+    resources :answers, only: [] do
+      resource :files, only: %i[destroy]
+    end
   end
 
   resource :tex_compile, only: %i[create]
