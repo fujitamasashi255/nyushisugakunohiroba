@@ -8,7 +8,7 @@ module AnswerDecorator
         if file.content_type == "application/pdf"
           file
         elsif Answer::VALID_IMAGE_TYPES.include?(file.content_type)
-          file.variant(resize_to_limit: [600, nil], saver: { strip: true })
+          file.variant(resize_to_fit: [600, 600], saver: { strip: true })
         end
       end
     else
