@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Answers::TagsController < ApplicationController
+class AnswersTagsController < ApplicationController
   def index
     tags_search_form = TagsSearchForm.new(tags_search_form_params)
     tags = tags_search_form.search_from_answers(current_user)
