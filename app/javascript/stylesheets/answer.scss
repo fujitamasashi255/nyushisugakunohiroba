@@ -2,8 +2,7 @@
 
 // 変数定義
 // tex、files の高さ
-$file-height: 500px;
-$tex-height: 700px;
+$tex-height: 600px;
 
 
 // iconsは画面右上に固定
@@ -57,7 +56,7 @@ $tex-height: 700px;
 // 画面サイズ768px以下の時
 @media only screen and (max-width: 767.98px){
   #dropdownQuestionImage {
-    width: 260px;
+    width: 350px;
   }
 }
 
@@ -146,19 +145,7 @@ $tex-height: 700px;
   text-decoration: underline 1px solid black;
 }
 
-// ファイル登録
-.files {
-  // カルーセルインディケーター
-  .indicators {
-    i.bi-circle {
-      color: $deepsilver;
-      font-size: 0.5rem;
-    }
-    i.bi-circle-fill {
-      color: red;
-      font-size: 0.5rem;
-    }
-  }
+.answer-form .files {
   // エラーメッセージ
   .error_message {
     color: red;
@@ -186,16 +173,13 @@ $tex-height: 700px;
   background-color: white;
 }
 
-.answer-form .files {
-  img {
-    margin-left: auto;
-    margin-right: auto;
-  }
+.answer-form .preview .selectbox-container{
+  min-width: 2.5rem;
 }
 
 // texのiframe
 .answer-form iframe{
-  height: $file-height;
+  height: 350px;
   width: 100%;
   margin: 0;
 }
@@ -251,31 +235,62 @@ $tex-height: 700px;
           margin-right: auto;
         }
         iframe {
-          height: $file-height;
+          height: $tex-height;
           width: 100%;
         }
+      }
+    }
+    // カルーセルインディケーター
+    .indicators {
+      i.bi-circle {
+        color: $deepsilver;
+        font-size: 0.5rem;
+      }
+      i.bi-circle-fill {
+        color: red;
+        font-size: 0.5rem;
       }
     }
   }
 }
 
-// 画面サイズによって tex、filesの幅を変える
-// 画面サイズ992px以上の時
-@media only screen and (min-width: 992px){
+// 画面サイズによって tex、filesの幅、高さを変える
+// 画面サイズ768px以上の時
+@media only screen and (min-width: 768px){
   .answer-show {
     .files {
       width: 75%;
+      .carousel-inner {
+        height: 600px;
+      }
     }
     .tex {
       width: 50%;
     }
   }
 }
-// 画面サイズ992px以下の時
-@media only screen and (max-width: 992px){
+// 画面サイズ576px以上768px以下の時
+@media only screen and (max-width: 768px) and (min-width: 500px){
   .answer-show {
     .files {
       width: 100%;
+      .carousel-inner {
+        height: 500px;
+      }
+    }
+    .tex {
+      width: 80%;
+    }
+  }
+}
+// 画面サイズ576px以下の時
+@media only screen and (max-width: 500px){
+  .answer-show {
+    .files {
+      width: 100%;
+      .carousel-inner {
+        height: 400px;
+      }
     }
     .tex {
       width: 80%;

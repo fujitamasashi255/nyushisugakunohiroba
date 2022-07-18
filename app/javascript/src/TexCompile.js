@@ -58,10 +58,12 @@ var compileAjax = function(path, code, pdfUrlElement, compileResultElement){
       renderLogText(logText, compileResultElement);
     }
   }).fail(function(jqXHR, statusText, error){
-    console.error("Error");
-    console.log(`jqXHR: ${jqXHR.status}`);
-    console.log(`textStatus: ${textStatus}`);
-    console.log(`error: ${error}`);
+    // 失敗時
+    const errorText = t("javascript.tex_compile.error_text")
+    renderLogText(errorText, compileResultElement);
+    //console.log(`jqXHR: ${jqXHR.status}`);
+    //console.log(`textStatus: ${textStatus}`);
+    //console.log(`error: ${error}`);
   })
 }
 

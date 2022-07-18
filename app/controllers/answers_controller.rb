@@ -25,10 +25,11 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = current_user.answers.new(question_id: params[:question_id], point: answer_params[:point], tag_list: answer_params[:tag_list], files: answer_params[:files])
+    @answer = current_user.answers.includes(files_attachments: :blob).new(question_id: params[:question_id], point: answer_params[:point], tag_list: answer_params[:tag_list], files: answer_params[:files])
     @answer.build_tex(tex_params)
     attach_tex_pdf
-    if @answer.save
+    @answer.assign_files_position(files_position_params)
+    if @answer.save_transaction(files_position_params.values)
       redirect_to @answer, success: t(".success")
     else
       # save失敗時は必ずfilesが不正なので、それをnilにする
@@ -53,18 +54,16 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Answer.find(params[:id])
+    @answer = Answer.includes(files_attachments: :blob).find(params[:id])
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless current_user.own_answer?(@answer)
     @answer.tex.update(tex_params)
     attach_tex_pdf
-    if @answer.update(answer_params)
+    if @answer.update_transaction(answer_params, files_position_params.values)
+      @answer.update_files_position(files_position_params)
       redirect_to @answer, success: t(".success")
     else
-      # update失敗はファイル登録失敗時のみ
-      # ファイル登録失敗時は、エラーメッセージと共に、元々登録されていたファイルを表示する
-      @answer.files = Answer.includes(question: { departments: [:university] }).with_attached_files.find(params[:id]).files.blobs
-      @question = @answer.question
+      @question = Question.includes(departments: :university).joins(:answers).where(answers: { id: @answer.id }).records.first
       set_tag_suggestions
       flash.now[:danger] = t(".fail")
       render "answers/edit"
@@ -97,6 +96,11 @@ class AnswersController < ApplicationController
 
   def tex_params
     params.require(:answer).permit(tex: %i[code compile_result_url id _destroy])[:tex]
+  end
+
+  def files_position_params
+    files_position_hash = params.require(:answer).permit(files_position: {})[:files_position]
+    files_position_hash || {}
   end
 
   def answers_search_form_params

@@ -9,16 +9,18 @@ import "src/ActionText"
 import "channels"
 import "bootstrap"
 window.bootstrap = require("bootstrap");
-import "src/questions/Index"
 import "src/FlashMessages"
 import "src/Users"
+import "src/MathJax"
 import "src/TexCompile"
+import "src/questions/Index"
+import "src/questions/SearchTags"
+import "src/answers/FilesCarousel"
 import "src/answers/Form"
 import "src/answers/Index"
-import "src/MathJax"
-import "src/answers/CreateEditTags"
-import "src/questions/SearchTags"
 import "src/answers/SearchTags"
+import "src/answers/CreateEditTags"
+
 
 
 const images = require.context("../images", true);

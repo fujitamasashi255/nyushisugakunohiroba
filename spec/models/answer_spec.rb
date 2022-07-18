@@ -36,7 +36,7 @@ RSpec.describe Answer, type: :model do
       create(:answer, question: @question, user: @user)
       another_answer = build(:answer, question: @question, user: @user)
       expect(another_answer).to be_invalid
-      expect(another_answer.errors[:question_id]).to eq ["解答は既に作成されています"]
+      expect(another_answer.errors[:question_id]).to eq ["の解答は既に作成されています"]
     end
 
     it "ユーザーは解答にjpg、png、pdf以外のファイルをattachできないこと" do
@@ -125,6 +125,151 @@ RSpec.describe Answer, type: :model do
         questions = [@question_kyoto, @question_nagoya]
         answers = Answer.all.by_questions(questions)
         expect(answers).to contain_exactly(@answer_kyoto, @answer_nagoya)
+      end
+    end
+
+    describe "assign_files_position(file_blob_signed_id_to_position_hash)" do
+      it "answer の files の position をセットできること" do
+        answer = build(:answer, question: @question, user: @user)
+        path1 = Rails.root.join("spec/files/test.pdf")
+        path2 = Rails.root.join("spec/files/test.png")
+        path3 = Rails.root.join("spec/files/test.jpg")
+        # pathのblobを作成
+        [path1, path2, path3].each.with_index(1) do |path, i|
+          instance_variable_set("@blob#{i}", ActiveStorage::Blob.create_and_upload!(io: File.new(path), filename: File.basename(path)))
+        end
+        answer.files.attach([@blob1.signed_id, @blob2.signed_id, @blob3.signed_id])
+        # blobのsigned_idを作成
+        answer.files.each.with_index(1) do |file, i|
+          instance_variable_set("@file#{i}", file)
+          instance_variable_set("@signed_id#{i}", file.blob.signed_id)
+        end
+        expect(@file1.position.nil?).to be_truthy
+        expect(@file2.position.nil?).to be_truthy
+        expect(@file3.position.nil?).to be_truthy
+        file_blob_signed_id_to_position_hash = { @signed_id1 => 2, @signed_id2 => 3, @signed_id3 => 1 }
+        # メソッドを利用
+        answer.assign_files_position(file_blob_signed_id_to_position_hash)
+        expect(@file1.position).to eq 2
+        expect(@file2.position).to eq 3
+        expect(@file3.position).to eq 1
+      end
+    end
+
+    describe "update_files_position(file_blob_signed_id_to_position_hash)" do
+      it "answer の files の position をアップデートできること" do
+        answer = build(:answer, question: @question, user: @user)
+        path1 = Rails.root.join("spec/files/test.pdf")
+        path2 = Rails.root.join("spec/files/test.png")
+        path3 = Rails.root.join("spec/files/test.jpg")
+        # pathのblobを作成
+        [path1, path2, path3].each.with_index(1) do |path, i|
+          instance_variable_set("@blob#{i}", ActiveStorage::Blob.create_and_upload!(io: File.new(path), filename: File.basename(path)))
+        end
+        answer.files.attach([@blob1.signed_id, @blob2.signed_id, @blob3.signed_id])
+        # blobのsigned_idを作成
+        answer.files.each.with_index(1) do |file, i|
+          instance_variable_set("@file#{i}", file)
+          instance_variable_set("@signed_id#{i}", file.blob.signed_id)
+        end
+        expect(@file1.position.nil?).to be_truthy
+        expect(@file2.position.nil?).to be_truthy
+        expect(@file3.position.nil?).to be_truthy
+        file_blob_signed_id_to_position_hash = { @signed_id1 => 2, @signed_id2 => 3, @signed_id3 => 1 }
+        # メソッドを利用
+        answer.update_files_position(file_blob_signed_id_to_position_hash)
+        expect(@file1.position).to eq 2
+        expect(@file2.position).to eq 3
+        expect(@file3.position).to eq 1
+      end
+    end
+
+    describe "save_transaction(positions_array)" do
+      before do
+        @answer = build(:answer, question: @question, user: @user)
+      end
+
+      it "filesのポジションが適切な%w[2 3 1]のとき、answerを保存できること" do
+        positions_array = %w[2 3 1]
+        @answer.save_transaction(positions_array)
+        expect(Answer.exists?(@answer.id)).to be_truthy
+      end
+
+      it "filesのポジションが適切な%w[2 1]のとき、answerを保存できること" do
+        positions_array = %w[2 1]
+        @answer.save_transaction(positions_array)
+        expect(Answer.exists?(@answer.id)).to be_truthy
+      end
+
+      it "filesのポジションが適切な[]のとき、answerを保存できること" do
+        positions_array = []
+        @answer.save_transaction(positions_array)
+        expect(Answer.exists?(@answer.id)).to be_truthy
+      end
+
+      it "filesのポジションが適切でない%w[2 3]とき、answerを保存できないこと" do
+        positions_array = %w[2 3]
+        @answer.save_transaction(positions_array)
+        expect(Answer.exists?(@answer.id)).to be_falsy
+        expect(@answer.errors.messages[:files_position]).to eq ["が適切ではありません"]
+      end
+
+      it "filesのポジションが適切でない%w[1 3]とき、answerを保存できないこと" do
+        positions_array = %w[1 3]
+        @answer.save_transaction(positions_array)
+        expect(@answer.errors.messages[:files_position]).to eq ["が適切ではありません"]
+      end
+
+      it "filesのポジションが適切でない%w[1 2 3 4]とき、answerを保存できないこと" do
+        positions_array = %w[1 2 3 4]
+        @answer.save_transaction(positions_array)
+        expect(@answer.errors.messages[:files_position]).to eq ["が適切ではありません"]
+      end
+    end
+
+    describe "update_transaction(params, positions_array)" do
+      before do
+        @answer = create(:answer, question: @question, user: @user, point: "")
+        @params = { point: "ポイント" }
+      end
+
+      it "filesのポジションが適切な%w[2 3 1]のとき、answerをアップデートできること" do
+        positions_array = %w[2 3 1]
+        @answer.update_transaction(@params, positions_array)
+        expect(@answer.point.body.to_plain_text).to eq "ポイント"
+      end
+
+      it "filesのポジションが適切な%w[2 1]のとき、answerをアップデートできること" do
+        positions_array = %w[2 1]
+        @answer.update_transaction(@params, positions_array)
+        expect(@answer.point.body.to_plain_text).to eq "ポイント"
+      end
+
+      it "filesのポジションが適切な[]のとき、answerをアップデートできること" do
+        positions_array = []
+        @answer.update_transaction(@params, positions_array)
+        expect(@answer.point.body.to_plain_text).to eq "ポイント"
+      end
+
+      it "filesのポジションが適切でない%w[2 3]とき、answerをアップデートできないこと" do
+        positions_array = %w[2 3]
+        @answer.update_transaction(@params, positions_array)
+        expect(@answer.point.body.to_plain_text).to eq ""
+        expect(@answer.errors.messages[:files_position]).to eq ["が適切ではありません"]
+      end
+
+      it "filesのポジションが適切でない%w[1 3]とき、answerをアップデートできないこと" do
+        positions_array = %w[1 3]
+        @answer.update_transaction(@params, positions_array)
+        expect(@answer.point.body.to_plain_text).to eq ""
+        expect(@answer.errors.messages[:files_position]).to eq ["が適切ではありません"]
+      end
+
+      it "filesのポジションが適切でない%w[1 2 3 4]とき、answerをアップデートできないこと" do
+        positions_array = %w[1 2 3 4]
+        @answer.update_transaction(@params, positions_array)
+        expect(@answer.point.body.to_plain_text).to eq ""
+        expect(@answer.errors.messages[:files_position]).to eq ["が適切ではありません"]
       end
     end
   end

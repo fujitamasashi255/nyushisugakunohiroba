@@ -101,6 +101,10 @@ ja:
             password_confirmation:
               blank: "を入力して下さい"
               confirmation: "と%{attribute}の入力が一致しません"
+        answer:
+          attributes:
+            file_positions:
+              invalid: "が適切ではありません"
 
     models:
       university: "大学"
@@ -138,6 +142,7 @@ ja:
       answer:
         point: "ポイント"
         files: "ファイル"
+        files_position: "ファイルの順番"
         tag_list: "タグ"
         created_at: "作成日"
         updated_at: "最終更新日"

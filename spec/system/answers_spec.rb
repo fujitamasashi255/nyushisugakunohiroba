@@ -110,43 +110,43 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).not_to have_selector(".preview img")
       end
 
-      it "ファイルを3個登録して解答作成できること" do
-        find("input[id='answer-files-input']", visible: false).attach_file(\
-          [\
-            Rails.root.join("spec/files/test.png"), \
-            Rails.root.join("spec/files/test.jpg"), \
-            Rails.root.join("spec/files/test.pdf")\
-          ]
-        )
-        find(".files input[type='hidden']:nth-child(3)", visible: false)
-        sleep(2)
-        find("input[value='解答を作成する']").click
-        expect(page).to have_selector(".title", text: "解答")
-        expect(page).to have_content "解答を作成しました"
-        # 解答情報が表示されているか
-        expect(page).to have_selector(".files label", text: "ファイル")
-        expect(page).to have_selector(".files img[src$='test.png']", visible: false)
-        expect(page).to have_selector(".files img[src$='test.jpg']", visible: false)
-        expect(page).to have_selector(".files iframe[src$='test.pdf']", visible: false)
-        # 問題情報が表示されているか
-        expect(page).to have_selector(".question-info .year", text: "2000")
-        expect(page).to have_selector(".question-info .university", text: "UNIV")
-        expect(page).to have_selector(".question-info .departments", text: "DEPT5")
-        # リンクが表示されているか
-        created_answer = Answer.order(created_at: :desc).first
-        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
-        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
-        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
-      end
+      context "ファイルを3個登録して解答作成するとき" do
+        before do
+          find("input[id='answer-files-input']", visible: false).attach_file(\
+            [\
+              Rails.root.join("spec/files/test.png"), \
+              Rails.root.join("spec/files/test.jpg"), \
+              Rails.root.join("spec/files/test.pdf")\
+            ]
+          )
+          find(".files input[type='hidden']:nth-child(3)", visible: false)
+          sleep(2)
+        end
 
-      it "jpg、png、pdf以外のファイルを登録して、解答が作成できないこと" do
-        find("input[id='answer-files-input']", visible: false).attach_file(\
-          Rails.root.join("spec/files/test.txt") \
-        )
-        find("input[value='解答を作成する']").click
-        expect(page).to have_selector(".title", text: "解答作成")
-        expect(page).to have_content "解答を作成できませんでした"
-        expect(page).to have_selector(".files .invalid-feedback", text: "ファイル の種類が正しくありません")
+        it "順番を指定して解答作成できること" do
+          within(".preview ") do
+            find("img[src*='image/png']").find(:xpath, "./../..").find("select").select "2"
+            find("img[src*='image/jpeg']").find(:xpath, "./../..").find("select").select "3"
+            find("iframe[src*='application/pdf']").find(:xpath, "./../..").find("select").select "1"
+          end
+          find("input[value='解答を作成する']").click
+          expect(page).to have_selector(".title", text: "解答")
+          expect(page).to have_content "解答を作成しました"
+          # 解答情報が表示されているか
+          expect(page).to have_selector(".files label", text: "ファイル")
+          expect(all(".carousel-item")[0]).to have_selector("iframe[src$='test.pdf']")
+          expect(all(".carousel-item", visible: false)[1]).to have_selector("img[src$='test.png']", visible: false)
+          expect(all(".carousel-item", visible: false)[2]).to have_selector("img[src$='test.jpg']", visible: false)
+          # 問題情報が表示されているか
+          expect(page).to have_selector(".question-info .year", text: "2000")
+          expect(page).to have_selector(".question-info .university", text: "UNIV")
+          expect(page).to have_selector(".question-info .departments", text: "DEPT5")
+          # リンクが表示されているか
+          created_answer = Answer.order(created_at: :desc).first
+          expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+          expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+          expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
+        end
       end
 
       it "ファイルを4個登録して、解答が作成できないこと" do
@@ -219,14 +219,14 @@ RSpec.describe "Answers", type: :system, js: true do
   end
 
   describe "解答編集、削除機能" do
-    before do
-      @answer = create(:answer, :attached_pdf_file, question:, user:, tag_names: "テストタグ", point: "テストポイント")
-      # ログイン
-      sign_in_as(user)
-      visit edit_answer_path(@answer)
-    end
-
     context "編集画面にアクセスしたとき" do
+      before do
+        @answer = create(:answer, :attached_pdf_file, question:, user:, tag_names: "テストタグ", point: "テストポイント")
+        # ログイン
+        sign_in_as(user)
+        visit edit_answer_path(@answer)
+      end
+
       it "問題の情報、リンクが表示されていること" do
         expect(page).to have_selector(".title", text: "解答編集")
         expect(page).to have_selector(".question-info .year", text: "2000")
@@ -242,6 +242,27 @@ RSpec.describe "Answers", type: :system, js: true do
     end
 
     context "ファイルだけを編集するとき" do
+      before do
+        sign_in_as(user)
+        visit new_question_answer_path(question)
+        find("input[id='answer-files-input']", visible: false).attach_file(\
+          [\
+            Rails.root.join("spec/files/test.png"), \
+            Rails.root.join("spec/files/test.jpg"), \
+            Rails.root.join("spec/files/test.pdf")\
+          ]
+        )
+        find(".files input[type='hidden']:nth-child(3)", visible: false)
+        sleep(2)
+        within(".preview ") do
+          find("img[src*='image/png']").find(:xpath, "./../..").find("select").select "2"
+          find("img[src*='image/jpeg']").find(:xpath, "./../..").find("select").select "3"
+          find("iframe[src*='application/pdf']").find(:xpath, "./../..").find("select").select "1"
+        end
+        find("input[value='解答を作成する']").click
+        find_link("解答編集").click
+      end
+
       it "クリアボタンを押すと登録されたファイルが削除されること" do
         page.accept_confirm("登録したファイルを削除しますか") do
           find("#delete-files-button").click
@@ -252,9 +273,57 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_content "解答を更新しました"
         expect(page).not_to have_selector(".files")
       end
+
+      fit "順番だけを変更できること" do
+        within(".preview ") do
+          find("img[src$='.png']").find(:xpath, "./../..").find("select").select "3"
+          find("img[src$='.jpg']").find(:xpath, "./../..").find("select").select "1"
+          find("iframe[src$='.pdf']").find(:xpath, "./../..").find("select").select "2"
+        end
+        find("input[value='解答を更新する']").click
+        expect(page).to have_selector(".title", text: "解答")
+        expect(page).to have_content "解答を更新しました"
+        # ファイルの順番が変更されているか
+        expect(page).to have_selector(".files label", text: "ファイル")
+        expect(all(".carousel-item", visible: false)[1]).to have_selector("iframe[src$='test.pdf']", visible: false)
+        expect(all(".carousel-item", visible: false)[2]).to have_selector("img[src$='test.png']", visible: false)
+        expect(all(".carousel-item")[0]).to have_selector("img[src$='test.jpg']", visible: false)
+      end
+
+      it "新たにファイルを登録し直せること" do
+        find("input[id='answer-files-input']", visible: false).attach_file(\
+          [\
+            Rails.root.join("spec/files/test.png"), \
+            Rails.root.join("spec/files/test.jpg"), \
+            Rails.root.join("spec/files/test.pdf")\
+          ]
+        )
+        find(".files input[type='hidden']:nth-child(3)", visible: false)
+        sleep(2)
+        within(".preview ") do
+          find("img[src*='image/png']").find(:xpath, "./../..").find("select").select "2"
+          find("img[src*='image/jpeg']").find(:xpath, "./../..").find("select").select "3"
+          find("iframe[src*='application/pdf']").find(:xpath, "./../..").find("select").select "1"
+        end
+        find("input[value='解答を更新する']").click
+        expect(page).to have_selector(".title", text: "解答")
+        expect(page).to have_content "解答を更新しました"
+        # 解答情報が表示されているか
+        expect(page).to have_selector(".files label", text: "ファイル")
+        expect(all(".carousel-item")[0]).to have_selector("iframe[src$='test.pdf']")
+        expect(all(".carousel-item", visible: false)[1]).to have_selector("img[src$='test.png']", visible: false)
+        expect(all(".carousel-item", visible: false)[2]).to have_selector("img[src$='test.jpg']", visible: false)
+      end
     end
 
     context "texを編集するとき" do
+      before do
+        @answer = create(:answer, :attached_pdf_file, question:, user:, tag_names: "テストタグ", point: "テストポイント")
+        # ログイン
+        sign_in_as(user)
+        visit edit_answer_path(@answer)
+      end
+
       it "クリアボタンを押すと作成したtexのpdfが削除されること" do
         expect(page).to have_selector("#compile-result iframe")
         page.accept_confirm("TeXのコード、コンパイル結果を削除しますか") do
