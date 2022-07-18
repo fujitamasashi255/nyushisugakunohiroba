@@ -54,7 +54,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Answer.includes(files_attachments: :blob).find(params[:id])
+    # update時のblob呼び出しのN+1対策
+    @answer = \
+      case answer_params[:files]
+      when nil
+        # ファイルの順番変更だけの時
+        Answer.includes(files_attachments: :blob).find(params[:id])
+      else
+        # ファイルを新規登録する場合
+        Answer.find(params[:id])
+      end
+
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless current_user.own_answer?(@answer)
     @answer.tex.update(tex_params)

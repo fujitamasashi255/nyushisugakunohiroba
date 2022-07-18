@@ -274,7 +274,7 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).not_to have_selector(".files")
       end
 
-      fit "順番だけを変更できること" do
+      it "順番だけを変更できること" do
         within(".preview ") do
           find("img[src$='.png']").find(:xpath, "./../..").find("select").select "3"
           find("img[src$='.jpg']").find(:xpath, "./../..").find("select").select "1"
