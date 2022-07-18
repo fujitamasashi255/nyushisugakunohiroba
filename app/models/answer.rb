@@ -27,7 +27,7 @@ class Answer < ApplicationRecord
   VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
 
   after_destroy :destroy_tags
-  validates :question_id, uniqueness: { scope: :user_id, message: "解答は既に作成されています" }
+  validates :question_id, uniqueness: { scope: :user_id, message: "の解答は既に作成されています" }
   validates \
     :files, \
     content_type: { in: Answer::VALID_CONTENT_TYPES, message: "の種類が正しくありません" }, \
@@ -40,6 +40,8 @@ class Answer < ApplicationRecord
   has_many_attached :files
   has_rich_text :point
   acts_as_taggable_on :tags
+
+  attribute :files_position
 
   delegate :name, to: :user, prefix: true, allow_nil: true
   delegate :year, :image, :image_url, to: :question, prefix: true, allow_nil: true
@@ -64,6 +66,70 @@ class Answer < ApplicationRecord
       .distinct
   }
   scope :by_questions, ->(questions) { where(question_id: questions.map(&:id)) }
+
+  # クラスメソッド
+  class << self
+    # arrayが[]、[1]、[1, 2]、[1, 2, 3]と順序の違いを無視して同じかチェック
+    def valid_for_order?(array)
+      case array.length
+      when 0
+        true
+      when 1
+        %w[1] - array == []
+      when 2
+        %w[1 2] - array == []
+      when 3
+        %w[1 2 3] - array == []
+      else
+        false
+      end
+    end
+  end
+
+  # インスタンスメソッド
+  # answer の files の position をセット
+  def assign_files_position(file_blob_signed_id_to_position_hash)
+    file_blob_signed_id_to_position_hash.each do |key, value|
+      positioning_file = files.find { |file| file.blob.signed_id == key }
+      positioning_file.position = value
+    end
+  end
+
+  # answer の files の position をアップデート
+  def update_files_position(file_blob_signed_id_to_position_hash)
+    file_blob_signed_id_to_position_hash.each do |key, value|
+      positioning_file = files.find { |file| file.blob.signed_id == key }
+      positioning_file.update(position: value)
+    end
+  end
+
+  # answer save時のトランザクション
+  def save_transaction(positions_array)
+    Answer.transaction do
+      unless Answer.valid_for_order?(positions_array)
+        errors.add(:files_position, I18n.t(".activerecord.errors.models.answer.attributes.file_positions.invalid"))
+        raise ActiveRecord::RecordInvalid, self
+      end
+      save!
+    end
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  # answer update時のトランザクション
+  def update_transaction(params, positions_array)
+    Answer.transaction do
+      unless Answer.valid_for_order?(positions_array)
+        errors.add(:files_position, I18n.t(".activerecord.errors.models.answer.attributes.file_positions.invalid"))
+        raise ActiveRecord::RecordInvalid, self
+      end
+      update!(params)
+    end
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
 
   private
 

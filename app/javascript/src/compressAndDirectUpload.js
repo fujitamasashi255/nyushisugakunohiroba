@@ -3,9 +3,12 @@ import { DirectUpload } from "@rails/activestorage"
 import { validImageType } from "src/PreviewFile"
 import { pdfType } from "src/PreviewFile"
 
+
 // 画像圧縮 → ダイレクトアップロード
-export const complessAndUpload = function(input){
-  Array.from(input.files).forEach(async file => {
+export const complessAndUpload = function(files){
+  const input = document.querySelector('.files input[type=file]');
+
+  files.forEach(async (file, index) => {
     if(validImageType.includes(file.type)){
       console.log('originalFile instanceof Blob', file instanceof Blob); // true
       console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
@@ -14,6 +17,7 @@ export const complessAndUpload = function(input){
         maxSizeMB: 1, // 最大ファイルサイズ
         maxWidthOrHeight: 500 // 最大画像幅もしくは高さ
       }
+
       try {
         // 画像圧縮
         const compressedFile = await imageCompression(file, options);
@@ -21,14 +25,14 @@ export const complessAndUpload = function(input){
         console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
         // ダイレクトアップロード
-        await uploadFile(compressedFile, input);
+        await uploadFile(compressedFile, input, index);
       } catch (error) {
         console.log(error);
       }
     }else if(file.type == pdfType){
       // PDFのときは圧縮しない
       try {
-        await uploadFile(file, input);
+        await uploadFile(file, input, index);
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +41,7 @@ export const complessAndUpload = function(input){
 }
 
 // ファイルアップロード
-const uploadFile = (file, input) => {
+const uploadFile = (file, input, index) => {
   // フォームではfile_field direct_upload: trueが必要
   // （これでdata-direct-upload-url、
   // data-direct-upload-token、
@@ -55,15 +59,15 @@ const uploadFile = (file, input) => {
       // これによりblob idが通常のアップロードフローで転送される
       const hiddenField = document.createElement('input')
       hiddenField.setAttribute("type", "hidden");
+      hiddenField.setAttribute("class", "direct-upload");
       hiddenField.setAttribute("value", blob.signed_id);
-      console.log(blob);
-      hiddenField.name = input.name
-      document.querySelector('.files').appendChild(hiddenField)
+      // hiddenField.name = "answer[files][signed_id][]"
+      hiddenField.name = input.name;
+      document.querySelector('.files').appendChild(hiddenField);
+      // selectボックスのnameにblob.idを
+      $(".preview select").eq(index).attr({ name: `answer[files_position][${blob.signed_id}]` });
     }
   });
-
-  // 選択されたファイルをここで入力からクリアしてもよい
-  input.value = null;
 }
 
 

@@ -55,6 +55,16 @@ FactoryBot.define do
       files { [Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.pdf"), "application/pdf")] }
     end
 
+    trait :attached_3_files do
+      files do
+        [\
+          Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.pdf"), "application/pdf"), \
+          Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.png"), "image/png"), \
+          Rack::Test::UploadedFile.new(Rails.root.join("spec/files/test.jpg"), "image/jpg") \
+        ]
+      end
+    end
+
     trait :attached_4_files do
       files do
         [\

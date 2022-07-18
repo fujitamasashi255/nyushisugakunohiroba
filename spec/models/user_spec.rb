@@ -95,7 +95,7 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to contain_exactly("パスワード確認 とパスワードの入力が一致しません")
     end
 
-    fit "3MBより大きい画像をプロフィール画像に登録できないこと" do
+    it "3MBより大きい画像をプロフィール画像に登録できないこと" do
       user = build(:user, :attached_over_3MB_file)
       expect(user).to be_invalid
       expect(user.errors[:avatar]).to eq ["サイズは3MB以下にして下さい"]

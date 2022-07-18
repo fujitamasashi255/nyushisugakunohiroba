@@ -1,7 +1,6 @@
 / 変数
 / form_model
 / answer
-/ question
 
 .answer-top-icons-wrapper
   = content_for :icons
@@ -12,6 +11,7 @@
 .py-2
 
 / 解答作成フォーム
+= render "shared/errors", object: answer
 .answer-form
   = simple_form_for form_model do |f|
     .container.answer-form-field.p-4
@@ -47,65 +47,53 @@
       hr
       .py-2.py-lg-3
 
-      .row.files
+      .files
         / ファイル登録ボタン
-        .col-lg-4
-          .d-flex.flex-column.align-items-start
-            .d-flex.flex-lg-column.flex-row.align-items-center.align-items-lg-start
-              div
-                = f.label :files, for: "answer-files-input", class: "text-nowrap"
-              div.ms-2.ms-lg-0.mt-0.mt-lg-2
-                = f.label :files, for: "answer-files-input", class: "d-flex flex-column align-items-start"
-                  .btn.btn-outline-dark.text-nowrap.me-3.me-lg-0.my-lg-auto role="button"
-                    = t(".select_file")
-            .d-flex.flex-column
-              = f.input :files, as: :file, wrapper: false, label: false, hint: t(".files_hint"), \
-                input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true, direct_upload: true }
+        .d-flex.flex-column.align-items-start
+          .d-flex.flex-lg-column.flex-row.align-items-center.align-items-lg-start
+            div
+              = f.label :files, for: "answer-files-input", class: "text-nowrap"
+            div.ms-2.ms-lg-0.mt-0.mt-lg-2
+              = f.label :files, for: "answer-files-input", class: "d-flex flex-column align-items-start"
+                .btn.btn-outline-dark.text-nowrap.me-3.me-lg-0.my-lg-auto role="button"
+                  = t(".select_file")
+          .d-flex.flex-column
+            = f.input :files, as: :file, wrapper: false, label: false, hint: t(".files_hint"), \
+              input_html: { class: "d-none", id: "answer-files-input", accept: "image/*,.pdf", multiple: true, direct_upload: true }
 
-        .col-lg-8.mt-2.mt-lg-0
+        .mt-3.position-relative
           / 登録ファイルのプレビュー
-          .preview
-            .d-flex.justify-content-around
-              / カルーセルコントローラのprevボタン
-              a.carousel-prev.carousel-button.d-flex.flex-column role="button"
-                .my-auto
-                  - if answer.files.size >= 2
-                    span.carousel-control-prev-icon
-              / カルーセル
-              .carousel.slide.flex-grow-1 id="carouselAnswerFiles" data-bs-interval="false"
-                / カルーセル部分
-                .carousel-inner.d-flex.align-items-center
-                  - if answer.files.attached?
-                    - answer.files_urls(:show).each.with_index do |file, index|
-                      - case index
-                      - when 0
-                        .carousel-item.active
-                          - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                            = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                          - elsif file.blob.content_type == "application/pdf"
-                            iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-                          = f.hidden_field :file, value: file.blob.signed_id
-                      - else
-                        .carousel-item
-                          - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                            = image_tag file, class: "d-block img-fluid", loading: "lazy"
-                          - elsif file.blob.content_type == "application/pdf"
-                            iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
-                          = f.hidden_field :file, value: file.blob.signed_id
-              / カルーセルコントローラのnextボタン
-              a.carousel-next.carousel-button.d-flex.flex-column role="button"
-                .my-auto
-                  - if answer.files.size >= 2
-                    span.carousel-control-next-icon
-              / ファイル削除ボタン
-              div
-                a role="button" id="delete-files-button" data-delete-files-path=(answer_files_path(answer.id) if answer.id)
-                  - if answer.files.attached?
-                    i.bi.bi-x-lg
-            / カルーセルインディケーター
-            .indicators.d-flex
-              .indicators-wrapper.d-flex.flex-row.mx-auto
-                = render "answers/carousel_indicators", number: answer.files.size
+          .preview.row.justify-content-around
+            - if answer.files.attached?
+              - answer.files_urls(:edit).each.with_index do |file, index|
+                - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
+                  .file-container.col-lg-4.d-flex.flex-lg-column.align-items-center.mt-4.mt-lg-0
+                    - if answer.files.size > 1
+                      .order-select-container.d-flex.align-items-center.text-nowrap
+                        .selectbox-container
+                          = f.simple_fields_for "files" do |attachment|
+                            = attachment.input :position, label:false, wrapper:false, as: :select, collection: (1..answer.files.size), include_blank: false, selected: index+1, input_html: {class: "form-control text-center", name: "answer[files_position][#{file.blob.signed_id}]" }
+                        .suffix.ms-1
+                          | 番目
+                    .file.mt-lg-2.ms-4.ms-lg-0
+                      = image_tag file, class: "img-fluid d-block", loading: "lazy"
+                - elsif file.blob.content_type == "application/pdf"
+                  .file-container.col-lg-4.d-flex.flex-lg-column.align-items-center.mt-4.mt-lg-0
+                    - if answer.files.size > 1
+                      .order-select-container.d-flex.align-items-center.text-nowrap
+                        .selectbox-container
+                          = f.simple_fields_for "files" do |attachment|
+                            = attachment.input :position, label:false, wrapper:false, as: :select, collection: (1..answer.files.size), include_blank: false, selected: index+1, input_html: {class: "form-control text-center", name: "answer[files_position][#{file.blob.signed_id}]" }
+                        .suffix.ms-1
+                          | 番目
+                    .file.mt-lg-2.ms-4.ms-lg-0
+                      iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+
+          / ファイル削除ボタン
+          .position-absolute.translate-middle style="top: 0px; right: 5px;"
+            a role="button" id="delete-files-button" data-delete-files-path=(answer_files_path(answer.id) if answer.id)
+              - if answer.files.attached?
+                i.bi.bi-x-lg
 
       .py-2.py-lg-3
       hr

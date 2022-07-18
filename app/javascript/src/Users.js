@@ -29,7 +29,7 @@ $(function(){
     var file = e.target.files[0];
     if(isValidFileSize(file)){
       previewAvatar(file, preview);
-      complessAndUpload(input)
+      complessAndUpload([file]);
     }else {
       // ファイルが適切でない場合にメッセージを表示
       preview.append("<div class='error_message'>アップロードできるファイルの最大サイズは3MBです</p>")

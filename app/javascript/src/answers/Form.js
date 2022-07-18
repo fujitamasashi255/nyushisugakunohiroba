@@ -23,81 +23,78 @@ const adjustCarouselInnerHeight = function(carouselInner){
   }
 }
 
+// filesのダイレクトアップロード用hiddenfieldを削除
+function deleteHiddenFilesInput(){
+  const hiddenFields = document.querySelectorAll('input[type=hidden][class="direct-upload"]');
+  if(hiddenFields.length > 0){
+    hiddenFields.forEach( el => {
+      el.remove();
+    });
+  }
+}
+
 // ファイルプレビューをクリア
 function clearPreview(){
-  const input = document.querySelector('.answer-form .files input[type=file]');
   // ファイルクリアボタン
   const deleteFilesButton = $("#delete-files-button");
-  // プレビュー画像を追加する要素
-  const carouselInner = $(".files .carousel-inner");
-  // カルーセルコントローラ
-  const carouselPrevDiv = $(".files .carousel-prev div");
-  const carouselNextDiv = $(".files .carousel-next div");
-  const carouselIndicators = $(".files .indicators-wrapper");
+  // プレビューの内容
+  const preview = $(".files .preview");
 
-  // inputに登録されているファイルを削除
-  $(input).val(null);
-  // ファイル登録前のカルールの内容、コントローラ、インディケーター、ファイル削除アイコンをクリア
-  carouselInner.empty();
-  carouselPrevDiv.empty();
-  carouselNextDiv.empty();
   deleteFilesButton.empty();
-  carouselIndicators.empty();
-  // carouselInnerの高さを調整
-  carouselInner.attr("style", "height: inherit");
+  preview.empty();
+  // filesのダイレクトアップロード用hiddenfieldを削除
+  deleteHiddenFilesInput();
 }
+
 
 // ファイルプレビュー
 function previewAnswerFiles(files){
-  // プレビュー画像を追加する要素
-  const carouselInner = $(".files .carousel-inner");
-
-  // カルーセルコントローラ
-  const carouselPrevDiv = $(".files .carousel-prev div");
-  const carouselNextDiv = $(".files .carousel-next div");
-  const carouselIndicators = $(".files .indicators-wrapper");
-  const carouselItem = $("<div class='carousel-item'></div>");
-  const carouselItemActive = $("<div class='carousel-item active'></div>");
-  // ファイルクリアボタン
-  const deleteFilesButton = $("#delete-files-button");
-  const deleteFilesIcon = $("<i class='bi bi-x-lg'></i>");
-
   if(files.length > 0){
-    // ファイル登録前のカルーセルの内容、コントローラ、インディケータをクリア
-    carouselInner.empty();
-    carouselPrevDiv.empty();
-    carouselNextDiv.empty();
-    deleteFilesButton.empty();
-    carouselIndicators.empty();
-    deleteFilesButton.append(deleteFilesIcon);
-    // carouselInnerの高さを調整
-    carouselInner.attr("style", `height: ${carouselInnerHeight}`);
-
     // ファイルプレビュー
     $.each(files, async function(idx, file){
-      if(idx == 0){
-        await previewFile(file, carouselItemActive, carouselInner);
-      }else{
-        await previewFile(file, carouselItem, carouselInner);
-      }
+      var fileWrapper = $(".preview .file").eq(idx);
+      await previewFile(file, fileWrapper);
     });
   }
+}
 
-  // 読み込んだファイル数が2つ以上の時、carouselコントローラ、インディケーター を表示する
-  if(files.length >= 2){
-    // コントローラ
-    carouselNextDiv.append("<span class='carousel-control-next-icon'>");
-    carouselPrevDiv.append("<span class='carousel-control-prev-icon'>");
-    // インディケーター
-    carouselIndicators.append("<div class='mx-1 indicator'><i class='bi bi-circle-fill'>");
-    for(var i=0; i < files.length-1; i++){
-      carouselIndicators.append("<div class='mx-1 indicator'><i class='bi bi-circle'>");
+// プレビューの外枠を作成（ここに画像を入れていく）
+function buildPreview(number){
+  const deleteFilesIcon = $("<i class='bi bi-x-lg'></i>");
+  $("#delete-files-button").append(deleteFilesIcon);
+  const preview = $(".files .preview");
+  if(number > 1){
+    for(var i = 1; i <= number; i++){
+      var fileContainer = $("<div>", { class: "file-container col-lg-4 d-flex flex-lg-column align-items-center mt-4 mt-lg-0" });
+      // 順番選択セレクトボックス
+      var orderSelectContainer = $("<div>", { class: "order-select-container d-flex align-items-center text-nowrap"});
+      var selectboxContainer = $("<div>", { class: "selectbox-container" });
+      var selectBox = $("<select>", { class: "form-control select required text-center", name: "" });
+      for(var j = 1; j <= number; j++){
+        if(j == i){
+          selectBox.append($("<option>", { value: j, text: j, selected: true }));
+        }else{
+          selectBox.append($("<option>", { value: j, text: j }));
+        }
+      }
+      selectboxContainer.append(selectBox);
+      var suffix = $("<div>", { class: "suffix ms-1", text: "番目"});
+      var answerFile = $("<div>", { class: "file mt-lg-2 ms-4 ms-lg-0" });
+      fileContainer.append(orderSelectContainer.append(selectboxContainer).append(suffix));
+      fileContainer.append(answerFile);
+      fileContainer.appendTo(preview);
     }
+  }else if(number == 1){
+    var fileContainer = $("<div>", { class: "file-container col-lg-4 d-flex flex-lg-column align-items-center mt-4 mt-lg-0" });
+    var answerFile = $("<div>", { class: "file mt-lg-2 ms-4 ms-lg-0" });
+    fileContainer.append(answerFile);
+    fileContainer.appendTo(preview);
   }
 }
 
 
 document.addEventListener("DOMContentLoaded", function(){
+  //オフキャンバス開閉時
   if(document.querySelector('#questionImageDropdownButton')){
     var offcanvasHumberger = document.querySelector("#offcanvasHumberger")
     var icons = document.querySelector(".answer-top-icons")
@@ -115,19 +112,9 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  // プレビュー画像を追加する要素
-  const carouselInner = $(".files .carousel-inner");
-
-  if(carouselInner){
-    // ファイル数に応じてcarouselInnerの高さを調整
-    adjustCarouselInnerHeight(carouselInner);
-  }
-
   const input = document.querySelector('.answer-form .files input[type=file]');
-  // ファイルクリアボタン
-  const deleteFilesButton = $("#delete-files-button");
 
-  // ファイルプレビュー → 画像圧縮 → ダイレクトアップロード
+  // ファイルを登録したら
   if(input){
     input.addEventListener('change', (event) => {
       // エラーメッセージを削除
@@ -135,56 +122,43 @@ document.addEventListener("DOMContentLoaded", function(){
       if (errorMessage){
         errorMessage.remove();
       }
-      // 既にあるhiddenfieldを削除
-      const hiddenFields = document.querySelectorAll('.files input[type=hidden]');
-      if(hiddenFields.length > 0){
-        hiddenFields.forEach( el => {
-          el.remove();
-        });
-      }
 
-      // プレビュー → アップロード
+      // ファイルプレビュー → 画像圧縮 → ダイレクトアップロード
       const files = Array.from(event.target.files);
+      clearPreview();
       if(files.every(isValidFileSize) && files.length <= maxFileNumber){
+        buildPreview(files.length);
         previewAnswerFiles(files);
-        complessAndUpload(input)
+        complessAndUpload(files);
       }else if(files.length > maxFileNumber){
-        clearPreview();
         // ファイルが適切でない場合にメッセージを表示
         $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.files.error_message.many")}</p>`)
       }else{
-        clearPreview();
         // ファイルが適切でない場合にメッセージを表示
         $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.files.error_message.large")}</p>`)
       }
+      // inputに登録されているファイルを削除
+      $(input).val(null);
     });
   }
 
-  // カルーセル
-  var carousel = document.querySelector('.carousel');
-  if(carousel){
-    var carouselObj = new bootstrap.Carousel('#carouselAnswerFiles');
-    var nextButton = document.querySelector('.carousel-next');
-    var prevButton = document.querySelector('.carousel-prev');
-    if(nextButton){
-      // ボタンを押すとスライド
-      nextButton.addEventListener("click", function(){
-        carouselObj.next();
-      });
-      prevButton.addEventListener("click", function(){
-        carouselObj.prev();
-      });
-      // スライドするとインディケーターを変化させる
-      carousel.addEventListener('slide.bs.carousel', event => {
-        var nextIndicator = document.querySelectorAll('.indicator i').item(event.to);
-        var currentIndicator = document.querySelectorAll('.indicator i').item(event.from);
-        nextIndicator.classList.remove("bi-circle");
-        nextIndicator.classList.add("bi-circle-fill");
-        currentIndicator.classList.remove("bi-circle-fill");
-        currentIndicator.classList.add("bi-circle");
-      });
-    }
-  }
+  // ファイル順番セレクトボックス
+  // 選択した値と同じ値をもつセレクトボックスの値を、
+  // 選択されたセレクトボックスの値の元の値に変更する
+  var selectBoxValues = [1, 2, 3];
+  $(document).on("input", $(".files select"), (event) => {
+    var selectedIdx = $(".files select").index(event.target);
+    var preValue = selectBoxValues[selectedIdx];
+    var selectValue = Number(event.target.value);
+    var changeIdx = selectBoxValues.indexOf(selectValue);
+    selectBoxValues[selectedIdx] = selectValue;
+    selectBoxValues[changeIdx] = preValue;
+    console.log(selectBoxValues);
+    $(".files select").eq(changeIdx).val(preValue);
+  });
+
+  // ファイルクリアボタン
+  const deleteFilesButton = $("#delete-files-button");
 
   // 登録ファイル削除
   if(deleteFilesButton){
@@ -195,11 +169,14 @@ document.addEventListener("DOMContentLoaded", function(){
         return false;
       }else{
         // DBに登録されているファイルを削除
-        var path = $(this).data("delete-files-path");
+        var path = $(this).data("deleteFilesPath");
         if(path){
           $.ajax({url: path, type: 'DELETE'});
         }
+        // プレビューをクリアー
         clearPreview();
+        // files のinputをクリア
+        $(input).val(null);
       }
     });
   }
@@ -255,7 +232,6 @@ $(function(){
 
   // TeXクリアボタン
   const deleteTeXButton = $("#delete-tex-button");
-  const deleteTeXIcon = $("<i class='bi bi-x-lg'></i>");
   // TeX削除ボタンを押したら
   $(deleteTeXButton).on("click", function(){
     if(!confirm('TeXのコード、コンパイル結果を削除しますか')){
@@ -279,3 +255,13 @@ $(function(){
     }
   });
 });
+
+/*
+  // プレビュー画像を追加する要素
+  const carouselInner = $(".files .carousel-inner");
+
+  if(carouselInner){
+    // ファイル数に応じてcarouselInnerの高さを調整
+    adjustCarouselInnerHeight(carouselInner);
+
+    */
