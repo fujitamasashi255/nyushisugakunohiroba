@@ -76,7 +76,7 @@
                         .suffix.ms-1
                           | 番目
                     .file.mt-lg-2.ms-4.ms-lg-0
-                      = image_tag file, class: "img-fluid d-block", loading: "lazy"
+                      = image_tag file, class: "img-fluid d-block"
                 - elsif file.blob.content_type == "application/pdf"
                   .file-container.col-lg-4.d-flex.flex-lg-column.align-items-center.mt-4.mt-lg-0
                     - if answer.files.size > 1
@@ -87,7 +87,7 @@
                         .suffix.ms-1
                           | 番目
                     .file.mt-lg-2.ms-4.ms-lg-0
-                      iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+                      iframe.d-block type="application/pdf" src=url_for(file) marginheight="0" marginwidth="0"
 
           / ファイル削除ボタン
           .position-absolute.translate-middle style="top: 0px; right: 5px;"
