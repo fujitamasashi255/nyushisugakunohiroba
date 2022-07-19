@@ -10,6 +10,14 @@ html
     = stylesheet_pack_tag 'application', media: 'all'
     / MathJaxの読み込み
     script type="text/javascript" id="MathJax-script" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    / Global site tag (gtag.js) - Google Analytics
+    script async="true" src="https://www.googletagmanager.com/gtag/js?id=G-8Y126KGJWY"
+    javascript:
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8Y126KGJWY');
 
   body.d-xl-flex.flex-nowrap.flex-xl-row-reverse
     #page-body.d-flex.flex-column.flex-xl-grow-1
