@@ -1,7 +1,7 @@
-= link_to "#", data: { bs_toggle: "modal", bs_target: "#LikeModal"} do
-  .like-button.d-flex.align-items-center.position-relative
+= link_to "#", class: "d-flex flex-column align-items-center", data: { bs_toggle: "modal", bs_target: "#LikeModal"} do
+  .like-button.d-flex.align-items-center
     i.bi.bi-heart
-    .likes-counts.position-absolute.top-100.start-50.translate-middle
+    .likes-counts
       = answer.likes_count
   .like_icon_description
     = t(".like")
