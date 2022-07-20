@@ -104,6 +104,10 @@ ja:
           attributes:
             file_positions:
               invalid: "が適切ではありません"
+        like:
+          attributes:
+            answer_id:
+              taken: "は既にいいねされています"
 
     models:
       university: "大学"
