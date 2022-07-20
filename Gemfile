@@ -89,6 +89,9 @@ gem "seed-fu"
 # エラーページ
 gem "hanmoto"
 
+# カウンターキャッシュ
+gem "counter_culture"
+
 # 外部ストレージ設定
 gem "aws-sdk-s3", require: false
 

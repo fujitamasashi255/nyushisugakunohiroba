@@ -6,6 +6,7 @@
 #
 #  id          :uuid             not null, primary key
 #  ggb_base64  :text
+#  likes_count :integer          default(0), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  question_id :uuid             not null
