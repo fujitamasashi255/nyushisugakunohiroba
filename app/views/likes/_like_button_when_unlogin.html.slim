@@ -1,0 +1,9 @@
+= link_to "#", data: { bs_toggle: "modal", bs_target: "#LikeModal"} do
+  .like-button.d-flex.align-items-center.position-relative
+    i.bi.bi-heart
+    .likes-counts.position-absolute.top-100.start-50.translate-middle
+      = answer.likes_count
+  .like_icon_description
+    = t(".like")
+
+= render "shared/login_modal", { message: t(".modal_confirm"), modal_id: "LikeModal" }

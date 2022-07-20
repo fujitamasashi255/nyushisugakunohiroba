@@ -1,0 +1,7 @@
+= link_to answer_likes_path(answer), method: :post, class: "d-flex flex-column align-items-center", remote: true do
+  .like-button.d-flex.align-items-center
+    i.bi.bi-heart
+    .likes-counts
+      = answer.likes_count
+  .like_icon_description
+    = t(".like")

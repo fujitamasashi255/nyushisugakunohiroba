@@ -1,0 +1,7 @@
+= link_to answer_like_path(answer, user.like_of(answer)), class: "d-flex flex-column align-items-center", method: :delete, remote: true do
+  .unlike-button.d-flex.align-items-center.position-relative
+    i.bi.bi-heart-fill
+    .likes-counts
+      = answer.likes_count
+  .like_icon_description
+    = t(".like")
