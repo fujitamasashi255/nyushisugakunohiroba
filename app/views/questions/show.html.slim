@@ -24,9 +24,9 @@
           = t(".new")
       / ログインしていないとき
       - else
-        = link_to "#", class: "d-flex align-items-center", data: { bs_toggle: "modal", bs_target: "#loginModal"} do
+        = link_to "#", class: "d-flex align-items-center", data: { bs_toggle: "modal", bs_target: "#CreateAnswerModal"} do
           i.bi.bi-pencil.me-2
           = t(".new")
-        = render "shared/login_modal"
+        = render "shared/login_modal", message: t(".modal_confirm"), modal_id: "CreateAnswerModal"
 
 = render "/shared/questions/show", question: @question, other_users_answers: @other_users_answers, pagy: @pagy

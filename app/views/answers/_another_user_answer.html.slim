@@ -12,11 +12,10 @@
               = answer.user_name
 
         / 大学名横アイコン
-        /.right-icons
-          /.d-flex.align-items-center
-            / 解答お気に入り
-            / = link_to "#", class: "d-block" do
-              / i.bi.bi-heart role="img" aria-label="Heart"
+        .right-icons.pt-0.d-flex
+          / いいねボタン
+          = render "likes/button", answer: answer, user: current_user
+          .me-2
 
       = link_to answer_path(answer), class: "d-block flex-grow-1" do
         .answer-card-bottom.mt-3.d-flex.flex-column

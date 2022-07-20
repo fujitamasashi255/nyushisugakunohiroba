@@ -126,7 +126,6 @@ ja:
       terms: "利用規約"
       privacy: "プライバシーポリシー"
     login_modal:
-      modal_confirm: "解答を作成するにはログインが必要です。"
       login: "ログイン"
       close_modal: "閉じる"
 
@@ -168,10 +167,12 @@ ja:
       bookmark: "ブックマークする"
       unbookmark: "ブックマークを解除する"
       answered: "解答作成済"
+      modal_confirm: "解答を作成するにはログインが必要です。"
     show:
       title: "問題詳細"
       new: "解答を作成する"
       edit: "解答を編集する"
+      modal_confirm: "解答を作成するにはログインが必要です。"
   answers:
     form:
       saving: "保存中"
@@ -192,7 +193,7 @@ ja:
     new:
       title: "解答作成"
       display_question_image: "問題文を表示"
-      to_question: "問題詳細へ"
+      to_question: "問題詳細"
     create:
       success: "解答を作成しました"
       fail: "解答を作成できませんでした"
@@ -202,7 +203,7 @@ ja:
       share_twitter: "twitterで共有"
       destroy: "解答削除"
       display_question_image: "問題文を表示する"
-      to_question: "問題詳細へ"
+      to_question: "問題詳細"
       no_result: "解答はありません"
     edit:
       title: "解答編集"
@@ -230,6 +231,14 @@ ja:
       title: "他のユーザーの解答"
       description: "解答をクリックすると、詳細を見ることができます"
       no_answers: "解答はありません"
+  likes:
+    like_button_when_unlogin:
+      modal_confirm: "いいねをするにはログインが必要です。"
+      like: "いいね"
+    like_button:
+      like: "いいね"
+    unlike_button:
+      like: "いいね"
 
 
 

@@ -36,6 +36,11 @@
 
 / 解答上リンク
 .answer-links.d-flex
+  / いいねボタン
+  .likes
+    = render "likes/button", answer: @answer, user: current_user
+
+  .me-4
   / twitter共有リンク
   .me-4
     = link_to twitter_share_url(@answer.og_description, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do

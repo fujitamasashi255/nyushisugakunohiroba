@@ -91,24 +91,6 @@ $tex-height: 600px;
   border-bottom: 2px solid rgb(39,93,144);
 }
 
-// 解答フォーム上のリンク一覧
-.answer-links {
-  a {
-    font-size: 0.9rem;
-    color: $linksilver;
-    i {
-      font-size: 1.8rem;
-      color: $linksilver;
-    }
-  }
-  a:hover {
-    color: black;
-    i {
-      color: black;
-    }
-  }
-}
-
 
 // 解答フォーム全体
 .answer-form-field, .answer-show {
@@ -377,6 +359,7 @@ $tex-height: 600px;
   width: 4rem;
 }
 
+
 // 解答カード、大学名横アイコン
 // 大学名横のアイコン
 //ブックマークアイコン
@@ -390,33 +373,123 @@ $tex-height: 600px;
 }
 
 //「・・・」アイコンを囲む円
-.answer-card .dropdown .dropdown-toggle, .question-card .dropdown .dropdown-toggle {
-  border-radius: 50%;
-  width: 2.3rem;
-  height: 2.3rem;
-}
+.answer-card .right-icons {
+  i {
+    font-size: 1.75rem;
+  }
+  .dropdown-toggle {
+    border-radius: 50%;
+    width: 2.3rem;
+    height: 2.3rem;
+    //「・・・」アイコンのサイズと色
+    i {
+      color: $deepsilver;
+      font-size: 1.25rem;
+    }
+  }
+  //「・・・」アイコンを囲む円
+  .dropdown-toggle:hover {
+    background-color: rgb(230, 237, 243);
+    border: 1px solid rgb(148, 187, 224);
+    .bi-three-dots {
+      color: rgb(39,93,144);
+    }
+  }
 
-
-//「・・・」アイコンを囲む円
-.answer-card .dropdown .dropdown-toggle:hover, .question-card .dropdown .dropdown-toggle:hover {
-  background-color: rgb(230, 237, 243);
-  border: 1px solid rgb(148, 187, 224);
-  .bi-three-dots {
-    color: rgb(39,93,144);
+  // いいねボタン
+  i.bi-heart, i.bi-heart-fill {
+    font-size: 1.25rem;
+    color: $linksilver;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  i.bi-heart-fill {
+    color: rgb(249, 24, 128);
+  }
+  .like-button, .unlike-button {
+    border-radius: 50%;
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+  //「・・・」アイコンを囲む円
+  .like-button:hover, .unlike-button:hover {
+    background-color: rgb(247, 238, 242);
+    .bi-heart {
+      color: rgb(249, 24, 128);
+    }
+  }
+  .likes-counts {
+    font-size: 0.7rem;
+    color: $linksilver;
   }
 }
-
-//「・・・」アイコンのサイズと色
-.answer-card .dropdown .dropdown-toggle i, .question-card .dropdown .dropdown-toggle i {
-  color: $deepsilver;
-  font-size: 1.25rem;
-}
-
 
 //「・・・」アイコンクリック時に開かれるドロップダウン
 .answer-card .dropdown-item, .question-card .dropdown-item{
   font-size: 1rem;
   i {
     font-size: 1.25rem;
+  }
+}
+
+// いいねボタンといいね数の配置
+.answer-card {
+  .unlike-button, .like-button {
+    position: relative;
+    .likes-counts{
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .like_icon_description {
+    display: none;
+  }
+}
+
+// 解答詳細上のリンク一覧
+.answer-links {
+  a {
+    font-size: 0.75rem;
+    color: $linksilver;
+    i {
+      font-size: 1.5rem;
+      color: $linksilver;
+    }
+  }
+  a:hover {
+    color: black;
+    i {
+      color: black;
+    }
+  }
+}
+
+// 解答詳細上のいいねボタン
+.answer-links .likes{
+  // いいねボタン
+  i.bi-heart-fill {
+    color: rgb(249, 24, 128);
+  }
+  i.bi-heart {
+    color: $linksilver;
+  }
+  .likes-counts {
+    font-size: 0.75rem;
+    color: $linksilver;
+  }
+}
+
+// いいねボタンといいね数の配置
+.answer-links {
+  .unlike-button, .like-button {
+    position: relative;
+    .likes-counts{
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 }

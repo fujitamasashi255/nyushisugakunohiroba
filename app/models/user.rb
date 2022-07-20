@@ -60,6 +60,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :answers, dependent: :destroy
   has_many :answered_questions, through: :answers, source: :question
+  has_many :likes, dependent: :destroy
+  has_many :liked_answers, through: :likes, source: :answer
 
   enum role: { general: 0, guest: 1, admin: 2 }, _default: :general
 
@@ -71,6 +73,16 @@ class User < ApplicationRecord
   # ユーザーがanswerを作成したか判定
   def own_answer?(answer)
     answers.include?(answer)
+  end
+
+  # ユーザーのanswerに対するlikeを取得
+  def like_of(answer)
+    likes.find_by(answer:)
+  end
+
+  # ユーザーがanswerにいいねしたかどうかを判定
+  def liked?(answer)
+    !!like_of(answer)
   end
 
   private
