@@ -6,8 +6,11 @@
       .me-3 class= sort_type
         - case sort_type
         - when "year_new"
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: (active_if(user_answers_path) || active_sort_link_if(answers_search_form, sort_type)), remote: true
         - when "updated_at_new"
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+            class: active_sort_link_if(answers_search_form, sort_type), remote: true
+        - when "like_many"
+          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: active_sort_link_if(answers_search_form, sort_type), remote: true

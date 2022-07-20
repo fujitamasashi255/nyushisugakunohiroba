@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersSearchForm
-  SORT_TYPES = %w[year_new updated_at_new].each(&:freeze).freeze
+  SORT_TYPES = %w[year_new updated_at_new like_many].each(&:freeze).freeze
   SPECIFIC_CONDITIONS_ENUM = { nothing: 0, no_data: 1, all_data: 2 }.each_value(&:freeze).freeze
 
   include ActiveModel::Model
@@ -71,6 +71,8 @@ class AnswersSearchForm
       relation = Answer.joins(:question).where(answers: { id: relation.select(:id) }).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
     when "updated_at_new"
       relation = relation.order(updated_at: :desc)
+    when "like_many"
+      relation = relation.order(likes_count: :desc)
     end
 
     relation
