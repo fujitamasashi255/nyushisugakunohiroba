@@ -1,0 +1,2 @@
+var unlikeButtonWrapper = document.getElementById("answer_<%= @answer.id %>");
+unlikeButtonWrapper.innerHTML = "<%= j(render 'likes/like_button', answer: @answer, user: current_user) %>";
