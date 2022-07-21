@@ -340,38 +340,71 @@ RSpec.describe "Answers", type: :system, js: true do
 
   describe "解答詳細機能" do
     let(:department) { create(:department, name: "理系", university: create(:university, name: "東京", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
-
     before do
       # ユーザーを作成
-      user1 = create(:user, name: "TEST1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
-      user2 = create(:user, name: "TEST2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
+      @user1 = create(:user, name: "TEST1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
+      @user2 = create(:user, name: "TEST2", email: "test2@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
       question = create(:question, :full_custom, year: 2020, department:, question_number: 5, unit_names: %w[図形と計量])
       # user1の京都大学、名古屋大学、東京大学の解答を作成
-      @answer1 = create(:answer, question:, user: user1, tag_names: "tag1")
-      @answer2 = create(:answer, question:, user: user2, tag_names: "tag2")
-      # ログイン
-      sign_in_as(user1)
+      @answer1 = create(:answer, question:, user: @user1, tag_names: "tag1")
+      @answer2 = create(:answer, question:, user: @user2, tag_names: "tag2")
     end
 
-    context "user1がuse1の解答詳細にアクセスしたとき" do
+    context "ログインしているとき" do
+      before do
+        # user1が@answer2にいいね
+        create(:like, user: @user1, answer: @answer2)
+        # ログイン
+        sign_in_as(@user1)
+      end
+
+      context "user1が、いいねしていない@answer1の詳細にアクセスしたとき" do
+        before do
+          visit answer_path(@answer1)
+        end
+
+        it "解答編集、削除リンクが表示されていること" do
+          expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(@answer1)}']")
+          expect(page).to have_selector(".answer-links a[href='#{answer_path(@answer1)}'][data-method='delete']")
+        end
+
+        it "解答にいいねできること" do
+          expect(page).to have_selector(".answer-links .like-icon-description", text: "いいね")
+          expect(page).to have_selector(".answer-links .likes-counts", text: "0")
+          find(".answer-links .like-button").click
+          expect(page).to have_selector(".answer-links .unlike-button")
+          expect(page).to have_selector(".answer-links .likes-counts", text: "1")
+        end
+      end
+
+      context "user1が、いいねしている@answer2の詳細にアクセスしたとき" do
+        before do
+          visit answer_path(@answer2)
+        end
+
+        it "解答編集、削除リンクが表示されないこと" do
+          expect(page).not_to have_selector(".answer-links a[href='#{edit_answer_path(@answer1)}']")
+          expect(page).not_to have_selector(".answer-links a[href='#{answer_path(@answer1)}'][data-method='delete']")
+        end
+
+        it "解答のいいねを解除できること" do
+          expect(page).to have_selector(".answer-links .like-icon-description", text: "いいね")
+          expect(page).to have_selector(".answer-links .likes-counts", text: "1")
+          find(".answer-links .unlike-button").click
+          expect(page).to have_selector(".answer-links .like-button")
+          expect(page).to have_selector(".answer-links .likes-counts", text: "0")
+        end
+      end
+    end
+
+    context "ログインしていないとき" do
       before do
         visit answer_path(@answer1)
       end
 
-      it "解答編集、削除リンクが表示されていること" do
-        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(@answer1)}']")
-        expect(page).to have_selector(".answer-links a[href='#{answer_path(@answer1)}'][data-method='delete']")
-      end
-    end
-
-    context "user1がuser2の解答詳細にアクセスしたとき" do
-      before do
-        visit answer_path(@answer2)
-      end
-
-      it "解答編集、削除リンクが表示されないこと" do
-        expect(page).not_to have_selector(".answer-links a[href='#{edit_answer_path(@answer1)}']")
-        expect(page).not_to have_selector(".answer-links a[href='#{answer_path(@answer1)}'][data-method='delete']")
+      it "いいねボタンを押すとログイン誘導のモーダルが表示されていいねできないこと" do
+        find(".answer-links .like-button").click
+        expect(page).to have_selector(".modal .message", text: "いいねをするにはログインが必要です。", visible: true)
       end
     end
   end
@@ -397,13 +430,18 @@ RSpec.describe "Answers", type: :system, js: true do
       @answer_tokyo1 = create(:answer, question: question_tokyo, user: user1, tag_names: "tag3", updated_at: Time.current)
       # user2の九州大学の解答を作成
       @answer_kyusyu2 = create(:answer, question: question_kyusyu, user: user2, tag_names: "tag4")
-      # ログイン
+      # user1が@answer_kyoto1と@answer_nagoya1にいいね
+      create(:like, user: user1, answer: @answer_kyoto1)
+      create(:like, user: user1, answer: @answer_nagoya1)
+      # user2が@answer_kyoto1にいいね
+      create(:like, user: user2, answer: @answer_kyoto1)
+      # user1でログイン
       sign_in_as(user1)
       # user1の解答一覧画面へアクセス
       visit user_answers_path(user1)
     end
 
-    context "解答一覧画面にアクセスしたとき" do
+    context "user1の解答一覧画面にアクセスしたとき" do
       it "user1のすべての解答が、問題の出題年が新しい順に表示されること" do
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "なし")
@@ -416,6 +454,22 @@ RSpec.describe "Answers", type: :system, js: true do
 
       it "他のユーザーの解答が表示されないこと" do
         expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
+
+      it "解答にいいねできること" do
+        like_button_wrapper = find("#answer_#{@answer_tokyo1.id}")
+        expect(like_button_wrapper).to have_selector(".likes-counts", text: "0")
+        like_button_wrapper.find(".like-button").click
+        expect(like_button_wrapper).to have_selector(".unlike-button")
+        expect(like_button_wrapper).to have_selector(".likes-counts", text: "1")
+      end
+
+      it "解答のいいねを解除できること" do
+        unlike_button_wrapper = find("#answer_#{@answer_kyoto1.id}")
+        expect(unlike_button_wrapper).to have_selector(".likes-counts", text: "2")
+        unlike_button_wrapper.find(".unlike-button").click
+        expect(unlike_button_wrapper).to have_selector(".like-button")
+        expect(unlike_button_wrapper).to have_selector(".likes-counts", text: "1")
       end
     end
 
@@ -448,6 +502,19 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(all(".answer-card")[0]).to have_content "東京"
         expect(all(".answer-card")[1]).to have_content "名古屋"
         expect(all(".answer-card")[2]).to have_content "京都"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
+
+      it "すべての解答を、いいねが多い順に並べられること" do
+        find(".sort-links .like_many a").click
+        expect(page).to have_selector(".university-search-condition", text: "なし")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "なし")
+        expect(page).to have_selector(".tags-search-condition", text: "なし")
+        expect(all(".answer-card")[0]).to have_content "京都"
+        expect(all(".answer-card")[1]).to have_content "名古屋"
+        expect(all(".answer-card")[2]).to have_content "東京"
         # user2の解答が表示されていないことをチェック
         expect(page).not_to have_selector(".answer-card", text: "九州")
       end
@@ -484,6 +551,19 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".tags-search-condition", text: "なし")
         expect(all(".answer-card")[0]).to have_content "東京"
         expect(all(".answer-card")[1]).to have_content "名古屋"
+        expect(page).not_to have_content "京都"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
+
+      it "すべての解答を、いいねが多い順に並べられること" do
+        find(".sort-links .like_many a").click
+        expect(page).to have_selector(".university-search-condition", text: "東京、名古屋")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "なし")
+        expect(page).to have_selector(".tags-search-condition", text: "なし")
+        expect(all(".answer-card")[0]).to have_content "名古屋"
+        expect(all(".answer-card")[1]).to have_content "東京"
         expect(page).not_to have_content "京都"
         # user2の解答が表示されていないことをチェック
         expect(page).not_to have_selector(".answer-card", text: "九州")
@@ -526,6 +606,19 @@ RSpec.describe "Answers", type: :system, js: true do
         # user2の解答が表示されていないことをチェック
         expect(page).not_to have_selector(".answer-card", text: "九州")
       end
+
+      it "すべての解答を、いいねが多い順に並べられること" do
+        find(".sort-links .like_many a").click
+        expect(page).to have_selector(".university-search-condition", text: "なし")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "数と式・集合と論理、三角関数")
+        expect(page).to have_selector(".tags-search-condition", text: "なし")
+        expect(all(".answer-card")[0]).to have_content "名古屋"
+        expect(all(".answer-card")[1]).to have_content "東京"
+        expect(page).not_to have_content "京都"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
     end
 
     context "タグで検索するとき" do
@@ -559,6 +652,19 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".tags-search-condition", text: "tag1、tag2")
         expect(all(".answer-card")[0]).to have_content "名古屋"
         expect(all(".answer-card")[1]).to have_content "京都"
+        expect(page).not_to have_content "東京"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
+
+      it "解答を、いいねが多い順に並べられること" do
+        find(".sort-links .like_many a").click
+        expect(page).to have_selector(".university-search-condition", text: "なし")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "なし")
+        expect(page).to have_selector(".tags-search-condition", text: "tag1、tag2")
+        expect(all(".answer-card")[0]).to have_content "京都"
+        expect(all(".answer-card")[1]).to have_content "名古屋"
         expect(page).not_to have_content "東京"
         # user2の解答が表示されていないことをチェック
         expect(page).not_to have_selector(".answer-card", text: "九州")

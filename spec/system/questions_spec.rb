@@ -36,6 +36,21 @@ RSpec.describe "Questions", type: :system, js: true do
         expect(page).to have_selector("#questions-index")
       end
     end
+
+    context "ログインしておらず問題検索画面にアクセスしたとき" do
+      before do
+        # ログアウト
+        find("#sidebar a[href='#{logout_path}']").click
+        # 問題一覧へ遷移
+        visit questions_path
+      end
+
+      it "解答作成ボタンを押すとログイン誘導のモーダルが表示されて解答作成できないこと" do
+        all(".right-icons")[0].find(".bi-three-dots").click
+        find_link("解答を作成する").click
+        expect(page).to have_selector(".modal .message", text: "解答を作成するにはログインが必要です。", visible: true)
+      end
+    end
   end
 
   describe "問題検索・並び替え機能" do
@@ -267,6 +282,20 @@ RSpec.describe "Questions", type: :system, js: true do
       it "他のユーザーの解答が表示されないこと" do
         expect(page).not_to have_selector(".answer-card")
         expect(page).to have_selector(".other-users-answers", text: "解答はありません")
+      end
+    end
+
+    context "ログインしていないとき" do
+      before do
+        # ログアウト
+        find("#sidebar a[href='#{logout_path}']").click
+        # 問題詳細へ遷移
+        visit question_path(@question_kyoto)
+      end
+
+      it "解答作成ボタンを押すとログイン誘導のモーダルが表示されて解答作成できないこと" do
+        find(".question-links a").click
+        expect(page).to have_selector(".modal .message", text: "解答を作成するにはログインが必要です。", visible: true)
       end
     end
   end
