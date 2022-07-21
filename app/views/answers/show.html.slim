@@ -36,6 +36,11 @@
 
 / 解答上リンク
 .answer-links.d-flex
+  / いいねボタン
+  .likes
+    = render "likes/button", answer: @answer, user: current_user
+
+  .me-4
   / twitter共有リンク
   .me-4
     = link_to twitter_share_url(@answer.og_description, answer_url(@answer)), target: "_blank", rel: "noopener noreferrer", class: "twitter-link" do
@@ -132,15 +137,15 @@
               - when 0
                 .carousel-item.active
                   - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                    = image_tag file, class: "d-block img-fluid"
                   - elsif file.blob.content_type == "application/pdf"
-                    iframe.d-block type="application/pdf"  src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+                    iframe.d-block type="application/pdf"  src=url_for(file) marginheight="0" marginwidth="0"
               - else
                 .carousel-item
                   - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
-                    = image_tag file, class: "d-block img-fluid", loading: "lazy"
+                    = image_tag file, class: "d-block img-fluid"
                   - elsif file.blob.content_type == "application/pdf"
-                    iframe.d-block type="application/pdf" src=url_for(file) loading="lazy" marginheight="0" marginwidth="0"
+                    iframe.d-block type="application/pdf" src=url_for(file) marginheight="0" marginwidth="0"
         - if @answer.files.size >= 2
           / カルーセルコントローラのnextボタン
           a.carousel-next.carousel-button.d-flex.flex-column role="button"

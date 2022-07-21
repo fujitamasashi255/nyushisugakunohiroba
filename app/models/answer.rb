@@ -6,6 +6,7 @@
 #
 #  id          :uuid             not null, primary key
 #  ggb_base64  :text
+#  likes_count :integer          default(0), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  question_id :uuid             not null
@@ -37,6 +38,7 @@ class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :question
   has_one :tex, dependent: :destroy, as: :texable
+  has_many :likes, dependent: :destroy
   has_many_attached :files
   has_rich_text :point
   acts_as_taggable_on :tags

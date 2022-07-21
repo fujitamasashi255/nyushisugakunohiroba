@@ -143,5 +143,41 @@ RSpec.describe User, type: :model do
         expect(user.own_answer?(@answer_tokyo)).to be_falsy
       end
     end
+
+    describe "like_of(answer)" do
+      context "ユーザーがanswerにいいねしているとき" do
+        before do
+          @like = create(:like, user:, answer: @answer_kyoto)
+        end
+
+        it "ユーザーのanswerに対するlikeを取得できること" do
+          expect(user.like_of(@answer_kyoto)).to eq @like
+        end
+      end
+
+      context "ユーザーがanswerにいいねしていないとき" do
+        it "nilが返ること" do
+          expect(user.like_of(@answer_tokyo)).to eq nil
+        end
+      end
+    end
+
+    describe "liked?(answer)" do
+      before do
+        create(:like, user:, answer: @answer_kyoto)
+      end
+
+      context "ユーザーがanswerにいいねしているとき" do
+        it "trueが返ること" do
+          expect(user.liked?(@answer_kyoto)).to be_truthy
+        end
+      end
+
+      context "ユーザーがanswerにいいねしていないとき" do
+        it "falseが返ること" do
+          expect(user.liked?(@answer_tokyo)).to be_falsy
+        end
+      end
+    end
   end
 end

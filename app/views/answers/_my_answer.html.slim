@@ -19,7 +19,9 @@
                 = render "shared/departments/departments", questions_departments_mediators: answer.question.questions_departments_mediators
 
         / 大学名横アイコン
-        .right-icons.pt-2
+        .right-icons.pt-2.d-flex
+          / いいねボタン
+          = render "likes/button", answer: answer, user: current_user
           .dropdown.d-flex.align-items-center
             /ドロップダウンボタン
             = link_to "#", class: "dropdown-toggle d-inline-block d-flex align-items-center ms-auto", data: { bs_toggle: "dropdown" } do

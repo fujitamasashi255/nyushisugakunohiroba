@@ -26,10 +26,10 @@
             = t(".create_question")
         / ログインしていないとき
         - else
-          = link_to "#", class: "dropdown-item d-flex align-items-center", data: { bs_toggle: "modal", bs_target: "#loginModal"} do
+          = link_to "#", class: "dropdown-item d-flex align-items-center", data: { bs_toggle: "modal", bs_target: "#CreateAnswerModal"} do
             i.bi.bi-pencil.me-2
             = t(".create_question")
-  = render "shared/login_modal"
+  = render "shared/login_modal", message: t(".modal_confirm"), modal_id: "CreateAnswerModal"
 
 - content_for "left_icons#{question.id}".to_sym do
   - if logged_in?

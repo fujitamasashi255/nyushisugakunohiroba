@@ -10,6 +10,7 @@ main {
   }
   .links {
     display: flex;
+    flex-wrap: wrap;
     .link {
       margin: 0px 2rem;
     }

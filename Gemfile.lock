@@ -126,6 +126,9 @@ GEM
     config (4.0.0)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
+    counter_culture (3.2.1)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
     crass (1.0.6)
     debug (1.5.0)
       irb (>= 1.3.6)
@@ -471,6 +474,7 @@ DEPENDENCIES
   capybara
   cocoon
   config
+  counter_culture
   debug (>= 1.0.0)
   enum_help
   factory_bot_rails

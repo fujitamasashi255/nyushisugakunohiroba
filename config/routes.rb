@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :answers, only: [] do
     resource :files, only: %i[destroy]
+    resources :likes, only: %i[create destroy]
   end
 
   resource :tex_compile, only: %i[create]

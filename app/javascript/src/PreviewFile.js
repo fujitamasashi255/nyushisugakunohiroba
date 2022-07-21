@@ -16,13 +16,10 @@ export const previewFile = function(file, fileContainer){
       // 画像ファイルの時
       var fileTag = $("<img>");
       fileTag.attr("class", "d-block img-fluid");
-      //fileTag.attr("style", "max-width: 100%; max-height: 500px");
-      fileTag.attr("loading", "lazy");
     }else if(file.type == pdfType){
       // PDFのとき
       var fileTag = $("<iframe>");
       fileTag.attr("type", "application/pdf");
-      fileTag.attr("loading", "lazy");
       fileTag.attr("marginheight", "0");
       fileTag.attr("marginwidth", "0");
     }

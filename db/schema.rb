@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_025644) do
+ActiveRecord::Schema.define(version: 2022_07_20_052256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_025644) do
     t.uuid "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes_count", default: 0, null: false
     t.index ["question_id", "user_id"], name: "index_answers_on_question_id_and_user_id", unique: true
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
@@ -72,6 +73,16 @@ ActiveRecord::Schema.define(version: 2022_07_15_025644) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["university_id"], name: "index_departments_on_university_id"
+  end
+
+  create_table "likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "answer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["answer_id"], name: "index_likes_on_answer_id"
+    t.index ["user_id", "answer_id"], name: "index_likes_on_user_id_and_answer_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -175,6 +186,8 @@ ActiveRecord::Schema.define(version: 2022_07_15_025644) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "departments", "universities"
+  add_foreign_key "likes", "answers"
+  add_foreign_key "likes", "users"
   add_foreign_key "questions_departments_mediators", "departments"
   add_foreign_key "questions_departments_mediators", "questions"
   add_foreign_key "questions_units_mediators", "questions"
