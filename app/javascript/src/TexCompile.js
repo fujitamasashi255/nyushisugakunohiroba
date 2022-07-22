@@ -10,24 +10,24 @@ export function t(arg) {
 const pdfsPath = "/tex_compile";
 
 // pdfUrlのファイルをrenderElementに表示する
-var renderPdf = function(pdfUrl, renderElement){
+const renderPdf = function(pdfUrl, renderElement){
   $('<iframe>', { loading: "lazy", type: "application/pdf", marginheight: "0", marginwidth: "0" }).attr('src', pdfUrl).appendTo(renderElement);
 }
 
 // logTextをrenderElementに表示する
-var renderLogText = function(logText, renderElement){
+const renderLogText = function(logText, renderElement){
   $('<div>', { id: "log-text", class: "p-2" }).html(logText).appendTo(renderElement);
 }
 
 // 「コンパイル中」ボタンにする
-var disabledButton = function(button){
+const disabledButton = function(button){
   button.addClass("disabled").empty().text(t("javascript.tex_compile.compiling"));
-  var disabledDisplay = $('<span>', {class: "spinner-border spinner-border-sm mr-1", role: "status", aria: {hidden: "true"}});
+  var disabledDisplay = $('<span>', {class: "spinner-border spinner-border-sm me-1", role: "status", aria: {hidden: "true"}});
   button.prepend(disabledDisplay);
 }
 
 // 「コンパイルする」ボタンに戻す
-var replacewithNewButton = function(button, compileResultUrl){
+const replacewithNewButton = function(button, compileResultUrl){
   var newButton = $('<button>', {class: "btn btn-outline-dark", id: "compile-button", type: "button"}).text(t("javascript.tex_compile.compile"));
   button.replaceWith(newButton)
   if(compileResultUrl){
@@ -116,8 +116,11 @@ function displayTabCopntent(e){
 mql.addEventListener("change", displayTabCopntent);
 
 $(function(){
-  if(window.innerWidth < 992){
-    $("#tab-compile-result").attr("class", "tab-pane fade");
+  const texCompileResult = $("#tab-compile-result");
+  if(texCompileResult){
+    if(window.innerWidth < 992){
+      texCompileResult.attr("class", "tab-pane fade");
+    }
   }
 });
 
