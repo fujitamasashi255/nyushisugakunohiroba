@@ -33,7 +33,7 @@
   color: gray;
 }
 
-.sort-links a[class="active"] {
+.sort-links a[class*="active"] {
   color: red;
 }
 
