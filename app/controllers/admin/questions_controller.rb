@@ -6,7 +6,7 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def index
     @questions_search_form = QuestionsSearchForm.new(specific_search_condition: QuestionsSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
-    @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true"')
+    @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true" class="loading page-link"')
   end
 
   def new
@@ -51,7 +51,7 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   def search
     @questions_search_form = QuestionsSearchForm.new(questions_search_form_params)
-    @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.preload({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true"')
+    @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.preload({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true" class="loading page-link"')
     @question_id_to_answer_id_hash_of_user = current_user&.question_id_to_answer_id_hash
     render "admin/questions/index"
   end

@@ -8,7 +8,6 @@ var displayCheckedUniversityNamesOnDropDownButton = function(checkedBoxes, dropD
   dropDownButton.text(universityNames.join("、"));
 }
 
-
 // 検索フォーム折りたたみ
 document.addEventListener('DOMContentLoaded', function(){
   let collapseElem = document.querySelector('#collapse-search-form');
@@ -45,5 +44,24 @@ $(function(){
     var checkedBoxes = $('.search-form-universities input[type="checkbox"]:checked');
     var dropDownButton = $('.search-form-universities button');
     displayCheckedUniversityNamesOnDropDownButton(checkedBoxes, dropDownButton);
+  });
+
+  const scrollToElem = document.querySelector('.scroll-to');
+  const spinner = $('<div class="spinner-border d-inline ms-4", style="width: 1.5rem; height: 1.5rem;", role="status">');
+  // ajax開始前
+  document.body.addEventListener("ajax:before", (event) => {
+    if(event.target.classList.contains("loading")){
+      // 問題一覧でのスピナー
+      $(scrollToElem).append(spinner);
+      scrollToElem.scrollIntoView();
+      // ajax終了時
+      event.target.addEventListener("ajax:success", (event) => {
+        // 問題一覧でのスピナー
+        const spinner = $('.scroll-to .spinner-border');
+        if(spinner){
+          spinner.remove();
+        }
+      });
+    }
   });
 });

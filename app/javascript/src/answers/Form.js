@@ -114,8 +114,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
   const input = document.querySelector('.answer-form .files input[type=file]');
 
-  // ファイルを登録したら
+  // ファイル関連
   if(input){
+    // ファイルを登録したら
     input.addEventListener('change', (event) => {
       // エラーメッセージを削除
       const errorMessage = $(".error_message")
@@ -140,45 +141,45 @@ document.addEventListener("DOMContentLoaded", function(){
       // inputに登録されているファイルを削除
       $(input).val(null);
     });
-  }
 
-  // ファイル順番セレクトボックス
-  // 選択した値と同じ値をもつセレクトボックスの値を、
-  // 選択されたセレクトボックスの値の元の値に変更する
-  var selectBoxValues = [1, 2, 3];
-  $(document).on("input", $(".files select"), (event) => {
-    var selectedIdx = $(".files select").index(event.target);
-    var preValue = selectBoxValues[selectedIdx];
-    var selectValue = Number(event.target.value);
-    var changeIdx = selectBoxValues.indexOf(selectValue);
-    selectBoxValues[selectedIdx] = selectValue;
-    selectBoxValues[changeIdx] = preValue;
-    console.log(selectBoxValues);
-    $(".files select").eq(changeIdx).val(preValue);
-  });
-
-  // ファイルクリアボタン
-  const deleteFilesButton = $("#delete-files-button");
-
-  // 登録ファイル削除
-  if(deleteFilesButton){
-    // ファイル削除ボタンを押したら
-    deleteFilesButton.on("click", function(){
-      if(!confirm('登録したファイルを削除しますか')){
-        // キャンセルの時の処理
-        return false;
-      }else{
-        // DBに登録されているファイルを削除
-        var path = $(this).data("deleteFilesPath");
-        if(path){
-          $.ajax({url: path, type: 'DELETE'});
-        }
-        // プレビューをクリアー
-        clearPreview();
-        // files のinputをクリア
-        $(input).val(null);
-      }
+    // ファイル順番セレクトボックス
+    // 選択した値と同じ値をもつセレクトボックスの値を、
+    // 選択されたセレクトボックスの値の元の値に変更する
+    var selectBoxValues = [1, 2, 3];
+    $(document).on("input", $(".files select"), (event) => {
+      var selectedIdx = $(".files select").index(event.target);
+      var preValue = selectBoxValues[selectedIdx];
+      var selectValue = Number(event.target.value);
+      var changeIdx = selectBoxValues.indexOf(selectValue);
+      selectBoxValues[selectedIdx] = selectValue;
+      selectBoxValues[changeIdx] = preValue;
+      console.log(selectBoxValues);
+      $(".files select").eq(changeIdx).val(preValue);
     });
+
+    // ファイルクリアボタン
+    const deleteFilesButton = $("#delete-files-button");
+
+    // 登録ファイル削除
+    if(deleteFilesButton){
+      // ファイル削除ボタンを押したら
+      deleteFilesButton.on("click", function(){
+        if(!confirm('登録したファイルを削除しますか')){
+          // キャンセルの時の処理
+          return false;
+        }else{
+          // DBに登録されているファイルを削除
+          var path = $(this).data("deleteFilesPath");
+          if(path){
+            $.ajax({url: path, type: 'DELETE'});
+          }
+          // プレビューをクリアー
+          clearPreview();
+          // files のinputをクリア
+          $(input).val(null);
+        }
+      });
+    }
   }
 
 

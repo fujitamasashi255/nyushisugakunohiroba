@@ -76,7 +76,7 @@
 / 問題一覧
 - if questions.present?
   .container.questions-index-title
-    h4.d-flex.align-items-center
+    h4.d-flex.align-items-center.scroll-to
       i.bi.bi-card-text
       .ms-1
         = t(".search_result")
@@ -97,7 +97,7 @@
 
   / 問題カードの一覧
   .container
-    .row id="questions-index"
+    .row. id="questions-index"
       = content_for :question_partial
 
 / ページネーション

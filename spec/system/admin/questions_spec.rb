@@ -173,7 +173,7 @@ RSpec.describe "Questions", type: :system, js: true do
 
       it "すべての問題を、作成日が新しい順に並べ替えること" do
         find(".created_at_new a", text: "作成日が新しい順").click
-        find(".created_at_new a[class='active']")
+        find(".created_at_new a[class*='active']")
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -203,7 +203,7 @@ RSpec.describe "Questions", type: :system, js: true do
 
       it "問題を、作成日が新しい順に並べ替えること" do
         find(".created_at_new a", text: "作成日が新しい順").click
-        find(".created_at_new a[class='active']")
+        find(".created_at_new a[class*='active']")
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "2000 年 〜 2010 年")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -234,7 +234,7 @@ RSpec.describe "Questions", type: :system, js: true do
 
       it "問題を、作成日が新しい順に並べ替えること" do
         find(".created_at_new a", text: "作成日が新しい順").click
-        find(".created_at_new a[class='active']")
+        find(".created_at_new a[class*='active']")
         expect(page).to have_selector(".university-search-condition", text: "東京、名古屋")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -264,7 +264,7 @@ RSpec.describe "Questions", type: :system, js: true do
 
       it "問題を、作成日が新しい順に並べ替えること" do
         find(".created_at_new a", text: "作成日が新しい順").click
-        find(".created_at_new a[class='active']")
+        find(".created_at_new a[class*='active']")
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "数と式・集合と論理、三角関数")
