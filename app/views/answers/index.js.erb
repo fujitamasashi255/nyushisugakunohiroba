@@ -1,12 +1,10 @@
 var answersElem = document.getElementById('answers-index');
 var paginationElem = document.getElementById('answers-pagination');
-var scrollToElem = document.querySelector('.answers-index-title');
 var sortLinksElem = document.querySelector('.sort-links-wrapper');
 answersElem.innerHTML = "<%= j(render partial: "/answers/my_answer", collection: @answers, as: :answer) %>";
 paginationElem.innerHTML = "<%= j(render "shared/pagy", pagy: @pagy ) %>";
 sortLinksElem.innerHTML = "<%= j(render '/answers/sort', answers_search_form: @answers_search_form) %>";
 Pagy.init(paginationElem);
-scrollToElem.scrollIntoView();
 var pointElems = document.querySelectorAll(".trix-content");
 MathJax.texReset([0]);
 MathJax.typeset(pointElems);
