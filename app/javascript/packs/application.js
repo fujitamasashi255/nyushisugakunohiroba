@@ -20,7 +20,7 @@ import "src/answers/Form"
 import "src/answers/Index"
 import "src/answers/SearchTags"
 import "src/answers/CreateEditTags"
-
+import "src/Loading"
 
 
 const images = require.context("../images", true);
