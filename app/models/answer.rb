@@ -38,6 +38,7 @@ class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :question
   has_one :tex, dependent: :destroy, as: :texable
+  has_many :answers, dependent: :destroy, as: :commentable
   has_many :likes, dependent: :destroy
   has_many_attached :files
   has_rich_text :point

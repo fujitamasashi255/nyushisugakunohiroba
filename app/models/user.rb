@@ -59,6 +59,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :answers, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :answered_questions, through: :answers, source: :question
   has_many :likes, dependent: :destroy
   has_many :liked_answers, through: :likes, source: :answer
