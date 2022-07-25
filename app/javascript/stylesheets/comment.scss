@@ -1,7 +1,13 @@
+// 解答詳細下のコメント
+#comments-container {
+  max-width: 800px;
+  overflow-wrap: anywhere;
+}
+
 .comment-header {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
 }
 
 .comment-body {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
