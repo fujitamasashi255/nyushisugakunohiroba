@@ -2,7 +2,6 @@
 #comment-form-field.tab-mathjax
   = simple_form_for [commentable, comment], remote: true do |f|
     .d-flex.flex-row.align-items-center
-      /= f.label :body, class: "text-nowrap"
       = link_to t(".description_link"), description_path, class: "description-link note", target: :_blank
     ul.nav.nav-tabs.mt-2 role="tablist"
       li.nav-item
@@ -17,4 +16,4 @@
       .tab-pane.fade.border.trix-content role="tabpanel" id="tab-mathjax-result"
     .py-2.py-lg-3
 
-    = f.button :submit, class: "btn-outline-dark"
+    = f.button :submit, class: "btn-outline-dark", disabled: true
