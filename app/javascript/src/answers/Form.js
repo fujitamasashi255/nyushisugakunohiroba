@@ -1,5 +1,6 @@
 import { previewFile } from "src/PreviewFile"
 import { complessAndUpload } from "src/compressAndDirectUpload"
+import { toggleCollapseMessage } from "src/collapse"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
@@ -184,53 +185,21 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   // TeXのおりたたみ
-  var collapseElem = document.querySelector("#texField");
-  var collapseLink = document.querySelector("a[href='#texField']");
+  const collapseElem = document.querySelector("#texField");
+  const collapseLink = document.querySelector("a[href='#texField']");
   // ページ読み込み時にTeXファイルがあるときは、折りたたみを開く
   if($("#compile-result").children("iframe").length){
     new bootstrap.Collapse('.answer-form .collapse').show();
   }
-  // 折りたたみボタンを押した時の処理
+
   if(collapseElem){
-    collapseElem.addEventListener("hide.bs.collapse", function(){
-      collapseLink.innerHTML = "";
-      var Icon = document.createElement("i");
-      Icon.setAttribute("class", "bi bi-chevron-down ms-2");
-      collapseLink.textContent = t("javascript.answers.form.tex_collapse.open");
-      collapseLink.append(Icon);
-    });
-    collapseElem.addEventListener("show.bs.collapse", function(){
-      collapseLink.innerHTML = "";
-      var Icon = document.createElement("i");
-      Icon.setAttribute("class", "bi bi-chevron-up ms-2");
-      collapseLink.textContent = t("javascript.answers.form.tex_collapse.close");
-      collapseLink.append(Icon);
-    });
+    toggleCollapseMessage(collapseElem, collapseLink, t("javascript.answers.form.tex_collapse.open"), t("javascript.answers.form.tex_collapse.close"));
   }
 });
 
-// MathJaxによる数式表示時、ディスプレー数式の直後のbrは削除する
-var removeBrTagsAfterDisplayMath = function(){
-  $('mjx-container[display="true"]').next().each(function(){
-    if($(this).is("br")){
-        $(this).remove();
-    }
-  });
-}
 
 
 $(function(){
-  // ポイントのプレビュー
-  removeBrTagsAfterDisplayMath();
-  $(".answer-form a[href='#tab-point-result']").on("click", function(){
-    var pointCode = $("#tab-point-code trix-editor").html();
-    // 数式番号をリセット
-    MathJax.texReset([0]);
-    // 数式をタイプセット
-    MathJax.typeset($("#tab-point-result").html(pointCode));
-    removeBrTagsAfterDisplayMath();
-  });
-
   // TeXクリアボタン
   const deleteTeXButton = $("#delete-tex-button");
   // TeX削除ボタンを押したら
