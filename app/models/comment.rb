@@ -5,7 +5,6 @@
 # Table name: comments
 #
 #  id               :uuid             not null, primary key
-#  body             :text             not null
 #  commentable_type :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -24,8 +23,6 @@
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :user
-
-  validates :body, presence: true
 
   has_rich_text :body
 end
