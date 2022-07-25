@@ -1,0 +1,31 @@
+var createNewComment = function(){
+    // 「解答がありません」が表示されていれば削除
+  const noCommentsElem = document.getElementById('no-comments');
+  if(noCommentsElem){
+    noCommentsElem.remove();
+  }
+
+    // コメントフォームを初期化
+  const commentForm = document.getElementById('commentField');
+  commentForm.innerHTML = "<%= j(render "comments/form", commentable: @commentable, comment: Comment.new) %>";
+
+  // コメントを追加
+  const newComment = "<%= j(render "comments/comment", comment: @comment) %>";
+  const commentsElem = document.getElementById('comments');
+  commentsElem.insertAdjacentHTML('afterbegin', newComment);
+}
+
+var compileNewComment = function(){
+  MathJax.texReset([0]);
+  const newCommentBody = document.querySelectorAll(".comment-body");
+  MathJax.typeset(newCommentBody);
+}
+
+var displayNewComment = async function(){
+  await createNewComment();
+  compileNewComment();
+}
+
+<% if @comment.errors.full_messages.empty? %>
+  displayNewComment();
+<% end %>

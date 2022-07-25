@@ -1,0 +1,28 @@
+.d-flex.justify-content-center
+  #comments-container.flex-grow-1
+    /タイトル
+    | ●件のコメント
+
+    .py-2
+
+    / コメント作成フォーム
+    #comment-form
+      .d-flex.mb-2
+        a.d-block data-bs-toggle="collapse" href="#commentField"
+          = t(".create")
+          i.bi.bi-chevron-down.ms-2
+      .collapse id="commentField"
+        = render "comments/form", commentable: commentable, comment: Comment.new
+
+    .py-2
+
+    / コメント一覧
+    #comments
+      - if commentable.comments.size > 0
+        .mathjax-initialize-typeset
+          = render partial: "comments/comment", collection: comments, as: :comment
+      - else
+        #no-comments
+          = t(".no_comments")
+
+    div style="height: 10rem"

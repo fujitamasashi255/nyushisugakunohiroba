@@ -1,0 +1,20 @@
+/ コメント作成フォーム
+#comment-form-field.tab-mathjax
+  = simple_form_for [commentable, comment], remote: true do |f|
+    .d-flex.flex-row.align-items-center
+      /= f.label :body, class: "text-nowrap"
+      = link_to t(".description_link"), description_path, class: "description-link note", target: :_blank
+    ul.nav.nav-tabs.mt-2 role="tablist"
+      li.nav-item
+        a.nav-link.active data-bs-toggle="tab" href="#tab-mathjax-code"
+          = t(".input")
+      li.nav-item
+        a.nav-link data-bs-toggle="tab" href="#tab-mathjax-result"
+          = t(".preview")
+    .tab-content
+      .tab-pane.fade.active.show.border role="tabpanel" id="tab-mathjax-code"
+        = f.input :body, as: :rich_text_area, label: false, wrapper: false
+      .tab-pane.fade.border.trix-content role="tabpanel" id="tab-mathjax-result"
+    .py-2.py-lg-3
+
+    = f.button :submit, class: "btn-outline-dark"

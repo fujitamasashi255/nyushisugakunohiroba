@@ -42,6 +42,11 @@ ja:
         tex_collapse:
           open: "解答を書く"
           close: "閉じる"
+    comments:
+      index:
+        collapse:
+          open: "コメントする"
+          close: "閉じる"
 
     tex_compile:
       compiling: "コンパイル中"
@@ -76,6 +81,8 @@ ja:
         update: "解答を更新する"
       answers_search_form:
         create: "検索する"
+      comment:
+        create: "コメントする"
   decorators:
     answer:
       close: "閉じる"
@@ -239,6 +246,15 @@ ja:
       like: "いいね"
     unlike_button:
       like: "いいね"
+  comments:
+    index:
+      create: "コメントする"
+      no_comments: "コメントはありません"
+    form:
+      description_link: "コメントの書き方（別タブで開きます）"
+      input: "入力"
+      preview: "プレビュー"
+
 
 
 

@@ -116,6 +116,7 @@ ja:
       tex: "TeX"
       user: "ユーザー"
       tag: "タグ"
+      comment: "コメント"
     attributes:
       university:
           name: "大学名"
@@ -149,6 +150,8 @@ ja:
         tag_list: "タグ"
         created_at: "作成日"
         updated_at: "最終更新日"
+      comment:
+        body: "コメント"
 
   # enum
   enums:

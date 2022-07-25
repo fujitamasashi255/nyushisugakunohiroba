@@ -1,0 +1,15 @@
+hr
+
+.d-flex.flex-row id="comment_#{comment.id}"
+  .avatar
+    = image_tag comment.user.avatar_url(:normal)
+  .d-flex.flex-column.ms-3
+    .comment-header.d-flex.flex-row.align-items-center.mb-1
+      .user-name
+        = comment.user.name
+      .date.ms-2
+        | #{comment.updated_elapsed_time}前
+    .comment-body
+      == comment.body
+    span style="visibility: hidden; font-size: 0px;"
+      | \(\nextSection\)
