@@ -20,30 +20,9 @@
       = link_to answer_path(answer), class: "d-block flex-grow-1" do
         .answer-card-bottom.mt-3.d-flex.flex-column
           / タグ
-          .tags
-            - if answer.tags.present?
-              label.d-block
-                = Answer.human_attribute_name(:tag_list)
-              - answer.tags.each do |tag|
-                span.d-inline-block.tag
-                  = tag.name
-            - else
-              label.me-3
-                = Answer.human_attribute_name(:tag_list)
-              | なし
+          = render "answers/tags_in_index", answer: answer
 
           .py-2
 
           / ポイント
-          .point-container
-            - if answer.point.present?
-              label.d-block
-                = Answer.human_attribute_name(:point)
-              .p-2.point
-                == answer.point
-              span style="visibility: hidden;"
-                | \(\nextSection\)
-            - else
-              label.me-3
-                = Answer.human_attribute_name(:point)
-              | なし
+          = render "answers/point_in_index", answer: answer
