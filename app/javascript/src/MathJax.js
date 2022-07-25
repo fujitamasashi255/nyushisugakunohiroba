@@ -11,7 +11,7 @@ MathJax = {
     }
   },
   startup: {
-    elements: [".point-container, .point-field"],
+    elements: [".mathjax-initialize-typeset"],
     ready() {
       const Configuration = MathJax._.input.tex.Configuration.Configuration;
       const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
@@ -37,3 +37,25 @@ MathJax = {
   }
 };
 
+// ポイント、コメントプレビュー
+// MathJaxによる数式表示時、ディスプレー数式の直後のbrは削除する
+var removeBrTagsAfterDisplayMath = function(){
+  $('mjx-container[display="true"]').next().each(function(){
+    if($(this).is("br")){
+        $(this).remove();
+    }
+  });
+}
+
+$(function(){
+  removeBrTagsAfterDisplayMath();
+  // タブのプレビューを押したら
+  $(document).on("click", "a[href='#tab-mathjax-result']", function(){
+    var Code = $("#tab-mathjax-code trix-editor").html();
+    // 数式番号をリセット
+    MathJax.texReset([0]);
+    // 数式をタイプセット
+    MathJax.typeset($("#tab-mathjax-result").html(Code));
+    removeBrTagsAfterDisplayMath();
+  });
+});

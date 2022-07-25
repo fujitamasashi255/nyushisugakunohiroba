@@ -105,7 +105,7 @@
       .point.col-lg-6.order-lg-1
         label.d-block.mb-2
           = Answer.human_attribute_name(:point)
-        .point-field
+        .point-field.mathjax-initialize-typeset
           == @answer.point
 
         .py-2.py-lg-3
@@ -176,3 +176,8 @@
   / 解答にコンテンツがない場合は「解答はありません」を表示
   - if above_contents_count == 0
     = t(".no_result")
+
+.py-4
+
+/ コメント
+= render "comments/index", commentable: @answer

@@ -70,7 +70,7 @@ $tex-height: 600px;
 // 問題文ドロップダウン、ポイントのスクロールバー
 #dropdownQuestionImage::-webkit-scrollbar,
 .point trix-editor::-webkit-scrollbar,
-.point #tab-point-result::-webkit-scrollbar,
+.point #tab-mathjax-result::-webkit-scrollbar,
 .answer-show .point-field::-webkit-scrollbar {
   width: 15px;
   height: 10px;
@@ -78,7 +78,7 @@ $tex-height: 600px;
 
 #dropdownQuestionImage::-webkit-scrollbar-thumb,
 .point trix-editor::-webkit-scrollbar-thumb,
-.point #tab-point-result::-webkit-scrollbar-thumb,
+.point #tab-mathjax-result::-webkit-scrollbar-thumb,
 .answer-show .point-field::-webkit-scrollbar-thumb {
   --bg-opacity: 1;
   background-color: $silver;
@@ -102,30 +102,6 @@ $tex-height: 600px;
   background-color: white;
 }
 
-
-// ポイント
-.point {
-  trix-editor, #tab-point-result {
-    height: 300px;
-    background-color: white;
-    overflow-y: auto;
-    padding: 20px;
-  }
-}
-
-
-.answer-form .point trix-toolbar{
-  background-color: white;
-}
-
-.point-description-link {
-  color: $deepsilver;
-}
-
-.point-description-link:hover {
-  color: black;
-  text-decoration: underline 1px solid black;
-}
 
 .answer-form .files {
   // エラーメッセージ
@@ -492,4 +468,9 @@ $tex-height: 600px;
       transform: translateY(-50%);
     }
   }
+}
+
+// 解答詳細下のコメント
+#comments-container {
+  max-width: 800px;
 }
