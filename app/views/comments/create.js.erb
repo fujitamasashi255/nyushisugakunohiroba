@@ -1,4 +1,4 @@
-var createNewComment = function(){
+var createComment = function(){
     // 「解答がありません」が表示されていれば削除
   const noCommentsElem = document.getElementById('no-comments');
   if(noCommentsElem){
@@ -6,26 +6,26 @@ var createNewComment = function(){
   }
 
     // コメントフォームを初期化
-  const commentForm = document.getElementById('commentField');
-  commentForm.innerHTML = "<%= j(render "comments/form", commentable: @commentable, comment: Comment.new) %>";
+  const CommentForm = document.getElementById('commentField');
+  CommentForm.innerHTML = "<%= j(render "comments/form", commentable: @commentable, comment: Comment.new) %>";
 
   // コメントを追加
-  const newComment = "<%= j(render "comments/comment", comment: @comment) %>";
+  const addedComment = "<%= j(render "comments/comment", comment: @comment) %>";
   const commentsElem = document.getElementById('comments');
-  commentsElem.insertAdjacentHTML('afterbegin', newComment);
+  commentsElem.insertAdjacentHTML('afterbegin', addedComment);
 }
 
-var compileNewComment = function(){
+var compileComments = function(){
   MathJax.texReset([0]);
-  const newCommentBody = document.querySelectorAll(".comment-body");
-  MathJax.typeset(newCommentBody);
+  const CommentBody = document.querySelectorAll(".comment-body");
+  MathJax.typeset(CommentBody);
 }
 
-var displayNewComment = async function(){
-  await createNewComment();
-  compileNewComment();
+var displayComment = async function(){
+  await createComment();
+  compileComments();
 }
 
-<% if @comment.errors.full_messages.empty? %>
-  displayNewComment();
+<% if @comment.errors.empty? %>
+  displayComment();
 <% end %>

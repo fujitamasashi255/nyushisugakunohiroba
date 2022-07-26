@@ -1,0 +1,23 @@
+var updateComment = function(){
+  // コメントを追加
+  const addedComment = "<%= j(render "comments/comment", comment: @comment) %>";
+  const editCommentForm = document.getElementById('comment_<%= @comment.id %>');
+  editCommentForm.insertAdjacentHTML('beforebegin', addedComment);
+  // コメント編集フォームを削除
+  editCommentForm.remove();
+}
+
+var compileComments = function(){
+  MathJax.texReset([0]);
+  const CommentBody = document.querySelectorAll(".comment-body");
+  MathJax.typeset(CommentBody);
+}
+
+var displayComment = async function(){
+  await updateComment();
+  compileComments();
+}
+
+<% if @comment.errors.empty? %>
+  displayComment();
+<% end %>

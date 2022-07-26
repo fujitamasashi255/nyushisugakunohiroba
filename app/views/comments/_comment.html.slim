@@ -1,15 +1,23 @@
-hr
+div  id="comment_#{comment.id}"
+  .d-flex.flex-row.comment-container
+    .avatar
+      = image_tag comment.user.avatar_url(:normal)
+    .d-flex.flex-column.ms-3
+      .comment-header.d-flex.flex-row.align-items-center.mb-1
+        .user-name
+          = comment.user.name
+        .date.ms-2
+          | #{comment.updated_elapsed_time}前
+      .comment-body
+        == comment.body
+        span style="visibility: hidden; font-size: 0px;"
+          | \(\nextSection\)
 
-.d-flex.flex-row id="comment_#{comment.id}"
-  .avatar
-    = image_tag comment.user.avatar_url(:normal)
-  .d-flex.flex-column.ms-3
-    .comment-header.d-flex.flex-row.align-items-center.mb-1
-      .user-name
-        = comment.user.name
-      .date.ms-2
-        | #{comment.updated_elapsed_time}前
-    .comment-body
-      == comment.body
-    span style="visibility: hidden; font-size: 0px;"
-      | \(\nextSection\)
+      .comment-links.mt-1
+        = link_to comment_path(comment), method: :delete, class: "me-3", data: { confirm: t(".delete_confirm")}, remote: true do
+          i.bi.bi-trash.me-1
+          = t(".delete")
+        = link_to edit_comment_path(comment), remote: true do
+          i.bi.bi-pencil.me-1
+          = t(".edit")
+  hr
