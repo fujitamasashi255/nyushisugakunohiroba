@@ -33,29 +33,33 @@ MathJax = {
       MathJax.startup.input[0].postFilters.add(({math}) => {
         if (math.inputData.recompile) math.inputData.recompile.section = MathJax.config.section;
       });
+      // タイプセットが終了したのちの処理
+      MathJax.startup.promise.then(() => {
+        removeBrTagsAfterDisplayMath();
+      });
     }
   }
 };
 
 // ポイント、コメントプレビュー
 // MathJaxによる数式表示時、ディスプレー数式の直後のbrは削除する
-var removeBrTagsAfterDisplayMath = function(){
+const removeBrTagsAfterDisplayMath = function(){
   $('mjx-container[display="true"]').next().each(function(){
     if($(this).is("br")){
-        $(this).remove();
+      $(this).remove();
     }
   });
 }
 
 $(function(){
-  removeBrTagsAfterDisplayMath();
   // タブのプレビューを押したら
-  $(document).on("click", "a[href='#tab-mathjax-result']", function(){
-    var Code = $("#tab-mathjax-code trix-editor").html();
+  $(document).on("click", "a.mathjax-compile-button", function(e){
     // 数式番号をリセット
     MathJax.texReset([0]);
+    var tabContent = $(e.target).parents("ul.nav-tabs").next(".tab-content");
+    var Code = tabContent.find("trix-editor").html();
     // 数式をタイプセット
-    MathJax.typeset($("#tab-mathjax-result").html(Code));
+    MathJax.typeset(tabContent.find(".mathjax-compile-result").html(Code));
     removeBrTagsAfterDisplayMath();
   });
 });
