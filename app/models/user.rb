@@ -86,6 +86,10 @@ class User < ApplicationRecord
     !!like_of(answer)
   end
 
+  def commented?(comment)
+    id == comment.user_id
+  end
+
   private
 
   # コールバック
