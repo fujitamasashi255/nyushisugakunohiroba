@@ -13,6 +13,8 @@ var createComment = function(){
   const addedComment = "<%= j(render "comments/comment", comment: @comment) %>";
   const commentsElem = document.getElementById('comments');
   commentsElem.insertAdjacentHTML('afterbegin', addedComment);
+  // コメント一覧へスクロール
+  commentsElem.scrollIntoView({behavior: "smooth"});
 }
 
 var compileComments = function(){
