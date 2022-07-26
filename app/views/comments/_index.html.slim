@@ -1,8 +1,5 @@
 .d-flex.justify-content-center.container-fluid
   #comments-container.flex-grow-1
-    /タイトル
-    | ●件のコメント
-
     - if logged_in?
       .py-2
 
@@ -15,10 +12,13 @@
         .collapse id="commentField"
           = render "comments/form", commentable: commentable, comment: Comment.new
 
-    .py-2
+    .py-4
 
+
+
+    = t(".comment_count", count: comments.size)
+    hr
     / コメント一覧
     #comments.mathjax-initialize-typeset
       = render partial: "comments/comment", collection: comments, as: :comment
-
     div style="height: 10rem"

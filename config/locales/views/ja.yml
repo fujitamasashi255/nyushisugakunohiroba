@@ -83,6 +83,7 @@ ja:
         create: "検索する"
       comment:
         create: "コメントする"
+        update: "コメントを更新する"
   decorators:
     answer:
       close: "閉じる"
@@ -250,10 +251,15 @@ ja:
     index:
       create: "コメントする"
       no_comments: "コメントはありません"
+      comment_count: "%{count}件のコメント"
     form:
       description_link: "コメントの書き方（別タブで開きます）"
       input: "入力"
       preview: "プレビュー"
+    comment:
+      delete: "削除"
+      edit: "編集"
+      delete_confirm: "コメントを削除しますか"
 
 
 
