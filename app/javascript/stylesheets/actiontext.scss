@@ -58,7 +58,7 @@ trix-editor ol, .trix-content ol {
   margin: 4px 0px;
 }
 
-trix-editor li, .trix-content li{
+trix-editor ol li, .trix-content ol li{
   counter-increment: cnt-arabic;
 	list-style-type: none;
 	position: relative;
@@ -66,7 +66,7 @@ trix-editor li, .trix-content li{
   margin-left: 0em;
 }
 
-trix-editor li:before, .trix-content li:before {
+trix-editor ol li:before, .trix-content ol li:before {
   content: "(" counter(cnt-arabic) ")";
 	display: inline-block;
 	margin-left: 0em;
