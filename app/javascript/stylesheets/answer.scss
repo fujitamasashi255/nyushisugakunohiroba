@@ -70,7 +70,7 @@ $tex-height: 600px;
 // 問題文ドロップダウン、ポイントのスクロールバー
 #dropdownQuestionImage::-webkit-scrollbar,
 .point trix-editor::-webkit-scrollbar,
-.point #tab-mathjax-result::-webkit-scrollbar,
+.point .mathjax-compile-result::-webkit-scrollbar,
 .answer-show .point-field::-webkit-scrollbar {
   width: 15px;
   height: 10px;
@@ -78,7 +78,7 @@ $tex-height: 600px;
 
 #dropdownQuestionImage::-webkit-scrollbar-thumb,
 .point trix-editor::-webkit-scrollbar-thumb,
-.point #tab-mathjax-result::-webkit-scrollbar-thumb,
+.point .mathjax-compile-result::-webkit-scrollbar-thumb,
 .answer-show .point-field::-webkit-scrollbar-thumb {
   --bg-opacity: 1;
   background-color: $silver;

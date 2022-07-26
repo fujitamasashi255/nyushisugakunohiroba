@@ -1,14 +1,8 @@
-trix-editor, #tab-mathjax-result {
+trix-editor, .mathjax-compile-result {
   height: 300px;
   background-color: white;
   overflow-y: auto;
   padding: 20px;
-}
-
-.tab-mathjax {
-  trix-toolbar{
-    background-color: white;
-  }
 }
 
 .description-link {

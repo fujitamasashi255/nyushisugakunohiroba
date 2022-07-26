@@ -1,19 +1,26 @@
 / コメント作成フォーム
-#comment-form-field.tab-mathjax
+.comment-form-field
   = simple_form_for [commentable, comment], remote: true do |f|
     .d-flex.flex-row.align-items-center
       = link_to t(".description_link"), description_path, class: "description-link note", target: :_blank
     ul.nav.nav-tabs.mt-2 role="tablist"
       li.nav-item
-        a.nav-link.active data-bs-toggle="tab" href="#tab-mathjax-code"
+        a.nav-link.active data-bs-toggle="tab" href="#tab1_#{comment.id}"
           = t(".input")
       li.nav-item
-        a.nav-link data-bs-toggle="tab" href="#tab-mathjax-result"
+        a.nav-link.mathjax-compile-button data-bs-toggle="tab" href="#tab2_#{comment.id}"
           = t(".preview")
     .tab-content
-      .tab-pane.fade.active.show.border role="tabpanel" id="tab-mathjax-code"
+      .tab-pane.fade.active.show.border.mathjax-code role="tabpanel" id="tab1_#{comment.id}"
         = f.input :body, as: :rich_text_area, label: false, wrapper: false
-      .tab-pane.fade.border.trix-content role="tabpanel" id="tab-mathjax-result"
-    .py-2.py-lg-3
+      .tab-pane.fade.border.trix-content.mathjax-compile-result role="tabpanel" id="tab2_#{comment.id}"
 
-    = f.button :submit, class: "btn-outline-dark", disabled: true
+    .py-2
+
+    .d-flex
+      = f.button :submit, class: "btn-outline-dark", disabled: true
+      / コメント編集の際、キャンセルボタンを表示
+      - if comment.persisted?
+        = link_to "キャンセル", comment_path(comment), role: "button", class: "btn btn-outline-dark ms-3", remote: true
+
+hr

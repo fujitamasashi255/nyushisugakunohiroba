@@ -4,10 +4,17 @@
   overflow-wrap: anywhere;
 }
 
+.comment-form-field {
+  .btn {
+    font-size: 0.8rem;
+  }
+}
+
 .comment-header {
   font-size: 0.6rem;
 }
 
-.comment-body {
+.comment-body, .comment-links {
   font-size: 0.7rem;
 }
+

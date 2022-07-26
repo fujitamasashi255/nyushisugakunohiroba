@@ -26,22 +26,22 @@
             hr
             .py-2
 
-        .point.tab-mathjax.col-lg-6.order-lg-1
+        .point.col-lg-6.order-lg-1
           / ポイント
           .d-flex.flex-row.align-items-center
             = f.label :point, class: "text-nowrap"
             = link_to t(".point_description_link"), description_path, class: "ms-3 description-link note", target: :_blank
           ul.nav.nav-tabs.mt-2 role="tablist"
             li.nav-item
-              a.nav-link.active data-bs-toggle="tab" href="#tab-mathjax-code"
+              a.nav-link.active data-bs-toggle="tab" href="#point-code"
                 = t(".point_input")
             li.nav-item
-              a.nav-link data-bs-toggle="tab" href="#tab-mathjax-result"
+              a.nav-link.mathjax-compile-button data-bs-toggle="tab" href="#point-result"
                 = t(".point_preview")
           .tab-content
-            .tab-pane.fade.active.show.border role="tabpanel" id="tab-mathjax-code"
+            .tab-pane.fade.active.show.border.mathjax-code role="tabpanel" id="point-code"
               = f.input :point, as: :rich_text_area, label: false, wrapper: false
-            .tab-pane.fade.border.trix-content role="tabpanel" id="tab-mathjax-result"
+            .tab-pane.fade.border.trix-content.mathjax-compile-result role="tabpanel" id="point-result"
           .py-2.py-lg-3
 
       hr
