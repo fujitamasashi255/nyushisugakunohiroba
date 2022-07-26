@@ -31,7 +31,7 @@
 
 .py-3
 
-/ 検索条件、並び替え
+/ 検索条件、検索結果、並び替え
 .container.question-search-conditions
   small
     / 検索条件を表示
@@ -71,7 +71,18 @@
             td.align-top class="tags-search-condition"
               = questions_search_form.search_conditions[:tag]
 
-    .py-5
+.py-2
+
+/ 検索結果
+.container.small
+  label
+    = t(".search_result")
+
+  .py-1
+
+  = t(".search_result_count", record_count: questions.size)
+
+.py-4
 
 / 問題一覧
 - if questions.present?
@@ -79,7 +90,7 @@
     h4.d-flex.align-items-center.scroll-to
       i.bi.bi-card-text
       .ms-1
-        = t(".search_result")
+        = t(".search_result_records")
 
     / 管理画面および未ログイン時にはチェックマークの説明を表示しない
     - if logged_in? && !admin_controller?(controller)

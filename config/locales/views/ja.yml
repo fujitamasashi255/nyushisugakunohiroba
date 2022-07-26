@@ -102,7 +102,9 @@ ja:
   shared:
     questions:
       index:
-        search_result: "検索結果の問題一覧"
+        search_result: "検索結果"
+        search_result_count: "%{record_count}件"
+        search_result_records: "検索結果の問題一覧"
         search_form_description: "検索条件を指定する"
         icon_description: "は解答作成済みであることを表します"
       show:
@@ -197,7 +199,9 @@ ja:
     index:
       search: "作成した解答から検索する"
       title: "解答一覧"
-      search_result: "検索結果の解答一覧"
+      search_result_records: "検索結果の解答一覧"
+      search_result: "検索結果"
+      search_result_count: "%{record_count}件"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示"
