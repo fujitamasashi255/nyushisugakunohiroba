@@ -19,6 +19,7 @@ ja:
           year_new: "出題年が新しい順"
           updated_at_new: "最終更新日が新しい順"
           like_many: "いいねが多い順"
+          comment_new: "新しくコメントされた順"
         search_conditions: "検索条件"
       password_reset:
         email: "メールアドレス"

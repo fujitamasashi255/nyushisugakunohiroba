@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersSearchForm
-  SORT_TYPES = %w[year_new updated_at_new like_many].each(&:freeze).freeze
+  SORT_TYPES = %w[year_new updated_at_new like_many comment_new].each(&:freeze).freeze
   SPECIFIC_CONDITIONS_ENUM = { nothing: 0, no_data: 1, all_data: 2 }.each_value(&:freeze).freeze
 
   include ActiveModel::Model
@@ -73,6 +73,9 @@ class AnswersSearchForm
       relation = relation.order(updated_at: :desc)
     when "like_many"
       relation = relation.order(likes_count: :desc)
+    when "comment_new"
+      sql_to_get_newest_comment_date = "COALESCE(MAX(comments.created_at), '0001-01-01')"
+      relation = Answer.left_joins(:comments).where(answers: { id: relation.select(:id) }).select("answers.*, #{sql_to_get_newest_comment_date}").group("answers.id").order(Arel.sql("#{sql_to_get_newest_comment_date} desc"))
     end
 
     relation

@@ -14,3 +14,6 @@
         - when "like_many"
           = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: "loading #{ active_sort_link_if(answers_search_form, sort_type) }", remote: true
+        - when "comment_new"
+          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+            class: "loading #{ active_sort_link_if(answers_search_form, sort_type) }", remote: true
