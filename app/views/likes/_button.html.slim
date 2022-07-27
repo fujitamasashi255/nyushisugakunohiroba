@@ -1,4 +1,4 @@
-.d-flex.flex-column.align-items-center id="answer_#{answer.id}"
+.d-flex.flex-column.align-items-center.like-container
   - if logged_in?
     - if user&.liked?(answer)
       = render "likes/unlike_button", answer: answer, user: user

@@ -457,7 +457,7 @@ RSpec.describe "Answers", type: :system, js: true do
       end
 
       it "解答にいいねできること" do
-        like_button_wrapper = find("#answer_#{@answer_tokyo1.id}")
+        like_button_wrapper = find("#answer_#{@answer_tokyo1.id} .like-container")
         expect(like_button_wrapper).to have_selector(".likes-counts", text: "0")
         like_button_wrapper.find(".like-button").click
         expect(like_button_wrapper).to have_selector(".unlike-button")
@@ -465,7 +465,7 @@ RSpec.describe "Answers", type: :system, js: true do
       end
 
       it "解答のいいねを解除できること" do
-        unlike_button_wrapper = find("#answer_#{@answer_kyoto1.id}")
+        unlike_button_wrapper = find("#answer_#{@answer_kyoto1.id} .like-container")
         expect(unlike_button_wrapper).to have_selector(".likes-counts", text: "2")
         unlike_button_wrapper.find(".unlike-button").click
         expect(unlike_button_wrapper).to have_selector(".like-button")

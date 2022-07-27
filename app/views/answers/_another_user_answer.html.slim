@@ -1,7 +1,7 @@
 / カード部分
 .col-md-6.another-user-answer.d-flex.justify-content-center
   .answer-card-wrapper.mb-4
-    .answer-card.px-2.py-1.border.d-flex.flex-column
+    .answer-card.px-2.py-1.border.d-flex.flex-column id="answer_#{answer.id}"
       / カードの上部分
       .answer-card-top.d-flex.align-items-center
         = link_to answer_path(answer), class: "d-block flex-grow-1 py-1" do
@@ -13,6 +13,9 @@
 
         / 大学名横アイコン
         .right-icons.pt-0.d-flex
+          / コメント数表示
+          /= render "comments/count", answer: answer, user: current_user
+          .me-2
           / いいねボタン
           = render "likes/button", answer: answer, user: current_user
           .me-2
