@@ -348,7 +348,7 @@ $tex-height: 600px;
   display: none;
 }
 
-//「・・・」アイコンを囲む円
+// 問題カードアイコン
 .answer-card .right-icons {
   i {
     font-size: 1.75rem;
@@ -372,8 +372,8 @@ $tex-height: 600px;
     }
   }
 
-  // いいねボタン
-  i.bi-heart, i.bi-heart-fill {
+  // いいねボタン、コメント数
+  i.bi-heart, i.bi-heart-fill, i.bi-chat-dots {
     font-size: 1.25rem;
     color: $linksilver;
     margin-left: auto;
@@ -382,7 +382,7 @@ $tex-height: 600px;
   i.bi-heart-fill {
     color: rgb(249, 24, 128);
   }
-  .like-button, .unlike-button {
+  .like-button, .unlike-button, .comment-icon {
     border-radius: 50%;
     width: 2.3rem;
     height: 2.3rem;
@@ -394,7 +394,7 @@ $tex-height: 600px;
       color: rgb(249, 24, 128);
     }
   }
-  .likes-count {
+  .likes-count, .comments-count {
     font-size: 0.7rem;
     color: $linksilver;
   }
@@ -410,9 +410,9 @@ $tex-height: 600px;
 
 // いいねボタンといいね数の配置
 .answer-card {
-  .unlike-button, .like-button {
+  .unlike-button, .like-button, .comment-icon {
     position: relative;
-    .likes-count{
+    .likes-count, .comments-count {
       position: absolute;
       bottom: -8px;
       left: 50%;

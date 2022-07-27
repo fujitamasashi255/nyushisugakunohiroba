@@ -1,10 +1,7 @@
-.d-flex.flex-column.align-items-center id="answer_#{answer.id}"
-  - if logged_in?
-    - if user&.liked?(answer)
-      = render "likes/unlike_button", answer: answer, user: user
-    - else
-      = render "likes/like_button", answer: answer, user: user
-  - else
-    = render "likes/like_button_when_logout", answer: answer
+.d-flex.flex-column.align-items-center
+  .comment-icon.d-flex.align-items-center
+    i.bi.bi-chat-dots
+    .comments-count
+      = commentable.comments_count
 
 

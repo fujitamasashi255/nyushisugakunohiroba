@@ -31,6 +31,8 @@
 
           / 大学名横アイコン
           .right-icons.pt-2.d-flex
+            / コメント数表示
+            = render "comments/count", commentable: answer
             / いいねボタン
             = render "likes/button", answer: answer, user: current_user
 

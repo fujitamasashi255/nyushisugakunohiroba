@@ -14,8 +14,7 @@
         / 大学名横アイコン
         .right-icons.pt-0.d-flex
           / コメント数表示
-          /= render "comments/count", answer: answer, user: current_user
-          .me-2
+          = render "comments/count", commentable: answer
           / いいねボタン
           = render "likes/button", answer: answer, user: current_user
           .me-2
