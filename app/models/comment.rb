@@ -23,6 +23,7 @@
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :user
+  counter_culture :commentable
 
   has_rich_text :body
 end
