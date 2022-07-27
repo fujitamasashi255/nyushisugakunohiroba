@@ -9,7 +9,7 @@ var updateComment = function(){
 
 var compileComments = function(){
   MathJax.texReset([0]);
-  const CommentBody = document.querySelectorAll(".comment-body");
+  const CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
   MathJax.typeset(CommentBody);
 }
 
