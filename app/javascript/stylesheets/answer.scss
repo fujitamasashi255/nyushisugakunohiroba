@@ -394,7 +394,7 @@ $tex-height: 600px;
       color: rgb(249, 24, 128);
     }
   }
-  .likes-counts {
+  .likes-count {
     font-size: 0.7rem;
     color: $linksilver;
   }
@@ -412,7 +412,7 @@ $tex-height: 600px;
 .answer-card {
   .unlike-button, .like-button {
     position: relative;
-    .likes-counts{
+    .likes-count{
       position: absolute;
       bottom: -8px;
       left: 50%;
@@ -451,7 +451,7 @@ $tex-height: 600px;
   i.bi-heart {
     color: $linksilver;
   }
-  .likes-counts {
+  .likes-count {
     font-size: 0.75rem;
     color: $linksilver;
   }
@@ -461,7 +461,7 @@ $tex-height: 600px;
 .answer-links {
   .unlike-button, .like-button {
     position: relative;
-    .likes-counts{
+    .likes-count {
       position: absolute;
       right: -12px;
       top: 50%;

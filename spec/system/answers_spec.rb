@@ -370,10 +370,10 @@ RSpec.describe "Answers", type: :system, js: true do
 
         it "解答にいいねできること" do
           expect(page).to have_selector(".answer-links .like-icon-description", text: "いいね")
-          expect(page).to have_selector(".answer-links .likes-counts", text: "0")
+          expect(page).to have_selector(".answer-links .likes-count", text: "0")
           find(".answer-links .like-button").click
           expect(page).to have_selector(".answer-links .unlike-button")
-          expect(page).to have_selector(".answer-links .likes-counts", text: "1")
+          expect(page).to have_selector(".answer-links .likes-count", text: "1")
         end
       end
 
@@ -389,10 +389,10 @@ RSpec.describe "Answers", type: :system, js: true do
 
         it "解答のいいねを解除できること" do
           expect(page).to have_selector(".answer-links .like-icon-description", text: "いいね")
-          expect(page).to have_selector(".answer-links .likes-counts", text: "1")
+          expect(page).to have_selector(".answer-links .likes-count", text: "1")
           find(".answer-links .unlike-button").click
           expect(page).to have_selector(".answer-links .like-button")
-          expect(page).to have_selector(".answer-links .likes-counts", text: "0")
+          expect(page).to have_selector(".answer-links .likes-count", text: "0")
         end
       end
     end
@@ -458,18 +458,18 @@ RSpec.describe "Answers", type: :system, js: true do
 
       it "解答にいいねできること" do
         like_button_wrapper = find("#answer_#{@answer_tokyo1.id} .like-container")
-        expect(like_button_wrapper).to have_selector(".likes-counts", text: "0")
+        expect(like_button_wrapper).to have_selector(".likes-count", text: "0")
         like_button_wrapper.find(".like-button").click
         expect(like_button_wrapper).to have_selector(".unlike-button")
-        expect(like_button_wrapper).to have_selector(".likes-counts", text: "1")
+        expect(like_button_wrapper).to have_selector(".likes-count", text: "1")
       end
 
       it "解答のいいねを解除できること" do
         unlike_button_wrapper = find("#answer_#{@answer_kyoto1.id} .like-container")
-        expect(unlike_button_wrapper).to have_selector(".likes-counts", text: "2")
+        expect(unlike_button_wrapper).to have_selector(".likes-count", text: "2")
         unlike_button_wrapper.find(".unlike-button").click
         expect(unlike_button_wrapper).to have_selector(".like-button")
-        expect(unlike_button_wrapper).to have_selector(".likes-counts", text: "1")
+        expect(unlike_button_wrapper).to have_selector(".likes-count", text: "1")
       end
     end
 
