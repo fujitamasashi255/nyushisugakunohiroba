@@ -244,7 +244,7 @@ ja:
       description: "解答をクリックすると、詳細を見ることができます"
       no_answers: "解答はありません"
   likes:
-    like_button_when_unlogin:
+    like_button_when_logout:
       modal_confirm: "いいねをするにはログインが必要です。"
       like: "いいね"
     like_button:
