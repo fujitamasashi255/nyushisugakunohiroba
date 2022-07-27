@@ -183,4 +183,4 @@ div id="answer_#{@answer.id}"
   .py-4
 
   / コメント
-  = render "comments/index", commentable: @answer, comments: @comments
+  = render "comments/index", commentable: @answer, comments: @comments, pagy: @pagy

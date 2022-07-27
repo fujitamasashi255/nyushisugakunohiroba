@@ -1,0 +1,8 @@
+var newPage = document.createElement("div");
+newPage.setAttribute('id', 'comments-page-<%= @pagy.page%>')
+newPage.innerHTML = "<%= j(render partial: "comments/comment", collection: @comments, as: :comment)%>";
+document.getElementById('comments').append(newPage);
+var newCommentsBody = document.querySelectorAll('#comments-page-<%= @pagy.page%> .comment-body');
+MathJax.texReset([0]);
+MathJax.typeset(newCommentsBody);
+document.getElementById('div_next_link').innerHTML = "<%= j(render 'comments/next_link', pagy: @pagy) %>";

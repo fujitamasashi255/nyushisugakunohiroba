@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  def index
+    @pagy, @comments = pagy_countless(Comment.where(commentable_id: params[:answer_id], commentable_type: "Answer").order(created_at: :desc).includes(:rich_text_body, user: { avatar_attachment: :blob }), items: 10, link_extra: 'data-remote="true"')
+  end
+
   def create
     @commentable = Answer.find(params[:answer_id])
     @comment = @commentable.comments.new(user: current_user, body: comment_params[:body])

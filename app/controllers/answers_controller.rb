@@ -42,7 +42,6 @@ class AnswersController < ApplicationController
 
   def show
     @answer = Answer.includes(question: { departments: :university }).with_attached_files.find(params[:id])
-    @comments = @answer.comments.order(created_at: :desc).includes(:rich_text_body, user: { avatar_attachment: :blob })
     @question = @answer.question
   end
 
