@@ -108,12 +108,13 @@
 }
 
 //「・・・」アイコンを囲む円
-.question-card .dropdown .dropdown-toggle {
-  border-radius: 50%;
-  width: 2.3rem;
-  height: 2.3rem;
+.question-card {
+  .dropdown .dropdown-toggle, .answer-icon {
+    border-radius: 50%;
+    width: 2.3rem;
+    height: 2.3rem;
+  }
 }
-
 
 //「・・・」アイコンを囲む円
 .question-card .dropdown .dropdown-toggle:hover {
@@ -124,12 +125,29 @@
   }
 }
 
-//「・・・」アイコンのサイズと色
-.question-card .dropdown .dropdown-toggle i {
-  color: $deepsilver;
-  font-size: 1.25rem;
+.question-card .right-icons {
+  //「・・・」アイコンのサイズと色
+  .bi-book, .bi-three-dots {
+    color: $deepsilver;
+    font-size: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  // 解答数
+  .answers-count {
+    font-size: 0.7rem;
+    color: $linksilver;
+  }
+  .answer-icon {
+    position: relative;
+    .answers-count {
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 }
-
 
 //「・・・」アイコンクリック時に開かれるドロップダウン
 .question-card .dropdown-item{
@@ -138,3 +156,4 @@
     font-size: 1.25rem;
   }
 }
+

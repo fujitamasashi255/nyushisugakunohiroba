@@ -38,6 +38,7 @@ class Answer < ApplicationRecord
 
   belongs_to :user
   belongs_to :question
+  counter_culture :question
   has_one :tex, dependent: :destroy, as: :texable
   has_many :comments, dependent: :destroy, as: :commentable
   has_many :likes, dependent: :destroy
