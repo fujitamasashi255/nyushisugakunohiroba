@@ -18,8 +18,11 @@
       .row
         .tags.col-lg-6.order-lg-2
           / タグ
-          = f.label :tag_list, class: "mb-2"
-          = f.input :tag_list, label: false, wrapper: false, hint:t(".tags_hint"), input_html: { value: answer.tag_list.join(",") }
+          .d-flex.flex-row.align-items-center.mb-2
+            = f.label :tag_list, class: "text-nowrap"
+            .note.ms-3
+              = t(".tags_description")
+          = f.input :tag_list, label: false, wrapper: false, hint:t(".tags_hint"), input_html: { value: answer.tag_list.join(","), class: "p-1" }
           .py-2.py-lg-3
 
           .d-lg-none
@@ -39,8 +42,8 @@
               a.nav-link.mathjax-compile-button data-bs-toggle="tab" href="#point-result"
                 = t(".point_preview")
           .tab-content
-            .tab-pane.fade.active.show.border.mathjax-code role="tabpanel" id="point-code"
-              = f.input :point, as: :rich_text_area, label: false, wrapper: false, error: false
+            .tab-pane.fade.active.show.mathjax-code role="tabpanel" id="point-code"
+              = f.input :point, as: :rich_text_area, label: false, wrapper: false, error: false, hint: t(".point_hint")
             .tab-pane.fade.border.trix-content.mathjax-compile-result role="tabpanel" id="point-result"
           .py-2.py-lg-3
 

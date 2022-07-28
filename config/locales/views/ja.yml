@@ -191,7 +191,9 @@ ja:
       point_preview: "プレビュー"
       select_file: "ファイルを選択"
       files_hint: "3MB以下の画像またはPDFを3つまで"
-      tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
+      tags_description: "カンマ( , )で区切ることで、複数のタグを入力できます"
+      tags_hint: "100文字以内"
+      point_hint: "1000文字以内"
     search_form:
       search_form_description: "検索条件を指定する"
       tags_hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
