@@ -37,7 +37,7 @@ FactoryBot.define do
 
     point { ActionText::RichText.new(body: point_text) }
 
-    before(:create) do |answer, evaluator|
+    after(:build) do |answer, evaluator|
       answer.tag_list.add(evaluator.tag_names)
       tex = build(:tex, texable: answer)
       answer.tex = tex

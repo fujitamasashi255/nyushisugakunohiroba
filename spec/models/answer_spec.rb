@@ -56,6 +56,29 @@ RSpec.describe Answer, type: :model do
       expect(answer.errors[:point]).to eq ["は1000文字以下で入力してください"]
     end
 
+    it "タグが100文字のとき、解答作成できること" do
+      str = "abcdefghijklmnopqrst" # 20文字
+      tag1 = +""
+      tag2 = +""
+      2.times { tag1 << str }
+      3.times { tag2 << str }
+      tag_names = [tag1, tag2]
+      answer = build(:answer, question: @question, user: @user, tag_names:)
+      expect(answer).to be_valid
+    end
+
+    it "タグが101文字のとき、解答作成できないこと" do
+      str = "abcdefghijklmnopqrst" # 20文字
+      tag1 = +""
+      tag2 = +""
+      2.times { tag1 << str }
+      3.times { tag2 << str }
+      tag_names = ["a", tag1, tag2]
+      answer = build(:answer, question: @question, user: @user, tag_names:)
+      expect(answer).to be_invalid
+      expect(answer.errors[:tag_list]).to eq ["は100文字以内で入力してください"]
+    end
+
     it "解答にjpg、png、pdf以外のファイルをattachできないこと" do
       answer = build(:answer, :attached_text_file, question: @question, user: @user)
       expect(answer).to be_invalid
