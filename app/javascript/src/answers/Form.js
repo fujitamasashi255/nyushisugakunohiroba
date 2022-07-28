@@ -154,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function(){
       var changeIdx = selectBoxValues.indexOf(selectValue);
       selectBoxValues[selectedIdx] = selectValue;
       selectBoxValues[changeIdx] = preValue;
-      console.log(selectBoxValues);
       $(".files select").eq(changeIdx).val(preValue);
     });
 

@@ -10,8 +10,8 @@ export const complessAndUpload = function(files){
 
   files.forEach(async (file, index) => {
     if(validImageType.includes(file.type)){
-      console.log('originalFile instanceof Blob', file instanceof Blob); // true
-      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+      //console.log('originalFile instanceof Blob', file instanceof Blob); // true
+      //console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
 
       const options = {
         maxSizeMB: 1, // 最大ファイルサイズ
@@ -21,20 +21,20 @@ export const complessAndUpload = function(files){
       try {
         // 画像圧縮
         const compressedFile = await imageCompression(file, options);
-        console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-        console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+        //console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+        //console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
         // ダイレクトアップロード
         await uploadFile(compressedFile, input, index);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }else if(file.type == pdfType){
       // PDFのときは圧縮しない
       try {
         await uploadFile(file, input, index);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
   });
