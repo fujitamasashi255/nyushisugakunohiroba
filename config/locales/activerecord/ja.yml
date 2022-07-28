@@ -105,6 +105,8 @@ ja:
           attributes:
             file_positions:
               invalid: "が適切ではありません"
+            tag_list:
+              validate_tags_total_word_count_length: "は%{count}文字以内で入力してください"
         like:
           attributes:
             answer_id:

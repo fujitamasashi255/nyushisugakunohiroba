@@ -27,6 +27,7 @@
 class Answer < ApplicationRecord
   VALID_IMAGE_TYPES = ["image/png", "image/jpg", "image/jpeg"].freeze
   VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
+  MAX_TAGS_TOTAL_WORD_COUNT = 100
 
   after_destroy :destroy_tags
   validates :question_id, uniqueness: { scope: :user_id, message: "の解答は既に作成されています" }
@@ -36,6 +37,7 @@ class Answer < ApplicationRecord
     size: { less_than: 3.megabytes, message: "のサイズは3MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
   validates :point, action_text_length: { maximum: 1000 }
+  validate :validate_tags_total_word_count_length
 
   belongs_to :user
   belongs_to :question
@@ -143,5 +145,11 @@ class Answer < ApplicationRecord
     tags.each do |tag|
       tag.destroy if tag.taggings_count == 1
     end
+  end
+
+  # タグの合計文字数が100文字であること
+  def validate_tags_total_word_count_length
+    tags_total_word_count = tag_list.join("").length
+    errors.add(:tag_list, :validate_tags_total_word_count_length, count: MAX_TAGS_TOTAL_WORD_COUNT) unless tags_total_word_count <= MAX_TAGS_TOTAL_WORD_COUNT
   end
 end
