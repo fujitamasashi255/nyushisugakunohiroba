@@ -26,14 +26,16 @@
 #
 FactoryBot.define do
   factory :answer do
-    point { "" }
     files { nil }
     user
     question
 
     transient do
       tag_names { nil }
+      point_text { nil }
     end
+
+    point { ActionText::RichText.new(body: point_text) }
 
     before(:create) do |answer, evaluator|
       answer.tag_list.add(evaluator.tag_names)

@@ -41,34 +41,49 @@ RSpec.describe Answer, type: :model do
       expect(another_answer.errors[:question_id]).to eq ["の解答は既に作成されています"]
     end
 
-    it "ユーザーは解答にjpg、png、pdf以外のファイルをattachできないこと" do
+    it "ポイントが1000文字のとき、解答作成できること" do
+      point_text = +""
+      50.times { point_text << "abcdefghijklmnopqrst" } # 20文字
+      answer = build(:answer, question: @question, user: @user, point_text:)
+      expect(answer).to be_valid
+    end
+
+    it "ポイントが1001文字のとき、解答作成できないこと" do
+      point_text = +"a"
+      50.times { point_text << "abcdefghijklmnopqrst" } # 20文字
+      answer = build(:answer, question: @question, user: @user, point_text:)
+      expect(answer).to be_invalid
+      expect(answer.errors[:point]).to eq ["は1000文字以下で入力してください"]
+    end
+
+    it "解答にjpg、png、pdf以外のファイルをattachできないこと" do
       answer = build(:answer, :attached_text_file, question: @question, user: @user)
       expect(answer).to be_invalid
       expect(answer.errors[:files]).to eq ["の種類が正しくありません"]
     end
 
-    it "ユーザーは解答にjpgファイルをattachできること" do
+    it "解答にjpgファイルをattachできること" do
       answer = build(:answer, :attached_jpg_file, question: @question, user: @user)
       expect(answer).to be_valid
     end
 
-    it "ユーザーは解答にpngファイルをattachできること" do
+    it "解答にpngファイルをattachできること" do
       answer = build(:answer, :attached_png_file, question: @question, user: @user)
       expect(answer).to be_valid
     end
 
-    it "ユーザーは解答にpdfファイルをattachできること" do
+    it "解答にpdfファイルをattachできること" do
       answer = build(:answer, :attached_pdf_file, question: @question, user: @user)
       expect(answer).to be_valid
     end
 
-    it "ユーザーは解答に3MB以下のファイルしかattachできないこと" do
+    it "解答に3MB以下のファイルしかattachできないこと" do
       answer = build(:answer, :attached_over_3MB_file, question: @question, user: @user)
       expect(answer).to be_invalid
       expect(answer.errors[:files]).to eq ["のサイズは3MB以下にして下さい"]
     end
 
-    it "ユーザーは解答に3つ以下のファイルしかattachできないこと" do
+    it "解答に3つ以下のファイルしかattachできないこと" do
       answer = build(:answer, :attached_4_files, question: @question, user: @user)
       expect(answer).to be_invalid
       expect(answer.errors[:files]).to eq ["は3つ以下にして下さい"]
