@@ -339,7 +339,6 @@ RSpec.describe "Answers", type: :system, js: true do
   end
 
   describe "解答詳細機能" do
-    let(:department) { create(:department, name: "理系", university: create(:university, name: "東京", category: :national_or_public, prefecture: Prefecture.find_by!(name: "東京都"))) }
     before do
       # ユーザーを作成
       @user1 = create(:user, name: "TEST1", email: "test1@example.com", password: "1234abcd", password_confirmation: "1234abcd", role: :admin)
