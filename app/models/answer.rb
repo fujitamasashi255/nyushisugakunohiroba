@@ -35,6 +35,7 @@ class Answer < ApplicationRecord
     content_type: { in: Answer::VALID_CONTENT_TYPES, message: "の種類が正しくありません" }, \
     size: { less_than: 3.megabytes, message: "のサイズは3MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
+  validates :point, action_text_length: { maximum: 1000 }
 
   belongs_to :user
   belongs_to :question

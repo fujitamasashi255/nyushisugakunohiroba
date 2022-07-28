@@ -72,8 +72,7 @@ $tex-height: 600px;
 .point trix-editor::-webkit-scrollbar,
 .point .mathjax-compile-result::-webkit-scrollbar,
 .answer-show .point-field::-webkit-scrollbar {
-  width: 15px;
-  height: 10px;
+  width: 7px;
 }
 
 #dropdownQuestionImage::-webkit-scrollbar-thumb,
@@ -81,7 +80,7 @@ $tex-height: 600px;
 .point .mathjax-compile-result::-webkit-scrollbar-thumb,
 .answer-show .point-field::-webkit-scrollbar-thumb {
   --bg-opacity: 1;
-  background-color: $silver;
+  background-color: $deepsilver;
   border-radius: 0.25rem;
 }
 

@@ -40,7 +40,7 @@
                 = t(".point_preview")
           .tab-content
             .tab-pane.fade.active.show.border.mathjax-code role="tabpanel" id="point-code"
-              = f.input :point, as: :rich_text_area, label: false, wrapper: false
+              = f.input :point, as: :rich_text_area, label: false, wrapper: false, error: false
             .tab-pane.fade.border.trix-content.mathjax-compile-result role="tabpanel" id="point-result"
           .py-2.py-lg-3
 
