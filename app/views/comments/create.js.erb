@@ -1,4 +1,7 @@
-var createComment = function(){
+var CommentForm = document.getElementById('commentField');
+
+<% if @comment.errors.empty? %>
+  var createComment = function(){
     // 「解答がありません」が表示されていれば削除
   const noCommentsElem = document.getElementById('no-comments');
   if(noCommentsElem){
@@ -6,7 +9,6 @@ var createComment = function(){
   }
 
     // コメントフォームを初期化
-  const CommentForm = document.getElementById('commentField');
   CommentForm.innerHTML = "<%= j(render "comments/form", commentable: @commentable, comment: Comment.new) %>";
 
   // コメントを追加
@@ -15,19 +17,25 @@ var createComment = function(){
   commentsElem.insertAdjacentHTML('afterbegin', addedComment);
   // コメント一覧へスクロール
   commentsElem.scrollIntoView({behavior: "smooth"});
-}
+  }
 
-var compileComments = function(){
-  MathJax.texReset([0]);
-  const CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
-  MathJax.typeset(CommentBody);
-}
+  var compileComments = function(){
+    MathJax.texReset([0]);
+    const CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
+    MathJax.typeset(CommentBody);
+  }
 
-var displayComment = async function(){
-  await createComment();
-  compileComments();
-}
+  var displayComment = async function(){
+    await createComment();
+    compileComments();
+  }
 
-<% if @comment.errors.empty? %>
   displayComment();
+<% else %>
+  var oldErrorMessageContainer = CommentForm.querySelector(".error-message")
+  if(oldErrorMessageContainer){ oldErrorMessageContainer.remove(); }
+  var newErrorMessageContainer = document.createElement("div");
+  newErrorMessageContainer.setAttribute('class', 'error-message ms-2');
+  newErrorMessageContainer.innerHTML = "<%= @comment.errors.full_messages[0] %>";
+  CommentForm.querySelector(".form-buttons").append(newErrorMessageContainer);
 <% end %>

@@ -1,23 +1,31 @@
-var updateComment = function(){
-  // コメントを追加
-  const addedComment = "<%= j(render "comments/comment", comment: @comment) %>";
-  const editCommentForm = document.getElementById('comment_<%= @comment.id %>');
-  editCommentForm.insertAdjacentHTML('beforebegin', addedComment);
-  // コメント編集フォームを削除
-  editCommentForm.remove();
-}
-
-var compileComments = function(){
-  MathJax.texReset([0]);
-  const CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
-  MathJax.typeset(CommentBody);
-}
-
-var displayComment = async function(){
-  await updateComment();
-  compileComments();
-}
+var editCommentForm = document.getElementById('comment_<%= @comment.id %>');
 
 <% if @comment.errors.empty? %>
+  var updateComment = function(){
+    // コメントを追加
+    var addedComment = "<%= j(render "comments/comment", comment: @comment) %>";
+    editCommentForm.insertAdjacentHTML('beforebegin', addedComment);
+    // コメント編集フォームを削除
+    editCommentForm.remove();
+  }
+
+  var compileComments = function(){
+    MathJax.texReset([0]);
+    var CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
+    MathJax.typeset(CommentBody);
+  }
+
+  var displayComment = async function(){
+    await updateComment();
+    compileComments();
+  }
+
   displayComment();
+<% else %>
+  var oldErrorMessageContainer = editCommentForm.querySelector(".error-message")
+  if(oldErrorMessageContainer){ oldErrorMessageContainer.remove(); }
+  var newErrorMessageContainer = document.createElement("div");
+  newErrorMessageContainer.setAttribute('class', 'error-message ms-2');
+  newErrorMessageContainer.innerHTML = "<%= @comment.errors.full_messages[0] %>";
+  editCommentForm.querySelector(".form-buttons").append(newErrorMessageContainer);
 <% end %>

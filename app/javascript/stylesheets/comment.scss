@@ -1,12 +1,14 @@
 // 解答詳細下のコメント
 #comments-container {
   max-width: 800px;
-  overflow-wrap: anywhere;
 }
 
 .comment-form-field {
-  .btn {
+  .btn, .error-message {
     font-size: 0.8rem;
+  }
+  .error-message {
+    color: red;
   }
 }
 

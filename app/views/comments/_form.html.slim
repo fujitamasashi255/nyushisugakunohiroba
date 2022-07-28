@@ -17,8 +17,8 @@
 
     .py-2
 
-    .d-flex
-      = f.button :submit, class: "btn-outline-dark", disabled: true
+    .d-flex.form-buttons.align-items-center
+      = f.button :submit, class: "btn-outline-dark" , disabled: true
       / コメント編集の際、キャンセルボタンを表示
       - if comment.persisted?
         = link_to "キャンセル", comment_path(comment), role: "button", class: "btn btn-outline-dark ms-3", remote: true
