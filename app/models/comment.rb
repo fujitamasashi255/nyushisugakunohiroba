@@ -26,5 +26,5 @@ class Comment < ApplicationRecord
   counter_culture :commentable
 
   has_rich_text :body
-  validates :body, action_text_presence: true, action_text_length: { maximum: 500 }
+  validates :body, action_text_presence: true, action_text_length: { maximum: 1000 }
 end

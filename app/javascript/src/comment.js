@@ -6,6 +6,9 @@ export function t(arg) {
   return I18n.t(arg)
 }
 
+const CommentMaxLength = 1000;
+const CommentMinLength = 1;
+
 document.addEventListener("DOMContentLoaded", function(){
   // 解答詳細ページ、コメント作成の折りたたみ
   const collapseElem = document.querySelector("#commentField");
@@ -29,8 +32,8 @@ document.addEventListener("DOMContentLoaded", function(){
         //const newLineCount = string.match(/\r\n|\n/g).length;
         // 「コメントする」ボタンを取得
         var commentSubmitButton = $(e.target).parents(".comment-form-field").find("input[type='submit']");
-        // 0 < コメント数 <= 500 のとき「コメントする」ボタンを押せるようにする
-        if(0 < characterCount &&  characterCount <= 500){
+        // CommentMinLength <= コメント数 <= CommentMaxLength のとき「コメントする」ボタンを押せるようにする
+        if(CommentMinLength <= characterCount &&  characterCount <= CommentMaxLength){
           commentSubmitButton.prop("disabled", false);
         } else {
           // それ以外のとき「コメントする」ボタンを押せないようにする
