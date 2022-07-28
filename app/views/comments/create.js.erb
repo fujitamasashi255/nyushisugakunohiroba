@@ -21,7 +21,7 @@ var CommentForm = document.getElementById('commentField');
 
   var compileComments = function(){
     MathJax.texReset([0]);
-    const CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
+    const CommentBody = document.querySelectorAll("#comment-<%= @comment.id%> .comment-body");
     MathJax.typeset(CommentBody);
   }
 

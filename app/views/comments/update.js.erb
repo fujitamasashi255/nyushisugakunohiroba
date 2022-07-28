@@ -1,4 +1,4 @@
-var editCommentForm = document.getElementById('comment_<%= @comment.id %>');
+var editCommentForm = document.getElementById('comment-<%= @comment.id %>');
 
 <% if @comment.errors.empty? %>
   var updateComment = function(){
@@ -11,7 +11,7 @@ var editCommentForm = document.getElementById('comment_<%= @comment.id %>');
 
   var compileComments = function(){
     MathJax.texReset([0]);
-    var CommentBody = document.querySelectorAll("#comment_<%= @comment.id%> .comment-body");
+    var CommentBody = document.querySelectorAll("#comment-<%= @comment.id%> .comment-body");
     MathJax.typeset(CommentBody);
   }
 
