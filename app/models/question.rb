@@ -23,9 +23,9 @@ class Question < ApplicationRecord
   delegate :name, to: :university, prefix: true, allow_nil: true
 
   validates :year, presence: true
-  validate :departments_belong_to_same_university?
-  validate :questions_departments_mediators?
-  validate :different_departments?
+  validate :validate_departments_belong_to_same_university
+  validate :validate_questions_departments_mediators_present
+  validate :validate_not_belongs_to_same_department
   validates :image, attached: true
 
   scope :by_university_ids, ->(university_ids) { joins(departments: :university).where(universities: { id: university_ids }).distinct }
@@ -110,20 +110,20 @@ class Question < ApplicationRecord
   private
 
   # questionのdepartmentが少なくとも1つはあること
-  def questions_departments_mediators?
-    errors.add(:base, :questions_departments_mediators?) if questions_departments_mediators.blank?
+  def validate_questions_departments_mediators_present
+    errors.add(:base, :validate_questions_departments_mediators_present) if questions_departments_mediators.blank?
   end
 
   # questionのdepartmentsが属するuniversityが1つだけかチェック
-  def departments_belong_to_same_university?
+  def validate_departments_belong_to_same_university
     depts = Department.find(questions_departments_mediators.map(&:department_id))
-    errors.add(:base, :departments_belong_to_same_university?) if depts.map(&:university_id).uniq.size > 1
+    errors.add(:base, :validate_departments_belong_to_same_university) if depts.map(&:university_id).uniq.size > 1
   end
 
   # 同じ学部に2回以上登録できないことをチェック
-  def different_departments?
+  def validate_not_belongs_to_same_department
     dept_ids = questions_departments_mediators.map(&:department_id)
-    errors.add(:base, :has_different_departments?) if dept_ids.uniq.size < dept_ids.size
+    errors.add(:base, :validate_not_belongs_to_same_department) if dept_ids.uniq.size < dept_ids.size
   end
 
   # question.tex.compile_result_urlにあるpdfをpngに変換し余白を取り除いた画像をquestionにattachする

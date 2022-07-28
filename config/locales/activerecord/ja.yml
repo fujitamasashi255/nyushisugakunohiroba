@@ -61,9 +61,9 @@ ja:
             image:
               blank: "を作成して下さい"
             base:
-              questions_departments_mediators?: "区分を登録して下さい"
-              departments_belong_to_same_university?: "異なる大学に登録することはできません"
-              has_different_departments?: "同一学部に同じ問題を2回以上登録できません"
+              validate_questions_departments_mediators_present: "区分を登録して下さい"
+              validate_departments_belong_to_same_university: "異なる大学に登録することはできません"
+              validate_not_belongs_to_same_department: "同一学部に同じ問題を2回以上登録できません"
         questions_departments_mediator:
           attributes:
             question_id:
