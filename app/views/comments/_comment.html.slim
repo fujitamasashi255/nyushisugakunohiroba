@@ -7,7 +7,7 @@ div  id="comment_#{comment.id}"
         .user-name
           = comment.user.name
         .date.ms-2
-          | #{comment.updated_elapsed_time}前
+          | #{comment.created_elapsed_time}前
       .comment-body
         == comment.body
         span style="visibility: hidden;"
