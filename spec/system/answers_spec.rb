@@ -51,6 +51,34 @@ RSpec.describe "Answers", type: :system, js: true do
       end
     end
 
+    context "ポイントだけを入力するとき" do
+      it "1000文字入力して解答作成できること" do
+        point_text = +""
+        50.times { point_text << "abcdefghijklmnopqrst" } # 20文字
+        find(".point trix-editor").set(point_text)
+        find("input[value='解答を作成する']").click
+        # 解答情報が表示されているか
+        expect(page).to have_selector(".point", text: point_text)
+        # 問題情報が表示されているか
+        expect(page).to have_selector(".question-info .year", text: "2000")
+        expect(page).to have_selector(".question-info .university", text: "UNIV")
+        expect(page).to have_selector(".question-info .departments", text: "DEPT5")
+        # リンクが表示されているか
+        created_answer = Answer.order(created_at: :desc).first
+        expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
+        expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
+        expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
+      end
+
+      it "1001文字入力すると、エラーメッセージが表示され、解答作成ボタンがdisabledになること" do
+        point_text = +"a"
+        50.times { point_text << "abcdefghijklmnopqrst" } # 20文字
+        find(".point trix-editor").set(point_text)
+        expect(page).to have_selector(".point .error-message", text: "文字数オーバー")
+        expect(find("input[value='解答を作成する']").disabled?).to be_truthy
+      end
+    end
+
     context "タグだけを入力するとき" do
       it "解答が作成できること" do
         find("span[class='tagify__input']").set("テストタグ")
@@ -68,6 +96,18 @@ RSpec.describe "Answers", type: :system, js: true do
         expect(page).to have_selector(".answer-links a[href='#{edit_answer_path(created_answer)}']")
         expect(page).to have_selector(".answer-links a[href='#{answer_path(created_answer)}'][data-method='delete']")
         expect(page).to have_selector(".answer-links a[href='#{question_path(question)}']")
+      end
+
+      it "101文字入力すると解答作成ボタンがdisabledになること" do
+        str = "abcdefghijklmnopqrst" # 20文字
+        tag1 = +""
+        tag2 = +""
+        2.times { tag1 << str }
+        3.times { tag2 << str }
+        tags = "a,#{tag1},#{tag2},b"
+        find("span[class='tagify__input']").set(tags)
+        expect(page).to have_selector(".tags .error-message", text: "文字数オーバー")
+        expect(find("input[value='解答を作成する']").disabled?).to be_truthy
       end
     end
 
@@ -158,7 +198,7 @@ RSpec.describe "Answers", type: :system, js: true do
             Rails.root.join("spec/files/testcopy.png") \
           ]\
         )
-        find(".files .error_message", text: "アップロードできるファイルは3つまでです")
+        find(".files .error-message", text: "アップロードできるファイルは3つまでです")
         find("input[value='解答を作成する']").click
         expect(page).to have_selector(".title", text: "解答")
         expect(page).to have_content "解答を作成しました"
@@ -172,7 +212,7 @@ RSpec.describe "Answers", type: :system, js: true do
         find("input[id='answer-files-input']", visible: false).attach_file(\
           Rails.root.join("spec/files/over_3MB_image.png") \
         )
-        find(".files .error_message", text: "アップロードできるファイルの最大サイズは3MBです")
+        find(".files .error-message", text: "アップロードできるファイルの最大サイズは3MBです")
         find("input[value='解答を作成する']").click
         expect(page).to have_selector(".title", text: "解答")
         expect(page).to have_content "解答を作成しました"
@@ -434,6 +474,10 @@ RSpec.describe "Answers", type: :system, js: true do
       create(:like, user: user1, answer: @answer_nagoya1)
       # user2が@answer_kyoto1にいいね
       create(:like, user: user2, answer: @answer_kyoto1)
+      # user2が解答にコメント（新しい順：京都、名古屋、東京）
+      create(:comment, commentable: @answer_tokyo1, user: user2, body_text: "コメント東京", created_at: Time.current.ago(2))
+      create(:comment, commentable: @answer_nagoya1, user: user2, body_text: "コメント名古屋", created_at: Time.current.ago(1))
+      create(:comment, commentable: @answer_kyoto1, user: user2, body_text: "コメント京都", created_at: Time.current)
       # user1でログイン
       sign_in_as(user1)
       # user1の解答一覧画面へアクセス
@@ -517,6 +561,19 @@ RSpec.describe "Answers", type: :system, js: true do
         # user2の解答が表示されていないことをチェック
         expect(page).not_to have_selector(".answer-card", text: "九州")
       end
+
+      it "すべての解答を、新しくコメントされた順に並べられること" do
+        find(".sort-links .comment_new a").click
+        expect(page).to have_selector(".university-search-condition", text: "なし")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "なし")
+        expect(page).to have_selector(".tags-search-condition", text: "なし")
+        expect(all(".answer-card")[0]).to have_content "京都"
+        expect(all(".answer-card")[1]).to have_content "名古屋"
+        expect(all(".answer-card")[2]).to have_content "東京"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
     end
 
     context "大学名で検索するとき" do
@@ -557,6 +614,19 @@ RSpec.describe "Answers", type: :system, js: true do
 
       it "すべての解答を、いいねが多い順に並べられること" do
         find(".sort-links .like_many a").click
+        expect(page).to have_selector(".university-search-condition", text: "東京、名古屋")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "なし")
+        expect(page).to have_selector(".tags-search-condition", text: "なし")
+        expect(all(".answer-card")[0]).to have_content "名古屋"
+        expect(all(".answer-card")[1]).to have_content "東京"
+        expect(page).not_to have_content "京都"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
+
+      it "すべての解答を、新しくコメントされた順に並べられること" do
+        find(".sort-links .comment_new a").click
         expect(page).to have_selector(".university-search-condition", text: "東京、名古屋")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
@@ -618,6 +688,19 @@ RSpec.describe "Answers", type: :system, js: true do
         # user2の解答が表示されていないことをチェック
         expect(page).not_to have_selector(".answer-card", text: "九州")
       end
+
+      it "すべての解答を、新しくコメントされた順に並べられること" do
+        find(".sort-links .comment_new a").click
+        expect(page).to have_selector(".university-search-condition", text: "なし")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "数と式・集合と論理、三角関数")
+        expect(page).to have_selector(".tags-search-condition", text: "なし")
+        expect(all(".answer-card")[0]).to have_content "名古屋"
+        expect(all(".answer-card")[1]).to have_content "東京"
+        expect(page).not_to have_content "京都"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
     end
 
     context "タグで検索するとき" do
@@ -658,6 +741,19 @@ RSpec.describe "Answers", type: :system, js: true do
 
       it "解答を、いいねが多い順に並べられること" do
         find(".sort-links .like_many a").click
+        expect(page).to have_selector(".university-search-condition", text: "なし")
+        expect(page).to have_selector(".year-search-condition", text: "なし")
+        expect(page).to have_selector(".unit-search-condition", text: "なし")
+        expect(page).to have_selector(".tags-search-condition", text: "tag1、tag2")
+        expect(all(".answer-card")[0]).to have_content "京都"
+        expect(all(".answer-card")[1]).to have_content "名古屋"
+        expect(page).not_to have_content "東京"
+        # user2の解答が表示されていないことをチェック
+        expect(page).not_to have_selector(".answer-card", text: "九州")
+      end
+
+      it "すべての解答を、新しくコメントされた順に並べられること" do
+        find(".sort-links .comment_new a").click
         expect(page).to have_selector(".university-search-condition", text: "なし")
         expect(page).to have_selector(".year-search-condition", text: "なし")
         expect(page).to have_selector(".unit-search-condition", text: "なし")
