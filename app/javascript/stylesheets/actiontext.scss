@@ -11,6 +11,13 @@
 
 trix-editor, .trix-content {
   overflow-wrap: anywhere;
+  a {
+    color: #0969da;
+  }
+  a:hover {
+    color: #0969da;
+    text-decoration: underline #0969da;
+  }
 }
 
 .trix-content {
