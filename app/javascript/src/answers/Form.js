@@ -12,6 +12,16 @@ const default_tex_code = "\\documentclass[12pt, dvipdfmx]{jsarticle}\n\\usepacka
 const carouselInnerHeight = "550px";
 const maxFileSize = 3 * 1024 * 1024;
 const maxFileNumber = 3;
+const PointMaxCount = 1000;
+const TagsMaxCount = 100;
+
+// エラーメッセージを作成
+const createCharactorCountErrorMessage = function(){
+  var errorMessage = document.createElement("div")
+  errorMessage.setAttribute("class", "error_message");
+  errorMessage.innerText = t("javascript.answers.form.error.length.long");
+  return errorMessage;
+}
 
 // ファイルサイズが maxFileSize 以下であることを確認
 const isValidFileSize = (file) => file.size <= maxFileSize;
@@ -113,9 +123,81 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  const input = document.querySelector('.answer-form .files input[type=file]');
+  // ポイント、タグの文字数バリデーション
+  // 解答作成、更新ボタンを取得
+  const SubmitButton = $(".answer-form input[type='submit']");
+  // ポイントtrix-editor
+  const answerFormTrixEditor = document.querySelector(".answer-form trix-editor");
+  // タグinput
+  const answerFormTagsInput = document.getElementById("answer_tag_list");
+
+  // ポイントのバリデーション
+  if(answerFormTrixEditor){
+    const Point = document.querySelector(".point");
+
+    // エラーメッセージ
+    const PointErrorMessage = createCharactorCountErrorMessage();
+
+    answerFormTrixEditor.addEventListener("trix-change", function() {
+      // ポイントの文字列を取得
+      const { editor } = answerFormTrixEditor;
+      const string = editor.getDocument().toString();
+      // ポイントの文字数を取得（改行文字「/n」を削除して）
+      const pointCount = string.replace(/\n/g, "").length;
+      // タグの文字数を取得（カンマと空白の並びを削除して）
+      const tagsCount = answerFormTagsInput.value.replace(/,\s/g, "").length;
+      // エラーメッセージを取得
+      var prevPointErrorMessage = document.querySelector(".point .error_message")
+      // エラーメッセージを表示
+      if(pointCount <= PointMaxCount){
+        if(prevPointErrorMessage){ prevPointErrorMessage.remove() }
+      } else {
+        if(!prevPointErrorMessage){ Point.append(PointErrorMessage) }
+      }
+      // submit ボタンのdisable
+      if(pointCount > PointMaxCount || tagsCount > TagsMaxCount){
+        SubmitButton.prop("disabled", true);
+      }else {
+        SubmitButton.prop("disabled", false);
+      }
+    });
+  }
+
+  // タグの文字数バリデーション
+  if(answerFormTagsInput){
+    const Tags = document.querySelector(".tags");
+
+    // エラーメッセージ
+    const TagsErrorMessage = createCharactorCountErrorMessage();
+
+    answerFormTagsInput.addEventListener("change", function(e) {
+      // ポイントの文字列を取得
+      const { editor } = answerFormTrixEditor;
+      const string = editor.getDocument().toString();
+      // ポイントの文字数を取得
+      const pointCount = string.replace(/\n/g, "").length;
+      // タグの文字数を取得
+      const tagsCount = answerFormTagsInput.value.replace(/,\s/g, "").length;
+      var prevTagsErrorMessage = document.querySelector(".tags .error_message")
+      if(tagsCount <= TagsMaxCount){
+        // 文字数が適切ならば、エラーメッセージを削除し、submitボタンを押せるようにする
+        if(prevTagsErrorMessage){ prevTagsErrorMessage.remove() }
+      } else {
+        // 文字数が適切でないならば、エラーメッセージを追加し、submitボタンを押せないようにする
+        if(!prevTagsErrorMessage){ Tags.append(TagsErrorMessage) }
+      }
+      // submit ボタンのdisable
+      if(pointCount > PointMaxCount || tagsCount > TagsMaxCount){
+        SubmitButton.prop("disabled", true);
+      }else {
+        SubmitButton.prop("disabled", false);
+      }
+    });
+  }
 
   // ファイル関連
+  const input = document.querySelector('.answer-form .files input[type=file]');
+
   if(input){
     // ファイルを登録したら
     input.addEventListener('change', (event) => {
@@ -134,10 +216,10 @@ document.addEventListener("DOMContentLoaded", function(){
         complessAndUpload(files);
       }else if(files.length > maxFileNumber){
         // ファイルが適切でない場合にメッセージを表示
-        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.files.error_message.many")}</p>`)
+        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.error.files.many")}</p>`)
       }else{
         // ファイルが適切でない場合にメッセージを表示
-        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.files.error_message.large")}</p>`)
+        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.error.files.large")}</p>`)
       }
       // inputに登録されているファイルを削除
       $(input).val(null);

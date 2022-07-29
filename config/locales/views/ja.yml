@@ -35,8 +35,10 @@ ja:
   javascript:
     answers:
       form:
-        files:
-          error_message:
+        error:
+          length:
+            long: "文字数オーバー"
+          files:
             many: "アップロードできるファイルは3つまでです"
             large: "アップロードできるファイルの最大サイズは3MBです"
         tex_collapse:
