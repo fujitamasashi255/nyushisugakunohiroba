@@ -26,7 +26,8 @@ ja:
     delete_confirm: "削除しますか"
     compile:
       success: "コンパイルに成功しました。"
-      fail: "コンパイルに失敗しました。ログが表示されます。"
+      fail: "コンパイルに失敗しました。"
+      too_large: "サイズが大きすぎます。"
     compiling: "コンパイル中"
     still_logged_in: "既にログインしています"
     require_login: "ログインして下さい"
@@ -35,19 +36,26 @@ ja:
   javascript:
     answers:
       form:
-        files:
-          error_message:
+        error:
+          length:
+            long: "文字数オーバー"
+          files:
             many: "アップロードできるファイルは3つまでです"
             large: "アップロードできるファイルの最大サイズは3MBです"
         tex_collapse:
           open: "解答を書く"
+          close: "閉じる"
+    comments:
+      index:
+        collapse:
+          open: "コメントする"
           close: "閉じる"
 
     tex_compile:
       compiling: "コンパイル中"
       compile: "コンパイルする"
       success: "コンパイルに成功しました"
-      fail: "コンパイルに失敗しました。ログが表示されます。"
+      fail: "コンパイルに失敗しました。"
       error_text: "エラーが発生したため、コンパイル結果が表示できません。このページが繰り返し表示される場合は、お手数ですがお問い合わせください。"
     tag:
       hint: "この問題と同じ分野の問題にあなたがつけたタグの一覧"
@@ -76,6 +84,9 @@ ja:
         update: "解答を更新する"
       answers_search_form:
         create: "検索する"
+      comment:
+        create: "コメントする"
+        update: "コメントを更新する"
   decorators:
     answer:
       close: "閉じる"
@@ -94,7 +105,9 @@ ja:
   shared:
     questions:
       index:
-        search_result: "検索結果の問題一覧"
+        search_result: "検索結果"
+        search_result_count: "%{record_count}件"
+        search_result_records: "検索結果の問題一覧"
         search_form_description: "検索条件を指定する"
         icon_description: "は解答作成済みであることを表します"
       show:
@@ -132,7 +145,7 @@ ja:
   static_pages:
     description:
       title: "サイト説明"
-      page_title: "ポイントの書き方"
+      page_title: "コメント、ポイントの書き方"
     terms:
       title: "利用規約"
     privacy:
@@ -181,7 +194,9 @@ ja:
       point_preview: "プレビュー"
       select_file: "ファイルを選択"
       files_hint: "3MB以下の画像またはPDFを3つまで"
-      tags_hint: "カンマ( , )で区切ることで、複数のタグを指定できます"
+      tags_description: "カンマ( , )で区切ることで、複数のタグを入力できます"
+      tags_hint: "100文字以内"
+      point_hint: "1000文字以内"
     search_form:
       search_form_description: "検索条件を指定する"
       tags_hint: "指定した「出題年」、「大学」、「単元」にマッチする問題にあなたがつけたタグが表示されます"
@@ -189,7 +204,9 @@ ja:
     index:
       search: "作成した解答から検索する"
       title: "解答一覧"
-      search_result: "検索結果の解答一覧"
+      search_result_records: "検索結果の解答一覧"
+      search_result: "検索結果"
+      search_result_count: "%{record_count}件"
     new:
       title: "解答作成"
       display_question_image: "問題文を表示"
@@ -232,13 +249,27 @@ ja:
       description: "解答をクリックすると、詳細を見ることができます"
       no_answers: "解答はありません"
   likes:
-    like_button_when_unlogin:
+    like_button_when_logout:
       modal_confirm: "いいねをするにはログインが必要です。"
       like: "いいね"
     like_button:
       like: "いいね"
     unlike_button:
       like: "いいね"
+  comments:
+    index:
+      create: "コメントする"
+      no_comments: "コメントはありません"
+      comment_count: "%{count}件のコメント"
+    form:
+      description_link: "コメントの書き方（別タブで開きます）"
+      input: "入力"
+      preview: "プレビュー"
+    comment:
+      delete: "削除"
+      edit: "編集"
+      delete_confirm: "コメントを削除しますか"
+
 
 
 

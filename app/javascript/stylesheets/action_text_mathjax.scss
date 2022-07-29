@@ -1,0 +1,19 @@
+trix-editor, .mathjax-compile-result {
+  height: 300px;
+  background-color: white;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.trix-button-row {
+  border: 1px solid silver;
+}
+
+.description-link {
+  color: $deepsilver;
+}
+
+.description-link:hover {
+  color: black;
+  text-decoration: underline 1px solid black;
+}

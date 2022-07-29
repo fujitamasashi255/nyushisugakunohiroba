@@ -1,0 +1,25 @@
+.d-flex.justify-content-center.container-fluid
+  #comments-container.flex-grow-1
+    - if logged_in?
+      .py-2
+
+      / コメント作成フォーム
+      #comment-form
+        .d-flex.mb-2
+          a.d-block data-bs-toggle="collapse" href="#commentField"
+            = t(".create")
+            i.bi.bi-chevron-down.ms-2
+        .collapse id="commentField"
+          = render "comments/form", commentable: commentable, comment: Comment.new
+
+    .py-4
+
+    = t(".comment_count", count: commentable.comments_count)
+    hr
+    / コメント一覧
+    #comments.mathjax-initialize-typeset
+      /= render partial: "comments/comment", collection: comments, as: :comment
+    div style="height: 10rem"
+    #div_next_link
+      = link_to "", answer_comments_path(commentable), style: "display: none;", id: "next_link", remote: true
+      /= render "comments/next_link", pagy: pagy

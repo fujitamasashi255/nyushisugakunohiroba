@@ -1,5 +1,6 @@
 import { previewFile } from "src/PreviewFile"
 import { complessAndUpload } from "src/compressAndDirectUpload"
+import { toggleCollapseMessage } from "src/collapse"
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
@@ -11,6 +12,16 @@ const default_tex_code = "\\documentclass[12pt, dvipdfmx]{jsarticle}\n\\usepacka
 const carouselInnerHeight = "550px";
 const maxFileSize = 3 * 1024 * 1024;
 const maxFileNumber = 3;
+const PointMaxCount = 1000;
+const TagsMaxCount = 100;
+
+// エラーメッセージを作成
+const createCharactorCountErrorMessage = function(){
+  var errorMessage = document.createElement("div")
+  errorMessage.setAttribute("class", "error-message");
+  errorMessage.innerText = t("javascript.answers.form.error.length.long");
+  return errorMessage;
+}
 
 // ファイルサイズが maxFileSize 以下であることを確認
 const isValidFileSize = (file) => file.size <= maxFileSize;
@@ -112,14 +123,86 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  const input = document.querySelector('.answer-form .files input[type=file]');
+  // ポイント、タグの文字数バリデーション
+  // 解答作成、更新ボタンを取得
+  const SubmitButton = $(".answer-form input[type='submit']");
+  // ポイントtrix-editor
+  const answerFormTrixEditor = document.querySelector(".answer-form trix-editor");
+  // タグinput
+  const answerFormTagsInput = document.getElementById("answer_tag_list");
+
+  // ポイントのバリデーション
+  if(answerFormTrixEditor){
+    const Point = document.querySelector(".point");
+
+    // エラーメッセージ
+    const PointErrorMessage = createCharactorCountErrorMessage();
+
+    answerFormTrixEditor.addEventListener("trix-change", function() {
+      // ポイントの文字列を取得
+      const { editor } = answerFormTrixEditor;
+      const string = editor.getDocument().toString();
+      // ポイントの文字数を取得（改行文字「/n」を削除して）
+      const pointCount = string.replace(/\n/g, "").length;
+      // タグの文字数を取得（カンマと空白の並びを削除して）
+      const tagsCount = answerFormTagsInput.value.replace(/,\s/g, "").length;
+      // エラーメッセージを取得
+      var prevPointErrorMessage = document.querySelector(".point .error-message")
+      // エラーメッセージを表示
+      if(pointCount <= PointMaxCount){
+        if(prevPointErrorMessage){ prevPointErrorMessage.remove() }
+      } else {
+        if(!prevPointErrorMessage){ Point.append(PointErrorMessage) }
+      }
+      // submit ボタンのdisable
+      if(pointCount > PointMaxCount || tagsCount > TagsMaxCount){
+        SubmitButton.prop("disabled", true);
+      }else {
+        SubmitButton.prop("disabled", false);
+      }
+    });
+  }
+
+  // タグの文字数バリデーション
+  if(answerFormTagsInput){
+    const Tags = document.querySelector(".tags");
+
+    // エラーメッセージ
+    const TagsErrorMessage = createCharactorCountErrorMessage();
+
+    answerFormTagsInput.addEventListener("change", function(e) {
+      // ポイントの文字列を取得
+      const { editor } = answerFormTrixEditor;
+      const string = editor.getDocument().toString();
+      // ポイントの文字数を取得
+      const pointCount = string.replace(/\n/g, "").length;
+      // タグの文字数を取得
+      const tagsCount = answerFormTagsInput.value.replace(/,\s/g, "").length;
+      var prevTagsErrorMessage = document.querySelector(".tags .error-message")
+      if(tagsCount <= TagsMaxCount){
+        // 文字数が適切ならば、エラーメッセージを削除し、submitボタンを押せるようにする
+        if(prevTagsErrorMessage){ prevTagsErrorMessage.remove() }
+      } else {
+        // 文字数が適切でないならば、エラーメッセージを追加し、submitボタンを押せないようにする
+        if(!prevTagsErrorMessage){ Tags.append(TagsErrorMessage) }
+      }
+      // submit ボタンのdisable
+      if(pointCount > PointMaxCount || tagsCount > TagsMaxCount){
+        SubmitButton.prop("disabled", true);
+      }else {
+        SubmitButton.prop("disabled", false);
+      }
+    });
+  }
 
   // ファイル関連
+  const input = document.querySelector('.answer-form .files input[type=file]');
+
   if(input){
     // ファイルを登録したら
     input.addEventListener('change', (event) => {
       // エラーメッセージを削除
-      const errorMessage = $(".error_message")
+      const errorMessage = $(".error-message")
       if (errorMessage){
         errorMessage.remove();
       }
@@ -133,10 +216,10 @@ document.addEventListener("DOMContentLoaded", function(){
         complessAndUpload(files);
       }else if(files.length > maxFileNumber){
         // ファイルが適切でない場合にメッセージを表示
-        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.files.error_message.many")}</p>`)
+        $(".preview").append(`<div class='error-message'>${t("javascript.answers.form.error.files.many")}</p>`)
       }else{
         // ファイルが適切でない場合にメッセージを表示
-        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.files.error_message.large")}</p>`)
+        $(".preview").append(`<div class='error-message'>${t("javascript.answers.form.error.files.large")}</p>`)
       }
       // inputに登録されているファイルを削除
       $(input).val(null);
@@ -153,7 +236,6 @@ document.addEventListener("DOMContentLoaded", function(){
       var changeIdx = selectBoxValues.indexOf(selectValue);
       selectBoxValues[selectedIdx] = selectValue;
       selectBoxValues[changeIdx] = preValue;
-      console.log(selectBoxValues);
       $(".files select").eq(changeIdx).val(preValue);
     });
 
@@ -184,53 +266,21 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   // TeXのおりたたみ
-  var collapseElem = document.querySelector("#texField");
-  var collapseLink = document.querySelector("a[href='#texField']");
+  const collapseElem = document.querySelector("#texField");
+  const collapseLink = document.querySelector("a[href='#texField']");
   // ページ読み込み時にTeXファイルがあるときは、折りたたみを開く
   if($("#compile-result").children("iframe").length){
     new bootstrap.Collapse('.answer-form .collapse').show();
   }
-  // 折りたたみボタンを押した時の処理
+
   if(collapseElem){
-    collapseElem.addEventListener("hide.bs.collapse", function(){
-      collapseLink.innerHTML = "";
-      var Icon = document.createElement("i");
-      Icon.setAttribute("class", "bi bi-chevron-down ms-2");
-      collapseLink.textContent = t("javascript.answers.form.tex_collapse.open");
-      collapseLink.append(Icon);
-    });
-    collapseElem.addEventListener("show.bs.collapse", function(){
-      collapseLink.innerHTML = "";
-      var Icon = document.createElement("i");
-      Icon.setAttribute("class", "bi bi-chevron-up ms-2");
-      collapseLink.textContent = t("javascript.answers.form.tex_collapse.close");
-      collapseLink.append(Icon);
-    });
+    toggleCollapseMessage(collapseElem, collapseLink, t("javascript.answers.form.tex_collapse.open"), t("javascript.answers.form.tex_collapse.close"));
   }
 });
 
-// MathJaxによる数式表示時、ディスプレー数式の直後のbrは削除する
-var removeBrTagsAfterDisplayMath = function(){
-  $('mjx-container[display="true"]').next().each(function(){
-    if($(this).is("br")){
-        $(this).remove();
-    }
-  });
-}
 
 
 $(function(){
-  // ポイントのプレビュー
-  removeBrTagsAfterDisplayMath();
-  $(".answer-form a[href='#tab-point-result']").on("click", function(){
-    var pointCode = $("#tab-point-code trix-editor").html();
-    // 数式番号をリセット
-    MathJax.texReset([0]);
-    // 数式をタイプセット
-    MathJax.typeset($("#tab-point-result").html(pointCode));
-    removeBrTagsAfterDisplayMath();
-  });
-
   // TeXクリアボタン
   const deleteTeXButton = $("#delete-tex-button");
   // TeX削除ボタンを押したら

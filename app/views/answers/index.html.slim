@@ -11,19 +11,30 @@
 / 検索フォーム
 = render "/answers/search_form", answers_search_form: @answers_search_form, answers: @answers
 
-.py-2
+.py-3
 
 / 検索条件
 = render "/answers/search_conditions", answers_search_form: @answers_search_form
 
-.py-5
+.py-2
+
+/ 検索結果
+.container.small
+  label
+    = t(".search_result")
+
+  .py-1
+
+  = t(".search_result_count", record_count: @answers.size)
+
+.py-4
 
 - if @answers.present?
   / 解答並び替え
   h4.d-flex.align-items-center.answers-index-title.scroll-to
     i.bi.bi-book
     .ms-1
-      = t(".search_result")
+      = t(".search_result_records")
 
   .py-1
 

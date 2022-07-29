@@ -6,6 +6,10 @@ $tag-text-color: rgb(39,93,144);
 
 @import "@yaireo/tagify/src/tagify";
 
+.tagify {
+  overflow-wrap: anywhere;
+}
+
 .tag {
   border-radius: 3px;
   background: rgb(230, 237, 243);

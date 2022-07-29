@@ -18,30 +18,33 @@
       .row
         .tags.col-lg-6.order-lg-2
           / タグ
-          = f.label :tag_list, class: "mb-2"
-          = f.input :tag_list, label: false, wrapper: false, hint:t(".tags_hint"), input_html: { value: answer.tag_list.join(",") }
+          .d-flex.flex-row.align-items-center.mb-2
+            = f.label :tag_list, class: "text-nowrap"
+            .note.ms-3
+              = t(".tags_description")
+          = f.input :tag_list, label: false, wrapper: false, hint:t(".tags_hint"), input_html: { value: answer.tag_list.join(","), class: "p-1" }
           .py-2.py-lg-3
 
-          .d-lg-none
-            hr
-            .py-2
+        .d-lg-none
+          hr
+          .py-2
 
         .point.col-lg-6.order-lg-1
           / ポイント
           .d-flex.flex-row.align-items-center
             = f.label :point, class: "text-nowrap"
-            = link_to t(".point_description_link"), description_path, class: "ms-3 point-description-link note", target: :_blank
+            = link_to t(".point_description_link"), description_path, class: "ms-3 description-link note", target: :_blank
           ul.nav.nav-tabs.mt-2 role="tablist"
             li.nav-item
-              a.nav-link.active data-bs-toggle="tab" href="#tab-point-code"
+              a.nav-link.active data-bs-toggle="tab" href="#point-code"
                 = t(".point_input")
             li.nav-item
-              a.nav-link data-bs-toggle="tab" href="#tab-point-result"
+              a.nav-link.mathjax-compile-button data-bs-toggle="tab" href="#point-result"
                 = t(".point_preview")
           .tab-content
-            .tab-pane.fade.active.show.border role="tabpanel" id="tab-point-code"
-              = f.input :point, as: :rich_text_area, label: false, wrapper: false
-            .tab-pane.fade.border.trix-content role="tabpanel" id="tab-point-result"
+            .tab-pane.fade.active.show.mathjax-code role="tabpanel" id="point-code"
+              = f.input :point, as: :rich_text_area, label: false, wrapper: false, error: false, hint: t(".point_hint")
+            .tab-pane.fade.border.trix-content.mathjax-compile-result role="tabpanel" id="point-result"
           .py-2.py-lg-3
 
       hr

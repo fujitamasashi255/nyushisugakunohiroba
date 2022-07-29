@@ -4,13 +4,14 @@
 #
 # Table name: answers
 #
-#  id          :uuid             not null, primary key
-#  ggb_base64  :text
-#  likes_count :integer          default(0), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  question_id :uuid             not null
-#  user_id     :uuid             not null
+#  id             :uuid             not null, primary key
+#  comments_count :integer          default(0), not null
+#  ggb_base64     :text
+#  likes_count    :integer          default(0), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  question_id    :uuid             not null
+#  user_id        :uuid             not null
 #
 # Indexes
 #
@@ -25,16 +26,18 @@
 #
 FactoryBot.define do
   factory :answer do
-    point { "" }
     files { nil }
     user
     question
 
     transient do
       tag_names { nil }
+      point_text { nil }
     end
 
-    before(:create) do |answer, evaluator|
+    point { ActionText::RichText.new(body: point_text) }
+
+    after(:build) do |answer, evaluator|
       answer.tag_list.add(evaluator.tag_names)
       tex = build(:tex, texable: answer)
       answer.tex = tex

@@ -4,13 +4,14 @@
 #
 # Table name: answers
 #
-#  id          :uuid             not null, primary key
-#  ggb_base64  :text
-#  likes_count :integer          default(0), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  question_id :uuid             not null
-#  user_id     :uuid             not null
+#  id             :uuid             not null, primary key
+#  comments_count :integer          default(0), not null
+#  ggb_base64     :text
+#  likes_count    :integer          default(0), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  question_id    :uuid             not null
+#  user_id        :uuid             not null
 #
 # Indexes
 #
@@ -26,6 +27,7 @@
 class Answer < ApplicationRecord
   VALID_IMAGE_TYPES = ["image/png", "image/jpg", "image/jpeg"].freeze
   VALID_CONTENT_TYPES = (Answer::VALID_IMAGE_TYPES + ["application/pdf"]).freeze
+  MAX_TAGS_TOTAL_WORD_COUNT = 100
 
   after_destroy :destroy_tags
   validates :question_id, uniqueness: { scope: :user_id, message: "の解答は既に作成されています" }
@@ -34,10 +36,14 @@ class Answer < ApplicationRecord
     content_type: { in: Answer::VALID_CONTENT_TYPES, message: "の種類が正しくありません" }, \
     size: { less_than: 3.megabytes, message: "のサイズは3MB以下にして下さい" }, \
     limit: { max: 3, message: "は3つ以下にして下さい" }
+  validates :point, action_text_length: { maximum: 1000 }
+  validate :validate_tags_total_word_count_length
 
   belongs_to :user
   belongs_to :question
+  counter_culture :question
   has_one :tex, dependent: :destroy, as: :texable
+  has_many :comments, dependent: :destroy, as: :commentable
   has_many :likes, dependent: :destroy
   has_many_attached :files
   has_rich_text :point
@@ -139,5 +145,11 @@ class Answer < ApplicationRecord
     tags.each do |tag|
       tag.destroy if tag.taggings_count == 1
     end
+  end
+
+  # タグの合計文字数が100文字であること
+  def validate_tags_total_word_count_length
+    tags_total_word_count = tag_list.join("").length
+    errors.add(:tag_list, :validate_tags_total_word_count_length, count: MAX_TAGS_TOTAL_WORD_COUNT) unless tags_total_word_count <= MAX_TAGS_TOTAL_WORD_COUNT
   end
 end
