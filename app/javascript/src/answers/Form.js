@@ -18,7 +18,7 @@ const TagsMaxCount = 100;
 // エラーメッセージを作成
 const createCharactorCountErrorMessage = function(){
   var errorMessage = document.createElement("div")
-  errorMessage.setAttribute("class", "error_message");
+  errorMessage.setAttribute("class", "error-message");
   errorMessage.innerText = t("javascript.answers.form.error.length.long");
   return errorMessage;
 }
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function(){
       // タグの文字数を取得（カンマと空白の並びを削除して）
       const tagsCount = answerFormTagsInput.value.replace(/,\s/g, "").length;
       // エラーメッセージを取得
-      var prevPointErrorMessage = document.querySelector(".point .error_message")
+      var prevPointErrorMessage = document.querySelector(".point .error-message")
       // エラーメッセージを表示
       if(pointCount <= PointMaxCount){
         if(prevPointErrorMessage){ prevPointErrorMessage.remove() }
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const pointCount = string.replace(/\n/g, "").length;
       // タグの文字数を取得
       const tagsCount = answerFormTagsInput.value.replace(/,\s/g, "").length;
-      var prevTagsErrorMessage = document.querySelector(".tags .error_message")
+      var prevTagsErrorMessage = document.querySelector(".tags .error-message")
       if(tagsCount <= TagsMaxCount){
         // 文字数が適切ならば、エラーメッセージを削除し、submitボタンを押せるようにする
         if(prevTagsErrorMessage){ prevTagsErrorMessage.remove() }
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // ファイルを登録したら
     input.addEventListener('change', (event) => {
       // エラーメッセージを削除
-      const errorMessage = $(".error_message")
+      const errorMessage = $(".error-message")
       if (errorMessage){
         errorMessage.remove();
       }
@@ -216,10 +216,10 @@ document.addEventListener("DOMContentLoaded", function(){
         complessAndUpload(files);
       }else if(files.length > maxFileNumber){
         // ファイルが適切でない場合にメッセージを表示
-        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.error.files.many")}</p>`)
+        $(".preview").append(`<div class='error-message'>${t("javascript.answers.form.error.files.many")}</p>`)
       }else{
         // ファイルが適切でない場合にメッセージを表示
-        $(".preview").append(`<div class='error_message'>${t("javascript.answers.form.error.files.large")}</p>`)
+        $(".preview").append(`<div class='error-message'>${t("javascript.answers.form.error.files.large")}</p>`)
       }
       // inputに登録されているファイルを削除
       $(input).val(null);

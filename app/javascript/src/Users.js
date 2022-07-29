@@ -11,7 +11,7 @@ $(function(){
   const input = document.getElementById("user-avatar-input")
   $(input).on("change", function(e){
     // エラーメッセージを削除
-    const errorMessage = $(".error_message")
+    const errorMessage = $(".error-message")
     if (errorMessage){
       errorMessage.remove();
     }
@@ -32,7 +32,7 @@ $(function(){
       complessAndUpload([file]);
     }else {
       // ファイルが適切でない場合にメッセージを表示
-      preview.append("<div class='error_message'>アップロードできるファイルの最大サイズは3MBです</p>")
+      preview.append("<div class='error-message note'>アップロードできるファイルの最大サイズは3MBです</p>")
     }
   });
 })
