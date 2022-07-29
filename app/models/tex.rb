@@ -17,6 +17,8 @@
 #  index_texes_on_texable  (texable_type,texable_id)
 #
 class Tex < ApplicationRecord
+  MAX_PDF_SIZE = 1.megabytes
+
   belongs_to :texable, polymorphic: true
   has_one_attached :pdf
 
@@ -26,7 +28,7 @@ class Tex < ApplicationRecord
   validates \
     :pdf, \
     content_type: "application/pdf", \
-    size: { less_than: 1.megabytes, message: "のサイズは1MB以下にして下さい" }, \
+    size: { less_than: MAX_PDF_SIZE, message: "のサイズは1MB以下にして下さい" }, \
     limit: { max: 1, message: "は1つ以下にして下さい" }
 
   def attach_pdf

@@ -20,6 +20,10 @@ class TexCompilesController < ApplicationController
         f.write(pdf_binary)
       end
 
+      # 作成したPDFのサイズをチェック
+      pdf_size = FileTest.size(File.open(new_pdf_path, "r"))
+      raise I18n.t(".messages.compile.too_large") if pdf_size > Tex::MAX_PDF_SIZE
+
       # プレビュー表示するpdfのurl
       compile_result_url = "#{root_url}/#{Settings.dir.compile_result}/#{file_name}"
       # JSへ compile_result_url を返す
@@ -27,6 +31,9 @@ class TexCompilesController < ApplicationController
     rescue RailsLatex::ProcessingError => e
       # コンパイル失敗時はログの内容の文字列を返し、compile_result_urlを""に設定
       render json: { log_text: e.log, url: "" }
+    rescue RuntimeError => e
+      # コンパイルしたPDFのサイズが大きいときはエラーメッセージの文字列を返し、compile_result_urlを""に設定
+      render json: { log_text: e.message, url: "" }
     end
   end
 end
