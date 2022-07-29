@@ -5,7 +5,7 @@ div  id="comment-#{comment.id}"
     .d-flex.flex-column.ms-3
       .comment-header.d-flex.flex-row.align-items-center.mb-1
         .user-name
-          = comment.user.name
+          = comment.user_name
         .date.ms-2
           | #{comment.created_elapsed_time}前
       .comment-body

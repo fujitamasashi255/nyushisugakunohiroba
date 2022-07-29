@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :answers, only: [] do
     resource :files, only: %i[destroy]
     resources :likes, only: %i[create destroy]
-    resources :comments, shallow: true
+    resources :comments, only: %i[index create show edit update destroy], shallow: true
   end
 
   resource :tex_compile, only: %i[create]

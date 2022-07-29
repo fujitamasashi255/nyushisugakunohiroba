@@ -25,6 +25,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   counter_culture :commentable
 
+  delegate :name, to: :user, prefix: true
+
   has_rich_text :body
   validates :body, action_text_presence: true, action_text_length: { maximum: 1000 }
 end
