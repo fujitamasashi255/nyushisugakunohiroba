@@ -32,6 +32,7 @@ class TexCompilesController < ApplicationController
       # コンパイル失敗時はログの内容の文字列を返し、compile_result_urlを""に設定
       render json: { log_text: e.log, url: "" }
     rescue RuntimeError => e
+      file_delete_if_exist(new_pdf_path)
       # コンパイルしたPDFのサイズが大きいときはエラーメッセージの文字列を返し、compile_result_urlを""に設定
       render json: { log_text: e.message, url: "" }
     end
