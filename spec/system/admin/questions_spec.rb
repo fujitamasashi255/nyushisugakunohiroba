@@ -116,7 +116,7 @@ RSpec.describe "Questions", type: :system, js: true do
       it "問題文texのコンパイルに失敗しても問題文が消えずに問題を変更できること" do
         find("#tex-code").set("")
         click_button "コンパイルする"
-        expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。ログが表示されます。")
+        expect(page).to have_selector("#compile-message", text: "コンパイルに失敗しました。")
         expect(page).to have_selector("#compile-result", text: "No pages of output.")
         click_button "問題を変更する"
         expect(page).to have_content "2000"
