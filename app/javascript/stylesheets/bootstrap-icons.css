@@ -1,0 +1,52 @@
+@font-face {
+  font-display: block;
+  font-family: "bootstrap-icons";
+  src: url("../stylesheets/fonts/bootstrap-icons.woff2?8d200481aa7f02a2d63a331fc782cfaf") format("woff2"),
+url("../stylesheets/fonts/bootstrap-icons.woff?8d200481aa7f02a2d63a331fc782cfaf") format("woff");
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -.125em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-check, .bi-chat-right-text{
+  color: rgb(39,93,144);
+}
+
+
+.bi-twitter {
+  color: rgb(29, 155, 240) !important;
+}
+
+.bi-book::before { content: "\f194"; }
+.bi-card-text::before { content: "\f228"; }
+.bi-chat-dots-fill::before { content: "\f249"; }
+.bi-chat-dots::before { content: "\f24a"; }
+.bi-chat-right-text::before { content: "\f25c"; }
+.bi-check::before { content: "\f26e"; }
+.bi-chevron-down::before { content: "\f282"; }
+.bi-chevron-up::before { content: "\f286"; }
+.bi-circle-fill::before { content: "\f287"; }
+.bi-circle::before { content: "\f28a"; }
+.bi-heart-fill::before { content: "\f415"; }
+.bi-heart::before { content: "\f417"; }
+.bi-list::before { content: "\f479"; }
+.bi-person::before { content: "\f4e1"; }
+.bi-pencil::before { content: "\f4cb"; }
+.bi-plus-square::before { content: "\f4fd"; }
+.bi-search::before { content: "\f52a"; }
+.bi-three-dots::before { content: "\f5d4"; }
+.bi-trash::before { content: "\f5de"; }
+.bi-twitter::before { content: "\f5ef"; }
+.bi-x-lg::before { content: "\f659"; }

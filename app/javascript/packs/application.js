@@ -7,7 +7,6 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "src/ActionText"
 import "channels"
-import "bootstrap"
 window.bootstrap = require("bootstrap");
 import "src/FlashMessages"
 import "src/Users"
