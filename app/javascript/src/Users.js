@@ -1,4 +1,4 @@
-import {previewAvatar} from "src/PreviewFile"
+import { previewAvatar } from "src/PreviewFile"
 import { complessAndUpload } from "src/compressAndDirectUpload"
 
 // ファイルの最大サイズ

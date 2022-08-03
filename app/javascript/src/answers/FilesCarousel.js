@@ -1,8 +1,10 @@
+import { Carousel } from "bootstrap/dist/js/bootstrap.esm.min.js";
+
 document.addEventListener("DOMContentLoaded", function(){
   // カルーセル
   const carousel = document.querySelector('.carousel');
   if(carousel){
-    const carouselObj = new bootstrap.Carousel('#carouselAnswerFiles');
+    const carouselObj = new Carousel('#carouselAnswerFiles');
     const nextButton = document.querySelector('.carousel-next');
     const prevButton = document.querySelector('.carousel-prev');
     if(nextButton){
