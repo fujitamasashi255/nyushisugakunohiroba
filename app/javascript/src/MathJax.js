@@ -1,6 +1,5 @@
 MathJax = {
   loader: {load: ['[tex]/tagformat']}, // lazy load -> 'ui/lazy',
-  section: 0,
   tex: {
     packages: {'[+]': ['tagformat', 'sections']},
     inlineMath: [ ['$','$'], ['\\(','\\)'] ],
@@ -19,7 +18,6 @@ MathJax = {
         nextSection: 'NextSection'
       }, {
         NextSection(parser, name) {
-          MathJax.config.section++;
           parser.tags.counter = parser.tags.allCounter = 0;
         }
       });
@@ -27,12 +25,6 @@ MathJax = {
         'sections', {handler: {macro: ['sections']}}
       );
       MathJax.startup.defaultReady();
-      MathJax.startup.input[0].preFilters.add(({math}) => {
-        if (math.inputData.recompile) MathJax.config.section = math.inputData.recompile.section;
-      });
-      MathJax.startup.input[0].postFilters.add(({math}) => {
-        if (math.inputData.recompile) math.inputData.recompile.section = MathJax.config.section;
-      });
       // タイプセットが終了したのちの処理
       MathJax.startup.promise.then(() => {
         removeBrTagsAfterDisplayMath();

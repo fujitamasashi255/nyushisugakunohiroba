@@ -4,8 +4,8 @@
       = Answer.human_attribute_name(:point)
     .p-2.point.mathjax-initialize-typeset
       == answer.point
-    span style="visibility: hidden;"
-      | \(\nextSection\)
+      span style="display: none;"
+        | \(\nextSection\)
   - else
     label.me-3
       = Answer.human_attribute_name(:point)
