@@ -108,7 +108,7 @@ div id="answer_#{@answer.id}"
             = Answer.human_attribute_name(:point)
           .point-field.mathjax-initialize-typeset
             == @answer.point
-            span style="visibility: hidden;"
+            span style="display: none;"
               | \(\nextSection\)
 
           .py-2.py-lg-3

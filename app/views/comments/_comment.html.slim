@@ -10,7 +10,7 @@ div  id="comment-#{comment.id}"
           | #{comment.created_elapsed_time}前
       .comment-body
         == comment.body
-        span style="visibility: hidden;"
+        span style="display: none;"
           | \(\nextSection\)
 
       - if current_user&.commented?(comment)
