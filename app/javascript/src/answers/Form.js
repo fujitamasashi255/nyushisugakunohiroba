@@ -1,6 +1,9 @@
 import { previewFile } from "src/PreviewFile"
 import { complessAndUpload } from "src/compressAndDirectUpload"
 import { toggleCollapseMessage } from "src/collapse"
+import { Dropdown } from "bootstrap/dist/js/bootstrap.esm.min.js";
+import { Collapse } from "bootstrap/dist/js/bootstrap.esm.min.js";
+
 
 import I18n from 'src/i18n-js/index.js.erb'
 I18n.locale = 'ja'
@@ -112,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // オフキャンバスがひれかれた時
     offcanvasHumberger.addEventListener("show.bs.offcanvas", function(){
       // 問題文ドロップダウンが開いているときは閉じる
-      new bootstrap.Dropdown("#questionImageDropdownButton").hide();
+      new Dropdown("#questionImageDropdownButton").hide();
       // 解答ページの右上アイコンを非表示にする
       icons.style.visibility ="hidden";
     });
@@ -270,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function(){
   const collapseLink = document.querySelector("a[href='#texField']");
   // ページ読み込み時にTeXファイルがあるときは、折りたたみを開く
   if($("#compile-result").children("iframe").length){
-    new bootstrap.Collapse('.answer-form .collapse').show();
+    new Collapse('.answer-form .collapse').show();
   }
 
   if(collapseElem){
@@ -307,12 +310,3 @@ $(function(){
   });
 });
 
-/*
-  // プレビュー画像を追加する要素
-  const carouselInner = $(".files .carousel-inner");
-
-  if(carouselInner){
-    // ファイル数に応じてcarouselInnerの高さを調整
-    adjustCarouselInnerHeight(carouselInner);
-
-    */
