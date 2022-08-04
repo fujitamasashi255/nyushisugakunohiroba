@@ -39,6 +39,7 @@ url("../stylesheets/fonts/bootstrap-icons.woff?8d200481aa7f02a2d63a331fc782cfaf"
 .bi-chevron-up::before { content: "\f286"; }
 .bi-circle-fill::before { content: "\f287"; }
 .bi-circle::before { content: "\f28a"; }
+.bi-dash-square::before { content: "\f2e9"; }
 .bi-heart-fill::before { content: "\f415"; }
 .bi-heart::before { content: "\f417"; }
 .bi-list::before { content: "\f479"; }
