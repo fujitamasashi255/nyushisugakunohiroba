@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/integer/time"
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -41,6 +40,8 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
+  # Active Storageがデフォルトでプロキシを利用するように設定
+  config.active_storage.resolve_model_to_route = :cdn_proxy
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil

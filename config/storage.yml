@@ -13,7 +13,8 @@ amazon:
   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   region: ap-northeast-1
   bucket: nyushisugakunohiroba-bucket
-  # public: true
+  upload:
+    cache_control: "max-age=604800, must-revalidate"
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:

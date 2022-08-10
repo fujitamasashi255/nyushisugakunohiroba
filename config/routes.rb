@@ -52,4 +52,34 @@ Rails.application.routes.draw do
       get :search, on: :collection
     end
   end
+
+  # production 環境の AWS Cloud Front のためのURL設定
+  direct :cdn_proxy do |model, options|
+    cdn_options = {
+      protocol: "https",
+      port: 443,
+      host: ENV["CDN_HOST"] # AWS Cloud Front のディストリビューションドメイン名
+    }
+
+    if model.respond_to?(:signed_id)
+      route_for(
+        :rails_service_blob_proxy,
+        model.signed_id,
+        model.filename,
+        options.merge(cdn_options)
+      )
+    else
+      signed_blob_id = model.blob.signed_id
+      variation_key  = model.variation.key
+      filename       = model.blob.filename
+
+      route_for(
+        :rails_blob_representation_proxy,
+        signed_blob_id,
+        variation_key,
+        filename,
+        options.merge(cdn_options)
+      )
+    end
+  end
 end
