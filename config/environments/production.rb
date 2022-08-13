@@ -32,16 +32,19 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.asset_host = 'http://assets.example.com'
+  config.asset_host = "https://#{ENV['CDN_HOST']}"
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+  config.public_file_server.headers = {
+    "Cache-Control" => "max-age=31536000, must-revalidate"
+  }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
   # Active Storageがデフォルトでプロキシを利用するように設定
-  config.active_storage.resolve_model_to_route = :cdn_proxy
+  config.active_storage.resolve_model_to_route = :cdn
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
