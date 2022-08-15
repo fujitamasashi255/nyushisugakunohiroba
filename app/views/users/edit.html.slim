@@ -36,7 +36,7 @@
         .d-flex.flex-column.align-items-center
           / プロフィール画像のプレビュー
           div id="avatar-preview"
-            = image_tag @user.avatar_url(:profile)
+            = image_tag @user.avatar_url(:profile), class: "avatar-profile"
           = f.hidden_field :avatar, value: f.object.avatar.signed_id if f.object.avatar.attached?
           / プロフィール画像ラベル
           = f.label :avatar, for: "user-avatar-input"

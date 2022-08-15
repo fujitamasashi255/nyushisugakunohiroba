@@ -8,7 +8,7 @@
 - content_for :page_title do
   .user-info.d-flex.align-items-center
     .avatar
-      = image_tag @answer.user.avatar_url(:normal), loading: "lazy"
+      = image_tag @answer.user.avatar_url(:normal), loading: "lazy", class: "avatar-normal"
     .user-name.ms-2
       = @answer.user_name
     div.ms-1

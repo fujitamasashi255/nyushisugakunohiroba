@@ -7,7 +7,7 @@
         = link_to answer_path(answer), class: "d-block flex-grow-1 py-1" do
           .user-info.d-flex.align-items-center
             .avatar
-              = image_tag answer.user.avatar_url(:normal), loading: "lazy"
+              = image_tag answer.user.avatar_url(:normal), loading: "lazy", class: "avatar-normal"
             .user-name.ms-2
               = answer.user_name
 
