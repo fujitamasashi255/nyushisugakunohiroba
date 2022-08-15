@@ -3,7 +3,7 @@
 module AnswerDecorator
   def files_urls(version = nil)
     case version
-    when :show
+    when :show, :edit
       files.includes(:blob).order(position: :asc).map do |file|
         if file.content_type == "application/pdf"
           file
@@ -11,8 +11,6 @@ module AnswerDecorator
           file.variant(resize_to_fit: [600, 600], saver: { strip: true })
         end
       end
-    when :edit
-      files.includes(:blob).order(position: :asc)
     else
       files
     end
