@@ -35,11 +35,6 @@ $avatar-size: 80px;
 
 // ユーザー編集
 
-// プロフィール画像
-.avatar img {
-  border-radius: 50%;
-}
-
 .user-form .avatar-label {
     // 画面サイズ1200px以上の時
   @media only screen and (min-width: 1200px){
@@ -55,4 +50,23 @@ $avatar-size: 80px;
   @media only screen and (max-width: 575.98px){
     margin-top: calc(($avatar-size - $font-size-small)/2);
   }
+}
+
+// プロフィール画像
+.avatar-profile {
+  width: 80;
+  height: 80;
+  border-radius: 50%;
+}
+
+.avatar-sidebar {
+  width: 32;
+  height: 32;
+  border-radius: 50%;
+}
+
+.avatar-normal {
+  width: 50;
+  height: 50;
+  border-radius: 50%;
 }

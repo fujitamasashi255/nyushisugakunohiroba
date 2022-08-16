@@ -53,20 +53,13 @@ Rails.application.routes.draw do
     end
   end
 
-  # production 環境の AWS Cloud Front のためのURL設定
-  direct :cdn_proxy do |model, options|
-    cdn_options = {
-      protocol: "https",
-      port: 443,
-      host: ENV["CDN_HOST"] # AWS Cloud Front のディストリビューションドメイン名
-    }
-
+  direct :cdn do |model, options|
     if model.respond_to?(:signed_id)
       route_for(
         :rails_service_blob_proxy,
         model.signed_id,
         model.filename,
-        options.merge(cdn_options)
+        options.merge(host: ENV["CDN_HOST"])
       )
     else
       signed_blob_id = model.blob.signed_id
@@ -78,7 +71,7 @@ Rails.application.routes.draw do
         signed_blob_id,
         variation_key,
         filename,
-        options.merge(cdn_options)
+        options.merge(host: ENV["CDN_HOST"])
       )
     end
   end

@@ -1,7 +1,7 @@
 div  id="comment-#{comment.id}"
   .d-flex.flex-row.comment-container
     .avatar
-      = image_tag comment.user.avatar_url(:normal)
+      = image_tag comment.user.avatar_url(:normal), class: "avatar-normal"
     .d-flex.flex-column.ms-3
       .comment-header.d-flex.flex-row.align-items-center.mb-1
         .user-name

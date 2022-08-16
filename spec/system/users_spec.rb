@@ -19,7 +19,7 @@ RSpec.describe "Users", type: :system, js: true do
         expect(page).to have_content "プロフィール"
         expect(page).to have_content "hogehoge"
         expect(page).to have_content "test@example.com"
-        expect(page).to have_selector "img[class='avatar']"
+        expect(page).to have_selector "img[class='avatar-profile']"
       end
     end
 
@@ -138,7 +138,7 @@ RSpec.describe "Users", type: :system, js: true do
         expect(page).to have_content "プロフィール"
         expect(page).to have_content "fugafuga"
         expect(page).to have_content "TEST@example.com"
-        expect(page).to have_selector "img[class='avatar']"
+        expect(page).to have_selector "img[class='avatar-profile']"
       end
     end
 
@@ -191,7 +191,7 @@ RSpec.describe "Users", type: :system, js: true do
         expect(img_preview_after["src"]).not_to include("blank-profile-picture.jpg")
         click_button "更新する"
         expect(page).to have_content "プロフィールを更新しました"
-        img = first("img[class='avatar']")
+        img = first("img[class='avatar-profile']")
         expect(img["src"]).to include("test.png")
       end
     end
