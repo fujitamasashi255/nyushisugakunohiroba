@@ -11,7 +11,8 @@ export const previewFile = function(file, fileContainer){
   // ファイルが読み込まれたときに実行する
   reader.onload = function (e) {
     // ファイルのURLを取得
-    const fileUrl = e.target.result;
+    console.log(file.name);
+    const fileUrl = URL.createObjectURL(file);
     if(validImageType.includes(file.type)){
       // 画像ファイルの時
       var fileTag = $("<img>");
@@ -24,6 +25,7 @@ export const previewFile = function(file, fileContainer){
       fileTag.attr("marginwidth", "0");
     }
     fileTag.attr("src", fileUrl); // ファイルのURLをfileTagにセット
+    fileTag.attr("data-filename", file.name); // スペックのため
     (fileTag).appendTo(fileContainer); // fileTagをfileContainerの中に追加
   }
 

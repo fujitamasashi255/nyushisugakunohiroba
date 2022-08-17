@@ -142,13 +142,14 @@ div id="answer_#{@answer.id}"
                     - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
                       = image_tag file, class: "d-block img-fluid"
                     - elsif file.blob.content_type == "application/pdf"
-                      iframe.d-block type="application/pdf"  src=url_for(file) marginheight="0" marginwidth="0"
+                      iframe.d-block type="application/pdf" src=polymorphic_url(file) marginheight="0" marginwidth="0"
+
                 - else
                   .carousel-item
                     - if Answer::VALID_IMAGE_TYPES.include?(file.blob.content_type)
                       = image_tag file, class: "d-block img-fluid"
                     - elsif file.blob.content_type == "application/pdf"
-                      iframe.d-block type="application/pdf" src=url_for(file) marginheight="0" marginwidth="0"
+                      iframe.d-block type="application/pdf" src=polymorphic_url(file) marginheight="0" marginwidth="0"
           - if @answer.files.size >= 2
             / カルーセルコントローラのnextボタン
             a.carousel-next.carousel-button.d-flex.flex-column role="button"
@@ -172,7 +173,7 @@ div id="answer_#{@answer.id}"
       .tex
         label.mb-2.d-block
           = Tex.model_name.human
-        iframe type="application/pdf" src=url_for(@answer.tex.pdf) loading="lazy" marginheight="0" marginwidth="0"
+        iframe type="application/pdf" src=polymorphic_url(@answer.tex.pdf) loading="lazy" marginheight="0" marginwidth="0"
 
       .py-2.py-lg-3
 
