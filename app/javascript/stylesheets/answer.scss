@@ -249,8 +249,8 @@ $tex-height: 600px;
 
 //answer一覧
 // 問題詳細ページとユーザー解答一覧ページの共通設定
-// 画面サイズ576px以上の解答カード
-@media only screen and (min-width: 576px){
+// 画面サイズ768px以上の解答カード
+@media only screen and (min-width: 768px){
   .answer-card {
     width: 100%;
     overflow-y: auto;
@@ -272,8 +272,8 @@ $tex-height: 600px;
 }
 
 
-// 画面サイズ576px以下の解答カード
-@media only screen and (max-width: 575.98px){
+// 画面サイズ768px以下の解答カード
+@media only screen and (max-width: 767.98px){
   .answer-card {
     width: 100%;
     overflow-y: auto;
@@ -282,16 +282,6 @@ $tex-height: 600px;
   }
   .answer-card-wrapper {
     width: 90%;
-  }
-
-  // 問題詳細ページの他ユーザーの解答一覧
-  .another-user-answer .answer-card {
-    height: 300px;
-  }
-
-  // トップページ, ユーザー解答一覧
-  .my-answer .answer-card, .top-answer .answer-card {
-    height: 370px;
   }
 }
 
@@ -309,17 +299,6 @@ $tex-height: 600px;
 
 .answer-card:hover {
   background-color: $silver;
-}
-
-
-// 問題詳細ページの他ユーザーの解答一覧
-.another-user-answer .answer-card {
-  height: 350px;
-}
-
-// トッッページ, ユーザー解答一覧
-.my-answer .answer-card, .top-answer .answer-card {
-  height: 420px;
 }
 
 .my-answer label {
