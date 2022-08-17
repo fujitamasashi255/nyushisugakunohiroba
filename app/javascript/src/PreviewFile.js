@@ -11,7 +11,6 @@ export const previewFile = function(file, fileContainer){
   // ファイルが読み込まれたときに実行する
   reader.onload = function (e) {
     // ファイルのURLを取得
-    console.log(file.name);
     const fileUrl = URL.createObjectURL(file);
     if(validImageType.includes(file.type)){
       // 画像ファイルの時
