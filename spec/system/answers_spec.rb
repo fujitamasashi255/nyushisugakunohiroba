@@ -165,9 +165,9 @@ RSpec.describe "Answers", type: :system, js: true do
 
         it "順番を指定して解答作成できること" do
           within(".preview ") do
-            find("img[src*='image/png']").find(:xpath, "./../..").find("select").select "2"
-            find("img[src*='image/jpeg']").find(:xpath, "./../..").find("select").select "3"
-            find("iframe[src*='application/pdf']").find(:xpath, "./../..").find("select").select "1"
+            find("img[data-filename='test.png']").find(:xpath, "./../..").find("select").select "2"
+            find("img[data-filename='test.jpg']").find(:xpath, "./../..").find("select").select "3"
+            find("iframe[data-filename='test.pdf']").find(:xpath, "./../..").find("select").select "1"
           end
           find("input[value='解答を作成する']").click
           expect(page).to have_selector(".title", text: "解答")
@@ -295,9 +295,9 @@ RSpec.describe "Answers", type: :system, js: true do
         find(".files input[type='hidden']:nth-child(3)", visible: false)
         sleep(2)
         within(".preview ") do
-          find("img[src*='image/png']").find(:xpath, "./../..").find("select").select "2"
-          find("img[src*='image/jpeg']").find(:xpath, "./../..").find("select").select "3"
-          find("iframe[src*='application/pdf']").find(:xpath, "./../..").find("select").select "1"
+          find("img[data-filename='test.png']").find(:xpath, "./../..").find("select").select "2"
+          find("img[data-filename='test.jpg']").find(:xpath, "./../..").find("select").select "3"
+          find("iframe[data-filename='test.pdf']").find(:xpath, "./../..").find("select").select "1"
         end
         find("input[value='解答を作成する']").click
         find_link("解答編集").click
@@ -341,9 +341,9 @@ RSpec.describe "Answers", type: :system, js: true do
         find(".files input[type='hidden']:nth-child(3)", visible: false)
         sleep(2)
         within(".preview ") do
-          find("img[src*='image/png']").find(:xpath, "./../..").find("select").select "2"
-          find("img[src*='image/jpeg']").find(:xpath, "./../..").find("select").select "3"
-          find("iframe[src*='application/pdf']").find(:xpath, "./../..").find("select").select "1"
+          find("img[data-filename='test.png']").find(:xpath, "./../..").find("select").select "2"
+          find("img[data-filename='test.jpg']").find(:xpath, "./../..").find("select").select "3"
+          find("iframe[data-filename='test.pdf']").find(:xpath, "./../..").find("select").select "1"
         end
         find("input[value='解答を更新する']").click
         expect(page).to have_selector(".title", text: "解答")
