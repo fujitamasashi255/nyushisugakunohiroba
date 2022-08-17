@@ -11,7 +11,7 @@ export const previewFile = function(file, fileContainer){
   // ファイルが読み込まれたときに実行する
   reader.onload = function (e) {
     // ファイルのURLを取得
-    const fileUrl = e.target.result;
+    const fileUrl = URL.createObjectURL(file);
     if(validImageType.includes(file.type)){
       // 画像ファイルの時
       var fileTag = $("<img>");
