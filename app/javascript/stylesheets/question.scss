@@ -2,8 +2,8 @@
 
 // question#index
 
-// 画面サイズ576px以上の問題カード
-@media only screen and (min-width: 576px){
+// 画面サイズ768px以上の問題カード
+@media only screen and (min-width: 768px){
   .question-card {
     height: 380px;
     overflow-y: auto;
@@ -17,11 +17,9 @@
 }
 
 
-// 画面サイズ576px以下の問題カード
-@media only screen and (max-width: 575.98px){
+// 画面サイズ768px以下の問題カード
+@media only screen and (max-width: 767.98px){
   .question-card {
-    height: 330px;
-    overflow-y: auto;
     background-color: $whitesmoke;
     font-size: 0.8rem;
     width: 100%;

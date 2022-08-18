@@ -20,6 +20,7 @@ import "src/answers/Index"
 import "src/answers/SearchTags"
 import "src/answers/CreateEditTags"
 import "src/Loading"
+import "src/like"
 
 
 const images = require.context("../images", true);
