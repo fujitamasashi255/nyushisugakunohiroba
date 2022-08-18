@@ -393,7 +393,7 @@ $tex-height: 600px;
 
 // 解答詳細上のリンク一覧
 .answer-links {
-  a {
+  a, button {
     font-size: 0.75rem;
     color: $linksilver;
     i {
@@ -401,9 +401,9 @@ $tex-height: 600px;
       color: $linksilver;
     }
   }
-  a:hover {
+  a:hover, .like-container:hover, .like-container-when-logout:hover {
     color: black;
-    i {
+    i, .bi-heart, .like-icon-description, .likes-count {
       color: black;
     }
   }
