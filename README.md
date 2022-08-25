@@ -62,7 +62,8 @@ URL：https://www.nyushisugakunohiroba.com
 
 # 使用技術
 ### システム構成図
-![システム構成図 drawio](https://user-images.githubusercontent.com/88495850/184808579-60e639e0-5c22-4c68-b054-83299dc86de8.png)
+![システム構成図 drawio](https://user-images.githubusercontent.com/88495850/186631782-c9d85df3-4e29-4c37-bc4a-c0bfa70cbb4a.png)
+
 
 ### バックエンド
 - Ruby 3.1.1
