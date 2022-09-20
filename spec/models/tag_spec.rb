@@ -31,13 +31,5 @@ RSpec.describe Tag, type: :model do
       create(:answer, question: @question_nagoya, user:, tag_names: "tag2")
       create(:answer, question: @question_tokyo, user:, tag_names: "tag3")
     end
-
-    describe "by_questions(questions)" do
-      it "問題でタグを絞れること" do
-        questions = [@question_kyoto, @question_nagoya]
-        tags = Tag.all.by_questions(questions)
-        expect(tags.map(&:name)).to contain_exactly("tag1", "tag2")
-      end
-    end
   end
 end
