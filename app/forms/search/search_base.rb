@@ -24,19 +24,19 @@ module Search
       else
         relation = searchable_relation
 
-        # 大学名によるquestionの絞り込み
+        # 大学名による絞り込み
         relation = relation.by_university_ids(university_ids_no_blank) if university_ids_no_blank.present?
 
-        # 出題年によるquestionの絞り込み
+        # 出題年による絞り込み
         if start_year.present? || end_year.present?
           fill_in_year
           relation = relation.by_year(start_year, end_year)
         end
 
-        # 単元によるquestionの絞り込み
+        # 単元による絞り込み
         relation = relation.by_unit_ids(unit_ids_no_blank) if unit_ids_no_blank.present?
 
-        # タグによるquestionの絞り込み
+        # タグによる絞り込み
         relation = relation.by_tag_name_array(tag_name_array) if tag_name_array.present?
       end
 
@@ -51,6 +51,10 @@ module Search
     end
 
     private
+
+    def searchable_relation
+      nil
+    end
 
     def university_ids_no_blank
       university_ids&.reject(&:blank?)
@@ -88,10 +92,6 @@ module Search
 
     def tag_message
       tag_name_array.present? ? tag_name_array.join("、") : "なし"
-    end
-
-    def searchable_relation
-      nil
     end
 
     def fill_in_year
