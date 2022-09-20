@@ -2,7 +2,7 @@
 
 module Search
   class SearchBase
-    SPECIFIC_CONDITIONS_ENUM = { no_data: 0, all_data: 1 }.each_value(&:freeze).freeze
+    SPECIFIC_CONDITIONS = { no_data: 0, all_data: 1 }.each_value(&:freeze).freeze
 
     include ActiveModel::Model
     include ActiveModel::Attributes
@@ -17,9 +17,9 @@ module Search
     def search
       # 絞り込み
       case specific_search_condition
-      when SPECIFIC_CONDITIONS_ENUM[:no_data]
+      when SPECIFIC_CONDITIONS[:no_data]
         relation = searchable_relation.none
-      when SPECIFIC_CONDITIONS_ENUM[:all_data]
+      when SPECIFIC_CONDITIONS[:all_data]
         relation = searchable_relation
       else
         relation = searchable_relation
