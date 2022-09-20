@@ -5,7 +5,7 @@ module Search
     attribute :user
 
     def searchable_relation
-      user.answers
+      user ? user.answers : Answer.all
     end
   end
 end

@@ -15,7 +15,7 @@ class AnswersSearchForm
   attribute :sort_type, :string, default: -> { "year_new" }
   attribute :search_condition_messages
 
-  def search(user)
+  def search(user = nil)
     answers_search = Search::AnswersSearch.new(search_conditions.merge({ user: }))
     answers_sort = Sort::AnswersSort.new(sort_conditions)
     self.search_condition_messages = answers_search.build_search_condition_messages
