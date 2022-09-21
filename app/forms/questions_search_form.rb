@@ -7,13 +7,13 @@ class QuestionsSearchForm
   include ActiveModel::Attributes
 
   attribute :specific_search_condition, :integer
-  attribute :university_ids
+  attribute :university_ids # array
   attribute :start_year, :integer
   attribute :end_year, :integer
-  attribute :unit_ids
+  attribute :unit_ids # array
   attribute :tag_names, :string, default: -> { "" }
   attribute :sort_type, :string, default: -> { "year_new" }
-  attribute :search_condition_messages
+  attribute :search_condition_messages # ハッシュ
 
   def search
     questions_search = Search::QuestionsSearch.new(search_conditions)
