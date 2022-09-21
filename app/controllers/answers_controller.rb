@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
   def index
     # 解答作成者でないユーザーがアクセスしたら、トップへリダイレクトする
     redirect_to root_path unless params[:user_id] == current_user.id
-    @answers_search_form = AnswersSearchForm.new(specific_search_condition: AnswersSearchForm::SPECIFIC_CONDITIONS_ENUM[:all_data])
+    @answers_search_form = AnswersSearchForm.new(specific_search_condition: Search::SearchBase::SPECIFIC_CONDITIONS[:all_data])
     @pagy, @answers = pagy(@answers_search_form.search(current_user).includes(:rich_text_point, :tags, question: { departments: :university, image_attachment: :blob }), link_extra: 'data-remote="true" class="loading page-link"')
   end
 
@@ -132,3 +132,5 @@ class AnswersController < ApplicationController
     gon.tags = @question.tags_belongs_to_same_unit_of_user(current_user).pluck(:name)
   end
 end
+
+class Takashi; end

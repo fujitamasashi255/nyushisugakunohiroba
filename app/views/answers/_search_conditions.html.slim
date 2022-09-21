@@ -6,7 +6,7 @@
   small
     / 検索条件を表示
     label
-      | #{AnswersSearchForm.human_attribute_name(:search_conditions)}
+      | #{AnswersSearchForm.human_attribute_name(:search_condition_messages)}
     .py-1
     table.table-sm.table-borderless
       tbody
@@ -16,25 +16,25 @@
           th.align-top.text-nowrap
             | ：
           td.align-top class="university-search-condition"
-            = answers_search_form.search_conditions[:university]
+            = answers_search_form.search_condition_messages[:university]
         tr
           th.align-top.text-nowrap
             = Question.human_attribute_name(:year)
           th.align-top.text-nowrap
             | ：
           td.align-top class="year-search-condition"
-            = answers_search_form.search_conditions[:question_year]
+            = answers_search_form.search_condition_messages[:question_year]
         tr
           th.align-top.text-nowrap
             = Unit.model_name.human
           th.align-top.text-nowrap
             | ：
           td.align-top class="unit-search-condition"
-            = answers_search_form.search_conditions[:unit]
+            = answers_search_form.search_condition_messages[:unit]
         tr
           th.align-top.text-nowrap
             = Tag.model_name.human
           th.align-top.text-nowrap
             | ：
           td.align-top class="tags-search-condition"
-            = answers_search_form.search_conditions[:tag]
+            = answers_search_form.search_condition_messages[:tag]
