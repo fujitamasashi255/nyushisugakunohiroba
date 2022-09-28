@@ -46,21 +46,21 @@
           th.align-top.text-nowrap
             | ：
           td.align-top class="university-search-condition"
-            = questions_search_form.search_condition_messages[:university]
+            = questions_search_form.university_message
         tr
           th.align-top.text-nowrap
             = Question.human_attribute_name(:year)
           th.align-top.text-nowrap
             | ：
           td.align-top class="year-search-condition"
-            = questions_search_form.search_condition_messages[:question_year]
+            = questions_search_form.question_year_message
         tr
           th.align-top.text-nowrap
             = Unit.model_name.human
           th.align-top.text-nowrap
             | ：
           td.align-top class="unit-search-condition"
-            = questions_search_form.search_condition_messages[:unit]
+            = questions_search_form.unit_message
         / 管理画面では検索条件にタグを表示しない
         - unless admin_controller?(controller)
           tr
@@ -69,7 +69,7 @@
             th.align-top.text-nowrap
               | ：
             td.align-top class="tags-search-condition"
-              = questions_search_form.search_condition_messages[:tag]
+              = questions_search_form.tag_message
 
 .py-2
 
