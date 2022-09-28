@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AnswersSearchForm
-  SORT_TYPES = %w[year_new updated_at_new like_many comment_new].each(&:freeze).freeze
-
   include ActiveModel::Model
   include ActiveModel::Attributes
 

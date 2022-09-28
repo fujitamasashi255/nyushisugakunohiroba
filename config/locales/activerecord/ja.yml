@@ -6,20 +6,22 @@ ja:
     attributes:
       prefecture:
         name: "都道府県名"
-      questions_search_form:
+      sort/questions_sort:
         sort_type:
           one: "並び順"
           year_new: "出題年が新しい順"
           created_at_new: "作成日が新しい順"
           answers_many: "解答が多い順"
+      questions_search_form:
         search_condition_messages: "検索条件"
-      answers_search_form:
+      sort/answers_sort:
         sort_type:
           one: "並び順"
           year_new: "出題年が新しい順"
           updated_at_new: "最終更新日が新しい順"
           like_many: "いいねが多い順"
           comment_new: "新しくコメントされた順"
+      answers_search_form:
         search_condition_messages: "検索条件"
       password_reset:
         email: "メールアドレス"

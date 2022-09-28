@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
 class QuestionsSearchForm
-  SORT_TYPES = %w[year_new created_at_new answers_many].each(&:freeze).freeze
-
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :university_ids # array
+  attribute :university_ids
   attribute :start_year, :integer
   attribute :end_year, :integer
-  attribute :unit_ids # array
+  attribute :unit_ids
   attribute :tag_names, :string, default: -> { "" }
   attribute :sort_type, :string, default: -> { "year_new" }
 
