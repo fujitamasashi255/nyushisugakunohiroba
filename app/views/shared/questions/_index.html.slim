@@ -11,7 +11,7 @@
 
 / 検索フォーム
 .container.questions-search-form
-  - if questions_search_form.specific_search_condition == Search::SearchBase::SPECIFIC_CONDITIONS[:all_data]
+  - if action_name == "index"
       .container.border.p-3.search-form
           = render search_form_path, questions_search_form: questions_search_form
   - else

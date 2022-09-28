@@ -5,7 +5,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   before_action :set_question_association_without_image, only: %i[edit]
 
   def index
-    @questions_search_form = QuestionsSearchForm.new(specific_search_condition: Search::SearchBase::SPECIFIC_CONDITIONS[:all_data])
+    @questions_search_form = QuestionsSearchForm.new
     @pagy, @questions = pagy(@questions_search_form.search.with_attached_image.includes({ departments: [:university] }, :questions_units_mediators, { questions_departments_mediators: [:department] }), link_extra: 'data-remote="true" class="loading page-link"')
   end
 

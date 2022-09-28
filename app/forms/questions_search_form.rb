@@ -6,7 +6,6 @@ class QuestionsSearchForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :specific_search_condition, :integer
   attribute :university_ids # array
   attribute :start_year, :integer
   attribute :end_year, :integer
@@ -25,7 +24,6 @@ class QuestionsSearchForm
 
   def search_conditions
     {
-      specific_search_condition:,
       tag_name_array:,
       university_ids: university_ids_no_blank,
       unit_ids: unit_ids_no_blank,
