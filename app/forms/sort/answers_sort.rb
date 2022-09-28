@@ -2,6 +2,8 @@
 
 module Sort
   class AnswersSort < SortBase
+    SORT_TYPES = %w[year_new updated_at_new like_many comment_new].each(&:freeze).freeze
+
     YEAR_NEW = lambda { |answers|
       Answer.joins(:question).where(answers: { id: answers.select(:id) }).select("answers.*, questions.year").order(Arel.sql("questions.year desc"))
     }

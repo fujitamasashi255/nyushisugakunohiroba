@@ -16,25 +16,25 @@
           th.align-top.text-nowrap
             | ：
           td.align-top class="university-search-condition"
-            = answers_search_form.search_condition_messages[:university]
+            = answers_search_form.university_message
         tr
           th.align-top.text-nowrap
             = Question.human_attribute_name(:year)
           th.align-top.text-nowrap
             | ：
           td.align-top class="year-search-condition"
-            = answers_search_form.search_condition_messages[:question_year]
+            = answers_search_form.question_year_message
         tr
           th.align-top.text-nowrap
             = Unit.model_name.human
           th.align-top.text-nowrap
             | ：
           td.align-top class="unit-search-condition"
-            = answers_search_form.search_condition_messages[:unit]
+            = answers_search_form.unit_message
         tr
           th.align-top.text-nowrap
             = Tag.model_name.human
           th.align-top.text-nowrap
             | ：
           td.align-top class="tags-search-condition"
-            = answers_search_form.search_condition_messages[:tag]
+            = answers_search_form.tag_message

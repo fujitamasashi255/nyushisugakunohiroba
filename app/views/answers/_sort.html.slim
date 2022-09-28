@@ -1,19 +1,19 @@
 .sort-links.d-flex.flex-row
   label.text-nowrap
-    | #{AnswersSearchForm.human_attribute_name(:sort_type)}：
+    | #{Sort::AnswersSort.human_attribute_name(:sort_type)}：
   .px-1.d-flex.flex-row.flex-wrap
-    - AnswersSearchForm::SORT_TYPES.each do |sort_type|
+    - Sort::AnswersSort::SORT_TYPES.each do |sort_type|
       .me-3 class= sort_type
         - case sort_type
         - when "year_new"
-          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+          = link_to t("activemodel.attributes.sort/answers_sort.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: "loading #{ (active_if(user_answers_path) || active_sort_link_if(answers_search_form, sort_type)) }", remote: true
         - when "updated_at_new"
-          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+          = link_to t("activemodel.attributes.sort/answers_sort.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: "loading #{ active_sort_link_if(answers_search_form, sort_type) }", remote: true
         - when "like_many"
-          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+          = link_to t("activemodel.attributes.sort/answers_sort.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: "loading #{ active_sort_link_if(answers_search_form, sort_type) }", remote: true
         - when "comment_new"
-          = link_to t("activemodel.attributes.answers_search_form.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
+          = link_to t("activemodel.attributes.sort/answers_sort.sort_type.#{sort_type}"), answers_search_form.url_with_params(search_user_answers_path, sort_type), \
             class: "loading #{ active_sort_link_if(answers_search_form, sort_type) }", remote: true

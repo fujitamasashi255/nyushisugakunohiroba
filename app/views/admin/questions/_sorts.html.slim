@@ -1,13 +1,13 @@
 .sort-links.d-flex.flex-row
   label.text-nowrap
-    | #{QuestionsSearchForm.human_attribute_name(:sort_type)}：
+    | #{Sort::QuestionsSort.human_attribute_name(:sort_type)}：
   .px-1.d-flex.flex-row.flex-wrap
-    - QuestionsSearchForm::SORT_TYPES.each do |sort_type|
+    - Sort::QuestionsSort::SORT_TYPES.each do |sort_type|
       .me-2 class= sort_type
         - case sort_type
         - when "year_new"
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), questions_search_form.url_with_params(search_admin_questions_path, sort_type), \
+          = link_to t("activemodel.attributes.sort/questions_sort.sort_type.#{sort_type}"), questions_search_form.url_with_params(search_admin_questions_path, sort_type), \
             class: "loading #{ (active_if(admin_questions_path) || active_sort_link_if(questions_search_form, sort_type)) }", remote: true
         - when "created_at_new"
-          = link_to t("activemodel.attributes.questions_search_form.sort_type.#{sort_type}"), questions_search_form.url_with_params(search_admin_questions_path, sort_type), \
+          = link_to t("activemodel.attributes.sort/questions_sort.sort_type.#{sort_type}"), questions_search_form.url_with_params(search_admin_questions_path, sort_type), \
             class: "loading #{ active_sort_link_if(questions_search_form, sort_type) }", remote: true
