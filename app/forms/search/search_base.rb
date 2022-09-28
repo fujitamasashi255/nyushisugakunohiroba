@@ -2,8 +2,6 @@
 
 module Search
   class SearchBase
-    SPECIFIC_CONDITIONS = { no_data: 0, all_data: 1 }.each_value(&:freeze).freeze
-
     include ActiveModel::Model
     include ActiveModel::Attributes
 
