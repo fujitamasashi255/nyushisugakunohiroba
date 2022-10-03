@@ -96,6 +96,5 @@ HTML/SCSS/JavaScript(JQuery)
 - action_text_rich_texts
 
 # サービス作成で得た知見のいくつかを記事にしました
-- [【Ruby on Rails】検索結果のレコードを並び替える](https://qiita.com/ma__sa/items/35d7cff12c5a4e4b57ba)
 - [【Ruby on Rails】rails-latexを利用してPDFを作成](https://qiita.com/ma__sa/items/34f591604c65687a0110)
 - [【Ruby on Rails】ActionTextとMathJax 3.2で数式を表示できる簡易エディターを実装する](https://qiita.com/ma__sa/items/a48cdaac7f6303acad86)
